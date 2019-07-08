@@ -40,8 +40,8 @@ public class MainJFrame extends javax.swing.JFrame implements Runnable {
         NhanVien nhanVien = ShareHelper.USER;
         if (nhanVien == null) {
             ShareHelper.setIcon(lblUser, null);
-            txtMaNV.setText("");
-            txtTenNV.setText("");
+            txtMaNV.setText("1");
+            txtTenNV.setText("1");
         } else {
             if (nhanVien.getVaiTro()) {
                 ShareHelper.setIcon(lblUser, new File("logos\\admin.png"));
