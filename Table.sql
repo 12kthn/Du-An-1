@@ -10,12 +10,28 @@ GO
 USE QuanLyNhanSu
 GO
 
+CREATE TABLE NhanVien
+(
+	MaNV varchar(10) PRIMARY KEY,
+	TenNV nvarchar(50) not null,
+	GioiTinh bit not null,
+	NgaySinh date not null,
+	SoCM varchar(10) not null,
+	DienThoai varchar(10) not null,
+	Email varchar(50) not null,
+	DiaChi nvarchar(max) not null,
+	Hinh varchar(max),
+	TrinhDoHV nvarchar(30) not null
+)
+GO
 
 CREATE TABLE PhongBan
 (
 	MaPB varchar(5) PRIMARY KEY,
 	TenPB nvarchar(50) not null,
-	MaTruongPhong varchar(10) not null
+	MaTruongPhong varchar(10),
+
+	FOREIGN KEY (MaTruongPhong) REFERENCES NhanVien(MaNV)
 )
 GO
 
@@ -27,26 +43,11 @@ CREATE TABLE ChucVu
 )
 GO
 
-CREATE TABLE NhanVien
-(
-	MaNV varchar(10) PRIMARY KEY,
-	TenNV nvarchar(50) not null,
-	GioiTinh bit not null,
-	NgaySinh date not null,
-	SoCM varchar(10) not null,
-	DienThoai varchar(10) not null,
-	Email varchar(50) null,
-	DiaChi nvarchar(max) not null,
-	Hinh varchar(max) not null,
-	TrinhDoHV nvarchar(30) not null,
-)
-GO
-
 CREATE TABLE HopDong
 (
 	MaNV varchar(10) not null PRIMARY KEY,
 	MaCV varchar(5) not null,
-	MaPB varchar(5) not null,
+	MaPB varchar(5),
 	NgayVaoLam date not null,
 	NgayKetThuc date,
 	HeSoLuong int not null,
@@ -54,19 +55,6 @@ CREATE TABLE HopDong
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
 	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV),
 	FOREIGN KEY (MaPB) REFERENCES PhongBan(MaPB)
-)
-GO
-
-
-
-CREATE TABLE ChamCong
-(
-	MaNV varchar(10) not null,
-	Ngay date not null,
-	TinhTrang bit not null,
-	TangCa int,
-	PRIMARY KEY (MaNV, Ngay),
-	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
 GO
 
@@ -79,6 +67,19 @@ CREATE TABLE TaiKhoan
 )
 GO
 
+CREATE TABLE ChamCong
+(
+	MaNV varchar(10) not null,
+	Ngay date not null,
+	TinhTrang bit not null,
+	TangCa int,
+	PRIMARY KEY (MaNV, Ngay),
+	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+)
+GO
+
+
+
 CREATE TABLE GiaTriChung
 (
 	TenGiaTri nvarchar(50) PRIMARY KEY,
@@ -86,13 +87,13 @@ CREATE TABLE GiaTriChung
 )
 GO
 
-CREATE TABLE ThamNien
+CREATE TABLE PhuCapThamNien
 (
 	Nam int PRIMARY KEY,
 	PhuCap int not null
 )
 
-CREATE TABLE LuyKe
+CREATE TABLE ThueTNCN
 (
 	Luong int PRIMARY KEY,
 	Thue real not null
