@@ -8,42 +8,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="775.0" stylesheets="@../../Libraries/css.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="530.0" prefWidth="152.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="537.0" prefWidth="148.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox focusTraversable="true" prefWidth="150.0">
+            <HBox focusTraversable="true" prefHeight="39.0" prefWidth="148.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
                <children>
-                  <Label alignment="BOTTOM_LEFT" prefHeight="31.0" prefWidth="114.0" text="Tài Khoản">
+                  <Label alignment="BOTTOM_LEFT" prefHeight="35.0" prefWidth="148.0" styleClass="hover_border" text="Tài Khoản">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="35.0" />
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
                      </padding>
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                   </Label>
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
             </HBox>
             <HBox layoutX="10.0" layoutY="30.0" prefWidth="150.0">
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
                <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="20.0" prefWidth="152.0" text="Nhân Viên">
+                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="8.0" prefWidth="148.0" styleClass="hover_border" text="Nhân Viên">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="35.0" />
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
                      </padding>
                      <font>
                         <Font name="Arial" size="15.0" />
@@ -55,16 +49,13 @@
                </VBox.margin>
             </HBox>
             <HBox layoutX="10.0" layoutY="91.0" prefWidth="150.0">
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
                <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" text="Phòng Ban">
+                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="7.0" prefWidth="148.0" styleClass="hover_border" text="Phòng Ban">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="35.0" />
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
                      </padding>
                      <font>
                         <Font name="Arial" size="15.0" />
@@ -75,20 +66,82 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
+            <HBox layoutX="10.0" layoutY="118.0" prefWidth="150.0">
+               <children>
+                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="9.0" prefWidth="148.0" styleClass="hover_border" text="Chức Vụ">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="165.0" prefWidth="150.0">
+               <children>
+                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="148.0" styleClass="hover_border" text="Chấm Công ">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="212.0" prefHeight="37.0" prefWidth="128.0">
+               <children>
+                  <Label contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="148.0" styleClass="hover_border" text="Bảng Lương">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="35.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="259.0" prefWidth="150.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </left>
    <top>
-      <HBox prefHeight="49.0" prefWidth="770.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="56.0" prefWidth="770.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="49.0" prefWidth="770.0" style="-fx-background-color: #3399ff;">
+            <HBox prefHeight="34.0" prefWidth="770.0" style="-fx-background-color: #34e7e4e0;">
                <children>
                   <Text fill="#393939" strokeType="OUTSIDE" strokeWidth="0.0" text="Hệ Quản Trị Nhân Sự" wrappingWidth="202.13671875">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Arial" size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="10.0" top="15.0" />
                      </HBox.margin>
                   </Text>
                </children>
