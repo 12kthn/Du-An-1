@@ -39,7 +39,7 @@ CREATE TABLE ChucVu
 (
 	MaCV varchar(5) PRIMARY KEY,
 	TenCV nvarchar(20) not null,
-	PhuCap int not null
+	PhuCap real not null
 )
 GO
 
@@ -67,6 +67,18 @@ CREATE TABLE TaiKhoan
 )
 GO
 
+CREATE TABLE ThanNhan
+(
+	MaTN int identity(1,1),
+	HoTen nvarchar(50),
+	NgheNghiep nvarchar(50),
+	MoiQuanHe nvarchar(20),
+	MaNV varchar(10),
+	GiamTruPhuThuoc bit
+	
+	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+)
+
 CREATE TABLE ChamCong
 (
 	MaNV varchar(10) not null,
@@ -78,22 +90,35 @@ CREATE TABLE ChamCong
 )
 GO
 
+CREATE TABLE BangLuong
+(
+	MaNV varchar(10) not null,
+	NgayNhanLuong date not null,
+	LuongChinh int not null,
+	NgayCong int not null,
+	PC_TrachNhiem int not null,
+	ThuNhap int not null,
+	BHXH int not null,
+	BHYT int not null,
+	BHTN int not null,
+	PhuThuoc int not null,
+	ThueTNCN int not null,
+	TamUng int not null,
+	ThucLanh int not null,
+	TrangThai bit not null
 
+	PRIMARY KEY (MaNV, NgayNhanLuong),
+	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+)
 
 CREATE TABLE GiaTriChung
 (
 	TenGiaTri nvarchar(50) PRIMARY KEY,
-	GiaTri int not null
+	GiaTri real not null
 )
 GO
 
-CREATE TABLE PhuCapThamNien
-(
-	Nam int PRIMARY KEY,
-	PhuCap int not null
-)
-
-CREATE TABLE ThueTNCN
+CREATE TABLE BacThueTNCN
 (
 	Luong int PRIMARY KEY,
 	Thue real not null

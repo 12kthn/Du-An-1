@@ -85,7 +85,7 @@ CREATE PROCEDURE SP_ChucVu
 (
 	@MaCV varchar(5),
 	@TenCV nvarchar(50),
-	@PhuCap int,
+	@PhuCap real,
 	@StatementType char(6)
 )
 AS
@@ -121,7 +121,7 @@ CREATE PROCEDURE SP_HopDong
 	@MaPB varchar(5),
 	@NgayVaoLam date,
 	@NgayKetThuc date,
-	@HeSoLuong int,
+	@HeSoLuong real,
 	@StatementType char(6)
 )
 AS
@@ -145,6 +145,73 @@ AS
 		END
 GO
 
+--Tao Stored Procedure Select all, Insert, Update, Delete cho bang TaiKhoan
+IF (OBJECT_ID('SP_TaiKhoan') IS NOT NULL)
+  DROP PROCEDURE SP_TaiKhoan
+GO
+CREATE PROCEDURE SP_TaiKhoan
+(
+	@MaNV varchar(10),
+	@MatKhau varchar(50),
+	@TrangThai bit,
+	@StatementType char(6)
+)
+AS
+	IF @StatementType = 'Select'
+		BEGIN
+			SELECT * FROM TaiKhoan
+		END
+	IF @StatementType = 'Insert'
+		BEGIN
+			INSERT INTO TaiKhoan VALUES(@MaNV, @MatKhau, @TrangThai)
+		END
+	IF @StatementType = 'Update'
+		BEGIN
+			UPDATE TaiKhoan 
+			SET MatKhau = @MatKhau, TrangThai = @TrangThai
+			WHERE MaNV = @MaNV
+		END
+	IF @StatementType = 'Delete'
+		BEGIN
+			DELETE FROM TaiKhoan WHERE MaNV = @MaNV
+		END
+GO
+
+--Tao Stored Procedure Select all, Insert, Update, Delete cho bang ThanNhan
+IF (OBJECT_ID('SP_ThanNhan') IS NOT NULL)
+  DROP PROCEDURE SP_ThanNhan
+GO
+CREATE PROCEDURE SP_ThanNhan
+(
+	@MaTN int,
+	@HoTen nvarchar(50),
+	@NgheNghiep nvarchar(50),
+	@MoiQuanHe nvarchar(20),
+	@MaNV varchar(10),
+	@GiamTruPhuThuoc bit,
+	@StatementType char(6)
+)
+AS
+	IF @StatementType = 'Select'
+		BEGIN
+			SELECT * FROM ThanNhan
+		END
+	IF @StatementType = 'Insert'
+		BEGIN
+			INSERT INTO ThanNhan VALUES(@HoTen, @NgheNghiep, @MoiQuanHe, @MaNV, @GiamTruPhuThuoc)
+		END
+	IF @StatementType = 'Update'
+		BEGIN
+			UPDATE ThanNhan 
+			SET HoTen = @HoTen, NgheNghiep = @NgheNghiep, MoiQuanHe = @MoiQuanHe, MaNV = @MaNV, GiamTruPhuThuoc = @GiamTruPhuThuoc
+			WHERE MaTN = @MaTN
+		END
+	IF @StatementType = 'Delete'
+		BEGIN
+			DELETE FROM ThanNhan WHERE MaTN = @MaTN
+		END
+GO
+
 --Tao Stored Procedure Select all, Insert, Update, Delete cho bang ChamCong
 IF (OBJECT_ID('SP_ChamCong') IS NOT NULL)
   DROP PROCEDURE SP_ChamCong
@@ -165,7 +232,11 @@ AS
 		END
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO ChamCong VALUES(@MaNV, (SELECT CAST(getdate() AS date)), @TinhTrang, @TangCa)
+			IF @Ngay is null
+				BEGIN
+					SET @Ngay = (SELECT CAST(getdate() AS date))
+				END
+			INSERT INTO ChamCong VALUES(@MaNV, @Ngay, @TinhTrang, @TangCa)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
@@ -187,7 +258,7 @@ GO
 CREATE PROCEDURE SP_GiaTriChung
 (
 	@TenGiaTri nvarchar(50),
-	@GiaTri int,
+	@GiaTri real,
 	@StatementType char(6)
 )
 AS
@@ -211,44 +282,12 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang PhuCapThamNien
-IF (OBJECT_ID('SP_PhuCapThamNien') IS NOT NULL)
-  DROP PROCEDURE SP_PhuCapThamNien
-GO
-
-CREATE PROCEDURE SP_PhuCapThamNien
-(
-	@Nam int,
-	@PhuCap int,
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM PhuCapThamNien
-		END
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO PhuCapThamNien VALUES(@Nam, @PhuCap)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE PhuCapThamNien
-			SET PhuCap = @PhuCap
-			WHERE Nam = @Nam
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM PhuCapThamNien WHERE Nam = @Nam
-		END
-GO
-
 --Tao Stored Procedure Select all, Insert, Update, Delete cho bang ThueTNCN
-IF (OBJECT_ID('SP_ThueTNCN') IS NOT NULL)
-  DROP PROCEDURE SP_ThueTNCN
+IF (OBJECT_ID('SP_BacThueTNCN') IS NOT NULL)
+  DROP PROCEDURE SP_BacThueTNCN
 GO
 
-CREATE PROCEDURE SP_ThueTNCN
+CREATE PROCEDURE SP_BacThueTNCN
 (
 	@Luong int,
 	@Thue real,
@@ -257,20 +296,131 @@ CREATE PROCEDURE SP_ThueTNCN
 AS
 	IF @StatementType = 'Select'
 		BEGIN
-			SELECT * FROM ThueTNCN
+			SELECT * FROM BacThueTNCN
 		END
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO ThueTNCN VALUES(@Luong, @Thue)
+			INSERT INTO BacThueTNCN VALUES(@Luong, @Thue)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
-			UPDATE ThueTNCN 
+			UPDATE BacThueTNCN 
 			SET Thue = @Thue
 			WHERE Luong = @Luong
 		END
 	IF @StatementType = 'Delete'
 		BEGIN
-			DELETE FROM ThueTNCN WHERE Luong = @Luong
+			DELETE FROM BacThueTNCN WHERE Luong = @Luong
 		END
+GO
+
+--Tao Function lay Gia tri tu bang GiaTriChung
+IF (OBJECT_ID('FN_SelectGiaTri') IS NOT NULL)
+  DROP FUNCTION FN_SelectGiaTri
+GO
+CREATE FUNCTION FN_SelectGiaTri
+(
+	@TenGiaTri nvarchar(50)
+)
+RETURNS real
+AS
+	BEGIN
+		DECLARE @GiaTri real
+		SET @GiaTri = (SELECT GiaTri FROM GiaTriChung WHERE TenGiaTri = @TenGiaTri)
+		RETURN @GiaTri
+	END
+GO
+
+--Tao Function tinh luong chinh
+IF (OBJECT_ID('FN_LuongChinh') IS NOT NULL)
+  DROP FUNCTION FN_LuongChinh
+GO
+CREATE FUNCTION FN_LuongChinh
+(
+	@MaNV varchar(10)
+)
+RETURNS int
+AS
+	BEGIN
+		DECLARE @LuongChinh int
+		SET @LuongChinh = (SELECT HeSoLuong FROM HopDong WHERE MaNV = 'IT001')*[dbo].[FN_SelectGiaTri]('LuongCB')
+		RETURN @LuongChinh
+	END
+GO
+
+--Tao Function tinh so ngay cong theo thang/nam
+IF (OBJECT_ID('FN_SoNgayCong') IS NOT NULL)
+  DROP FUNCTION FN_SoNgayCong
+GO
+CREATE FUNCTION FN_SoNgayCong
+(
+	@MaNV varchar(10),
+	@NgayDauThang date
+)
+RETURNS int
+AS
+	BEGIN
+		DECLARE @NgayCong int
+		SET @NgayCong = (SELECT count(MaNV) FROM ChamCong WHERE MaNV = @MaNV AND 
+				Ngay BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang))
+
+		RETURN @NgayCong
+	END
+GO
+
+--Tao Function tinh thue TNCN
+IF (OBJECT_ID('FN_TinhThueTNCN') IS NOT NULL)
+  DROP FUNCTION FN_TinhThueTNCN
+GO
+CREATE FUNCTION FN_TinhThueTNCN
+(
+	@ThuNhapChiuThue int
+)
+RETURNS int
+AS
+	BEGIN
+		DECLARE @ThueTNCN int
+		SET @ThueTNCN = @ThuNhapChiuThue*(SELECT TOP 1 Thue FROM BacThueTNCN WHERE Luong < 16000000 ORDER BY Luong DESC)
+		IF @ThueTNCN < 0 SET @ThueTNCN = 0
+		RETURN @ThueTNCN
+	END
+GO
+
+--Tao Stored Procedure Insert cho bang BangLuong
+IF (OBJECT_ID('SP_Insert_BangLuong') IS NOT NULL)
+  DROP PROCEDURE SP_Insert_BangLuong
+GO
+
+CREATE PROCEDURE SP_Insert_BangLuong
+(
+	@MaNV varchar(10),
+	@NgayNhanLuong date,
+	@TamUng int,
+	@TrangThai bit
+)
+AS
+	DECLARE	@LuongChinh int,
+			@NgayCong int,
+			@PC_TrachNhiem int,
+			@ThuNhap int,
+			@BHXH int,
+			@BHYT int,
+			@BHTN int,
+			@GiamTruPhuThuoc int,
+			@ThueTNCN int,			
+			@ThucLanh int		
+	
+	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
+	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', (SELECT DATEADD(DAY, 1, EOMONTH(@NgayNhanLuong, -1))))
+	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM HopDong WHERE MaNV = @MaNV))
+	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
+	SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
+	SET @BHYT = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHYT')
+	SET @BHTN = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHTN')
+	SET @GiamTruPhuThuoc = 3600000*(SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = @MaNV AND GiamTruPhuThuoc = 1)
+	SET @ThueTNCN = [dbo].[FN_TinhThueTNCN](@ThuNhap - @BHXH - @BHYT - @BHTN - @GiamTruPhuThuoc)
+	SET @ThucLanh = @ThuNhap - @BHXH - @BHYT - @BHTN - @ThueTNCN
+
+	INSERT INTO BangLuong VALUES(@MaNV, @NgayNhanLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
+					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
 GO
