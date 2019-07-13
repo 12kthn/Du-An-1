@@ -20,7 +20,7 @@
                   <Insets top="35.0" />
                </VBox.margin>
                <children>
-                  <Label prefHeight="44.0" prefWidth="263.0" styleClass="hover_border" text="Tài Khoản" textAlignment="CENTER">
+                  <Label prefHeight="44.0" prefWidth="263.0" styleClass="hover_border" text="Tài Khoản" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -45,7 +45,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="74.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Nhân Viên" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Nhân Viên" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -70,7 +70,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="128.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Phòng Ban" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Phòng Ban" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -95,7 +95,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="182.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chức Vụ" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chức Vụ" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -120,7 +120,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="172.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Bảng Lương" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Bảng Lương" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -145,7 +145,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="226.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chấm Công" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chấm Công" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -170,7 +170,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="280.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Hợp Đồng" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Hợp Đồng" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -195,7 +195,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="334.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thuế Thu nhập Cá Nhân" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thuế Thu nhập Cá Nhân" textAlignment="CENTER" textFill="black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -218,34 +218,9 @@
                   <Insets bottom="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox focusTraversable="true" layoutX="10.0" layoutY="388.0" prefHeight="47.0" prefWidth="150.0">
-               <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Giá Trị Chung" textAlignment="CENTER" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/black-male-user-symbol.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="442.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thân Nhân" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thân Nhân" textAlignment="CENTER" textFill="Black">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -293,7 +268,4 @@
       <URL value="@../../Libraries/css.css" />
       <URL value="@../../Libraries/cssMain.css" />
    </stylesheets>
-   <center>
-      <HBox prefHeight="943.0" prefWidth="1653.0" spacing="45.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
