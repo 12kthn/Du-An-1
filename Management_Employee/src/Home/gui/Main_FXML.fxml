@@ -7,13 +7,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox prefHeight="76.0" prefWidth="1920.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <VBox maxWidth="-Infinity" prefHeight="76.0" prefWidth="2237.0" style="-fx-background-color: #00affd;" HBox.hgrow="ALWAYS">
                <children>
@@ -39,12 +38,9 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="924.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="640.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <HBox layoutX="10.0" layoutY="286.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblHopdong" prefHeight="44.0" prefWidth="299.0" styleClass="hove_border" text="Trang Chủ">
                      <font>
@@ -61,43 +57,12 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox prefHeight="64.0" prefWidth="227.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <children>
-                  <Label id="LblTaikhoan" prefHeight="44.0" prefWidth="315.0" styleClass="hove_border" text="Tài Khoản">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/man-user%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="30.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblNhanvien" prefHeight="44.0" prefWidth="311.0" styleClass="hove_border" text="Nhân Viên">
                      <font>
@@ -114,15 +79,12 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="94.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblPhongban" prefHeight="44.0" prefWidth="308.0" styleClass="hove_border" text="Phòng Ban">
                      <font>
@@ -139,15 +101,12 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="158.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblChucvu" prefHeight="44.0" prefWidth="319.0" styleClass="hove_border" text="Chức Vụ">
                      <font>
@@ -164,15 +123,12 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="222.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblBangluong" prefHeight="44.0" prefWidth="346.0" styleClass="hove_border" text="Bảng Lương">
                      <font>
@@ -189,15 +145,12 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="350.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
                   <Label id="lblChamcong" prefHeight="44.0" prefWidth="356.0" styleClass="hove_border" text="Chấm Công">
                      <font>
@@ -214,17 +167,14 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="414.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
                <children>
-                  <Label id="lblThueTNCN" prefHeight="44.0" prefWidth="320.0" styleClass="hove_border" text="Thuế TNCN">
+                  <Label id="lblThueTNCN" prefHeight="44.0" prefWidth="320.0" styleClass="hove_border" text="Account">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -239,7 +189,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                        <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
                </children>
@@ -248,7 +198,4 @@
          </children>
       </VBox>
    </left>
-   <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
