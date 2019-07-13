@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="940.0" prefWidth="1620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.ChamCongController">
+   <children>
+      <Label layoutX="21.0" layoutY="37.0" prefHeight="57.0" prefWidth="225.0" text="Bảng chấm công" AnchorPane.bottomAnchor="860.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="1400.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView layoutX="21.0" layoutY="101.0" prefHeight="212.0" prefWidth="234.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+        <columns>
+          <TableColumn prefWidth="120.0" resizable="false" text="Mã nhân viên" />
+          <TableColumn prefWidth="200.0" text="Họ và tên" />
+            <TableColumn prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
