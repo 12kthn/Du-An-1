@@ -15,15 +15,18 @@
    <top>
       <HBox prefHeight="76.0" prefWidth="1920.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <VBox maxWidth="-Infinity" prefHeight="55.0" prefWidth="222.0" style="-fx-background-color: #00affd;" HBox.hgrow="ALWAYS">
+            <VBox maxWidth="-Infinity" prefHeight="76.0" prefWidth="2237.0" style="-fx-background-color: #00affd;" HBox.hgrow="ALWAYS">
                <children>
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="217.0" text="Hệ Quản Trị Nhân Sự" textFill="WHITE">
+                  <Label prefHeight="55.0" prefWidth="393.0" text="Hệ Quản Trị Nhân Sự" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="20.0" />
+                        <Font name="Arial" size="24.0" />
                      </font>
                      <VBox.margin>
                         <Insets right="5.0" top="10.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
                </children>
             </VBox>
@@ -36,17 +39,42 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="945.0" prefWidth="234.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="924.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
+            <HBox layoutX="10.0" layoutY="286.0">
+               <padding>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label id="lblHopdong" prefHeight="44.0" prefWidth="299.0" styleClass="hove_border" text="Trang Chủ">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/contract.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
             <HBox prefHeight="64.0" prefWidth="227.0">
                <padding>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets />
                </VBox.margin>
                <children>
-                  <Label id="LblTaikhoan" prefHeight="44.0" prefWidth="229.0" styleClass="hove_border" text="Tài Khoản">
+                  <Label id="LblTaikhoan" prefHeight="44.0" prefWidth="315.0" styleClass="hove_border" text="Tài Khoản">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -61,7 +89,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -71,7 +99,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblNhanvien" prefHeight="44.0" prefWidth="222.0" styleClass="hove_border" text="Nhân Viên">
+                  <Label id="lblNhanvien" prefHeight="44.0" prefWidth="311.0" styleClass="hove_border" text="Nhân Viên">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -86,7 +114,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -96,7 +124,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblPhongban" prefHeight="44.0" prefWidth="243.0" styleClass="hove_border" text="Phòng Ban">
+                  <Label id="lblPhongban" prefHeight="44.0" prefWidth="308.0" styleClass="hove_border" text="Phòng Ban">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -111,7 +139,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -121,7 +149,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblChucvu" prefHeight="44.0" prefWidth="242.0" styleClass="hove_border" text="Chức Vụ">
+                  <Label id="lblChucvu" prefHeight="44.0" prefWidth="319.0" styleClass="hove_border" text="Chức Vụ">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -136,7 +164,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -146,7 +174,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblBangluong" prefHeight="44.0" prefWidth="267.0" styleClass="hove_border" text="Bảng Lương">
+                  <Label id="lblBangluong" prefHeight="44.0" prefWidth="346.0" styleClass="hove_border" text="Bảng Lương">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -161,32 +189,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="286.0">
-               <padding>
-                  <Insets bottom="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <Label id="lblHopdong" prefHeight="44.0" prefWidth="299.0" styleClass="hove_border" text="Hợp Đồng ">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/contract.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -196,7 +199,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblChamcong" prefHeight="44.0" prefWidth="260.0" styleClass="hove_border" text="Chấm Công">
+                  <Label id="lblChamcong" prefHeight="44.0" prefWidth="356.0" styleClass="hove_border" text="Chấm Công">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -211,32 +214,7 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
-                     </padding>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="478.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <children>
-                  <Label id="lblNhanthan" prefHeight="44.0" prefWidth="237.0" styleClass="hove_border" text="Thân Nhân">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/personal-id-card-of-a-man.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
@@ -246,7 +224,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Label id="lblThueTNCN" prefHeight="44.0" prefWidth="235.0" styleClass="hove_border" text="Thuế TNCN">
+                  <Label id="lblThueTNCN" prefHeight="44.0" prefWidth="320.0" styleClass="hove_border" text="Thuế TNCN">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -261,13 +239,12 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
             <Layer />
-            <VBox prefHeight="200.0" prefWidth="100.0" />
          </children>
       </VBox>
    </left>
