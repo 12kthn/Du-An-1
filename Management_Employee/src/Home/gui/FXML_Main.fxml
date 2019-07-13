@@ -11,27 +11,227 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="543.0" prefWidth="165.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="943.0" prefWidth="264.0" style="-fx-background-color: 255255255;" BorderPane.alignment="CENTER">
          <children>
             <HBox focusTraversable="true" prefHeight="47.0" prefWidth="150.0">
                <VBox.margin>
-                  <Insets />
+                  <Insets top="35.0" />
                </VBox.margin>
                <children>
-                  <Label alignment="CENTER" prefHeight="82.0" prefWidth="219.0" styleClass="hover_border" text=" Tài Khoản" textAlignment="CENTER">
+                  <Label prefHeight="44.0" prefWidth="263.0" styleClass="hover_border" text="Tài Khoản" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
                      </padding>
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/man-user%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="74.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Nhân Viên" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/business-card.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="128.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Phòng Ban" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/networking.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="182.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chức Vụ" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/teamwork.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="172.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Bảng Lương" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/payday.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="226.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Chấm Công" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/calendar-with-a-clock-time-tools.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="280.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Hợp Đồng" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/contract.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="334.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thuế Thu nhập Cá Nhân" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/tax.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="388.0" prefHeight="47.0" prefWidth="150.0">
+               <children>
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Giá Trị Chung" textAlignment="CENTER" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                            <image>
                               <Image url="@../../Libraries/icone/black-male-user-symbol.png" />
                            </image>
@@ -43,131 +243,30 @@
                   <Insets bottom="5.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox layoutX="10.0" layoutY="30.0" prefWidth="150.0">
+            <HBox focusTraversable="true" layoutX="10.0" layoutY="442.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="8.0" prefWidth="148.0" styleClass="hover_border" text="Nhân Viên">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Thân Nhân" textAlignment="CENTER" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
+                        <Insets bottom="10.0" left="30.0" top="10.0" />
                      </padding>
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/personal-id-card-of-a-man.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
                <padding>
                   <Insets bottom="5.0" top="5.0" />
                </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="91.0" prefWidth="150.0">
-               <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="7.0" prefWidth="148.0" styleClass="hover_border" text="Phòng Ban">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="118.0" prefWidth="150.0">
-               <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="9.0" prefWidth="148.0" styleClass="hover_border" text="Chức Vụ">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="165.0" prefWidth="150.0">
-               <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="148.0" styleClass="hover_border" text="Chấm Công ">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="212.0" prefHeight="37.0" prefWidth="128.0">
-               <children>
-                  <Label contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="148.0" styleClass="hover_border" text="Bảng Lương">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="259.0" prefHeight="0.0" prefWidth="148.0">
-               <padding>
-                  <Insets bottom="5.0" top="5.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <children>
-                  <Label nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="148.0" styleClass="hover_border" text="Thuế TNCN">
-                     <HBox.margin>
-                        <Insets left="30.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="35.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
             </HBox>
          </children>
       </VBox>
@@ -175,9 +274,9 @@
    <top>
       <HBox prefHeight="57.0" prefWidth="1200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="26.0" prefWidth="1200.0" style="-fx-background-color: #34e7e4e0;">
+            <HBox prefHeight="57.0" prefWidth="264.0" style="-fx-background-color: #00affd;">
                <children>
-                  <Text fill="#393939" strokeType="OUTSIDE" strokeWidth="0.0" text="Hệ Quản Trị Nhân Sự" wrappingWidth="239.13671875">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hệ Quản Trị Nhân Sự" wrappingWidth="243.13671875">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
@@ -194,4 +293,7 @@
       <URL value="@../../Libraries/css.css" />
       <URL value="@../../Libraries/cssMain.css" />
    </stylesheets>
+   <center>
+      <HBox prefHeight="943.0" prefWidth="1653.0" spacing="45.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
