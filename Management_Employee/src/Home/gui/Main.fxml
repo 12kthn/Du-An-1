@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.layout.Layer?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -10,39 +15,43 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+=======
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+   <top>
+      <HBox prefHeight="70.0" prefWidth="1920.0" style="-fx-background-color: #00affd;" BorderPane.alignment="CENTER">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
          <children>
-            <VBox maxWidth="-Infinity" prefHeight="76.0" prefWidth="2237.0" style="-fx-background-color: #00affd;" HBox.hgrow="ALWAYS">
+            <Label prefHeight="70.0" prefWidth="393.0" text="Hệ Quản Trị Nhân Sự" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="TOP_RIGHT" prefHeight="70.0" prefWidth="973.0">
                <children>
-                  <Label prefHeight="55.0" prefWidth="393.0" text="Hệ Quản Trị Nhân Sự" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="5.0" top="10.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
+                  <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#minimun" text="-" />
+                  <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#close" text="X" />
                </children>
-            </VBox>
-            <VBox prefHeight="55.0" prefWidth="317.0" translateX="1381.0">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </VBox>
+            </HBox>
          </children>
       </HBox>
    </top>
    <left>
       <VBox prefHeight="640.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
             <HBox layoutX="10.0" layoutY="286.0">
+=======
+            <HBox layoutX="10.0" layoutY="286.0" prefHeight="60.0" prefWidth="200.0">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
                <children>
-                  <Label id="lblHopdong" prefHeight="44.0" prefWidth="299.0" styleClass="hove_border" text="Trang Chủ">
+                  <Label id="lblHopdong" onMouseClicked="#setHomeContainer" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -54,9 +63,10 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </HBox.margin>
                      <padding>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
                         <Insets bottom="20.0" left="50.0" right="10.0" top="20.0" />
                      </padding>
                   </Label>
@@ -85,8 +95,41 @@
                </children>
             </HBox>
             <HBox layoutX="10.0" layoutY="94.0">
+=======
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblPhongban" prefHeight="44.0" prefWidth="308.0" styleClass="hove_border" text="Phòng Ban">
+                  <Label id="lblPhongban" onMouseClicked="#setNhanVienContainer" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/business-card.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets bottom="10.0" left="50.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="94.0" prefHeight="60.0" prefWidth="200.0">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
+               <children>
+                  <Label id="lblPhongban" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -106,9 +149,13 @@
                   </Label>
                </children>
             </HBox>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
             <HBox layoutX="10.0" layoutY="158.0">
+=======
+            <HBox layoutX="10.0" layoutY="158.0" prefHeight="60.0" prefWidth="200.0">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
                <children>
-                  <Label id="lblChucvu" prefHeight="44.0" prefWidth="319.0" styleClass="hove_border" text="Chức Vụ">
+                  <Label id="lblChucvu" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -128,9 +175,13 @@
                   </Label>
                </children>
             </HBox>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
             <HBox layoutX="10.0" layoutY="222.0">
+=======
+            <HBox layoutX="10.0" layoutY="222.0" prefHeight="60.0" prefWidth="200.0">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
                <children>
-                  <Label id="lblBangluong" prefHeight="44.0" prefWidth="346.0" styleClass="hove_border" text="Bảng Lương">
+                  <Label id="lblBangluong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -150,9 +201,13 @@
                   </Label>
                </children>
             </HBox>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
             <HBox layoutX="10.0" layoutY="350.0">
+=======
+            <HBox layoutX="10.0" layoutY="350.0" prefHeight="60.0" prefWidth="200.0">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
                <children>
-                  <Label id="lblChamcong" prefHeight="44.0" prefWidth="356.0" styleClass="hove_border" text="Chấm Công">
+                  <Label id="lblChamcong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -172,19 +227,18 @@
                   </Label>
                </children>
             </HBox>
+<<<<<<< HEAD:Management_Employee/src/Home/gui/Main_FXML.fxml
             <HBox layoutX="10.0" layoutY="414.0">
                <children>
                   <Label id="lblThueTNCN" prefHeight="44.0" prefWidth="320.0" styleClass="hove_border" text="Account">
+=======
+            <HBox layoutX="10.0" layoutY="414.0" prefHeight="60.0" prefWidth="200.0">
+               <children>
+                  <Label id="lblThueTNCN" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Account">
+>>>>>>> cd3463d8d845eb265a0818c69043b42feb56416f:Management_Employee/src/Home/gui/Main.fxml
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/tax.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -194,7 +248,6 @@
                   </Label>
                </children>
             </HBox>
-            <Layer />
          </children>
       </VBox>
    </left>
