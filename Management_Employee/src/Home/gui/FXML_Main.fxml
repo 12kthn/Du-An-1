@@ -45,7 +45,7 @@
             </HBox>
             <HBox focusTraversable="true" layoutX="10.0" layoutY="74.0" prefHeight="47.0" prefWidth="150.0">
                <children>
-                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Nhân Viên" textAlignment="CENTER" textFill="WHITE">
+                  <Label prefHeight="44.0" prefWidth="264.0" styleClass="hover_border" text="Nhân Viên" textAlignment="CENTER" textFill="BLACK">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
