@@ -22,7 +22,8 @@ import javafx.scene.control.TableView;
  *
  * @author nucle
  */
-public class NhanVienController implements Initializable{
+public class NhanVienController implements Initializable {
+
     @FXML
     private JFXTextField txtGioiTinh;
 
@@ -58,23 +59,26 @@ public class NhanVienController implements Initializable{
 
     @FXML
     private JFXTextField txtSoDT;
-    
+
     @FXML
     private JFXComboBox<?> cboPhongBan;
-      
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setPieChart();
-        setBarChart();
-        fillCbo();
+        try {
+            setPieChart();
+            setBarChart();
+            fillCbo();
+        } catch (Exception e) {
+        }
     }
-    
-    private void setPieChart(){
-        
+
+    private void setPieChart() {
+
         PieChart.Data slice1 = new PieChart.Data("Nữ", 16);
 
         PieChart.Data slice2 = new PieChart.Data("Nam", 20);
-        
+
         chartMaleFemale.getData().add(slice1);
         chartMaleFemale.getData().add(slice2);
 
@@ -83,20 +87,20 @@ public class NhanVienController implements Initializable{
 //            data.nameProperty().bind(Bindings.concat(data.pieValueProperty()));
 //        });
     }
-    
-    private void setBarChart(){
+
+    private void setBarChart() {
         XYChart.Series col = new XYChart.Series<>();
-        
+
         col.getData().add(new XYChart.Data("Nhân sự", 5));
         col.getData().add(new XYChart.Data("Kế toáṇ", 4));
         col.getData().add(new XYChart.Data("Marketting̣", 8));
         col.getData().add(new XYChart.Data("Kỹ thuậṭ", 3));
-        
+
         chartNumberEmployees.getData().add(col);
     }
-    
-    private void fillCbo(){
-        ObservableList list = FXCollections.observableArrayList("Kế toán","Nhân sự");
+
+    private void fillCbo() {
+        ObservableList list = FXCollections.observableArrayList("Kế toán", "Nhân sự");
         cboPhongBan.setItems(list);
     }
 }

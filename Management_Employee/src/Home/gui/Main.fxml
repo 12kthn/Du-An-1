@@ -42,7 +42,7 @@
          <children>
             <HBox layoutX="10.0" layoutY="286.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblHopdong" onMouseClicked="#setHomeContainer" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
+                  <Label id="lblHopdong" onMouseClicked="#setGUIHome" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -67,7 +67,7 @@
             </HBox>
             <HBox prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblPhongban" onMouseClicked="#setNhanVienContainer" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
+                  <Label id="lblPhongban" onMouseClicked="#setGUINhanVien" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -155,7 +155,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="350.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblChamcong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
+                  <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>

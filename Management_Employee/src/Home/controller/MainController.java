@@ -5,7 +5,6 @@
  */
 package Home.controller;
 
-import Home.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,14 +26,14 @@ public class MainController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Home.fxml")));
+            container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    public void setHomeContainer() {
+    public void setGUIHome() {
         try {
             container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Home.fxml")));
         } catch (IOException ex) {
@@ -43,9 +42,18 @@ public class MainController implements Initializable{
     }
 
     @FXML
-    public void setNhanVienContainer() {
+    public void setGUINhanVien() {
         try {
             container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    @FXML
+    public void setGUIChamCong() {
+        try {
+            container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
