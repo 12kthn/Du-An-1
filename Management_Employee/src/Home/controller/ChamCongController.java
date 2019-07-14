@@ -14,6 +14,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -31,10 +36,23 @@ public class ChamCongController implements Initializable {
     @FXML
     private TableView<TableChamCong> tblChamCong;
 
-    private ObservableList<TableChamCong> data = FXCollections.observableArrayList();;
+    private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
+
+    @FXML
+    private BarChart chartTyLeDiLam;
+    
+    @FXML
+    private PieChart chartTyLeNgayLamViec;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setChartTyLeDiLam();
+        setChartTyLeNgayLamViec();
+        setDataTable();
+        
+    }
+
+    private void setDataTable(){
         setColumnModel();
 
         TableChamCong tableChamCong = new TableChamCong();
@@ -75,7 +93,7 @@ public class ChamCongController implements Initializable {
         data.add(tableChamCong);
         tblChamCong.setItems(data);
     }
-
+    
     private void setColumnModel() {
         //Khai bao cot
         col1 = new TableColumn<>("Mã nhân viên");
@@ -621,6 +639,33 @@ public class ChamCongController implements Initializable {
                 col18, col19, col20, col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, col34, col35);
 
         tblChamCong.getColumns().addAll(col1, col2, col3, dateCol);
+    }
+
+    
+    
+    private void setChartTyLeDiLam() {
+        
+        XYChart.Series col = new XYChart.Series<>();
+        
+        col.getData().add(new XYChart.Data(98.0, "Tất cả"));
+        col.getData().add(new XYChart.Data(98.0, "Kỹ thuậṭ"));
+        col.getData().add(new XYChart.Data(89.0, "Kế toáṇ"));
+        col.getData().add(new XYChart.Data(100, "Marketting̣"));
+        col.getData().add(new XYChart.Data(90.5, "Nhân sự"));
+        col.getData().add(new XYChart.Data(90.5, "Bán hàng̣"));
+        col.getData().add(new XYChart.Data(100, "Giám đốc̣"));
+
+        chartTyLeDiLam.getData().add(col);
+        chartTyLeDiLam.setTitle("Tỷ lệ nhân viên đi làm đầy đủ");
+    }
+    
+    private void setChartTyLeNgayLamViec(){
+        PieChart.Data slice1 = new PieChart.Data("Ngày làm việc", 26);
+
+        PieChart.Data slice2 = new PieChart.Data("CN, ngày lễ", 5);
+
+        chartTyLeNgayLamViec.getData().add(slice1);
+        chartTyLeNgayLamViec.getData().add(slice2);
     }
 
     private TableColumn<TableChamCong, String> col1;

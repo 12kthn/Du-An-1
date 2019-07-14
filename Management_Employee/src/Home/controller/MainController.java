@@ -5,6 +5,7 @@
  */
 package Home.controller;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +13,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -20,16 +25,17 @@ import javafx.scene.layout.BorderPane;
  */
 public class MainController implements Initializable{
 
+    private Stage stage;
+    
     @FXML
-    public BorderPane container;
+    private BorderPane container;
+    
+    @FXML
+    private HBox topPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            container.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setGUIHome();
     }
 
     @FXML
@@ -58,6 +64,22 @@ public class MainController implements Initializable{
             ex.printStackTrace();
         }
     }
+
+    @FXML
+    void getCoorMouse(MouseEvent event) {
+        xMouse = event.getSceneX();
+        yMouse = event.getSceneY();
+    }
+    
+    @FXML
+    public void movePanel(MouseEvent event){
+        double x = event.getScreenX();
+        double y = event.getScreenY();
+        //set tọa độ mới cho JDialog khi rê chuột
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setX(x - xMouse);
+        stage.setY(y - yMouse);
+    }
     
     @FXML
     public void close(){
@@ -68,4 +90,8 @@ public class MainController implements Initializable{
     public void minimun(){
         
     }
+    
+    //tao 2 bien lưu tọa độ con trỏ chuột
+    double xMouse;
+    double yMouse;
 }
