@@ -116,6 +116,7 @@ GO
 
 CREATE PROCEDURE SP_HopDong
 (
+	@MaHD varchar(10),
 	@MaNV varchar(10),
 	@MaCV varchar(5),
 	@MaPB varchar(5),
@@ -131,17 +132,17 @@ AS
 		END
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO HopDong VALUES(@MaNV, @MaCV, @MaPB, (SELECT CAST(getdate() AS date)), @NgayKetThuc, @HeSoLuong)
+			INSERT INTO HopDong VALUES(@MaHD, @MaNV, @MaCV, @MaPB, (SELECT CAST(getdate() AS date)), @NgayKetThuc, @HeSoLuong)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE HopDong 
-			SET MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong
-			WHERE MaNV = @MaNV
+			SET MaNV = @MaNV, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong
+			WHERE MaHD = @MaHD
 		END
 	IF @StatementType = 'Delete'
 		BEGIN
-			DELETE FROM HopDong WHERE MaNV = @MaNV
+			DELETE FROM HopDong WHERE MaHD = @MaHD
 		END
 GO
 

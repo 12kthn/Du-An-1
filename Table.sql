@@ -22,6 +22,8 @@ CREATE TABLE NhanVien
 	DiaChi nvarchar(max) not null,
 	Hinh varchar(max),
 	TrinhDoHV nvarchar(30) not null
+
+	UNIQUE(SoCM)
 )
 GO
 
@@ -45,13 +47,15 @@ GO
 
 CREATE TABLE HopDong
 (
-	MaNV varchar(10) not null PRIMARY KEY,
+	MaHD varchar(10) not null PRIMARY KEY,
+	MaNV varchar(10),
 	MaCV varchar(5) not null,
 	MaPB varchar(5),
 	NgayVaoLam date not null,
 	NgayKetThuc date,
-	HeSoLuong int not null,
+	HeSoLuong real not null,
 
+	UNIQUE(MaNV),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
 	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV),
 	FOREIGN KEY (MaPB) REFERENCES PhongBan(MaPB)
@@ -69,7 +73,7 @@ GO
 
 CREATE TABLE ThanNhan
 (
-	MaTN int identity(1,1),
+	MaTN int identity(1,1) PRIMARY KEY,
 	HoTen nvarchar(50),
 	NgheNghiep nvarchar(50),
 	MoiQuanHe nvarchar(20),
@@ -92,7 +96,7 @@ GO
 
 CREATE TABLE BangLuong
 (
-	MaNV varchar(10) not null,
+	MaNV varchar(10),
 	NgayNhanLuong date not null,
 	LuongChinh int not null,
 	NgayCong int not null,
