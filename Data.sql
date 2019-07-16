@@ -297,3 +297,10 @@ GO
 EXEC SP_Insert_BangLuong 'IT001', '2019/7/17', 0,0
 
 SELECT * FROM BangLuong
+
+---Insert into TaiKhoan
+EXEC SP_TaiKhoan 'IT001','123',1,'Insert'
+EXEC SP_TaiKhoan 'MK001','123',1,'Insert'
+EXEC SP_TaiKhoan 'SL001','123',1,'Insert'
+EXEC SP_TaiKhoan 'KT001','123',1,'Insert'
+EXEC SP_TaiKhoan 'NS001','123',1,'Insert'
