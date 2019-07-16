@@ -21,9 +21,9 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label prefHeight="20.0" prefWidth="45.0" styleClass="hove_button" translateX="1057.0" translateY="1.0">
+            <Label prefHeight="25.0" prefWidth="50.0" styleClass="hove_button" translateX="1055.0">
                <graphic>
-                  <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" translateX="16.0">
+                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" translateX="20.0">
                      <image>
                         <Image url="@../../Libraries/icone/close.png" />
                      </image>
@@ -33,13 +33,13 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <HBox prefHeight="43.0" prefWidth="200.0" translateX="574.0">
+            <HBox maxHeight="-Infinity" prefHeight="38.0" prefWidth="108.0" translateX="777.0">
                <children>
-                  <Label id="lblHopdong" onMouseClicked="#setGUIHome" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Đăng Xuất">
+                  <Label id="lblHopdong" onMouseClicked="#setGUIHome" prefHeight="38.0" prefWidth="107.0" styleClass="hove_border" text="Đăng Xuất ">
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" translateX="-2.0">
                            <image>
-                              <Image url="@../../Libraries/icone/power-button-off%20(1).png" />
+                              <Image url="@../../Libraries/icone/logout.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -47,10 +47,13 @@
                         <Insets />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="30.0" top="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                      </padding>
                   </Label>
                </children>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
             </HBox>
          </children>
          <BorderPane.margin>
@@ -63,7 +66,7 @@
          <children>
             <HBox layoutX="10.0" layoutY="286.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblHopdong" onMouseClicked="#setGUIHome" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
+                  <Label id="menu_trangchu" onMouseClicked="#setGUIHome" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -88,7 +91,7 @@
             </HBox>
             <HBox prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblPhongban" onMouseClicked="#setGUINhanVien" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
+                  <Label id="menu_nhanvien" onMouseClicked="#setGUINhanVien" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -110,7 +113,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="94.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblPhongban" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
+                  <Label id="menu_phongban" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -132,7 +135,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="158.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblChucvu" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
+                  <Label id="menu_chucvu" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -154,7 +157,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="222.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblBangluong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
+                  <Label id="menu_bangluong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -176,7 +179,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="350.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
+                  <Label id="menu_chamcong" onMouseClicked="#setGUIChamCong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>
@@ -203,7 +206,7 @@
                         <Font name="Arial" size="15.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                        <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                            <image>
                               <Image url="@../../Libraries/icone/man-user%20(1).png" />
                            </image>
@@ -220,7 +223,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="380.0" prefHeight="60.0" prefWidth="200.0">
                <children>
-                  <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
+                  <Label id="menu_gioithieu" onMouseClicked="#setGUIChamCong" prefHeight="60.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
                      <font>
                         <Font name="Arial" size="15.0" />
                      </font>

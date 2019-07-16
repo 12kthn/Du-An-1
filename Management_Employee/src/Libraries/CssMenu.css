@@ -10,3 +10,6 @@
       
       
 }
+.hover_logout:hover{
+     -fx-text-fill: #1a98ce;
+}
