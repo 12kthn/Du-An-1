@@ -9,7 +9,7 @@ GO
 CREATE PROCEDURE SP_NhanVien
 (
 	@MaNV varchar(10),
-	@TenNV nvarchar(50),
+	@HoTen nvarchar(50),
 	@GioiTinh bit,
 	@NgaySinh date,
 	@SoCM varchar(10),
@@ -27,13 +27,13 @@ AS
 		END
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO NhanVien VALUES(@MaNV, @TenNV, @GioiTinh, @NgaySinh, @SoCM, 
+			INSERT INTO NhanVien VALUES(@MaNV, @HoTen, @GioiTinh, @NgaySinh, @SoCM, 
 				@DienThoai, @MaNV + '@cty.com.vn', @DiaChi, @Hinh, @TrinhDoHV)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE NhanVien 
-			SET TenNV = @TenNV, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
+			SET HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
 				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV
 			WHERE MaNV = @MaNV
 		END
@@ -425,3 +425,81 @@ AS
 	INSERT INTO BangLuong VALUES(@MaNV, @NgayNhanLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
 GO
+
+--Tao Function tinh so luong nam nu
+IF (OBJECT_ID('FN_SLNamNu') IS NOT NULL)
+  DROP FUNCTION FN_SLNamNu
+GO
+CREATE FUNCTION FN_SLNamNu
+(
+	--Truyen vao 0 hoặc 1 tuong ung voi Nu hoac Nam
+	@GioiTinh int,
+	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
+	@MaPhongBan varchar(5)
+)
+RETURNS int
+AS
+	BEGIN
+		DECLARE @SoLuong int
+		SET @SoLuong = (SELECT COUNT(*) FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV
+							WHERE MaPB like '%' + @MaPhongBan + '%' AND GioiTinh = @GioiTinh)
+
+		RETURN @SoLuong
+	END
+GO
+
+--Tao Stored Procedure in ra so luong nam nu
+IF (OBJECT_ID('SP_SLNamNu') IS NOT NULL)
+  DROP PROCEDURE SP_SLNamNu
+GO
+
+CREATE PROCEDURE SP_SLNamNu
+(
+	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
+	@MaPhongBan varchar(5)
+)
+AS
+	SELECT [dbo].[FN_SLNamNu](0, @MaPhongBan), [dbo].[FN_SLNamNu](1, @MaPhongBan)
+
+GO
+	
+--Tao Function tinh so luong nhan vien
+IF (OBJECT_ID('FN_SLNhanVien') IS NOT NULL)
+  DROP FUNCTION FN_SLNhanVien
+GO
+CREATE FUNCTION FN_SLNhanVien
+(
+	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
+	@MaPhongBan varchar(5)
+)
+RETURNS int
+AS
+	BEGIN
+		DECLARE @SoLuong int
+		SET @SoLuong = (SELECT COUNT(*) FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV WHERE MaPB like '%' + @MaPhongBan + '%')
+
+		RETURN @SoLuong
+	END
+GO
+
+--Tao Stored Procedure in ra so luong nam nu
+IF (OBJECT_ID('SP_SLNhanVien') IS NOT NULL)
+  DROP PROCEDURE SP_SLNhanVien
+GO
+CREATE PROCEDURE SP_SLNhanVien
+AS
+	SELECT [dbo].[FN_SLNhanVien](''), [dbo].[FN_SLNhanVien]('GD'), [dbo].[FN_SLNhanVien]('IT'), [dbo].[FN_SLNhanVien]('KT'), 
+		[dbo].[FN_SLNhanVien]('MK'), [dbo].[FN_SLNhanVien]('NS'), [dbo].[FN_SLNhanVien]('SL')
+GO		
+exec SP_SLNhanVien
+
+--Tao Stored Procedure in ra table NhanVien
+IF (OBJECT_ID('SP_tblNhanVien') IS NOT NULL)
+  DROP PROCEDURE SP_tblNhanVien
+GO
+CREATE PROCEDURE SP_tblNhanVien
+AS
+	SELECT NhanVien.MaNV, MaHD, HoTen, GioiTinh, NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV ORDER BY MaPB
+GO		
+exec SP_tblNhanVien
+

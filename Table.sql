@@ -13,7 +13,7 @@ GO
 CREATE TABLE NhanVien
 (
 	MaNV varchar(10) PRIMARY KEY,
-	TenNV nvarchar(50) not null,
+	HoTen nvarchar(50) not null,
 	GioiTinh bit not null,
 	NgaySinh date not null,
 	SoCM varchar(10) not null,

@@ -205,7 +205,7 @@ EXEC SP_HopDong 'HDLD180004','IT007', 'NV', 'IT', '2018/11/20', null, 2, 'Insert
 EXEC SP_HopDong 'HDLD160003','IT008', 'NT', 'IT', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180005','IT009', 'NV', 'IT', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180006','IT010', 'NV', 'IT', '2018/11/20', null, 2, 'Insert'
-
+GO
 EXEC SP_HopDong 'HDLD150002', 'NS001', 'TP', 'NS', '2018/11/20', null, 3, 'Insert'
 EXEC SP_HopDong 'HDLD160004','NS002', 'NT', 'NS', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180007','NS003', 'NV', 'NS', '2018/11/20', null, 2, 'Insert'
@@ -216,7 +216,7 @@ EXEC SP_HopDong 'HDLD180010','NS007', 'NV', 'NS', '2018/11/20', null, 2, 'Insert
 EXEC SP_HopDong 'HDLD160006','NS008', 'NT', 'NS', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180011','NS009', 'NV', 'NS', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180012','NS010', 'NV', 'NS', '2018/11/20', null, 2, 'Insert'
-
+GO
 EXEC SP_HopDong 'HDLD150003', 'KT001', 'TP', 'KT', '2018/11/20', null, 3, 'Insert'
 EXEC SP_HopDong 'HDLD160007','KT002', 'NT', 'KT', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180013','KT003', 'NV', 'KT', '2018/11/20', null, 2, 'Insert'
@@ -227,8 +227,8 @@ EXEC SP_HopDong 'HDLD180016','KT007', 'NV', 'KT', '2018/11/20', null, 2, 'Insert
 EXEC SP_HopDong 'HDLD160009','KT008', 'NT', 'KT', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180017','KT009', 'NV', 'KT', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180018','KT010', 'NV', 'KT', '2018/11/20', null, 2, 'Insert'
-
-EXEC SP_HopDong 'HDLD150004', 'MK001', 'TP', 'MK', '2018/11/20', null, 3, 'Insert'
+GO
+EXEC SP_HopDong 'HDLD150004', 'MK002', 'TP', 'MK', '2018/11/20', null, 3, 'Insert'
 EXEC SP_HopDong 'HDLD160010','MK003', 'NT', 'MK', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180019','MK004', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180020','MK005', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
@@ -236,9 +236,9 @@ EXEC SP_HopDong 'HDLD160011','MK006', 'NT', 'MK', '2018/11/20', null, 2.5, 'Inse
 EXEC SP_HopDong 'HDLD180021','MK007', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180022','MK008', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD160012','MK009', 'NT', 'MK', '2018/11/20', null, 2.5, 'Insert'
-EXEC SP_HopDong 'HDLD180023','MK0010', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
+EXEC SP_HopDong 'HDLD180023','MK010', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180024','MK011', 'NV', 'MK', '2018/11/20', null, 2, 'Insert'
-
+GO
 EXEC SP_HopDong 'HDLD150005', 'SL001', 'TP', 'SL', '2018/11/20', null, 3, 'Insert'
 EXEC SP_HopDong 'HDLD160013','SL002', 'NT', 'SL', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180025','SL003', 'NV', 'SL', '2018/11/20', null, 2, 'Insert'
@@ -249,17 +249,16 @@ EXEC SP_HopDong 'HDLD180028','SL007', 'NV', 'SL', '2018/11/20', null, 2, 'Insert
 EXEC SP_HopDong 'HDLD160015','SL008', 'NT', 'SL', '2018/11/20', null, 2.5, 'Insert'
 EXEC SP_HopDong 'HDLD180029','SL009', 'NV', 'SL', '2018/11/20', null, 2, 'Insert'
 EXEC SP_HopDong 'HDLD180030','SL010', 'NV', 'SL', '2018/11/20', null, 2, 'Insert'
-
+GO
 EXEC SP_HopDong 'HDLD140001', 'MK001', 'GD', 'GD', '2018/11/20', null, 3, 'Insert'
 GO
 
-select * from hopdong
+select * from hopdong order by MaNV
 
 --Insert into ThanNhan
 EXEC SP_ThanNhan null, N'Phạm Ngọc Duy', N'Học Sinh', N'Em', 'IT001', 1, 'Insert'
 SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = 'IT001' AND GiamTruPhuThuoc = 1
 
-select * from HopDong
 --Insert into ChamCong
 EXEC SP_ChamCong IT001, null, 1, 0, 'Insert'
 EXEC SP_ChamCong IT001, '2019/07/10', 1, 0, 'Insert'
