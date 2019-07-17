@@ -1,6 +1,62 @@
 ﻿USE QuanLyNhanSu
 GO
 
+--Tao Stored Procedure Insert, Update, Delete cho bang PhongBan
+IF (OBJECT_ID('SP_PhongBan') IS NOT NULL)
+  DROP PROCEDURE SP_PhongBan
+GO
+CREATE PROCEDURE SP_PhongBan
+(
+	@MaPB varchar(5),
+	@TenPB nvarchar(50),
+	@MaTruongPhong varchar(10),
+	@StatementType char(6)
+)
+AS
+	IF @StatementType = 'Insert'
+		BEGIN
+			INSERT INTO PhongBan VALUES(@MaPB, @TenPB, @MaTruongPhong)
+		END
+	IF @StatementType = 'Update'
+		BEGIN
+			UPDATE PhongBan 
+			SET TenPB = @TenPB, MaTruongPhong = @MaTruongPhong
+			WHERE MaPB = @MaPB
+		END
+	IF @StatementType = 'Delete'
+		BEGIN
+			DELETE FROM PhongBan WHERE MaPB = @MaPB
+		END
+GO
+
+--Tao Stored Procedure Insert, Update, Delete cho bang ChucVu
+IF (OBJECT_ID('SP_ChucVu') IS NOT NULL)
+  DROP PROCEDURE SP_ChucVu
+GO
+CREATE PROCEDURE SP_ChucVu
+(
+	@MaCV varchar(5),
+	@TenCV nvarchar(50),
+	@PhuCap real,
+	@StatementType char(6)
+)
+AS
+	IF @StatementType = 'Insert'
+		BEGIN
+			INSERT INTO ChucVu VALUES(@MaCV, @TenCV, @PhuCap)
+		END
+	IF @StatementType = 'Update'
+		BEGIN
+			UPDATE ChucVu 
+			SET TenCV = @TenCV, PhuCap = @PhuCap
+			WHERE MaCV = @MaCV
+		END
+	IF @StatementType = 'Delete'
+		BEGIN
+			DELETE FROM ChucVu WHERE MaCV = @MaCV
+		END
+GO
+
 --Tao Stored Procedure Select all, Insert, Update, Delete cho bang NhanVien
 IF (OBJECT_ID('SP_NhanVien') IS NOT NULL)
   DROP PROCEDURE SP_NhanVien
@@ -18,23 +74,29 @@ CREATE PROCEDURE SP_NhanVien
 	@DiaChi nvarchar(max),
 	@Hinh varchar(max),
 	@TrinhDoHV nvarchar(30),
+	@MaHD varchar(10),
+	@MaCV varchar(5),
+	@MaPB varchar(5),
+	@NgayVaoLam date,
+	@NgayKetThuc date,
+	@HeSoLuong real,
+	@TrangThai bit,
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM NhanVien
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			INSERT INTO NhanVien VALUES(@MaNV, @HoTen, @GioiTinh, @NgaySinh, @SoCM, 
-				@DienThoai, @MaNV + '@cty.com.vn', @DiaChi, @Hinh, @TrinhDoHV)
+				@DienThoai, @MaNV + '@cty.com.vn', @DiaChi, @Hinh, @TrinhDoHV, @MaHD, @MaCV, @MaPB, 
+				@NgayVaoLam, @NgayKetThuc, @HeSoLuong, @TrangThai)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE NhanVien 
 			SET HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
-				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV
+				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV,
+				MaHD = @MaHD, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, 
+				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, TrangThai = @TrangThai
 			WHERE MaNV = @MaNV
 		END
 	IF @StatementType = 'Delete'
@@ -43,11 +105,10 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang PhongBan
+--Tao Stored Procedure Insert, Update, Delete cho bang PhongBan
 IF (OBJECT_ID('SP_PhongBan') IS NOT NULL)
   DROP PROCEDURE SP_PhongBan
 GO
-
 CREATE PROCEDURE SP_PhongBan
 (
 	@MaPB varchar(5),
@@ -56,10 +117,6 @@ CREATE PROCEDURE SP_PhongBan
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM PhongBan
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			INSERT INTO PhongBan VALUES(@MaPB, @TenPB, @MaTruongPhong)
@@ -76,109 +133,35 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang ChucVu
-IF (OBJECT_ID('SP_ChucVu') IS NOT NULL)
-  DROP PROCEDURE SP_ChucVu
-GO
-
-CREATE PROCEDURE SP_ChucVu
-(
-	@MaCV varchar(5),
-	@TenCV nvarchar(50),
-	@PhuCap real,
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM ChucVu
-		END
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO ChucVu VALUES(@MaCV, @TenCV, @PhuCap)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE ChucVu 
-			SET TenCV = @TenCV, PhuCap = @PhuCap
-			WHERE MaCV = @MaCV
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM ChucVu WHERE MaCV = @MaCV
-		END
-GO
-
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang HopDong
-IF (OBJECT_ID('SP_HopDong') IS NOT NULL)
-  DROP PROCEDURE SP_HopDong
-GO
-
-CREATE PROCEDURE SP_HopDong
-(
-	@MaHD varchar(10),
-	@MaNV varchar(10),
-	@MaCV varchar(5),
-	@MaPB varchar(5),
-	@NgayVaoLam date,
-	@NgayKetThuc date,
-	@HeSoLuong real,
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM HopDong
-		END
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO HopDong VALUES(@MaHD, @MaNV, @MaCV, @MaPB, (SELECT CAST(getdate() AS date)), @NgayKetThuc, @HeSoLuong)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE HopDong 
-			SET MaNV = @MaNV, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong
-			WHERE MaHD = @MaHD
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM HopDong WHERE MaHD = @MaHD
-		END
-GO
-
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang TaiKhoan
+--Tao Stored Procedure Insert, Update, Delete cho bang TaiKhoan
 IF (OBJECT_ID('SP_TaiKhoan') IS NOT NULL)
   DROP PROCEDURE SP_TaiKhoan
 GO
 CREATE PROCEDURE SP_TaiKhoan
 (
+	@TaiKhoan varchar(20),
+	@MatKhau varchar(20),
 	@MaNV varchar(10),
-	@MatKhau varchar(50),
-	@TrangThai bit,
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM TaiKhoan
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO TaiKhoan VALUES(@MaNV, @MatKhau, @TrangThai)
+			INSERT INTO TaiKhoan VALUES(@TaiKhoan, @MatKhau, @MaNV)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE TaiKhoan 
-			SET MatKhau = @MatKhau, TrangThai = @TrangThai
-			WHERE MaNV = @MaNV
+			SET MatKhau = @MatKhau, MaNV = @MaNV
+			WHERE TaiKhoan = @TaiKhoan
 		END
 	IF @StatementType = 'Delete'
 		BEGIN
-			DELETE FROM TaiKhoan WHERE MaNV = @MaNV
+			DELETE FROM TaiKhoan WHERE TaiKhoan = @TaiKhoan
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang ThanNhan
+--Tao Stored Procedure Insert, Update, Delete cho bang ThanNhan
 IF (OBJECT_ID('SP_ThanNhan') IS NOT NULL)
   DROP PROCEDURE SP_ThanNhan
 GO
@@ -344,7 +327,7 @@ RETURNS int
 AS
 	BEGIN
 		DECLARE @LuongChinh int
-		SET @LuongChinh = (SELECT HeSoLuong FROM HopDong WHERE MaNV = 'IT001')*[dbo].[FN_SelectGiaTri]('LuongCB')
+		SET @LuongChinh = (SELECT HeSoLuong FROM NhanVien WHERE MaNV = 'IT001')*[dbo].[FN_SelectGiaTri]('LuongCB')
 		RETURN @LuongChinh
 	END
 GO
@@ -413,7 +396,7 @@ AS
 	
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
 	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', (SELECT DATEADD(DAY, 1, EOMONTH(@NgayNhanLuong, -1))))
-	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM HopDong WHERE MaNV = @MaNV))
+	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM NhanVien WHERE MaNV = @MaNV))
 	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
 	SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
 	SET @BHYT = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHYT')
@@ -426,80 +409,55 @@ AS
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
 GO
 
---Tao Function tinh so luong nam nu
-IF (OBJECT_ID('FN_SLNamNu') IS NOT NULL)
-  DROP FUNCTION FN_SLNamNu
-GO
-CREATE FUNCTION FN_SLNamNu
-(
-	--Truyen vao 0 hoặc 1 tuong ung voi Nu hoac Nam
-	@GioiTinh int,
-	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
-	@MaPhongBan varchar(5)
-)
-RETURNS int
-AS
-	BEGIN
-		DECLARE @SoLuong int
-		SET @SoLuong = (SELECT COUNT(*) FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV
-							WHERE MaPB like '%' + @MaPhongBan + '%' AND GioiTinh = @GioiTinh)
-
-		RETURN @SoLuong
-	END
-GO
-
 --Tao Stored Procedure in ra so luong nam nu
 IF (OBJECT_ID('SP_SLNamNu') IS NOT NULL)
   DROP PROCEDURE SP_SLNamNu
 GO
-
 CREATE PROCEDURE SP_SLNamNu
 (
-	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
+	--Tinh so luong theo Phong ban
 	@MaPhongBan varchar(5)
 )
 AS
-	SELECT [dbo].[FN_SLNamNu](0, @MaPhongBan), [dbo].[FN_SLNamNu](1, @MaPhongBan)
-
+	SELECT GioiTinh, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY GioiTinh 
 GO
-	
---Tao Function tinh so luong nhan vien
-IF (OBJECT_ID('FN_SLNhanVien') IS NOT NULL)
-  DROP FUNCTION FN_SLNhanVien
-GO
-CREATE FUNCTION FN_SLNhanVien
-(
-	--Tinh so luong theo Phong ban, neu bang null thi tinh het tat ca
-	@MaPhongBan varchar(5)
-)
-RETURNS int
-AS
-	BEGIN
-		DECLARE @SoLuong int
-		SET @SoLuong = (SELECT COUNT(*) FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV WHERE MaPB like '%' + @MaPhongBan + '%')
+EXEC SP_SLNamNu 'GD'
 
-		RETURN @SoLuong
-	END
-GO
-
---Tao Stored Procedure in ra so luong nam nu
+--Tao Stored Procedure in ra so luong nhan vien
 IF (OBJECT_ID('SP_SLNhanVien') IS NOT NULL)
   DROP PROCEDURE SP_SLNhanVien
 GO
 CREATE PROCEDURE SP_SLNhanVien
+(
+	--Tinh so luong theo Phong ban
+	@MaPhongBan varchar(5)
+)
 AS
-	SELECT [dbo].[FN_SLNhanVien](''), [dbo].[FN_SLNhanVien]('GD'), [dbo].[FN_SLNhanVien]('IT'), [dbo].[FN_SLNhanVien]('KT'), 
-		[dbo].[FN_SLNhanVien]('MK'), [dbo].[FN_SLNhanVien]('NS'), [dbo].[FN_SLNhanVien]('SL')
+	SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
+	WHERE PhongBan.MaPB like '%' + @MaPhongBan + '%' 
+	GROUP BY PhongBan.MaPB, PhongBan.TenPB
 GO		
-exec SP_SLNhanVien
+exec SP_SLNhanVien ''
 
---Tao Stored Procedure in ra table NhanVien
-IF (OBJECT_ID('SP_tblNhanVien') IS NOT NULL)
-  DROP PROCEDURE SP_tblNhanVien
+--Tao Stored Procedure in ra table nhan vien
+IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
+  DROP PROCEDURE SP_TBLNhanVien
 GO
-CREATE PROCEDURE SP_tblNhanVien
+CREATE PROCEDURE SP_TBLNhanVien
 AS
-	SELECT NhanVien.MaNV, MaHD, HoTen, GioiTinh, NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV FROM NhanVien JOIN HopDong ON NhanVien.MaNV = HopDong.MaNV ORDER BY MaPB
-GO		
-exec SP_tblNhanVien
+	SELECT MaNV, HoTen, GioiTinh, NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
+		NgayVaoLam, NgayKetThuc, HeSoLuong
+	FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
+GO
 
+--Tao Stored Procedure tim kiem nhan vien theo MaNV
+IF (OBJECT_ID('SP_FindNVByCode') IS NOT NULL)
+  DROP PROCEDURE SP_FindNVByCode
+GO
+CREATE PROCEDURE SP_FindNVByCode
+(
+	@MaNV varchar(10)
+)
+AS
+	SELECT * FROM NhanVien WHERE MaNV = @MaNV
+GO

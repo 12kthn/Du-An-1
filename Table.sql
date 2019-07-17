@@ -10,30 +10,11 @@ GO
 USE QuanLyNhanSu
 GO
 
-CREATE TABLE NhanVien
-(
-	MaNV varchar(10) PRIMARY KEY,
-	HoTen nvarchar(50) not null,
-	GioiTinh bit not null,
-	NgaySinh date not null,
-	SoCM varchar(10) not null,
-	DienThoai varchar(10) not null,
-	Email varchar(50) not null,
-	DiaChi nvarchar(max) not null,
-	Hinh varchar(max),
-	TrinhDoHV nvarchar(30) not null
-
-	UNIQUE(SoCM)
-)
-GO
-
 CREATE TABLE PhongBan
 (
 	MaPB varchar(5) PRIMARY KEY,
 	TenPB nvarchar(50) not null,
 	MaTruongPhong varchar(10),
-
-	FOREIGN KEY (MaTruongPhong) REFERENCES NhanVien(MaNV)
 )
 GO
 
@@ -45,31 +26,44 @@ CREATE TABLE ChucVu
 )
 GO
 
-CREATE TABLE HopDong
+CREATE TABLE NhanVien
 (
-	MaHD varchar(10) not null PRIMARY KEY,
-	MaNV varchar(10),
+	MaNV varchar(10) PRIMARY KEY,
+	HoTen nvarchar(50) not null,
+	GioiTinh bit not null,
+	NgaySinh date not null,
+	SoCM varchar(10) not null,
+	DienThoai varchar(10) not null,
+	Email varchar(50) not null,
+	DiaChi nvarchar(max) not null,
+	Hinh varchar(max),
+	TrinhDoHV nvarchar(30) not null,
+	MaHD varchar(10) not null,
 	MaCV varchar(5) not null,
 	MaPB varchar(5),
 	NgayVaoLam date not null,
 	NgayKetThuc date,
 	HeSoLuong real not null,
+	TrangThai bit not null,
 
-	UNIQUE(MaNV),
-	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
-	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV),
-	FOREIGN KEY (MaPB) REFERENCES PhongBan(MaPB)
+	UNIQUE(SoCM, MaHD),
+	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV)
 )
+GO
+
+ALTER TABLE PhongBan
+ADD FOREIGN KEY (MaTruongPhong) REFERENCES NhanVien(MaNV)
 GO
 
 CREATE TABLE TaiKhoan
 (
-	MaNV varchar(10) PRIMARY KEY,
-	MatKhau varchar(50) not null,
-	TrangThai bit not null,
+	TaiKhoan varchar(20) PRIMARY KEY,
+	MatKhau varchar(20) not null,
+	MaNV varchar(10),
+	
+
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
-GO
 
 CREATE TABLE ThanNhan
 (
