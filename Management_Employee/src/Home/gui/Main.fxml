@@ -7,21 +7,48 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
-        <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="70.0" prefWidth="1366.0" BorderPane.alignment="CENTER">
+        <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #00affd;" text="Logo" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="28.0" />
                     </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
                 </Label>
-                <Label text="Label" />
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="193.0" styleClass="hove_border" translateX="968.0">
+               <children>
+                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="14.0" stroke="BLACK" strokeType="INSIDE">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Label id="menu_taikhoan" onMouseClicked="#setGUIHome" prefHeight="35.0" prefWidth="132.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" translateX="98.0">
+                           <image>
+                              <Image url="@../../Libraries/icone/right-arrow%20(1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </HBox>
             </children>
             <BorderPane.margin>
                 <Insets />
@@ -175,7 +202,7 @@
                             <graphic>
                                 <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/man-user%20(1).png" />
+                                        <Image url="@../../Libraries/icone/settings-work-tool.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
