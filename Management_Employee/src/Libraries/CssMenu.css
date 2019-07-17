@@ -3,13 +3,16 @@
     -fx-border-width: 0px 5px 0px 0px ;
     -fx-background-color:  #d1fbf1;
     -fx-text-fill: #1a98ce;
-    -fx-font-weight:bold;
+    /*-fx-font-weight:bold;*/
 }
-.hove_button:hover{
+.hove_buttonClose:hover{
      -fx-background-color:  #e81123;
       
-      
 }
-.hover_logout:hover{
-     -fx-text-fill: #1a98ce;
+.hover_buton1Minize:hover{
+     -fx-background-color:  #f0f0f0;
+}
+.bodertitle{
+    -fx-border-color: #00affd;
+    -fx-border-width: 0px 0px 2px 0px ; 
 }
