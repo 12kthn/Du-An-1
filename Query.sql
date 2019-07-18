@@ -80,6 +80,7 @@ CREATE PROCEDURE SP_NhanVien
 	@NgayVaoLam date,
 	@NgayKetThuc date,
 	@HeSoLuong real,
+	@LoaiNhanVien bit,
 	@TrangThai bit,
 	@StatementType char(6)
 )
@@ -88,7 +89,7 @@ AS
 		BEGIN
 			INSERT INTO NhanVien VALUES(@MaNV, @HoTen, @GioiTinh, @NgaySinh, @SoCM, 
 				@DienThoai, @MaNV + '@cty.com.vn', @DiaChi, @Hinh, @TrinhDoHV, @MaHD, @MaCV, @MaPB, 
-				@NgayVaoLam, @NgayKetThuc, @HeSoLuong, @TrangThai)
+				@NgayVaoLam, @NgayKetThuc, @HeSoLuong, @LoaiNhanVien, @TrangThai)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
@@ -96,7 +97,7 @@ AS
 			SET HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
 				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV,
 				MaHD = @MaHD, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, 
-				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, TrangThai = @TrangThai
+				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, LoaiNhanVien = @LoaiNhanVien, TrangThai = @TrangThai
 			WHERE MaNV = @MaNV
 		END
 	IF @StatementType = 'Delete'
@@ -409,7 +410,7 @@ AS
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
 GO
 
---Tao Stored Procedure in ra so luong nam nu
+--Tao Stored Procedure tinh so luong nam nu
 IF (OBJECT_ID('SP_SLNamNu') IS NOT NULL)
   DROP PROCEDURE SP_SLNamNu
 GO
@@ -419,9 +420,23 @@ CREATE PROCEDURE SP_SLNamNu
 	@MaPhongBan varchar(5)
 )
 AS
-	SELECT GioiTinh, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY GioiTinh 
+	SELECT GioiTinh, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY GioiTinh ORDER BY GioiTinh DESC
 GO
-EXEC SP_SLNamNu 'GD'
+EXEC SP_SLNamNu ''
+
+--Tao Stored Procedure tinh so luong nhan vien chinh thuc
+IF (OBJECT_ID('SP_NVChinhThuc') IS NOT NULL)
+  DROP PROCEDURE SP_NVChinhThuc
+GO
+CREATE PROCEDURE SP_NVChinhThuc
+(
+	--Tinh so luong theo Phong ban
+	@MaPhongBan varchar(5)
+)
+AS
+	SELECT LoaiNhanVien, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY LoaiNhanVien ORDER BY LoaiNhanVien DESC
+GO
+EXEC SP_NVChinhThuc ''
 
 --Tao Stored Procedure in ra so luong nhan vien
 IF (OBJECT_ID('SP_SLNhanVien') IS NOT NULL)
@@ -433,11 +448,65 @@ CREATE PROCEDURE SP_SLNhanVien
 	@MaPhongBan varchar(5)
 )
 AS
-	SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
-	WHERE PhongBan.MaPB like '%' + @MaPhongBan + '%' 
-	GROUP BY PhongBan.MaPB, PhongBan.TenPB
+	IF @MaPhongBan is not null
+		BEGIN
+			SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
+			WHERE PhongBan.MaPB like '%' + @MaPhongBan + '%' 
+			GROUP BY PhongBan.MaPB, PhongBan.TenPB
+		END
+	ELSE
+		BEGIN
+			SELECT COUNT(*) FROM NhanVien
+		END
 GO		
 exec SP_SLNhanVien ''
+EXEC SP_SLNhanVien null
+
+GO
+--Tao Stored Procedure tinh so gio lam viec theo nam
+IF (OBJECT_ID('SP_SoGioLamViec') IS NOT NULL)
+  DROP PROCEDURE SP_SoGioLamViec
+GO
+CREATE PROCEDURE SP_SoGioLamViec
+(
+	@Nam int
+)
+AS
+	IF @Nam is not null
+		BEGIN
+			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam
+		END
+	ELSE
+		BEGIN
+			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1
+		END
+GO		
+exec SP_SoGioLamViec 2019
+EXEC SP_SoGioLamViec null
+GO
+
+--Tao Stored Procedure tinh tong thu nhap theo nam
+IF (OBJECT_ID('SP_ThuNhap') IS NOT NULL)
+  DROP PROCEDURE SP_ThuNhap
+GO
+CREATE PROCEDURE SP_ThuNhap
+(
+	@Nam int
+)
+AS
+	IF @Nam is not null
+		BEGIN
+			SELECT SUM(ThuNhap) FROM BangLuong WHERE YEAR(NgayNhanLuong) = @Nam
+		END
+	ELSE
+		BEGIN
+			SELECT SUM(ThuNhap) FROM BangLuong
+		END
+GO		
+exec SP_ThuNhap 2019
+EXEC SP_ThuNhap null
+GO
+select * from BangLuong
 
 --Tao Stored Procedure in ra table nhan vien
 IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
