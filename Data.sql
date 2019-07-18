@@ -210,7 +210,9 @@ EXEC SP_BacThueTNCN 80000000, 0.35, 'Insert'
 GO
 
 --Insert into BangLuong
-EXEC SP_Insert_BangLuong 'IT001', '2019/7/17', 0,0
+
+
+
 
 SELECT * FROM BangLuong
 
