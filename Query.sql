@@ -515,7 +515,7 @@ GO
 CREATE PROCEDURE SP_TBLNhanVien
 AS
 	SELECT MaNV, HoTen, GioiTinh, NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
-		NgayVaoLam, NgayKetThuc, HeSoLuong
+		NgayVaoLam, NgayKetThuc, HeSoLuong, LoaiNhanVien, TrangThai
 	FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 GO
 
