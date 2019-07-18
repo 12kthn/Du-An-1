@@ -190,19 +190,6 @@ EXEC SP_ThanNhan null, N'Phạm Ngọc Duy', N'Học Sinh', N'Em', 'IT001', 1, '
 SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = 'IT001' AND GiamTruPhuThuoc = 1
 
 --Insert into ChamCong
-EXEC SP_ChamCong IT001, null, 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/10', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/9', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/8', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/7', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/6', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/5', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/4', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/3', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/2', 1, 0, 'Insert'
-EXEC SP_ChamCong IT001, '2019/07/1', 1, 0, 'Insert'
-GO
-select * from ChamCong
 
 --Insert into GiaTriChung
 EXEC SP_GiaTriChung 'LuongCB', 5000000, 'Insert'
