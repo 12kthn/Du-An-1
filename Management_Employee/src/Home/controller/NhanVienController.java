@@ -1,13 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Home.controller;
 
+import Home.DAO.NhanVienDAO;
+import Home.DAO.PhongBanDAO;
+import Home.common.XDate;
+import Home.model.NhanVien;
+import Home.model.PhongBan;
+import Home.model.table.TableNhanVien;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,92 +20,239 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-/**
- *
- * @author nucle
- */
 public class NhanVienController implements Initializable {
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            nvdao = new NhanVienDAO();
+            pbdao = new PhongBanDAO();
+            loadPieChart();
+            loadBarChart();
+            setTableModel();
+            loadDataToTable();
+            DPickerNgaySinh.setConverter(XDate.converter);
+            fillCbo();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadPieChart() {
+        chartTyLeNamNu.setData(nvdao.getDataForPieChart());
+    }
+
+    private void loadBarChart() {
+        chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
+    }
+    
+    private void setTableModel(){
+        //Khai bao cot
+        col1 = new TableColumn<>("Mã nhân viên");
+        col1.setCellValueFactory(new PropertyValueFactory<>("MaNV"));
+        col2 = new TableColumn<>("Họ tên");
+        col2.setCellValueFactory(new PropertyValueFactory<>("HoTen"));
+        col3 = new TableColumn<>("Giới tính");
+        col3.setCellValueFactory(new PropertyValueFactory<>("GioiTinh"));
+        col4 = new TableColumn<>("Ngày sinh");
+        col4.setCellValueFactory(new PropertyValueFactory<>("NgaySinh"));
+        col5 = new TableColumn<>("Số CMND");
+        col5.setCellValueFactory(new PropertyValueFactory<>("SoCM"));
+        col6 = new TableColumn<>("Điện thoại");
+        col6.setCellValueFactory(new PropertyValueFactory<>("DienThoai"));
+        col7 = new TableColumn<>("Email");
+        col7.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        col8 = new TableColumn<>("Địa chỉ");
+        col8.setCellValueFactory(new PropertyValueFactory<>("DiaChi"));
+        col9 = new TableColumn<>("Trình độ học vấn");
+        col9.setCellValueFactory(new PropertyValueFactory<>("TrinhDoHV"));
+        col10 = new TableColumn<>("Mã hợp đồng");
+        col10.setCellValueFactory(new PropertyValueFactory<>("MaHD"));
+        col11 = new TableColumn<>("Phòng ban");
+        col11.setCellValueFactory(new PropertyValueFactory<>("PhongBan"));
+        col12 = new TableColumn<>("Chức vụ");
+        col12.setCellValueFactory(new PropertyValueFactory<>("ChucVu")); 
+        col13 = new TableColumn<>("Ngày vào làm");
+        col13.setCellValueFactory(new PropertyValueFactory<>("NgayVaoLam"));
+        col14 = new TableColumn<>("Ngày kết thúc");
+        col14.setCellValueFactory(new PropertyValueFactory<>("NgayKetThuc"));
+        col15 = new TableColumn<>("Hệ số lương");
+        col15.setCellValueFactory(new PropertyValueFactory<>("HeSoLuong"));
+        col16 = new TableColumn<>("Loại nhân viên");
+        col16.setCellValueFactory(new PropertyValueFactory<>("LoaiNhanVien"));
+        col17 = new TableColumn<>("Trạng thái");
+        col17.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
+        
+        tblNhanVien.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, 
+                col11, col12, col13, col14, col15, col16, col17);
+    }
+    
+    private void loadDataToTable(){
+        data = nvdao.getDataForTable();
+        tblNhanVien.setItems(data);
+    }
+
+    private void fillCbo() {
+        listGioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
+        cboGioiTinh.setItems(listGioiTinh);
+        
+        listTrangThai = FXCollections.observableArrayList("Đang làm việc", "Đã nghỉ việc");
+        cboTrangThai.setItems(listTrangThai);
+        
+        listPhongBan = pbdao.findByCode("");
+        cboPhongBan.setItems(listPhongBan);
+    }
+    
     @FXML
-    private JFXTextField txtGioiTinh;
+    private void selectNhanVien(MouseEvent event){
+        TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
+        nv = nvdao.findByCode(tableNhanVien.getMaNV());
+        if (event.getClickCount() == 2) {
+            tabPane.getSelectionModel().select(2);
+            setModel();
+        }
+    }
+    
+    private void setModel(){
+        //set hinh cho image view imgHinh
+        Class<?> cl = this.getClass();
+        InputStream input = cl.getResourceAsStream("/Libraries/images/IT005.jpg");
+        Image image = new Image(input);
+        imgHinh.setImage(image);
+        
+        txtMaNV.setText(nv.getMaNV());
+        txtHoTen.setText(nv.getHoTen());
+        cboGioiTinh.getSelectionModel().select(nv.getGioiTinh()?0:1);
+        DPickerNgaySinh.setValue(XDate.toLocalDate(nv.getNgaySinh()));
+        txtSoCM.setText(nv.getSoCM());
+        txtDienThoai.setText(nv.getDienThoai());
+        txtEmail.setText(nv.getEmail());
+        txtDiaChi.setText(nv.getDiaChi());
+        txtTrinhDoHV.setText(nv.getTrinhDoHV());
+        cboTrangThai.getSelectionModel().select(nv.getTrangThai()?0:1);
+        //set Hop dong
+        txtMaHD.setText(nv.getMaHD());
+        
+        for (PhongBan phongBan : listPhongBan) {
+            if (phongBan.getMaPB().equals(nv.getMaPB())) {
+                cboPhongBan.getSelectionModel().select(phongBan);
+            }
+        }
+        
+        txtHeSoLuong.setText(nv.getHeSoLuong() + "");
+    }
+    
+    @FXML
+    private JFXTextField txtMoiQuanHeNT;
 
     @FXML
-    private BarChart<?, ?> chartNumberEmployees;
+    private JFXComboBox<?> cboLoaiNhanVien;
 
     @FXML
-    private PieChart chartMaleFemale;
+    private DatePicker DPickerNgayBatDau;
 
     @FXML
-    private JFXTextField txtTrinhDo;
+    private JFXComboBox<PhongBan> cboPhongBan;
 
     @FXML
-    private JFXTextField txtMaNV;
+    private JFXTextField txtSoCM;
 
     @FXML
-    private TableView<?> tblEmployees;
+    private DatePicker DPickerNgayKetThuc;
 
     @FXML
-    private JFXTextField txtNgaySinh;
+    private JFXComboBox cboGioiTinh;
+
+    @FXML
+    private JFXTextField txtHoTenNT;
+
+    @FXML
+    private DatePicker DPickerNgaySinh;
 
     @FXML
     private JFXTextField txtHoTen;
 
     @FXML
-    private JFXTextField txtDiaChi;
+    private JFXTextField txtMaHD;
+
+    @FXML
+    private ImageView imgHinh;
+    
+    @FXML
+    private JFXTextField txtDienThoai;
+
+    @FXML
+    private JFXComboBox<?> cboTrangThai;
+
+    @FXML
+    private JFXComboBox<?> cboChucVu;
+
+    @FXML
+    private JFXTextField txtGTPTNT;
 
     @FXML
     private JFXTextField txtEmail;
 
     @FXML
-    private JFXTextField txtCMND;
+    private BarChart<?, ?> chartSLNhanVien;
 
     @FXML
-    private JFXTextField txtSoDT;
+    private JFXTextField txtTrinhDoHV;
 
     @FXML
-    private JFXComboBox<?> cboPhongBan;
+    private JFXTextField txtHeSoLuong;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
-            setPieChart();
-            setBarChart();
-            fillCbo();
-        } catch (Exception e) {
-        }
-    }
+    @FXML
+    private JFXTextField txtMaNV;
 
-    private void setPieChart() {
+    @FXML
+    private JFXTextField txtDiaChi;
 
-        PieChart.Data slice1 = new PieChart.Data("Nữ", 16);
+    @FXML
+    private PieChart chartTyLeNamNu;
 
-        PieChart.Data slice2 = new PieChart.Data("Nam", 20);
+    @FXML
+    private JFXTextField txtNgheNghiepNT;
 
-        chartMaleFemale.getData().add(slice1);
-        chartMaleFemale.getData().add(slice2);
+    @FXML
+    private TableView<?> tblNhanThan;
 
-//        ObservableList<PieChart.Data> pieChartData = chartMaleFemale.getData();
-//        pieChartData.forEach((data) -> {
-//            data.nameProperty().bind(Bindings.concat(data.pieValueProperty()));
-//        });
-    }
+    @FXML
+    private TableView<TableNhanVien> tblNhanVien;
 
-    private void setBarChart() {
-        XYChart.Series col = new XYChart.Series<>();
+    @FXML
+    private JFXTabPane tabPane;
 
-        col.getData().add(new XYChart.Data("Nhân sự", 5));
-        col.getData().add(new XYChart.Data("Kế toáṇ", 4));
-        col.getData().add(new XYChart.Data("Marketting̣", 8));
-        col.getData().add(new XYChart.Data("Kỹ thuậṭ", 3));
-
-        chartNumberEmployees.getData().add(col);
-    }
-
-    private void fillCbo() {
-        ObservableList list = FXCollections.observableArrayList("Kế toán", "Nhân sự");
-        cboPhongBan.setItems(list);
-    }
+    private NhanVien nv;
+    private NhanVienDAO nvdao;
+    private PhongBanDAO pbdao;
+    private TableColumn<TableNhanVien, String> col1;
+    private TableColumn<TableNhanVien, String> col2;
+    private TableColumn<TableNhanVien, String> col3;
+    private TableColumn<TableNhanVien, Date> col4;
+    private TableColumn<TableNhanVien, String> col5;
+    private TableColumn<TableNhanVien, String> col6;
+    private TableColumn<TableNhanVien, String> col7;
+    private TableColumn<TableNhanVien, String> col8;
+    private TableColumn<TableNhanVien, String> col9;
+    private TableColumn<TableNhanVien, String> col10;
+    private TableColumn<TableNhanVien, String> col11;
+    private TableColumn<TableNhanVien, String> col12;
+    private TableColumn<TableNhanVien, Date> col13;
+    private TableColumn<TableNhanVien, Date> col14;
+    private TableColumn<TableNhanVien, Integer> col15;
+    private TableColumn<TableNhanVien, String> col16;
+    private TableColumn<TableNhanVien, String> col17;
+    private ObservableList<TableNhanVien> data;
+    private ObservableList listGioiTinh;
+    private ObservableList listTrangThai;
+    private ObservableList<PhongBan> listPhongBan;
 }

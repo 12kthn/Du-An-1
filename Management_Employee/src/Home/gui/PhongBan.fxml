@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.PhongBanController">
+   <children>
+      <Label alignment="CENTER" layoutX="-2.0" layoutY="40.0" prefHeight="50.0" prefWidth="580.0" text="Phòng ban" textAlignment="CENTER" textFill="#007fff" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <JFXTextField fx:id="txtHoTen1" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Mã phòng ban">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGioiTinh1" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Tên phòng ban">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <Label prefHeight="28.0" text="Trưởng phòng">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <JFXComboBox fx:id="cboPhongBan12" prefHeight="31.0" prefWidth="520.0" />
+         </children>
+      </VBox>
+      <TableView layoutX="10.0" layoutY="10.0" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
+         <columns>
+            <TableColumn prefWidth="120.0" resizable="false" text="Mã phòng ban" />
+            <TableColumn prefWidth="200.0" resizable="false" text="Tên phòng ban" />
+            <TableColumn prefWidth="200.0" resizable="false" text="Trưởng phòng" />
+            <TableColumn prefWidth="193.0" text="Giảm trừ phụ thuộc" />
+         </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="301.0" layoutY="50.0" prefHeight="50.0" prefWidth="580.0" text="Chức vụ" textFill="#007fff" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <VBox layoutX="20.0" layoutY="20.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <JFXTextField fx:id="txtHoTen11" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Mã chức vụ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGioiTinh11" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Tên chức vụ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGioiTinh111" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Phụ cấp">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+         </children>
+      </VBox>
+      <TableView layoutX="20.0" layoutY="20.0" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <columns>
+            <TableColumn prefWidth="120.0" resizable="false" text="Mã chức vụ" />
+            <TableColumn prefWidth="240.0" resizable="false" text="Tên chức vụ" />
+            <TableColumn prefWidth="160.0" resizable="false" text="Phụ cấp" />
+            <TableColumn prefWidth="195.0" text="Giảm trừ phụ thuộc" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

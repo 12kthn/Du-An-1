@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -11,9 +19,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
-        <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <HBox fx:id="topPane" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
             <children>
                 <Label alignment="CENTER" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #00affd;" text="Logo" textFill="WHITE">
                     <font>
@@ -27,7 +35,7 @@
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </Circle>
-                  <Label id="menu_taikhoan" onMouseClicked="#setGUIHome" prefHeight="35.0" prefWidth="193.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
+                  <Label id="menu_taikhoan" prefHeight="35.0" prefWidth="193.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -104,7 +112,7 @@
                 </HBox>
                 <HBox layoutX="10.0" layoutY="94.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_phongban" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
+                        <Label id="menu_phongban" onMouseClicked="#setGUIPhongBan" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -126,7 +134,7 @@
                 </HBox>
                 <HBox layoutX="10.0" layoutY="158.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_chucvu" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
+                        <Label id="menu_chucvu" onMouseClicked="#setGUIChucVu" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -148,7 +156,7 @@
                 </HBox>
                 <HBox layoutX="10.0" layoutY="222.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_bangluong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
+                        <Label id="menu_bangluong" onMouseClicked="#setGUIBangLuong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -192,7 +200,7 @@
                 </HBox>
                 <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_gioithieu" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
+                        <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -214,7 +222,7 @@
                 </HBox>
                 <HBox layoutX="10.0" layoutY="320.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Cài Đặt">
+                        <Label id="lblChamcong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Cài Đặt">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>

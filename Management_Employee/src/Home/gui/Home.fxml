@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 <?import javafx.scene.*?>
@@ -12,12 +13,115 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #4777d0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.HomeController">
    <children>
-      <Label layoutX="445.0" layoutY="250.0" text="HOME">
+      <Label alignment="CENTER" layoutX="473.0" layoutY="14.0" text="2019" textFill="#64eb0a87" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="10.0">
          <font>
-            <Font size="96.0" />
+            <Font name="System Bold" size="80.0" />
          </font>
       </Label>
+      <VBox layoutX="63.0" layoutY="42.0" prefHeight="220.0" prefWidth="450.0" style="-fx-background-color: #F3F3F3;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <HBox prefHeight="160.0" prefWidth="450.0">
+               <children>
+                  <Label fx:id="lblSLNhanVien" alignment="CENTER" prefHeight="160.0" prefWidth="290.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="96.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Libraries/icone/NhieuNhanVien.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #3AA757;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="100.0" prefWidth="427.0" text="Tổng số lượng nhân viên" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="661.0" layoutY="67.0" prefHeight="220.0" prefWidth="450.0" style="-fx-background-color: #F3F3F3;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <HBox prefHeight="160.0" prefWidth="450.0">
+               <children>
+                  <Label fx:id="lblThuNhap" alignment="CENTER" prefHeight="160.0" prefWidth="290.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="96.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="150.0" prefWidth="150.0">
+                     <children>
+                        <Label fx:id="lblTienLuong1" alignment="CENTER" prefHeight="80.0" prefWidth="150.0" text="TỶ" textFill="#004082">
+                           <font>
+                              <Font name="System Bold" size="56.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTienLuong11" alignment="CENTER" prefHeight="70.0" prefWidth="150.0" text="VND" textFill="#004082">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #004082;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="537.0" text="Tổng thu nhập" textFill="#4777d0">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="365.0" layoutY="379.0" prefHeight="220.0" prefWidth="500.0" style="-fx-background-color: #F3F3F3;" AnchorPane.bottomAnchor="40.0">
+         <children>
+            <HBox prefHeight="160.0" prefWidth="500.0">
+               <children>
+                  <VBox prefHeight="160.0" prefWidth="350.0">
+                     <children>
+                        <Label fx:id="lblSoGIoLamViec" alignment="CENTER" prefHeight="141.0" prefWidth="351.0" text="0">
+                           <font>
+                              <Font name="System Bold" size="96.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Libraries/icone/DongHo.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="500.0" style="-fx-background-color: #F37700;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="537.0" text="Tổng số giờ làm việc" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

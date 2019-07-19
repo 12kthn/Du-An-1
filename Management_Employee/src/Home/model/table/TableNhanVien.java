@@ -1,34 +1,28 @@
 
-package Home.model;
+package Home.model.table;
 
-import java.util.Date;
-
-public class NhanVien {
+public class TableNhanVien {
     private String MaNV;
     private String HoTen;
-    private Boolean GioiTinh;
-    private Date NgaySinh;
+    private String GioiTinh;
+    private String NgaySinh;
     private String SoCM;
     private String DienThoai;
     private String Email;
     private String DiaChi;
-    private String Hinh;
     private String TrinhDoHV;
     private String MaHD;
-    private String MaCV;
-    private String MaPB;
-    private Date NgayVaoLam;
-    private Date NgayKetThuc;
+    private String PhongBan;
+    private String ChucVu;  
+    private String NgayVaoLam;
+    private String NgayKetThuc;
     private int HeSoLuong;
-    private Boolean LoaiNhanVien;
-    private Boolean TrangThai;
+    private String LoaiNhanVien;
+    private String TrangThai;
 
-    public NhanVien() {
-    }
-
-    public NhanVien(String MaNV, String HoTen, Boolean GioiTinh, Date NgaySinh, String SoCM, String DienThoai, 
-            String Email, String DiaChi, String Hinh, String TrinhDoHV, String MaHD, String MaCV, String MaPB, 
-            Date NgayVaoLam, Date NgayKetThuc, int HeSoLuong,boolean LoaiNhanVien, boolean TrangThai) {
+    public TableNhanVien(String MaNV, String HoTen, String GioiTinh, String NgaySinh, String SoCM, String DienThoai, 
+            String Email, String DiaChi, String TrinhDoHV, String MaHD, String PhongBan, String ChucVu, String NgayVaoLam, 
+            String NgayKetThuc, int HeSoLuong, String LoaiNhanVien, String TrangThai) {
         this.MaNV = MaNV;
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
@@ -37,11 +31,10 @@ public class NhanVien {
         this.DienThoai = DienThoai;
         this.Email = Email;
         this.DiaChi = DiaChi;
-        this.Hinh = Hinh;
         this.TrinhDoHV = TrinhDoHV;
         this.MaHD = MaHD;
-        this.MaCV = MaCV;
-        this.MaPB = MaPB;
+        this.ChucVu = ChucVu;
+        this.PhongBan = PhongBan;
         this.NgayVaoLam = NgayVaoLam;
         this.NgayKetThuc = NgayKetThuc;
         this.HeSoLuong = HeSoLuong;
@@ -65,19 +58,19 @@ public class NhanVien {
         this.HoTen = HoTen;
     }
 
-    public Boolean getGioiTinh() {
+    public String getGioiTinh() {
         return GioiTinh;
     }
 
-    public void setGioiTinh(Boolean GioiTinh) {
+    public void setGioiTinh(String GioiTinh) {
         this.GioiTinh = GioiTinh;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return NgaySinh;
     }
 
-    public void setNgaySinh(Date NgaySinh) {
+    public void setNgaySinh(String NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
 
@@ -113,14 +106,6 @@ public class NhanVien {
         this.DiaChi = DiaChi;
     }
 
-    public String getHinh() {
-        return Hinh;
-    }
-
-    public void setHinh(String Hinh) {
-        this.Hinh = Hinh;
-    }
-
     public String getTrinhDoHV() {
         return TrinhDoHV;
     }
@@ -137,35 +122,35 @@ public class NhanVien {
         this.MaHD = MaHD;
     }
 
-    public String getMaCV() {
-        return MaCV;
+    public String getChucVu() {
+        return ChucVu;
     }
 
-    public void setMaCV(String MaCV) {
-        this.MaCV = MaCV;
+    public void setChucVu(String ChucVu) {
+        this.ChucVu = ChucVu;
     }
 
-    public String getMaPB() {
-        return MaPB;
+    public String getPhongBan() {
+        return PhongBan;
     }
 
-    public void setMaPB(String MaPB) {
-        this.MaPB = MaPB;
+    public void setPhongBan(String PhongBan) {
+        this.PhongBan = PhongBan;
     }
 
-    public Date getNgayVaoLam() {
+    public String getNgayVaoLam() {
         return NgayVaoLam;
     }
 
-    public void setNgayVaoLam(Date NgayVaoLam) {
+    public void setNgayVaoLam(String NgayVaoLam) {
         this.NgayVaoLam = NgayVaoLam;
     }
 
-    public Date getNgayKetThuc() {
+    public String getNgayKetThuc() {
         return NgayKetThuc;
     }
 
-    public void setNgayKetThuc(Date NgayKetThuc) {
+    public void setNgayKetThuc(String NgayKetThuc) {
         this.NgayKetThuc = NgayKetThuc;
     }
 
@@ -177,24 +162,20 @@ public class NhanVien {
         this.HeSoLuong = HeSoLuong;
     }
 
-    public Boolean getLoaiNhanVien() {
+    public String getLoaiNhanVien() {
         return LoaiNhanVien;
     }
 
-    public void setLoaiNhanVien(Boolean LoaiNhanVien) {
+    public void setLoaiNhanVien(String LoaiNhanVien) {
         this.LoaiNhanVien = LoaiNhanVien;
     }
 
-    
-    
-    public Boolean getTrangThai() {
+    public String getTrangThai() {
         return TrangThai;
     }
 
-    public void setTrangThai(Boolean TrangThai) {
+    public void setTrangThai(String TrangThai) {
         this.TrangThai = TrangThai;
     }
 
-    
-    
 }
