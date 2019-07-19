@@ -13,9 +13,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.HomeController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #4777d0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.HomeController">
    <children>
-      <Label alignment="CENTER" layoutX="473.0" layoutY="14.0" text="2019" textFill="#9d00ff" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="10.0">
+      <Label alignment="CENTER" layoutX="473.0" layoutY="14.0" text="2019" textFill="#64eb0a87" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Bold" size="80.0" />
          </font>
@@ -80,7 +80,7 @@
             </HBox>
             <HBox prefHeight="60.0" prefWidth="450.0" style="-fx-background-color: #004082;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="537.0" text="Tổng thu nhập" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="537.0" text="Tổng thu nhập" textFill="#4777d0">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
