@@ -438,7 +438,7 @@ AS
 GO
 EXEC SP_NVChinhThuc ''
 
---Tao Stored Procedure in ra so luong nhan vien
+--Tao Stored Procedure in tinh so luong nhan vien theo phong ban
 IF (OBJECT_ID('SP_SLNhanVien') IS NOT NULL)
   DROP PROCEDURE SP_SLNhanVien
 GO
@@ -517,11 +517,10 @@ CREATE PROCEDURE SP_SLNVTheoThangNam
 	@Nam int
 )
 AS
-			SELECT COUNT(*) FROM NhanVien WHERE YEAR(NgayVaoLam) = @Nam AND MONTH(NgayVaoLam) = @Thang
-
+	SELECT COUNT(*) FROM NhanVien WHERE YEAR(NgayVaoLam) <= @Nam AND MONTH(NgayVaoLam) <= @Thang
 GO		
-SP_SLNVTheoThangNam 11, 2018
-GO
+SP_SLNVTheoThangNam 8, 2018
+
 select * from NhanVien
 
 

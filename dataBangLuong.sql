@@ -1,3 +1,6 @@
+USE QuanLyNhanSu
+GO
+
 EXEC SP_Insert_BangLuong NS001, '2019/6/5', 0,0
 EXEC SP_Insert_BangLuong NS002, '2019/6/5', 0,0
 EXEC SP_Insert_BangLuong NS003, '2019/6/5', 0,0

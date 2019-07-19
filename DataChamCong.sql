@@ -1,3 +1,6 @@
+USE QuanLyNhanSu
+GO
+
 EXEC SP_ChamCong IT001, '2019/06/1', 1, 0, 'Insert'
 EXEC SP_ChamCong IT001, '2019/06/2', 1, 0, 'Insert'
 EXEC SP_ChamCong IT001, '2019/06/3', 1, 0, 'Insert'
