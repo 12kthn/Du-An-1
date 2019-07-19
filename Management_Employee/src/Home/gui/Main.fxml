@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,30 +20,26 @@
                         <Font name="Arial" size="28.0" />
                     </font>
                 </Label>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="193.0" styleClass="hove_border" translateX="968.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="268.0" translateX="898.0">
                <children>
-                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="14.0" stroke="BLACK" strokeType="INSIDE">
+                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="14.0" stroke="BLACK" strokeType="INSIDE" translateX="-2.0">
                      <HBox.margin>
                         <Insets left="10.0" top="10.0" />
                      </HBox.margin>
                   </Circle>
-                  <Label id="menu_taikhoan" onMouseClicked="#setGUIHome" prefHeight="35.0" prefWidth="132.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
+                  <Label id="menu_taikhoan" onMouseClicked="#setGUIHome" prefHeight="35.0" prefWidth="193.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <padding>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets left="20.0" top="5.0" />
                      </HBox.margin>
-                     <graphic>
-                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" translateX="98.0">
-                           <image>
-                              <Image url="@../../Libraries/icone/right-arrow%20(1).png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
                <HBox.margin>
@@ -193,6 +190,28 @@
                         </Label>
                     </children>
                 </HBox>
+                <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
+                    <children>
+                        <Label id="menu_gioithieu" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
+                            <font>
+                                <Font name="Arial" size="15.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                    <image>
+                                        <Image url="@../../Libraries/icone/icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets top="50.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets bottom="15.0" left="30.0" top="15.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </HBox>
                 <HBox layoutX="10.0" layoutY="320.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
                         <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Cài Đặt">
@@ -215,31 +234,17 @@
                         </Label>
                     </children>
                     <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets />
                     </VBox.margin>
                 </HBox>
-                <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
-                    <children>
-                        <Label id="menu_gioithieu" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
-                            <font>
-                                <Font name="Arial" size="15.0" />
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
-                                    <image>
-                                        <Image url="@../../Libraries/icone/icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
-                            <padding>
-                                <Insets bottom="15.0" left="30.0" top="15.0" />
-                            </padding>
-                        </Label>
-                    </children>
-                </HBox>
+            <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="25.0" prefWidth="210.0" text="Phiên bản 1.1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="10.0" top="94.0" />
+               </VBox.margin>
+            </Label>
             </children>
         </VBox>
     </left>
