@@ -37,7 +37,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TableView fx:id="tblNhanVien" layoutX="24.0" layoutY="21.0" onMouseClicked="#selectNhanVien" prefHeight="924.0" prefWidth="1580.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                <TableView fx:id="tblNhanVien" stylesheets="@../../Libraries/table.css" layoutX="24.0" layoutY="21.0" onMouseClicked="#selectNhanVien" prefHeight="924.0" prefWidth="1580.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>

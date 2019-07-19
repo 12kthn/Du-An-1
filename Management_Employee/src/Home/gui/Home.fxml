@@ -122,13 +122,13 @@
             </HBox>
          </children>
       </VBox>
-      <AreaChart fx:id="chartTangTruongNV" layoutX="40.0" layoutY="289.0" prefHeight="311.0" prefWidth="1094.0">
+      <LineChart fx:id="chartTangTruongNV" layoutX="77.0" layoutY="313.0" prefHeight="313.0" prefWidth="968.0" title="Biểu đồ số lượng nhân viên năm 2019" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
-      </AreaChart>
+      </LineChart>
    </children>
 </AnchorPane>

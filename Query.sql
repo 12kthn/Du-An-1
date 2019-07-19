@@ -439,10 +439,10 @@ GO
 EXEC SP_NVChinhThuc ''
 
 --Tao Stored Procedure in tinh so luong nhan vien theo phong ban
-IF (OBJECT_ID('SP_SLNhanVien') IS NOT NULL)
-  DROP PROCEDURE SP_SLNhanVien
+IF (OBJECT_ID('SP_SLNVTheoPhongBan') IS NOT NULL)
+  DROP PROCEDURE SP_SLNVTheoPhongBan
 GO
-CREATE PROCEDURE SP_SLNhanVien
+CREATE PROCEDURE SP_SLNVTheoPhongBan
 (
 	--Tinh so luong theo Phong ban
 	@MaPhongBan varchar(5)
@@ -507,19 +507,35 @@ exec SP_ThuNhap 2019
 EXEC SP_ThuNhap null
 GO
 
---Tao Stored Procedure tinh so luong nhan vien theo thang nam
-IF (OBJECT_ID('SP_SLNVTheoThangNam') IS NOT NULL)
-  DROP PROCEDURE SP_SLNVTheoThangNam
+--Tao Stored Procedure tinh so luong nhan vien theo thoi gian
+IF (OBJECT_ID('SP_SLNVTheoThoiGian') IS NOT NULL)
+  DROP PROCEDURE SP_SLNVTheoThoiGian
 GO
-CREATE PROCEDURE SP_SLNVTheoThangNam
+CREATE PROCEDURE SP_SLNVTheoThoiGian
 (
-	@Thang int,
-	@Nam int
+	@Thang varchar(2),
+	@Nam char(4)
 )
 AS
-	SELECT COUNT(*) FROM NhanVien WHERE YEAR(NgayVaoLam) <= @Nam AND MONTH(NgayVaoLam) <= @Thang
+	SELECT COUNT(*) FROM NhanVien WHERE NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
 GO		
-SP_SLNVTheoThangNam 8, 2018
+SP_SLNVTheoThoiGian '8', '2019'
+
+
+--Tao Stored Procedure tinh so luong nhan vien theo thoi gian va phong ban
+IF (OBJECT_ID('SP_SLNVTheoThoiGianVaPB') IS NOT NULL)
+  DROP PROCEDURE SP_SLNVTheoThoiGianVaPB
+GO
+CREATE PROCEDURE SP_SLNVTheoThoiGianVaPB
+(
+	@MaPB varchar(5),
+	@Thang varchar(2),
+	@Nam char(4)
+)
+AS
+	SELECT COUNT(*) FROM NhanVien WHERE MaPB like '%' + @MaPB + '%' AND NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
+GO		
+SP_SLNVTheoThoiGianVaPB 'MK', '6', '2019'
 
 select * from NhanVien
 
