@@ -11,7 +11,7 @@ public class JDBC {
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyNhanSu";
     private static String username = "sa";
-    private static String password = "ndtung10598";
+    private static String password = "fpolyduan1";
     private static Connection connection;
     //Nạp driver
     static {

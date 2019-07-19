@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;
 
 public class HomeController implements Initializable, Runnable {
@@ -33,6 +34,9 @@ public class HomeController implements Initializable, Runnable {
 
     @FXML
     private Label lblSLNhanVien;
+    
+    @FXML
+    private LineChart lineChart;
 
     @FXML
     public void setGUINhanVien() {
