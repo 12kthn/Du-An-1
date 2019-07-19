@@ -1,33 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Home;
 
+import Home.common.Common;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author Duc Tung
- */
 public class Main extends Application {
     
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml"));
-        
-        Scene scene = new Scene(root);
-        
+        Common.mainStage = stage;
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
