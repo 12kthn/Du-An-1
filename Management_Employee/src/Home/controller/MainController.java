@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -102,18 +103,17 @@ public class MainController implements Initializable {
 
     @FXML
     void getCoorMouse(MouseEvent event) {
-//        xMouse = event.getSceneX();
-//        yMouse = event.getSceneY();
+        xMouse = event.getSceneX();
+        yMouse = event.getSceneY();
     }
 
     @FXML
     public void movePanel(MouseEvent event) {
-//        double x = event.getScreenX();
-//        double y = event.getScreenY();
-//        //set tọa độ mới cho JDialog khi rê chuột
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setX(x - xMouse);
-//        stage.setY(y - yMouse);
+        double x = event.getScreenX();
+        double y = event.getScreenY();
+        //set tọa độ mới cho JDialog khi rê chuột
+        Common.mainStage.setX(x - xMouse);
+        Common.mainStage.setY(y - yMouse);
     }
 
     @FXML
@@ -151,7 +151,7 @@ public class MainController implements Initializable {
 
     }
 
-    //tao 2 bien lưu tọa độ con trỏ chuột
-//    double xMouse;
-//    double yMouse;
+//    tao 2 bien lưu tọa độ con trỏ chuột
+    double xMouse;
+    double yMouse;
 }
