@@ -53,7 +53,7 @@
         </HBox>
     </top>
     <left>
-        <VBox prefHeight="640.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <VBox prefHeight="640.0" prefWidth="200.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
                 <HBox layoutX="10.0" layoutY="286.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
@@ -64,7 +64,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/home-icon-silhouette.png" />
+                                        <Image url="@../../Libraries/icone/home1.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
