@@ -506,7 +506,24 @@ GO
 exec SP_ThuNhap 2019
 EXEC SP_ThuNhap null
 GO
-select * from BangLuong
+
+--Tao Stored Procedure tinh so luong nhan vien theo thang nam
+IF (OBJECT_ID('SP_SLNVTheoThangNam') IS NOT NULL)
+  DROP PROCEDURE SP_SLNVTheoThangNam
+GO
+CREATE PROCEDURE SP_SLNVTheoThangNam
+(
+	@Thang int,
+	@Nam int
+)
+AS
+			SELECT COUNT(*) FROM NhanVien WHERE YEAR(NgayVaoLam) = @Nam AND MONTH(NgayVaoLam) = @Thang
+
+GO		
+SP_SLNVTheoThangNam 11, 2018
+GO
+select * from NhanVien
+
 
 --Tao Stored Procedure in ra table nhan vien
 IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
@@ -542,3 +559,4 @@ CREATE PROCEDURE SP_FindPhongBanByCode
 AS
 	SELECT * FROM PhongBan WHERE MaPB like '%' + @MaPB + '%'
 GO
+

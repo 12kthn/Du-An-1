@@ -1,6 +1,7 @@
 package Home.controller;
 
 import Home.DAO.HomeDAO;
+import Home.DAO.NhanVienDAO;
 import Home.common.Common;
 import java.io.IOException;
 import java.net.URL;
@@ -9,6 +10,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;
 
@@ -36,7 +38,7 @@ public class HomeController implements Initializable, Runnable {
     private Label lblSLNhanVien;
     
     @FXML
-    private LineChart lineChart;
+    private AreaChart chartTangTruongNV;
 
     @FXML
     public void setGUINhanVien() {
