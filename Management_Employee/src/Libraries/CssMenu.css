@@ -1,13 +1,18 @@
+/*css menu*/
+.hover_menu{
+    -fx-text-fill: white;
+}
 .hove_border:hover{
-    -fx-border-color:  #0fbcf9;
-    -fx-border-width: 0px 0px 0px 5px ;
-    -fx-background-color:  #3fdae9;
+    -fx-border-color:   #196bac;
+    -fx-border-width: 0px 0px 0px 10px ;
+    -fx-background-color: #03a9f4;
+    
 }
 .hove_buttonClose:hover{
-     -fx-background-color:  #e81123;
+    -fx-background-color:  #e81123;
 }
 .hover_buton1Minize:hover{
-     -fx-background-color:  #f0f0f0;
+    -fx-background-color:  #f0f0f0;
 }
 
 

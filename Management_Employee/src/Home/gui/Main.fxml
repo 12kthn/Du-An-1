@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -19,23 +12,23 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
-        <HBox fx:id="topPane" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <HBox fx:id="topPane" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #00affd;" text="Logo" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="70.0" prefWidth="201.0" style="-fx-background-color: #03a9f4;" text="Logo" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="28.0" />
                     </font>
                 </Label>
             <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="47.0" prefWidth="268.0" translateX="898.0">
                <children>
-                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="14.0" stroke="BLACK" strokeType="INSIDE" translateX="-2.0">
+                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="24.0" stroke="BLACK" strokeType="INSIDE" translateX="-3.0">
                      <HBox.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="10.0" />
                      </HBox.margin>
                   </Circle>
-                  <Label id="menu_taikhoan" prefHeight="35.0" prefWidth="193.0" text="Tài Khoản " translateX="-10.0" translateY="1.0">
+                  <Label id="menu_taikhoan" prefHeight="35.0" prefWidth="193.0" style="-fx-text-fill: white;" text="Tài Khoản " translateX="-10.0" translateY="1.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -65,14 +58,14 @@
             <children>
                 <HBox layoutX="10.0" layoutY="286.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_trangchu" onMouseClicked="#setGUIHome" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Trang Chủ">
+                        <Label id="menu_trangchu" onMouseClicked="#setGUIHome" prefHeight="34.0" prefWidth="200.0" text="TRANG CHỦ">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/home1.png" />
+                                        <Image url="@../../Libraries/icone/home.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -82,6 +75,10 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                     <VBox.margin>
@@ -90,14 +87,14 @@
                 </HBox>
                 <HBox prefHeight="37.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_nhanvien" onMouseClicked="#setGUINhanVien" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Nhân Viên">
+                        <Label id="menu_nhanvien" onMouseClicked="#setGUINhanVien" prefHeight="34.0" prefWidth="200.0" text="NHÂN VIÊN">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/business-card.png" />
+                                        <Image url="@../../Libraries/icone/nhanvien.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -107,19 +104,23 @@
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="94.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_phongban" onMouseClicked="#setGUIPhongBan" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Phòng Ban">
+                        <Label id="menu_phongban" onMouseClicked="#setGUIPhongBan" prefHeight="34.0" prefWidth="200.0" text="PHÒNG BAN">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/networking.png" />
+                                        <Image url="@../../Libraries/icone/phongban.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -129,19 +130,23 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="158.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_chucvu" onMouseClicked="#setGUIChucVu" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Chức Vụ">
+                        <Label id="menu_chucvu" onMouseClicked="#setGUIChucVu" prefHeight="34.0" prefWidth="200.0" text="CHỨC VỤ">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/teamwork.png" />
+                                        <Image url="@../../Libraries/icone/Chucvu.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -151,19 +156,23 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="222.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_bangluong" onMouseClicked="#setGUIBangLuong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Bảng Lương">
+                        <Label id="menu_bangluong" onMouseClicked="#setGUIBangLuong" prefHeight="34.0" prefWidth="200.0" text="BẢNG LƯƠNG">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/payday.png" />
+                                        <Image url="@../../Libraries/icone/luong.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -173,12 +182,16 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="350.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_chamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Chấm Công">
+                        <Label id="menu_chamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" text="CHẤM CÔNG">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -195,12 +208,16 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Giới Thiệu">
+                        <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
@@ -217,19 +234,23 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="320.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="lblChamcong" prefHeight="34.0" prefWidth="200.0" styleClass="hove_border" text="Cài Đặt">
+                        <Label id="lblChamcong" prefHeight="34.0" prefWidth="200.0" text="CÀI ĐẶT">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/settings-work-tool.png" />
+                                        <Image url="@../../Libraries/icone/caidat.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -239,13 +260,18 @@
                             <padding>
                                 <Insets bottom="15.0" left="30.0" top="15.0" />
                             </padding>
+                     <styleClass>
+                        <String fx:value="hove_border" />
+                        <String fx:value="jfx-tab-pane" />
+                        <String fx:value="hover_menu" />
+                     </styleClass>
                         </Label>
                     </children>
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
                 </HBox>
-            <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="25.0" prefWidth="210.0" text="Phiên bản 1.1">
+            <Label id="lblChamcong" onMouseClicked="#setGUIChamCong" prefHeight="25.0" prefWidth="210.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <padding>
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </padding>
