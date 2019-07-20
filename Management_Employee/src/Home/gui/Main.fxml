@@ -24,7 +24,7 @@
     <top>
         <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" prefHeight="70.0" prefWidth="201.0" style="-fx-background-color: #03a9f4;" text="Logo" textFill="WHITE">
+                <Label alignment="CENTER" prefHeight="70.0" prefWidth="200.0" style="-fx-background-color: #03a9f4;" text="Logo" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="28.0" />
                     </font>

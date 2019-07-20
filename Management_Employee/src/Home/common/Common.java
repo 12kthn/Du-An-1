@@ -1,6 +1,7 @@
 
 package Home.common;
 
+import Home.controller.NhanVienController;
 import java.text.DecimalFormat;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +11,7 @@ public class Common {
     public static Stage mainStage = null;
     public static Scene mainScene = null;
     public static BorderPane mainPane;
+    public static NhanVienController nvController;
     
     static String DECIMAL_FORMAR = "###,###.##";
     /**

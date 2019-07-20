@@ -1,6 +1,6 @@
 /*css menu*/
 .hover_menu{
-    -fx-text-fill: white;
+    -fx-text-fill: #FFF;
 }
 .hove_border:hover{
     -fx-border-color:   #196bac;
@@ -16,6 +16,9 @@
     -fx-border-style: solid;
     -fx-border-width: 1;
     -fx-border-radius: 5;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 12pt;
+    -fx-padding: 6 3 6 3;
 }
 .btn-primary{
     -fx-background-color: #007bff;
@@ -52,12 +55,43 @@
 
 /*jfx-tab-pane style*/
 .jfx-tab-pane .headers-region {
-    -fx-background-color: #1b75bc;
+    -fx-background-color: #03A9F4;
 }
 .jfx-tab-pane .tab-header-background {
-    -fx-background-color: #1b75bc;
+    -fx-background-color: #03A9F4;
 }
 .jfx-tab-pane .tab-selected-line {
     -fx-stroke: #75bc1b;
     -fx-stroke-width: 3pt;
+}
+/*table style*/
+.table-view{
+    
+    -fx-padding: 0 0 0 0;
+}
+.table-view .column-header{
+    -fx-alignment: CENTER;
+    -fx-background-color: #03a9f4;
+}
+
+.table-view .column-header-background .label{
+    /*-fx-background-color: transparent;*/
+    -fx-text-fill: #FFF;
+    -fx-padding: 14 0 14 0;
+}
+
+.table-view .table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-cell-size: 20px;
+}
+
+
+.table-view:focused .table-row-cell:selected{
+    -fx-background-color: #48C1F7;
+    -fx-table-cell-border-color: #48C1F7;
+    -fx-text-fill: #000000;
+}
+
+.table-view:focused .table-row-cell:selected .table-cell {
+    -fx-text-fill: #000000;
 }

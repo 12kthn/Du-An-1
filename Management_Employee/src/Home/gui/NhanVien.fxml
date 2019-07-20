@@ -55,9 +55,9 @@
                 </Tab>
                 <Tab text="Danh sách">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../../Libraries/CssMenu.css">
                             <children>
-                                <TableView fx:id="tblNhanVien" layoutX="51.0" layoutY="84.0" onMouseClicked="#selectNhanVien" prefHeight="501.0" prefWidth="1024.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="91.0" AnchorPane.topAnchor="84.0">
+                                <TableView fx:id="tblNhanVien" layoutX="51.0" layoutY="84.0" onMouseClicked="#selectNhanVien" prefHeight="501.0" prefWidth="1024.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>
@@ -188,7 +188,7 @@
                                     <String fx:value="btn-primary" />
                                  </styleClass>
                                         </JFXButton>
-                                        <JFXButton buttonType="RAISED" prefWidth="120.0" ripplerFill="#0476c3" text="Sửa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Sửa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -200,7 +200,7 @@
                                     <String fx:value="btn-success" />
                                  </styleClass>
                                         </JFXButton>
-                                        <JFXButton buttonType="RAISED" prefWidth="120.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -212,7 +212,7 @@
                                     <String fx:value="btn-danger" />
                                  </styleClass>
                                         </JFXButton>
-                                        <JFXButton buttonType="RAISED" prefWidth="120.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>

@@ -2,12 +2,11 @@
 package Home.model.table;
 
 import Home.common.Picture;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 public class TableNhanVien {
     private Button Delete;
+    private Button Update;
     private String MaNV;
     private String HoTen;
     private String GioiTinh;
@@ -48,14 +47,8 @@ public class TableNhanVien {
         this.HeSoLuong = HeSoLuong;
         this.LoaiNhanVien = LoaiNhanVien;
         this.TrangThai = TrangThai;
-//        this.Delete = new Button("", picture.createIcone("delete.png"));
-//        Delete.setMaxSize(10, 10);
-//        Delete.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent e) {
-//                System.out.println(MaNV);
-//            }
-//        });
+        this.Delete = new Button("", picture.createIcone("delete.png"));
+        this.Update = new Button("", picture.createIcone("edit.png"));
     }
 
     public Button getDelete() {
@@ -66,6 +59,16 @@ public class TableNhanVien {
         this.Delete = Delete;
     }
 
+    public Button getUpdate() {
+        return Update;
+    }
+
+    public void setUpdate(Button Update) {
+        this.Update = Update;
+    }
+
+    
+    
     public String getMaNV() {
         return MaNV;
     }
