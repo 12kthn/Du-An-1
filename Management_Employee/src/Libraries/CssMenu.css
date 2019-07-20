@@ -8,7 +8,9 @@
     -fx-background-color: #03a9f4;
     
 }
-
+.hover_buttonclose:hover{
+    -fx-background-color: #e81123;
+}
 
 /*button style*/
 .btn{
