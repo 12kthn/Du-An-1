@@ -1,6 +1,7 @@
 
 package Home.controller;
 
+import Home.DAO.TableChamCongDAO;
 import Home.model.table.TableChamCong;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,68 +25,24 @@ import javafx.util.Callback;
 
 public class ChamCongController implements Initializable {
 
-    @FXML
-    private TableView<TableChamCong> tblChamCong;
-
-    private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
-
-    @FXML
-    private BarChart chartTyLeDiLam;
     
-    @FXML
-    private PieChart chartTyLeNgayLamViec;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setChartTyLeDiLam();
-        setChartTyLeNgayLamViec();
-        setDataTable();
-        
+        try {
+            setColumnModel(2019,5);
+            setDataTable();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void setDataTable(){
-        setColumnModel();
-
-        TableChamCong tableChamCong = new TableChamCong();
-        tableChamCong.setMaNV("IT001");
-        tableChamCong.setHoTen("Phạm Duy Biên");
-        tableChamCong.setPhongBan("Kỹ thuật");
-        tableChamCong.setNgay1(true);
-        tableChamCong.setNgay2(false);
-        tableChamCong.setNgay3(true);
-        tableChamCong.setNgay4(true);
-        tableChamCong.setNgay5(true);
-        tableChamCong.setNgay6(true);
-        tableChamCong.setNgay7(false);
-        tableChamCong.setNgay8(true);
-        tableChamCong.setNgay9(true);
-        tableChamCong.setNgay10(true);
-        tableChamCong.setNgay11(true);
-        tableChamCong.setNgay12(true);
-        tableChamCong.setNgay13(true);
-        tableChamCong.setNgay14(true);
-        tableChamCong.setNgay15(true);
-        tableChamCong.setNgay16(true);
-        tableChamCong.setNgay17(true);
-        tableChamCong.setNgay18(false);
-        tableChamCong.setNgay19(true);
-        tableChamCong.setNgay20(true);
-        tableChamCong.setNgay21(true);
-        tableChamCong.setNgay22(true);
-        tableChamCong.setNgay23(true);
-        tableChamCong.setNgay24(true);
-        tableChamCong.setNgay25(false);
-        tableChamCong.setNgay26(true);
-        tableChamCong.setNgay27(true);
-        tableChamCong.setNgay28(true);
-        tableChamCong.setNgay29(true);
-        tableChamCong.setNgay30(true);
-        tableChamCong.setNgay31(false);
-        data.add(tableChamCong);
-        tblChamCong.setItems(data);
+        
+        tblChamCong.setItems(tbl_ChamCongDAO.getData(2019, 5));
     }
     
-    private void setColumnModel() {
+    private void setColumnModel(int nam, int thang) {
         //Khai bao cot
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("maNV"));
@@ -93,7 +50,7 @@ public class ChamCongController implements Initializable {
         col2.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         col3 = new TableColumn<>("Phòng ban");
         col3.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
-        dateCol = new TableColumn<>("Ngày tháng");
+        dateCol = new TableColumn<>("Tháng " + thang + " năm " + nam);
         col4 = new TableColumn<>("Ngày1");
         col5 = new TableColumn<>("Ngày2");
         col6 = new TableColumn<>("Ngày3");
@@ -659,6 +616,9 @@ public class ChamCongController implements Initializable {
         chartTyLeNgayLamViec.getData().add(slice2);
     }
 
+    private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
+    TableChamCongDAO tbl_ChamCongDAO = new TableChamCongDAO();
+    
     private TableColumn<TableChamCong, String> col1;
     private TableColumn<TableChamCong, String> col2;
     private TableColumn<TableChamCong, String> col3;
@@ -695,4 +655,16 @@ public class ChamCongController implements Initializable {
     private TableColumn<TableChamCong, Boolean> col33;
     private TableColumn<TableChamCong, Boolean> col34;
     private TableColumn<TableChamCong, String> col35;
+    
+    @FXML
+    private TableView<TableChamCong> tblChamCong;
+
+    
+
+    @FXML
+    private BarChart chartTyLeDiLam;
+    
+    @FXML
+    private PieChart chartTyLeNgayLamViec;
+    
 }

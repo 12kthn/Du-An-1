@@ -79,6 +79,7 @@ public class HomeController implements Initializable, Runnable {
     @Override
     public void run() {
         try {
+            Thread.sleep(1000);
             double plusNum1 = dao.getSLNVTheoPhongBan() / 20.0;
             double plusNum2 = dao.getThuNhap() / 20.0;
             double plusNum3 = dao.getSoGioLamViec() / 20.0;

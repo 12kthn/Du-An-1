@@ -1,26 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Home.model.table;
 
-/**
- *
- * @author nucle
- */
+import Home.model.PhongBan;
+
 public class TableChamCong {
+
     private String maNV;
     private String hoTen;
-    private String phongBan;
+    private PhongBan phongBan;
     private String nam;
     private String thang;
-    private Boolean ngay1, ngay2, ngay3, ngay4, ngay5, ngay6, ngay7, ngay8, ngay9, ngay10, ngay11, ngay12, ngay13, ngay14, ngay15, 
+    private Boolean ngay1, ngay2, ngay3, ngay4, ngay5, ngay6, ngay7, ngay8, ngay9, ngay10, ngay11, ngay12, ngay13, ngay14, ngay15,
             ngay16, ngay17, ngay18, ngay19, ngay20, ngay21, ngay22, ngay23, ngay24, ngay25, ngay26, ngay27, ngay28, ngay29, ngay30, ngay31;
 
-    
     public TableChamCong() {
-        
+
     }
 
     public String getMaNV() {
@@ -39,11 +32,11 @@ public class TableChamCong {
         this.hoTen = hoTen;
     }
 
-    public String getPhongBan() {
+    public PhongBan getPhongBan() {
         return phongBan;
     }
 
-    public void setPhongBan(String phongBan) {
+    public void setPhongBan(PhongBan phongBan) {
         this.phongBan = phongBan;
     }
 
@@ -63,6 +56,51 @@ public class TableChamCong {
         this.thang = thang;
     }
 
+    private void setNgay(Boolean[] onWork) {
+        this.ngay1 = onWork[0];
+        this.ngay2 = onWork[1];
+        this.ngay3 = onWork[2];
+        this.ngay4 = onWork[3];
+        this.ngay5 = onWork[4];
+        this.ngay6 = onWork[5];
+        this.ngay7 = onWork[6];
+        this.ngay8 = onWork[7];
+        this.ngay9 = onWork[8];
+        this.ngay10 = onWork[9];
+        this.ngay11 = onWork[10];
+        this.ngay12 = onWork[11];
+        this.ngay13 = onWork[12];
+        this.ngay14 = onWork[13];
+        this.ngay15 = onWork[14];
+        this.ngay16 = onWork[15];
+        this.ngay17 = onWork[16];
+        this.ngay18 = onWork[17];
+        this.ngay19 = onWork[18];
+        this.ngay20 = onWork[19];
+        this.ngay21 = onWork[20];
+        this.ngay22 = onWork[21];
+        this.ngay23 = onWork[22];
+        this.ngay24 = onWork[23];
+        this.ngay25 = onWork[24];
+        this.ngay26 = onWork[25];
+        this.ngay27 = onWork[26];
+        this.ngay28 = onWork[27];
+        this.ngay29 = onWork[28];
+        this.ngay30 = onWork[29];
+        this.ngay31 = onWork[30];
+    }
+
+    public TableChamCong(String maNV, String hoTen, PhongBan phongBan, String nam, String thang, Boolean[] onWork) {
+        this.maNV = maNV;
+        this.hoTen = hoTen;
+        this.phongBan = phongBan;
+        this.nam = nam;
+        this.thang = thang;
+        this.setNgay(onWork);
+    }
+
+    
+    
     public Boolean getNgay1() {
         return ngay1;
     }
@@ -310,5 +348,5 @@ public class TableChamCong {
     public void setNgay31(Boolean ngay31) {
         this.ngay31 = ngay31;
     }
- 
+
 }

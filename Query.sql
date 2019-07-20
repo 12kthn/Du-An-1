@@ -346,7 +346,7 @@ RETURNS int
 AS
 	BEGIN
 		DECLARE @NgayCong int
-		SET @NgayCong = (SELECT count(MaNV) FROM ChamCong WHERE MaNV = @MaNV AND 
+		SET @NgayCong = (SELECT COUNT(MaNV) FROM ChamCong WHERE MaNV = @MaNV AND 
 				Ngay BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang))
 
 		RETURN @NgayCong
@@ -459,7 +459,7 @@ AS
 			SELECT COUNT(*) FROM NhanVien
 		END
 GO		
-
+SP_SLNVTheoPhongBan null
 
 GO
 --Tao Stored Procedure tinh so gio lam viec theo nam
@@ -609,3 +609,61 @@ GO
 
 EXEC SP_FindPhongBanByCode null
 
+--Tao Stored Procedure tim kiem Chuc vu theo ma
+IF (OBJECT_ID('SP_FindChucVyByCode') IS NOT NULL)
+  DROP PROCEDURE SP_FindChucVuByCode
+GO
+CREATE PROCEDURE SP_FindChucVuByCode
+(
+	@MaCV varchar(5)
+)
+AS
+	IF @MaCV is not null
+		BEGIN
+			SELECT * FROM ChucVu WHERE MaCV = @MaCV
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM ChucVu
+		END
+GO
+
+EXEC SP_FindChucVuByCode 'NT'
+
+
+--Tao Stored Procedure kiem tra trang thai di lam cua nhan vien theo ngay thang
+IF (OBJECT_ID('SP_TrangThaiDiLam') IS NOT NULL)
+  DROP PROCEDURE SP_TrangThaiDiLam
+GO
+CREATE PROCEDURE SP_TrangThaiDiLam
+(
+	@MaNV varchar(10),
+	@Nam char(4),
+	@Thang varchar(2),
+	@Ngay varchar(2)
+)
+AS
+	BEGIN
+		SELECT TinhTrang FROM ChamCong WHERE MaNV = @MaNV AND Ngay = CAST(@Nam + '-' + @Thang + '-' + @Ngay AS DATETIME)
+	END
+GO
+EXEC SP_TrangThaiDiLam 'IT002', '2019', '6', '4'
+
+--Tao Stored Procedure hien thi bang cham cong cua nhan vien theo thang nam
+IF (OBJECT_ID('SP_ChamCongTheoThang') IS NOT NULL)
+  DROP PROCEDURE SP_ChamCongTheoThang
+GO
+CREATE PROCEDURE SP_ChamCongTheoThang
+(
+	@MaNV varchar(10),
+	@Nam char(4),
+	@Thang varchar(2)
+)
+AS
+	BEGIN
+		DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
+		SELECT TinhTrang FROM ChamCong WHERE MaNV = @MaNV AND Ngay BETWEEN @Ngay AND EOMONTH(@ngay)
+	END
+GO
+
+EXEC SP_ChamCongTheoThang 'IT001', '2019', '5'
