@@ -195,6 +195,9 @@ public class NhanVien {
         this.TrangThai = TrangThai;
     }
 
-    
+    @Override
+    public String toString() {
+        return HoTen;
+    }
     
 }

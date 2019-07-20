@@ -2,9 +2,8 @@
 package Home.controller;
 
 import Home.DAO.NhanVienDAO;
-import Home.DAO.PhongBanDAO;
+import Home.DAO.ToChucDAO;
 import Home.common.Common;
-import Home.common.Picture;
 import Home.common.XDate;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -24,14 +23,12 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
 public class NhanVienController implements Initializable {
 
@@ -40,13 +37,13 @@ public class NhanVienController implements Initializable {
         try {
             Common.nvController = this;
             nvdao = new NhanVienDAO();
-            pbdao = new PhongBanDAO();
+            tcdao = new ToChucDAO();
             loadPieChart();
             loadBarChart();
-            setTableModel();
+            setTableColumn();
             loadDataToTable();
             DPickerNgaySinh.setConverter(XDate.converter);
-            fillCbo();
+            loadCbo();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -59,8 +56,8 @@ public class NhanVienController implements Initializable {
     private void loadBarChart() {
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
-    Picture picture = new Picture();
-    private void setTableModel(){
+
+    private void setTableColumn(){
         //Khai bao cot
         deleteColumn = new TableColumn<>("");
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
@@ -114,21 +111,21 @@ public class NhanVienController implements Initializable {
         tblNhanVien.setItems(data);
     }
 
-    private void fillCbo() {
+    private void loadCbo() {
         listGioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
         cboGioiTinh.setItems(listGioiTinh);
         
         listTrangThai = FXCollections.observableArrayList("Đang làm việc", "Đã nghỉ việc");
         cboTrangThai.setItems(listTrangThai);
         
-        listPhongBan = pbdao.findByCode("");
+        listPhongBan = tcdao.findPhongBanByCode("");
         cboPhongBan.setItems(listPhongBan);
     }
     
     @FXML
     private void selectNhanVien(MouseEvent event){
         TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
-        nv = nvdao.findByCode(tableNhanVien.getMaNV());
+        NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
         if (event.getClickCount() == 2) {
             setModel(nv);
             changeTabPane(2);
@@ -248,12 +245,10 @@ public class NhanVienController implements Initializable {
     @FXML
     private JFXTabPane tabPane;
 
-    private NhanVien nv;
     private NhanVienDAO nvdao;
-    private PhongBanDAO pbdao;
+    private ToChucDAO tcdao;
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
-    private TableColumn<TableNhanVien, HBox> actionColumn;
     private TableColumn<TableNhanVien, String> col1;
     private TableColumn<TableNhanVien, String> col2;
     private TableColumn<TableNhanVien, String> col3;

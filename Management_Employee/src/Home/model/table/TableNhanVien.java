@@ -24,8 +24,6 @@ public class TableNhanVien {
     private int HeSoLuong;
     private String LoaiNhanVien;
     private String TrangThai;
-
-    Picture picture = new Picture();
     
     public TableNhanVien(String MaNV, String HoTen, String GioiTinh, String NgaySinh, String SoCM, String DienThoai, 
             String Email, String DiaChi, String TrinhDoHV, String MaHD, String PhongBan, String ChucVu, String NgayVaoLam, 
@@ -47,6 +45,8 @@ public class TableNhanVien {
         this.HeSoLuong = HeSoLuong;
         this.LoaiNhanVien = LoaiNhanVien;
         this.TrangThai = TrangThai;
+        
+        Picture picture = new Picture();
         this.Delete = new Button("", picture.createIcone("delete.png"));
         this.Update = new Button("", picture.createIcone("edit.png"));
     }

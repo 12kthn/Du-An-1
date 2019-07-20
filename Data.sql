@@ -92,10 +92,10 @@ EXEC SP_NhanVien MK001, N'Trần Quang Vinh', 1, '1994/11/5',  '2413325164', '0
 	null, N'Gò Vấp', null, N'Cao đẳng', 'HDLD140001', 'GD', 'GD', '2018/11/20', null, 3, 1, 1, 'Insert'
 --------------------------------------------------------------------------------------
 EXEC SP_NhanVien MK002, N'Nguyễn Văn Biển', 1, '1995/1/9',  '7634332345', '0126998562', 
-	null, N'Tân Phú', null, N'Cao đẳng', 'HDLD160010', 'NT', 'MK', '2018/11/20', null, 2.5, 1, 1, 'Insert'
+	null, N'Tân Phú', null, N'Cao đẳng', 'HDLD160010', 'TP', 'MK', '2018/11/20', null, 2.5, 1, 1, 'Insert'
 --------------------------------------------------------------------------------------
 EXEC SP_NhanVien MK003, N'Nguyễn Đức Nam', 1, '1995/10/8',  '5546536543', '0902322321', 
-	null, N'Tân Bình', null, N'Đại Học', 'HDLD180019', 'NV', 'MK', '2018/11/20', null, 2, 1, 1, 'Insert'
+	null, N'Tân Bình', null, N'Đại Học', 'HDLD180019', 'NT', 'MK', '2018/11/20', null, 2, 1, 1, 'Insert'
 --------------------------------------------------------------------------------------
 EXEC SP_NhanVien MK004, N'Cao Thanh Tú', 0, '1995/11/8',  '4434635787', '0125334544', 
 	null, N'Quận 9', null, N'Đại Học', 'HDLD180020', 'NV', 'MK', '2018/11/20', null, 2, 1, 1, 'Insert'
@@ -184,6 +184,28 @@ EXEC SP_NhanVien IT010, N'Dương Văn Minh', 1, '1997/07/7',  '7577884012', '01
 GO
 
 select * from NhanVien
+
+--Them truong phong
+UPDATE PhongBan 
+SET MaTruongPhong = 'IT001'
+WHERE MaPB = 'IT'
+UPDATE PhongBan 
+SET MaTruongPhong = 'KT001'
+WHERE MaPB = 'KT'
+UPDATE PhongBan 
+SET MaTruongPhong = 'MK002'
+WHERE MaPB = 'MK'
+UPDATE PhongBan 
+SET MaTruongPhong = 'NS001'
+WHERE MaPB = 'NS'
+UPDATE PhongBan 
+SET MaTruongPhong = 'SL001'
+WHERE MaPB = 'SL'	
+UPDATE PhongBan 
+SET MaTruongPhong = 'MK001'
+WHERE MaPB = 'GD'
+
+select* from PhongBan
 
 --Insert into ThanNhan
 EXEC SP_ThanNhan null, N'Phạm Ngọc Duy', N'Học Sinh', N'Em', 'IT001', 1, 'Insert'

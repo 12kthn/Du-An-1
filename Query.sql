@@ -569,6 +569,25 @@ AS
 		END
 GO
 
+--Tao Stored Procedure tim kiem nhan vien theo PhongBan
+IF (OBJECT_ID('SP_FindNVByPB') IS NOT NULL)
+  DROP PROCEDURE SP_FindNVByPB
+GO
+CREATE PROCEDURE SP_FindNVByPB
+(
+	@MaPB varchar(10)
+)
+AS
+	IF @MaPB is not null
+		BEGIN
+			SELECT * FROM NhanVien WHERE MaPB = @MaPB
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM NhanVien
+		END
+GO
+
 --Tao Stored Procedure tim kiem phong ban theo ma
 IF (OBJECT_ID('SP_FindPhongBanByCode') IS NOT NULL)
   DROP PROCEDURE SP_FindPhongBanByCode
@@ -587,4 +606,6 @@ AS
 			SELECT * FROM PhongBan
 		END
 GO
+
+EXEC SP_FindPhongBanByCode null
 
