@@ -2,7 +2,7 @@
 package Home.controller;
 
 import Home.DAO.NhanVienDAO;
-import Home.DAO.ToChucDAO;
+import Home.DAO.PhongBanDAO;
 import Home.common.Common;
 import Home.common.XDate;
 import Home.model.NhanVien;
@@ -37,7 +37,7 @@ public class NhanVienController implements Initializable {
         try {
             Common.nvController = this;
             nvdao = new NhanVienDAO();
-            tcdao = new ToChucDAO();
+            pbdao = new PhongBanDAO();
             loadPieChart();
             loadBarChart();
             setTableColumn();
@@ -118,7 +118,7 @@ public class NhanVienController implements Initializable {
         listTrangThai = FXCollections.observableArrayList("Đang làm việc", "Đã nghỉ việc");
         cboTrangThai.setItems(listTrangThai);
         
-        listPhongBan = tcdao.findPhongBanByCode("");
+        listPhongBan = pbdao.findByCode(null);
         cboPhongBan.setItems(listPhongBan);
     }
     
@@ -246,7 +246,8 @@ public class NhanVienController implements Initializable {
     private JFXTabPane tabPane;
 
     private NhanVienDAO nvdao;
-    private ToChucDAO tcdao;
+    private PhongBanDAO pbdao;
+    
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
     private TableColumn<TableNhanVien, String> col1;

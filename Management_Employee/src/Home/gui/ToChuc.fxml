@@ -86,6 +86,6 @@
             </JFXTextField>
          </children>
       </VBox>
-      <TableView fx:id="tblChucVu" layoutX="20.0" layoutY="20.0" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <TableView fx:id="tblChucVu" layoutX="20.0" layoutY="20.0" onMouseClicked="#selectChucVu" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
    </children>
 </AnchorPane>

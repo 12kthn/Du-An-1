@@ -1,16 +1,13 @@
 package Home.controller;
 
 import Home.DAO.HomeDAO;
-import Home.common.Common;
-import java.io.IOException;
+import Home.common.FormatNumber;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -93,7 +90,7 @@ public class HomeController implements Initializable, Runnable {
                     @Override
                     public void run() {
                         lblSLNhanVien.setText(value1 + "");
-                        lblThuNhap.setText(Common.formatDouble(value2, "###,###.###"));
+                        lblThuNhap.setText(FormatNumber.formatDouble(value2, "###,###.###"));
                         lblSoGIoLamViec.setText(value3 + "");
 
                     }

@@ -12,12 +12,12 @@ package Home.model;
 public class ChucVu {
     private String MaCV;
     private String TenCV;
-    private float PhuCap;
+    private Double PhuCap;
     
     public ChucVu(){
     }
     
-    public ChucVu(String MaCV,String TenCV,float PhuCap){
+    public ChucVu(String MaCV,String TenCV,Double PhuCap){
         this.MaCV = MaCV;
         this.TenCV = TenCV;
         this.PhuCap = PhuCap;
@@ -34,7 +34,7 @@ public class ChucVu {
         return TenCV;
     }
 
-    public float getPhuCap() {
+    public Double getPhuCap() {
         return PhuCap;
     }
     
@@ -50,8 +50,13 @@ public class ChucVu {
         this.TenCV = TenCV;
     }
 
-    public void setPhuCap(float PhuCap) {
+    public void setPhuCap(Double PhuCap) {
         this.PhuCap = PhuCap;
+    }
+
+    @Override
+    public String toString() {
+        return TenCV;
     }
     
     

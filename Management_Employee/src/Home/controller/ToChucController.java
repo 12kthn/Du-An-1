@@ -1,10 +1,16 @@
-
 package Home.controller;
 
+import Home.DAO.ChucVuDAO;
 import Home.DAO.NhanVienDAO;
-import Home.DAO.ToChucDAO;
+import Home.DAO.PhongBanDAO;
+import Home.DAO.TableChucVuDAO;
+import Home.DAO.TablePhongBanDAO;
+import Home.common.Common;
+import Home.common.FormatNumber;
+import Home.model.ChucVu;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
+import Home.model.table.TableChucVu;
 import Home.model.table.TablePhongBan;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -19,59 +25,108 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class ToChucController implements Initializable{
+public class ToChucController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tcdao = new ToChucDAO();
-        nvdao = new NhanVienDAO();
-        setTableColumn();
-        loadDataToTblPhongBan();
+        try {
+            
+            Common.tcController = this;
+            
+            //tạo các đối tượng DAO
+            nvdao = new NhanVienDAO();
+            pbdao = new PhongBanDAO();
+            cvdao = new ChucVuDAO();
+            tbl_PBdao = new TablePhongBanDAO();
+            tbl_CVdao = new TableChucVuDAO();
+            
+            //chạy các phương thức khi khởi tạo
+            setTableColumn_PB();
+            setTableColumn_CV();
+            
+            loadDataToTblPhongBan();
+            loadDataToTblChucVu();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
-    
-    private void loadCboNhanVien(String maPB){
+
+    private void loadCboNhanVien(String maPB) {
+        //tạo danh sách Nhân viên có trong Phòng ban
         listNhanVien = nvdao.findNVByPB(maPB);
+        //thêm vào Combobox
         cboNhanVien.setItems(listNhanVien);
     }
-    
-    private void setTableColumn(){
-        //Khai bao cot
-        deleteColumn = new TableColumn<>("");
-        deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
-        
-        updateColumn = new TableColumn<>("");
-        updateColumn.setCellValueFactory(new PropertyValueFactory<>("Update"));
-        updateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-                
-        col1 = new TableColumn<>("Mã PB");
-        col1.setCellValueFactory(new PropertyValueFactory<>("MaPB"));
-        col1.setPrefWidth(100);
-        
-        col2 = new TableColumn<>("Tên PB");
-        col2.setCellValueFactory(new PropertyValueFactory<>("TenPB"));
-        col2.setPrefWidth(100);
-        
-        col3 = new TableColumn<>("Trưởng phòng");
-        col3.setCellValueFactory(new PropertyValueFactory<>("TruongPhong"));
-        col3.setPrefWidth(180);
-        
-        tblPhongBan.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3);
+
+    private void setTableColumn_PB() {
+        //Tạo và định dạng cột
+        deleteColumn_PB = new TableColumn<>("");
+        deleteColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Delete"));
+        deleteColumn_PB.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+
+        updateColumn_PB = new TableColumn<>("");
+        updateColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Update"));
+        updateColumn_PB.setStyle("-fx-alignment: CENTER-LEFT;");
+
+        col1_PB = new TableColumn<>("Mã PB");
+        col1_PB.setCellValueFactory(new PropertyValueFactory<>("MaPB"));
+        col1_PB.setPrefWidth(100);
+
+        col2_PB = new TableColumn<>("Tên PB");
+        col2_PB.setCellValueFactory(new PropertyValueFactory<>("TenPB"));
+        col2_PB.setPrefWidth(100);
+
+        col3_PB = new TableColumn<>("Trưởng phòng");
+        col3_PB.setCellValueFactory(new PropertyValueFactory<>("TruongPhong"));
+        col3_PB.setPrefWidth(180);
+
+        //thêm các cột vào table
+        tblPhongBan.getColumns().addAll(deleteColumn_PB, updateColumn_PB, col1_PB, col2_PB, col3_PB);
     }
-    
-    private void loadDataToTblPhongBan(){
-        data = tcdao.getDataForTblPhongBan();
-        tblPhongBan.setItems(data);
+
+    private void setTableColumn_CV() {
+        //Tạo và định dạng cột
+        deleteColumn_CV = new TableColumn<>("");
+        deleteColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Delete"));
+        deleteColumn_CV.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+
+        updateColumn_CV = new TableColumn<>("");
+        updateColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Update"));
+        updateColumn_CV.setStyle("-fx-alignment: CENTER-LEFT;");
+
+        col1_CV = new TableColumn<>("Mã CV");
+        col1_CV.setCellValueFactory(new PropertyValueFactory<>("MaCV"));
+        col1_CV.setPrefWidth(100);
+
+        col2_CV = new TableColumn<>("Tên CV");
+        col2_CV.setCellValueFactory(new PropertyValueFactory<>("TenCV"));
+        col2_CV.setPrefWidth(100);
+
+        col3_CV = new TableColumn<>("Phụ cấp");
+        col3_CV.setCellValueFactory(new PropertyValueFactory<>("PhuCap"));
+        col3_CV.setPrefWidth(180);
+
+        //thêm các cột vào table
+        tblChucVu.getColumns().addAll(deleteColumn_CV, updateColumn_CV, col1_CV, col2_CV, col3_CV);
     }
-    
-    @FXML
-    private void selectPhongBan(MouseEvent event){
-        TablePhongBan tablePhongBan = tblPhongBan.getSelectionModel().getSelectedItem();
-        PhongBan pb = tcdao.findPhongBanByCode(tablePhongBan.getMaPB()).get(0);
-        setModel(pb);
+
+    private void loadDataToTblPhongBan() {
+        //tạo data
+        data_PB = tbl_PBdao.getData();
+        // thêm data vào bảng
+        tblPhongBan.setItems(data_PB);
     }
-    
-    private void setModel(PhongBan pb){
+
+    private void loadDataToTblChucVu() {
+        //tạo data
+        data_CV = tbl_CVdao.getData();
+        // thêm data vào bảng
+        tblChucVu.setItems(data_CV);
+    }
+
+    public void setModel(PhongBan pb) {
         txtMaPB.setText(pb.getMaPB());
         txtTenPB.setText(pb.getTenPB());
         loadCboNhanVien(pb.getMaPB());
@@ -81,35 +136,70 @@ public class ToChucController implements Initializable{
             }
         }
     }
-    
-    private ToChucDAO tcdao;
-    private NhanVienDAO nvdao;
-    private TableColumn<TablePhongBan, Button> deleteColumn;
-    private TableColumn<TablePhongBan, Button> updateColumn;
-    private TableColumn<TablePhongBan, String> col1;
-    private TableColumn<TablePhongBan, String> col2;
-    private TableColumn<TablePhongBan, String> col3;
-    private ObservableList<TablePhongBan> data;
-    private ObservableList<NhanVien> listNhanVien;
-    @FXML
-    private JFXTextField txtPhuCap;
 
+    public void setModel(ChucVu cv) {
+        txtMaCV.setText(cv.getMaCV());
+        txtTenCV.setText(cv.getTenCV());
+        txtPhuCap.setText(FormatNumber.formatDouble(cv.getPhuCap()));
+    }
+
+    //Khai báo các lớp DAO
+    private NhanVienDAO nvdao;
+    private PhongBanDAO pbdao;
+    private ChucVuDAO cvdao;
+    private TablePhongBanDAO tbl_PBdao;
+    private TableChucVuDAO tbl_CVdao;
+    
+    //Khai báo  các cột cho bảng Phòng ban
+    private TableColumn<TablePhongBan, Button> deleteColumn_PB;
+    private TableColumn<TablePhongBan, Button> updateColumn_PB;
+    private TableColumn<TablePhongBan, String> col1_PB;
+    private TableColumn<TablePhongBan, String> col2_PB;
+    private TableColumn<TablePhongBan, String> col3_PB;
+    //Khai báo  biến chứa dữ liệu của bảng Phòng ban
+    private ObservableList<TablePhongBan> data_PB;
+
+    //Khai báo các cột cho bảng Chức vụ
+    private TableColumn<TableChucVu, Button> deleteColumn_CV;
+    private TableColumn<TableChucVu, Button> updateColumn_CV;
+    private TableColumn<TableChucVu, String> col1_CV;
+    private TableColumn<TableChucVu, String> col2_CV;
+    private TableColumn<TableChucVu, String> col3_CV;
+    //Khai báo  biến chứa dữ liệu của bảng Chức vụ
+    private ObservableList<TableChucVu> data_CV;
+
+    //Khai báo  biến chứa danh sách Nhân viên cho cboNhanVien
+    private ObservableList<NhanVien> listNhanVien;
+    
+    //Khai báo  các biến vá phương thức trong file FXML
+    @FXML
+    private JFXTextField txtMaPB;
+    @FXML
+    private JFXTextField txtTenPB;
+    @FXML
+    private JFXComboBox<NhanVien> cboNhanVien;
+    @FXML
+    private JFXTextField txtMaCV;
     @FXML
     private JFXTextField txtTenCV;
     @FXML
-    private JFXComboBox<NhanVien> cboNhanVien;
-
-    @FXML
-    private JFXTextField txtMaCV;
-
-    @FXML
-    private JFXTextField txtMaPB;
-
-    @FXML
-    private JFXTextField txtTenPB;
-
+    private JFXTextField txtPhuCap;
     @FXML
     private TableView<TablePhongBan> tblPhongBan;
     @FXML
-    private TableView<?> tblChucVu;
+    private TableView<TableChucVu> tblChucVu;
+    
+    @FXML
+    private void selectPhongBan(MouseEvent event) {
+        TablePhongBan tableModel = tblPhongBan.getSelectionModel().getSelectedItem();
+        PhongBan pb = pbdao.findByCode(tableModel.getMaPB()).get(0);
+        setModel(pb);
+    }
+
+    @FXML
+    private void selectChucVu(MouseEvent event) {
+        TableChucVu tableModel = tblChucVu.getSelectionModel().getSelectedItem();
+        ChucVu cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
+        setModel(cv);
+    }
 }
