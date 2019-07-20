@@ -3,6 +3,8 @@ package Home.controller;
 
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
+import Home.common.Common;
+import Home.common.Picture;
 import Home.common.XDate;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -20,19 +22,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class NhanVienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            Common.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
             loadPieChart();
@@ -53,9 +59,17 @@ public class NhanVienController implements Initializable {
     private void loadBarChart() {
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
-    
+    Picture picture = new Picture();
     private void setTableModel(){
         //Khai bao cot
+        deleteColumn = new TableColumn<>("");
+        deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
+        deleteColumn.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+        
+        updateColumn = new TableColumn<>("");
+        updateColumn.setCellValueFactory(new PropertyValueFactory<>("Update"));
+        updateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+                
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("MaNV"));
         col2 = new TableColumn<>("Họ tên");
@@ -91,7 +105,7 @@ public class NhanVienController implements Initializable {
         col17 = new TableColumn<>("Trạng thái");
         col17.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
         
-        tblNhanVien.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, 
+        tblNhanVien.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, 
                 col11, col12, col13, col14, col15, col16, col17);
     }
     
@@ -116,15 +130,18 @@ public class NhanVienController implements Initializable {
         TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
         nv = nvdao.findByCode(tableNhanVien.getMaNV());
         if (event.getClickCount() == 2) {
-            tabPane.getSelectionModel().select(2);
-            setModel();
+            setModel(nv);
+            changeTabPane(2);
         }
     }
     
-    private void setModel(){
+    public void changeTabPane(int tabIndex){
+        tabPane.getSelectionModel().select(tabIndex);
+    }
+    
+    public void setModel(NhanVien nv){
         //set hinh cho image view imgHinh
-        Class<?> cl = this.getClass();
-        InputStream input = cl.getResourceAsStream("/Libraries/images/IT005.jpg");
+        InputStream input = getClass().getResourceAsStream("/Libraries/images/IT005.jpg");
         Image image = new Image(input);
         imgHinh.setImage(image);
         
@@ -234,6 +251,9 @@ public class NhanVienController implements Initializable {
     private NhanVien nv;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
+    private TableColumn<TableNhanVien, Button> deleteColumn;
+    private TableColumn<TableNhanVien, Button> updateColumn;
+    private TableColumn<TableNhanVien, HBox> actionColumn;
     private TableColumn<TableNhanVien, String> col1;
     private TableColumn<TableNhanVien, String> col2;
     private TableColumn<TableNhanVien, String> col3;

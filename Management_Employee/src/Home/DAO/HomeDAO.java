@@ -24,20 +24,6 @@ public class HomeDAO {
         return SLNhanVien;
     }
 
-    public int getSLNVTheoThoiGian(int thang, int nam) {
-        int SLNhanVien = 0;
-        try {
-            String sql = "{call SP_SLNVTheoThoiGian(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, (Object) null);
-            while (rs.next()) {
-                SLNhanVien = rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return SLNhanVien;
-    }
-
     public ObservableList getDataForChartTangTruongNV(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
         int month = 12;
@@ -58,10 +44,7 @@ public class HomeDAO {
         return data;
     }
 
-    
-        
-
-public int getSoGioLamViec() {
+    public int getSoGioLamViec() {
         int SoGioLamViec = 0;
         try {
             String sql = "{call SP_SoGioLamViec(?)}";

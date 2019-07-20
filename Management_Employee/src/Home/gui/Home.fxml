@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #f0f3f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.HomeController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.HomeController">
    <children>
       <Label alignment="CENTER" layoutX="473.0" layoutY="14.0" text="2019" textFill="#004080" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -34,7 +30,7 @@
                   </Label>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icone/NhieuNhanVien.png" />
+                        <Image url="@../../Libraries/icone/multiple-users-silhouette.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -44,7 +40,7 @@
             </HBox>
             <HBox prefHeight="45.0" prefWidth="450.0" style="-fx-background-color: #3AA757;">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="320.0" text="Tổng số lượng nhân viên" textFill="WHITE">
+                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="320.0" style="-fx-background-color: #019228;" text="Tổng số lượng nhân viên" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -64,7 +60,7 @@
                   </Label>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icone/DongHo.png" />
+                        <Image url="@../../Libraries/icone/three-oclock.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

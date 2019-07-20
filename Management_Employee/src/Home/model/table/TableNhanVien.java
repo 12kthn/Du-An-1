@@ -1,7 +1,12 @@
 
 package Home.model.table;
 
+import Home.common.Picture;
+import javafx.scene.control.Button;
+
 public class TableNhanVien {
+    private Button Delete;
+    private Button Update;
     private String MaNV;
     private String HoTen;
     private String GioiTinh;
@@ -20,6 +25,8 @@ public class TableNhanVien {
     private String LoaiNhanVien;
     private String TrangThai;
 
+    Picture picture = new Picture();
+    
     public TableNhanVien(String MaNV, String HoTen, String GioiTinh, String NgaySinh, String SoCM, String DienThoai, 
             String Email, String DiaChi, String TrinhDoHV, String MaHD, String PhongBan, String ChucVu, String NgayVaoLam, 
             String NgayKetThuc, int HeSoLuong, String LoaiNhanVien, String TrangThai) {
@@ -40,8 +47,28 @@ public class TableNhanVien {
         this.HeSoLuong = HeSoLuong;
         this.LoaiNhanVien = LoaiNhanVien;
         this.TrangThai = TrangThai;
+        this.Delete = new Button("", picture.createIcone("delete.png"));
+        this.Update = new Button("", picture.createIcone("edit.png"));
     }
 
+    public Button getDelete() {
+        return Delete;
+    }
+
+    public void setDelete(Button Delete) {
+        this.Delete = Delete;
+    }
+
+    public Button getUpdate() {
+        return Update;
+    }
+
+    public void setUpdate(Button Update) {
+        this.Update = Update;
+    }
+
+    
+    
     public String getMaNV() {
         return MaNV;
     }

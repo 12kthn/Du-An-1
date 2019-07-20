@@ -459,8 +459,7 @@ AS
 			SELECT COUNT(*) FROM NhanVien
 		END
 GO		
-exec SP_SLNhanVien ''
-EXEC SP_SLNhanVien null
+
 
 GO
 --Tao Stored Procedure tinh so gio lam viec theo nam
@@ -560,7 +559,14 @@ CREATE PROCEDURE SP_FindNVByCode
 	@MaNV varchar(10)
 )
 AS
-	SELECT * FROM NhanVien WHERE MaNV = @MaNV
+	IF @MaNV is not null
+		BEGIN
+			SELECT * FROM NhanVien WHERE MaNV = @MaNV
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM NhanVien
+		END
 GO
 
 --Tao Stored Procedure tim kiem phong ban theo ma
@@ -572,6 +578,13 @@ CREATE PROCEDURE SP_FindPhongBanByCode
 	@MaPB varchar(5)
 )
 AS
-	SELECT * FROM PhongBan WHERE MaPB like '%' + @MaPB + '%'
+	IF @MaPB is not null
+		BEGIN
+			SELECT * FROM PhongBan WHERE MaPB = @MaPB
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM PhongBan
+		END
 GO
 
