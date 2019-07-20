@@ -66,7 +66,7 @@ public class NhanVienDAO {
         double SLNV = 0; //tong so luong nhan vien
         int count = 0; //So luong phong ban
         try {
-            String sql = "{call SP_SLNhanVien(?)}";
+            String sql = "{call SP_SLNVTheoPhongBan(?)}";
             ResultSet rs = JDBC.executeQuery(sql, "");
             while (rs.next()) {
                 data.getData().add(new XYChart.Data(rs.getString(1), rs.getDouble(2)));
