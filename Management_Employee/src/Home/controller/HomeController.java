@@ -77,33 +77,6 @@ public class HomeController implements Initializable, Runnable {
     @FXML
     private LineChart chartTangTruongNV;
 
-    @FXML
-    public void setGUINhanVien() {
-        try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void setGUIChamCong() {
-        try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void setGUIBangLuong() {
-        try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/BangLuong.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private HomeDAO dao;
 
     @Override

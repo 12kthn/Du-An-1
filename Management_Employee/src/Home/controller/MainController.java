@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -66,18 +65,9 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void setGUIPhongBan() {
+    public void setGUIToChuc() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/PhongBan.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    @FXML
-    public void setGUIChucVu() {
-        try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChucVu.fxml")));
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ToChuc.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
