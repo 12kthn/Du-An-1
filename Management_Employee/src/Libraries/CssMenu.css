@@ -11,6 +11,9 @@
 .hover_buttonclose:hover{
     -fx-background-color: #e81123;
 }
+.hover_buttonminize:hover{
+    -fx-background-color:#696969;
+}
 
 /*button style*/
 .btn{

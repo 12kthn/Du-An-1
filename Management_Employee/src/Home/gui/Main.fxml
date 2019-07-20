@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -20,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
         <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="70.0" prefWidth="1366.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
@@ -41,7 +33,7 @@
                   <Insets top="4.0" />
                </HBox.margin>
             </HBox>
-            <Label id="menu_taikhoan" prefHeight="18.0" prefWidth="45.0" styleClass="hover_buttonclose" translateX="1060.0">
+            <Label id="btn_close" prefHeight="18.0" prefWidth="45.0" styleClass="hover_buttonclose" translateX="1060.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,7 +51,7 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label id="menu_taikhoan" prefHeight="18.0" prefWidth="45.0" styleClass="hover_buttonclose" translateX="970.0">
+            <Label id="menu_taikhoan" prefHeight="18.0" prefWidth="45.0" styleClass="hover_buttonminize" translateX="970.0">
                <font>
                   <Font size="14.0" />
                </font>
@@ -70,7 +62,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <graphic>
-                  <ImageView id="btn_power" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" translateX="11.0" translateY="-3.0">
+                  <ImageView id="btn_minize" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" translateX="11.0" translateY="-3.0">
                      <image>
                         <Image url="@../../Libraries/icone/minize.png" />
                      </image>
@@ -112,7 +104,7 @@
                         </Label>
                     </children>
                     <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="61.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox prefHeight="37.0" prefWidth="200.0">
@@ -150,7 +142,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/phongban.png" />
+                                        <Image url="@../../Libraries/icone/tochuc.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
