@@ -29,11 +29,11 @@
                         <Font name="Arial" size="28.0" />
                     </font>
                 </Label>
-            <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" translateX="980.0">
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="60.0" translateX="980.0">
                <children>
-                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="24.0" stroke="BLACK" strokeType="INSIDE" translateX="-4.0" translateY="7.0">
+                  <Circle id="avavtar_taikhoan" fill="WHITE" radius="20.0" stroke="BLACK" strokeType="INSIDE">
                      <HBox.margin>
-                        <Insets left="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </Circle>
                </children>
@@ -167,16 +167,16 @@
                         </Label>
                     </children>
                 </HBox>
-                <HBox layoutX="10.0" layoutY="222.0" prefHeight="34.0" prefWidth="200.0">
+                <HBox layoutX="10.0" layoutY="350.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_bangluong" onMouseClicked="#setGUIBangLuong" prefHeight="34.0" prefWidth="200.0" text="BẢNG LƯƠNG">
+                        <Label id="menu_chamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" text="CHẤM CÔNG">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/luong.png" />
+                                        <Image url="@../../Libraries/icone/chamcong.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -193,16 +193,16 @@
                         </Label>
                     </children>
                 </HBox>
-                <HBox layoutX="10.0" layoutY="350.0" prefHeight="34.0" prefWidth="200.0">
+                <HBox layoutX="10.0" layoutY="222.0" prefHeight="34.0" prefWidth="200.0">
                     <children>
-                        <Label id="menu_chamcong" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="200.0" text="CHẤM CÔNG">
+                        <Label id="menu_bangluong" onMouseClicked="#setGUIBangLuong" prefHeight="34.0" prefWidth="200.0" text="BẢNG LƯƠNG">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/chamcong.png" />
+                                        <Image url="@../../Libraries/icone/luong.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -265,10 +265,7 @@
                   <String fx:value="hover_menu" />
                </styleClass>
                   </Label>
-            <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="25.0" prefWidth="210.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
-               </padding>
+            <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="188.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <VBox.margin>
                   <Insets left="6.0" top="110.0" />
                </VBox.margin>
