@@ -245,7 +245,7 @@
                         </Label>
                     </children>
                 </HBox>
-                  <Label id="lblChamcong" prefHeight="34.0" prefWidth="200.0" text="CÀI ĐẶT">
+                  <Label id="lblChamcong" onMouseClicked="#setGUISetting" prefHeight="34.0" prefWidth="200.0" text="CÀI ĐẶT">
                       <font>
                           <Font name="Arial" size="15.0" />
                       </font>

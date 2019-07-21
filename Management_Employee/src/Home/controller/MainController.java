@@ -90,6 +90,15 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
+    @FXML
+    public void setGUISetting() {
+        try {
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Setting.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     void getCoorMouse(MouseEvent event) {

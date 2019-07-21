@@ -14,23 +14,22 @@
 
 <AnchorPane prefHeight="640.0" prefWidth="1166.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.SettingController">
    <children>
-      <Label alignment="CENTER" layoutX="-2.0" layoutY="40.0" prefHeight="50.0" prefWidth="580.0" text="Sao lưu" textAlignment="CENTER" textFill="#007fff" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="583.0" text="Sao lưu" textAlignment="CENTER" textFill="#007fff">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="583.0" text="Khôi phục" textFill="#007fff">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0" />
-      <Label alignment="CENTER" layoutX="301.0" layoutY="50.0" prefHeight="50.0" prefWidth="580.0" text="Khôi phục" textFill="#007fff" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
       <VBox layoutX="20.0" layoutY="20.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0" />
-      <TableView layoutX="20.0" layoutY="20.0" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
-         <columns>
-            <TableColumn prefWidth="120.0" resizable="false" text="Thời gian" />
-            <TableColumn prefWidth="240.0" resizable="false" text="Tên file" />
-         </columns>
-      </TableView>
+      <TableView layoutX="20.0" layoutY="20.0" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
    </children>
 </AnchorPane>
