@@ -89,7 +89,7 @@ public class HomeController implements Initializable, Runnable {
         try {
             Thread.sleep(1000);
             double plusNum1 = nvdao.getSLNVTheoPhongBan() / 20.0;
-            double plusNum2 = bldao.getTongTienLuong()/ 20.0;
+            double plusNum2 = bldao.getTongTienLuongTrongNam()/ 20.0;
             double plusNum3 = ccdao.getSoGioLamViec() / 20.0;
             for (int i = 1; i <= 20; i++) {
                 int value1 = (int) (i * plusNum1);

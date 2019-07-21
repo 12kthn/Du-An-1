@@ -22,19 +22,19 @@ public class TablePhongBanDAO {
             String sql = "{Call SP_FindPhongBanByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, (Object) null);
             while (rs.next()){
-                TablePhongBan pb = new TablePhongBan(rs.getString(1), rs.getString(2), nvdao.findByCode(rs.getString(3)));
+                TablePhongBan tblpb = new TablePhongBan(rs.getString(1), rs.getString(2), nvdao.findByCode(rs.getString(3)));
                 
-                data.add(pb);
-                pb.getDelete().setOnAction(new EventHandler<ActionEvent>() {
+                data.add(tblpb);
+                tblpb.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        data.remove(pb);
+                        data.remove(tblpb);
                     }
                 });
-                pb.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
+                tblpb.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Common.tcController.setModel(pbdao.findByCode(pb.getMaPB()).get(0));
+                        Common.tcController.setModel(pbdao.findByCode(tblpb.getMaPB()).get(0));
                     }
                 });
             }

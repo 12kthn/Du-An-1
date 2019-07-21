@@ -92,7 +92,7 @@ GO
 CREATE TABLE BangLuong
 (
 	MaNV varchar(10),
-	NgayNhanLuong date not null,
+	NgayPhatLuong date not null,
 	LuongChinh int not null,
 	NgayCong int not null,
 	PC_TrachNhiem int not null,
@@ -106,7 +106,7 @@ CREATE TABLE BangLuong
 	ThucLanh int not null,
 	TrangThai bit not null
 
-	PRIMARY KEY (MaNV, NgayNhanLuong),
+	PRIMARY KEY (MaNV, NgayPhatLuong),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
 

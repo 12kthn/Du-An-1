@@ -379,7 +379,7 @@ GO
 CREATE PROCEDURE SP_Insert_BangLuong
 (
 	@MaNV varchar(10),
-	@NgayNhanLuong date,
+	@NgayPhatLuong date,
 	@TamUng int,
 	@TrangThai bit
 )
@@ -396,7 +396,7 @@ AS
 			@ThucLanh int		
 	
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
-	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', (SELECT DATEADD(DAY, 1, EOMONTH(@NgayNhanLuong, -1))))
+	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', (SELECT DATEADD(DAY, 1, EOMONTH(@NgayPhatLuong, -1))))
 	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM NhanVien WHERE MaNV = @MaNV))
 	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
 	SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
@@ -406,7 +406,7 @@ AS
 	SET @ThueTNCN = [dbo].[FN_TinhThueTNCN](@ThuNhap - @BHXH - @BHYT - @BHTN - @GiamTruPhuThuoc)
 	SET @ThucLanh = @ThuNhap - @BHXH - @BHYT - @BHTN - @ThueTNCN
 
-	INSERT INTO BangLuong VALUES(@MaNV, @NgayNhanLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
+	INSERT INTO BangLuong VALUES(@MaNV, @NgayPhatLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
 GO
 
@@ -485,25 +485,25 @@ EXEC SP_SoGioLamViec null
 GO
 
 --Tao Stored Procedure tinh tong thu nhap theo nam
-IF (OBJECT_ID('SP_ThuNhap') IS NOT NULL)
-  DROP PROCEDURE SP_ThuNhap
+IF (OBJECT_ID('SP_TongTienLuongTrongNam') IS NOT NULL)
+  DROP PROCEDURE SP_TongTienLuongTrongNam
 GO
-CREATE PROCEDURE SP_ThuNhap
+CREATE PROCEDURE SP_TongTienLuongTrongNam
 (
 	@Nam int
 )
 AS
 	IF @Nam is not null
 		BEGIN
-			SELECT SUM(ThuNhap) FROM BangLuong WHERE YEAR(NgayNhanLuong) = @Nam
+			SELECT SUM(ThuNhap) FROM BangLuong WHERE YEAR(NgayPhatLuong) = @Nam
 		END
 	ELSE
 		BEGIN
 			SELECT SUM(ThuNhap) FROM BangLuong
 		END
 GO		
-exec SP_ThuNhap 2019
-EXEC SP_ThuNhap null
+exec SP_TongTienLuongTrongNam 2019
+EXEC SP_TongTienLuongTrongNam null
 GO
 
 --Tao Stored Procedure tinh so luong nhan vien theo thoi gian
@@ -679,36 +679,30 @@ CREATE PROCEDURE SP_PhanHoaTienLuong
 AS
 	IF @MaPB is not null
 		BEGIN
-			SELECT AVG(ThucLanh) AS 'TrungBinh', MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat' FROM BangLuong 
+			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong 
 			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB
 		END
 	ELSE
 		BEGIN
-			SELECT AVG(ThucLanh) AS 'TrungBinh', MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat' FROM BangLuong
+			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong
 		END
 GO
 
---Tao Stored Procedure hien thi tong tien lương theo phong ban
+EXEC SP_PhanHoaTienLuong null
+
+--Tao Stored Procedure hien thi tong tien lương va ten phong ban
 IF (OBJECT_ID('SP_TongTienLuong') IS NOT NULL)
   DROP PROCEDURE SP_TongTienLuong
 GO
 CREATE PROCEDURE SP_TongTienLuong
-(
-	@MaPB varchar(5)
-)
 AS
-	IF @MaPB is not null
-		BEGIN
-			SELECT SUM(ThucLanh) FROM BangLuong 
-			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB
-		END
-	ELSE
-		BEGIN
-			SELECT SUM(ThucLanh) FROM BangLuong
-		END
+	SELECT PhongBan.TenPB, SUM(ThucLanh)  
+	FROM NhanVien JOIN BangLuong ON NhanVien.MaNV = BangLuong.MaNV JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
+	GROUP BY PhongBan.TenPB
+	ORDER BY SUM(ThucLanh)
 GO
 
-EXEC SP_TongTienLuong 'MK'
+EXEC SP_TongTienLuong
 
 --Tao Stored Procedure hien thi du lieu cho table BangLuong
 IF (OBJECT_ID('SP_TBLBangLuong') IS NOT NULL)
@@ -728,15 +722,14 @@ AS
 			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-			WHERE NgayNhanLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
+			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
 		END
 	ELSE
 		BEGIN
 			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-			WHERE NgayNhanLuong BETWEEN @Ngay AND EOMONTH(@ngay)
+			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
 		END
 GO
 
-EXEC SP_TBLBangLuong 'MK', '2019', '6'

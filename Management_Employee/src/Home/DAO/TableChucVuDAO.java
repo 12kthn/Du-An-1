@@ -1,6 +1,7 @@
 
 package Home.DAO;
 
+import Home.common.Common;
 import Home.common.FormatNumber;
 import Home.common.JDBC;
 import Home.model.table.TableChucVu;
@@ -13,25 +14,27 @@ import javafx.event.EventHandler;
 
 public class TableChucVuDAO {
 
+    ChucVuDAO cvdao = new ChucVuDAO();
+    
     public ObservableList<TableChucVu> getData(){
         ObservableList<TableChucVu> data = FXCollections.observableArrayList();
         try {
             String sql = "{Call SP_FindChucVuByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, (Object) null);
             while (rs.next()){
-                TableChucVu cv = new TableChucVu(rs.getString(1), rs.getString(2), FormatNumber.formatDouble( rs.getDouble(3)) + "%");
+                TableChucVu tblcv = new TableChucVu(rs.getString(1), rs.getString(2), FormatNumber.formatDouble( rs.getDouble(3)) + "%");
                 
-                data.add(cv);
-                cv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
+                data.add(tblcv);
+                tblcv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        data.remove(cv);
+                        data.remove(tblcv);
                     }
                 });
-                cv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
+                tblcv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-//                        Common.tcController.setModel(new ToChucDAO().findPhongBanByCode(pb.getMaPB()).get(0));
+                        Common.tcController.setModel(cvdao.findByCode(tblcv.getMaCV()).get(0));
                     }
                 });
             }

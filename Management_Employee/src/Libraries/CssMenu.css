@@ -71,16 +71,16 @@
 }
 /*table style*/
 .table-view{
-    
     -fx-padding: 0 0 0 0;
 }
-.table-view .column-header{
+.table-view .column-header {
+    -fx-border-color: gray;
+    -fx-border-width: 0.2;
     -fx-alignment: CENTER;
     -fx-background-color: #03a9f4;
 }
 
 .table-view .column-header-background .label{
-    /*-fx-background-color: transparent;*/
     -fx-text-fill: #FFF;
     -fx-padding: 14 0 14 0;
 }

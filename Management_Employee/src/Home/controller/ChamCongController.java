@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -32,15 +31,15 @@ public class ChamCongController implements Initializable {
         try {
             setChartTyLeDiLam();
             setColumnModel(2019,5);
-            setDataTable();
+            loadTable();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void setDataTable(){
+    private void loadTable(){
         
-        tblChamCong.setItems(tbl_ChamCongDAO.getData(2019, 5));
+        tblChamCong.setItems(tbl_ccdao.getData(2019, 5));
     }
     
     private void setColumnModel(int nam, int thang) {
@@ -606,7 +605,7 @@ public class ChamCongController implements Initializable {
     }
 
     private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
-    TableChamCongDAO tbl_ChamCongDAO = new TableChamCongDAO();
+    TableChamCongDAO tbl_ccdao = new TableChamCongDAO();
     
     private TableColumn<TableChamCong, String> col1;
     private TableColumn<TableChamCong, String> col2;

@@ -85,7 +85,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIBangLuong() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/BangLuong.fxml")));
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Bangluong.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
