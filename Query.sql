@@ -667,3 +667,76 @@ AS
 GO
 
 EXEC SP_ChamCongTheoThang 'IT001', '2019', '5'
+
+--Tao Stored Procedure hien thi phan hoa tien lương theo phong ban
+IF (OBJECT_ID('SP_PhanHoaTienLuong') IS NOT NULL)
+  DROP PROCEDURE SP_PhanHoaTienLuong
+GO
+CREATE PROCEDURE SP_PhanHoaTienLuong
+(
+	@MaPB varchar(5)
+)
+AS
+	IF @MaPB is not null
+		BEGIN
+			SELECT AVG(ThucLanh) AS 'TrungBinh', MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat' FROM BangLuong 
+			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB
+		END
+	ELSE
+		BEGIN
+			SELECT AVG(ThucLanh) AS 'TrungBinh', MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat' FROM BangLuong
+		END
+GO
+
+--Tao Stored Procedure hien thi tong tien lương theo phong ban
+IF (OBJECT_ID('SP_TongTienLuong') IS NOT NULL)
+  DROP PROCEDURE SP_TongTienLuong
+GO
+CREATE PROCEDURE SP_TongTienLuong
+(
+	@MaPB varchar(5)
+)
+AS
+	IF @MaPB is not null
+		BEGIN
+			SELECT SUM(ThucLanh) FROM BangLuong 
+			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB
+		END
+	ELSE
+		BEGIN
+			SELECT SUM(ThucLanh) FROM BangLuong
+		END
+GO
+
+EXEC SP_TongTienLuong 'MK'
+
+--Tao Stored Procedure hien thi du lieu cho table BangLuong
+IF (OBJECT_ID('SP_TBLBangLuong') IS NOT NULL)
+  DROP PROCEDURE SP_TBLBangLuong
+GO
+CREATE PROCEDURE SP_TBLBangLuong
+(
+	@MaPB varchar(5),
+	@Nam char(4),
+	@Thang varchar(2)
+)
+AS
+	DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
+	IF @MaPB is not null
+		BEGIN
+			
+			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
+																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
+																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
+			WHERE NgayNhanLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
+		END
+	ELSE
+		BEGIN
+			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
+																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
+																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
+			WHERE NgayNhanLuong BETWEEN @Ngay AND EOMONTH(@ngay)
+		END
+GO
+
+EXEC SP_TBLBangLuong 'MK', '2019', '6'
