@@ -100,3 +100,26 @@
 .table-view:focused .table-row-cell:selected .table-cell {
     -fx-text-fill: #000000;
 }
+
+/*menu style*/
+.context-menu {
+    -fx-padding: 7 0 0 0;
+    -fx-background-color: #2a323c;
+}
+.menu-item{
+    -fx-background-color: #2a323c;  
+}
+
+.menu-item .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 10 15 10 15;
+}
+
+.menu-item:focused {
+     -fx-background-color: #03A9F4;
+}
+
+.menu-item:focused .label {
+    /*-fx-text-fill: blue;*/
+}
