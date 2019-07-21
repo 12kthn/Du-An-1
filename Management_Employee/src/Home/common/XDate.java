@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import javafx.util.StringConverter;
 
@@ -62,4 +63,20 @@ public class XDate {
         return new Date();
     }
 
+    public static int monthOfYear(int year){
+        int month = 12;
+        if (year == LocalDate.now().getYear()) {
+            month = LocalDate.now().getMonthValue();
+        }
+        return month;
+    }
+    
+    public static int daysInMonth(int year, int month){
+        Calendar calendar = Calendar.getInstance();
+        //Tháng tính từ 0
+        calendar.set(year, month - 1, 1);
+        int daysInMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);//ngày cao nhất trong tháng
+        return daysInMonth;
+    }
+    
 }

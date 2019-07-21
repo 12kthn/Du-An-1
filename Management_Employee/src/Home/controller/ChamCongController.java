@@ -30,6 +30,7 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            setChartTyLeDiLam();
             setColumnModel(2019,5);
             setDataTable();
         } catch (Exception ex) {
@@ -589,31 +590,19 @@ public class ChamCongController implements Initializable {
         tblChamCong.getColumns().addAll(col1, col2, col3, dateCol);
     }
 
-    
-    
     private void setChartTyLeDiLam() {
         
         XYChart.Series col = new XYChart.Series<>();
         
-        col.getData().add(new XYChart.Data(98.0, "Tất cả"));
-        col.getData().add(new XYChart.Data(98.0, "Kỹ thuậṭ"));
-        col.getData().add(new XYChart.Data(89.0, "Kế toáṇ"));
-        col.getData().add(new XYChart.Data(100, "Marketting̣"));
-        col.getData().add(new XYChart.Data(90.5, "Nhân sự"));
-        col.getData().add(new XYChart.Data(90.5, "Bán hàng̣"));
-        col.getData().add(new XYChart.Data(100, "Giám đốc̣"));
+        col.getData().add(new XYChart.Data("Tất cả", 98.0));
+        col.getData().add(new XYChart.Data("Kỹ thuậṭ", 98.0));
+        col.getData().add(new XYChart.Data("Kế toáṇ", 89.0));
+        col.getData().add(new XYChart.Data("Marketting̣", 100));
+        col.getData().add(new XYChart.Data("Nhân sự", 90.5));
+        col.getData().add(new XYChart.Data("Bán hàng̣", 90.5));
+        col.getData().add(new XYChart.Data("Giám đốc̣", 100));
 
         chartTyLeDiLam.getData().add(col);
-        chartTyLeDiLam.setTitle("Tỷ lệ nhân viên đi làm đầy đủ");
-    }
-    
-    private void setChartTyLeNgayLamViec(){
-        PieChart.Data slice1 = new PieChart.Data("Ngày làm việc", 26);
-
-        PieChart.Data slice2 = new PieChart.Data("CN, ngày lễ", 5);
-
-        chartTyLeNgayLamViec.getData().add(slice1);
-        chartTyLeNgayLamViec.getData().add(slice2);
     }
 
     private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
@@ -663,8 +652,5 @@ public class ChamCongController implements Initializable {
 
     @FXML
     private BarChart chartTyLeDiLam;
-    
-    @FXML
-    private PieChart chartTyLeNgayLamViec;
     
 }
