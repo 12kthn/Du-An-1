@@ -123,3 +123,7 @@
 .menu-item:focused .label {
     /*-fx-text-fill: blue;*/
 }
+.timkiem{
+    -fx-background-color: white;
+     -fx-border-width: 0px 0px 0px 1px
+}
