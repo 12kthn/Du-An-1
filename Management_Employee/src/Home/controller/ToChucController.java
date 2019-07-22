@@ -55,7 +55,7 @@ public class ToChucController implements Initializable {
 
     private void loadCboNhanVien(String maPB) {
         //tạo danh sách Nhân viên có trong Phòng ban
-        listNhanVien = nvdao.findNVByPB(maPB);
+        listNhanVien = nvdao.findByMaPB(maPB);
         //thêm vào Combobox
         cboNhanVien.setItems(listNhanVien);
     }

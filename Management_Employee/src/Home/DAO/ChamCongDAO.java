@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ChamCongDAO {
-    public int getSoGioLamViec() {
+    public int getSoGioLamViec(int year) {
         int SoGioLamViec = 0;
         try {
             String sql = "{call SP_SoGioLamViec(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, 2019);
+            ResultSet rs = JDBC.executeQuery(sql, year);
             while (rs.next()) {
                 SoGioLamViec = rs.getInt(1);
             }

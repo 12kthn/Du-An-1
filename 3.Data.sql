@@ -211,7 +211,6 @@ select* from PhongBan
 EXEC SP_ThanNhan null, N'Phạm Ngọc Duy', N'Học Sinh', N'Em', 'IT001', 1, 'Insert'
 SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = 'IT001' AND GiamTruPhuThuoc = 1
 
---Insert into ChamCong
 
 --Insert into GiaTriChung
 EXEC SP_GiaTriChung 'LuongCB', 5000000, 'Insert'
@@ -231,12 +230,12 @@ EXEC SP_BacThueTNCN 52000000, 0.30, 'Insert'
 EXEC SP_BacThueTNCN 80000000, 0.35, 'Insert'
 GO
 
---Insert into BangLuong
-
-
-
-
-SELECT * FROM BangLuong
-
 ---Insert into TaiKhoan
-EXEC SP_TaiKhoan 'admin','admin', null,'Insert'
+EXEC SP_TaiKhoan 'admin','admin', 'MK001','Insert'
+EXEC SP_TaiKhoan 'it','it', 'IT001','Insert'
+EXEC SP_TaiKhoan 'kt','kt', 'KT001','Insert'
+EXEC SP_TaiKhoan 'mk','mk', 'MK002','Insert'
+EXEC SP_TaiKhoan 'ns','ns', 'NS001','Insert'
+EXEC SP_TaiKhoan 'sl','sl', 'SL001','Insert'
+GO
+select * from TaiKhoan

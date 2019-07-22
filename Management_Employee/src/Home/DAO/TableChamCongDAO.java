@@ -14,7 +14,7 @@ public class TableChamCongDAO {
 
     public ObservableList<TableChamCong> getData(int nam, int thang) {
         ObservableList<TableChamCong> data = FXCollections.observableArrayList();
-        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findNVByPB(null);
+        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findByMaPB(null);
         //Lay ngay cao nhat trong tháng
         Calendar calendar = Calendar.getInstance();
         calendar.set(nam, thang - 1, 1);
@@ -28,7 +28,7 @@ public class TableChamCongDAO {
                 ResultSet rs = JDBC.executeQuery(sql, nv.getMaNV(), nam, thang);
                 int i = 0;
                 while (rs.next()) {
-                    onwork[i] = rs.getBoolean(1);
+                    onwork[i] = rs.getBoolean(2);
                     i++;
                 }
                 TableChamCong tableChamCong = new TableChamCong(nv.getMaNV(), nv.getHoTen(),

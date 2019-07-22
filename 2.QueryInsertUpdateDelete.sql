@@ -177,10 +177,6 @@ CREATE PROCEDURE SP_ThanNhan
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM ThanNhan
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			INSERT INTO ThanNhan VALUES(@HoTen, @NgheNghiep, @MoiQuanHe, @MaNV, @GiamTruPhuThuoc)
@@ -211,10 +207,6 @@ CREATE PROCEDURE SP_ChamCong
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM ChamCong
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			IF @Ngay is null
@@ -247,10 +239,6 @@ CREATE PROCEDURE SP_GiaTriChung
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM GiaTriChung
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			INSERT INTO GiaTriChung VALUES(@TenGiaTri, @GiaTri)
@@ -279,10 +267,6 @@ CREATE PROCEDURE SP_BacThueTNCN
 	@StatementType char(6)
 )
 AS
-	IF @StatementType = 'Select'
-		BEGIN
-			SELECT * FROM BacThueTNCN
-		END
 	IF @StatementType = 'Insert'
 		BEGIN
 			INSERT INTO BacThueTNCN VALUES(@Luong, @Thue)
@@ -298,6 +282,8 @@ AS
 			DELETE FROM BacThueTNCN WHERE Luong = @Luong
 		END
 GO
+
+--Tao cac Function lay Gia tri de Insert cho BangLuong
 
 --Tao Function lay Gia tri tu bang GiaTriChung
 IF (OBJECT_ID('FN_SelectGiaTri') IS NOT NULL)
@@ -408,328 +394,5 @@ AS
 
 	INSERT INTO BangLuong VALUES(@MaNV, @NgayPhatLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
-GO
-
---Tao Stored Procedure tinh so luong nam nu
-IF (OBJECT_ID('SP_SLNamNu') IS NOT NULL)
-  DROP PROCEDURE SP_SLNamNu
-GO
-CREATE PROCEDURE SP_SLNamNu
-(
-	--Tinh so luong theo Phong ban
-	@MaPhongBan varchar(5)
-)
-AS
-	SELECT GioiTinh, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY GioiTinh ORDER BY GioiTinh DESC
-GO
-EXEC SP_SLNamNu ''
-
---Tao Stored Procedure tinh so luong nhan vien chinh thuc
-IF (OBJECT_ID('SP_NVChinhThuc') IS NOT NULL)
-  DROP PROCEDURE SP_NVChinhThuc
-GO
-CREATE PROCEDURE SP_NVChinhThuc
-(
-	--Tinh so luong theo Phong ban
-	@MaPhongBan varchar(5)
-)
-AS
-	SELECT LoaiNhanVien, count(*) FROM NhanVien  WHERE MaPB like '%' + @MaPhongBan + '%' GROUP BY LoaiNhanVien ORDER BY LoaiNhanVien DESC
-GO
-EXEC SP_NVChinhThuc ''
-
---Tao Stored Procedure in tinh so luong nhan vien theo phong ban
-IF (OBJECT_ID('SP_SLNVTheoPhongBan') IS NOT NULL)
-  DROP PROCEDURE SP_SLNVTheoPhongBan
-GO
-CREATE PROCEDURE SP_SLNVTheoPhongBan
-(
-	--Tinh so luong theo Phong ban
-	@MaPhongBan varchar(5)
-)
-AS
-	IF @MaPhongBan is not null
-		BEGIN
-			SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
-			WHERE PhongBan.MaPB like '%' + @MaPhongBan + '%' 
-			GROUP BY PhongBan.MaPB, PhongBan.TenPB
-		END
-	ELSE
-		BEGIN
-			SELECT COUNT(*) FROM NhanVien
-		END
-GO		
-SP_SLNVTheoPhongBan null
-
-GO
---Tao Stored Procedure tinh so gio lam viec theo nam
-IF (OBJECT_ID('SP_SoGioLamViec') IS NOT NULL)
-  DROP PROCEDURE SP_SoGioLamViec
-GO
-CREATE PROCEDURE SP_SoGioLamViec
-(
-	@Nam int
-)
-AS
-	IF @Nam is not null
-		BEGIN
-			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam
-		END
-	ELSE
-		BEGIN
-			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1
-		END
-GO		
-exec SP_SoGioLamViec 2019
-EXEC SP_SoGioLamViec null
-GO
-
---Tao Stored Procedure tinh tong thu nhap theo nam
-IF (OBJECT_ID('SP_TongTienLuongTrongNam') IS NOT NULL)
-  DROP PROCEDURE SP_TongTienLuongTrongNam
-GO
-CREATE PROCEDURE SP_TongTienLuongTrongNam
-(
-	@Nam int
-)
-AS
-	IF @Nam is not null
-		BEGIN
-			SELECT SUM(ThuNhap) FROM BangLuong WHERE YEAR(NgayPhatLuong) = @Nam
-		END
-	ELSE
-		BEGIN
-			SELECT SUM(ThuNhap) FROM BangLuong
-		END
-GO		
-exec SP_TongTienLuongTrongNam 2019
-EXEC SP_TongTienLuongTrongNam null
-GO
-
---Tao Stored Procedure tinh so luong nhan vien theo thoi gian
-IF (OBJECT_ID('SP_SLNVTheoThoiGian') IS NOT NULL)
-  DROP PROCEDURE SP_SLNVTheoThoiGian
-GO
-CREATE PROCEDURE SP_SLNVTheoThoiGian
-(
-	@Thang varchar(2),
-	@Nam char(4)
-)
-AS
-	SELECT COUNT(*) FROM NhanVien WHERE NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
-GO		
-SP_SLNVTheoThoiGian '8', '2019'
-
-
---Tao Stored Procedure tinh so luong nhan vien theo thoi gian va phong ban
-IF (OBJECT_ID('SP_SLNVTheoThoiGianVaPB') IS NOT NULL)
-  DROP PROCEDURE SP_SLNVTheoThoiGianVaPB
-GO
-CREATE PROCEDURE SP_SLNVTheoThoiGianVaPB
-(
-	@MaPB varchar(5),
-	@Thang varchar(2),
-	@Nam char(4)
-)
-AS
-	SELECT COUNT(*) FROM NhanVien WHERE MaPB like '%' + @MaPB + '%' AND NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
-GO		
-SP_SLNVTheoThoiGianVaPB 'MK', '6', '2019'
-
-select * from NhanVien
-
-
---Tao Stored Procedure in ra table nhan vien
-IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
-  DROP PROCEDURE SP_TBLNhanVien
-GO
-CREATE PROCEDURE SP_TBLNhanVien
-AS
-	SELECT MaNV, HoTen, GioiTinh, FORMAT(NgaySinh, 'dd/MM/yyyy') AS NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
-		FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, LoaiNhanVien, TrangThai
-	FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-GO
-
---Tao Stored Procedure tim kiem nhan vien theo MaNV
-IF (OBJECT_ID('SP_FindNVByCode') IS NOT NULL)
-  DROP PROCEDURE SP_FindNVByCode
-GO
-CREATE PROCEDURE SP_FindNVByCode
-(
-	@MaNV varchar(10)
-)
-AS
-	IF @MaNV is not null
-		BEGIN
-			SELECT * FROM NhanVien WHERE MaNV = @MaNV
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM NhanVien
-		END
-GO
-
---Tao Stored Procedure tim kiem nhan vien theo PhongBan
-IF (OBJECT_ID('SP_FindNVByPB') IS NOT NULL)
-  DROP PROCEDURE SP_FindNVByPB
-GO
-CREATE PROCEDURE SP_FindNVByPB
-(
-	@MaPB varchar(10)
-)
-AS
-	IF @MaPB is not null
-		BEGIN
-			SELECT * FROM NhanVien WHERE MaPB = @MaPB
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM NhanVien
-		END
-GO
-
---Tao Stored Procedure tim kiem phong ban theo ma
-IF (OBJECT_ID('SP_FindPhongBanByCode') IS NOT NULL)
-  DROP PROCEDURE SP_FindPhongBanByCode
-GO
-CREATE PROCEDURE SP_FindPhongBanByCode
-(
-	@MaPB varchar(5)
-)
-AS
-	IF @MaPB is not null
-		BEGIN
-			SELECT * FROM PhongBan WHERE MaPB = @MaPB
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM PhongBan
-		END
-GO
-
-EXEC SP_FindPhongBanByCode null
-
---Tao Stored Procedure tim kiem Chuc vu theo ma
-IF (OBJECT_ID('SP_FindChucVyByCode') IS NOT NULL)
-  DROP PROCEDURE SP_FindChucVuByCode
-GO
-CREATE PROCEDURE SP_FindChucVuByCode
-(
-	@MaCV varchar(5)
-)
-AS
-	IF @MaCV is not null
-		BEGIN
-			SELECT * FROM ChucVu WHERE MaCV = @MaCV
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM ChucVu
-		END
-GO
-
-EXEC SP_FindChucVuByCode 'NT'
-
-
---Tao Stored Procedure kiem tra trang thai di lam cua nhan vien theo ngay thang
-IF (OBJECT_ID('SP_TrangThaiDiLam') IS NOT NULL)
-  DROP PROCEDURE SP_TrangThaiDiLam
-GO
-CREATE PROCEDURE SP_TrangThaiDiLam
-(
-	@MaNV varchar(10),
-	@Nam char(4),
-	@Thang varchar(2),
-	@Ngay varchar(2)
-)
-AS
-	BEGIN
-		SELECT TinhTrang FROM ChamCong WHERE MaNV = @MaNV AND Ngay = CAST(@Nam + '-' + @Thang + '-' + @Ngay AS DATETIME)
-	END
-GO
-EXEC SP_TrangThaiDiLam 'IT002', '2019', '6', '4'
-
---Tao Stored Procedure hien thi bang cham cong cua nhan vien theo thang nam
-IF (OBJECT_ID('SP_ChamCongTheoThang') IS NOT NULL)
-  DROP PROCEDURE SP_ChamCongTheoThang
-GO
-CREATE PROCEDURE SP_ChamCongTheoThang
-(
-	@MaNV varchar(10),
-	@Nam char(4),
-	@Thang varchar(2)
-)
-AS
-	BEGIN
-		DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-		SELECT TinhTrang FROM ChamCong WHERE MaNV = @MaNV AND Ngay BETWEEN @Ngay AND EOMONTH(@ngay)
-	END
-GO
-
-EXEC SP_ChamCongTheoThang 'IT001', '2019', '5'
-
---Tao Stored Procedure hien thi phan hoa tien lương theo phong ban
-IF (OBJECT_ID('SP_PhanHoaTienLuong') IS NOT NULL)
-  DROP PROCEDURE SP_PhanHoaTienLuong
-GO
-CREATE PROCEDURE SP_PhanHoaTienLuong
-(
-	@MaPB varchar(5)
-)
-AS
-	IF @MaPB is not null
-		BEGIN
-			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong 
-			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB
-		END
-	ELSE
-		BEGIN
-			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong
-		END
-GO
-
-EXEC SP_PhanHoaTienLuong null
-
---Tao Stored Procedure hien thi tong tien lương va ten phong ban
-IF (OBJECT_ID('SP_TongTienLuong') IS NOT NULL)
-  DROP PROCEDURE SP_TongTienLuong
-GO
-CREATE PROCEDURE SP_TongTienLuong
-AS
-	SELECT PhongBan.TenPB, SUM(ThucLanh)  
-	FROM NhanVien JOIN BangLuong ON NhanVien.MaNV = BangLuong.MaNV JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
-	GROUP BY PhongBan.TenPB
-	ORDER BY SUM(ThucLanh)
-GO
-
-EXEC SP_TongTienLuong
-
---Tao Stored Procedure hien thi du lieu cho table BangLuong
-IF (OBJECT_ID('SP_TBLBangLuong') IS NOT NULL)
-  DROP PROCEDURE SP_TBLBangLuong
-GO
-CREATE PROCEDURE SP_TBLBangLuong
-(
-	@MaPB varchar(5),
-	@Nam char(4),
-	@Thang varchar(2)
-)
-AS
-	DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-	IF @MaPB is not null
-		BEGIN
-			
-			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
-																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
-																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
-		END
-	ELSE
-		BEGIN
-			SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChucVu.TenCV, BangLuong.* FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV 
-																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
-																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
-		END
 GO
 

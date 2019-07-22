@@ -8,11 +8,11 @@ import javafx.scene.chart.XYChart;
 
 public class BangLuongDAO {
     
-    public double getTongTienLuongTrongNam() {
+    public double getTongTienLuongTrongNam(int year) {
         double TongTienLuong = 0;
         try {
             String sql = "{call SP_TongTienLuongTrongNam(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, 2019);
+            ResultSet rs = JDBC.executeQuery(sql, year);
             while (rs.next()) {
                 TongTienLuong = rs.getInt(1) / 1000000000.0;
             }

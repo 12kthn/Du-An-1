@@ -2,6 +2,7 @@ package Home.controller;
 
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
+import Home.DAO.TableNhanVienDAO;
 import Home.common.Common;
 import Home.common.XDate;
 import Home.model.NhanVien;
@@ -37,6 +38,7 @@ public class NhanVienController implements Initializable {
             Common.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
+            tbl_nvdao = new TableNhanVienDAO();
             loadPieChart();
             loadBarChart();
             setTableColumn();
@@ -106,7 +108,7 @@ public class NhanVienController implements Initializable {
     }
 
     private void loadDataToTable() {
-        data = nvdao.getDataForTable();
+        data = tbl_nvdao.getData();
         tblNhanVien.setItems(data);
     }
 
@@ -140,7 +142,7 @@ public class NhanVienController implements Initializable {
 
     public void setModel(NhanVien nv) {
         //set hinh cho image view imgHinh
-        InputStream input = getClass().getResourceAsStream("/Libraries/images/IT005.jpg");
+        InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
         Image image = new Image(input);
         imgHinh.setImage(image);
 
@@ -249,6 +251,7 @@ public class NhanVienController implements Initializable {
 
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
+    private TableNhanVienDAO tbl_nvdao;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
