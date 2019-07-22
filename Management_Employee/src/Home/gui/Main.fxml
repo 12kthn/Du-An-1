@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
         <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="80.0" prefWidth="1366.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
@@ -285,9 +278,9 @@
                   <String fx:value="hover_menu" />
                </styleClass>
                   </Label>
-            <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="188.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
+            <Label id="lblChamcong" alignment="BOTTOM_LEFT" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="188.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <VBox.margin>
-                  <Insets left="6.0" top="110.0" />
+                  <Insets left="11.0" top="110.0" />
                </VBox.margin>
             </Label>
             </children>
