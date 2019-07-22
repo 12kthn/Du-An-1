@@ -27,7 +27,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                      <image>
-                        <Image url="@../../Libraries/icone/contract.png" />
+                        <Image url="@../../Libraries/icon/contract.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                      <image>
-                        <Image url="@../../Libraries/icone/business-card.png" />
+                        <Image url="@../../Libraries/icon/business-card.png" />
                      </image>
                   </ImageView>
                </graphic>

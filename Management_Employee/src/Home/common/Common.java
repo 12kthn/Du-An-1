@@ -22,8 +22,7 @@ public class Common {
     public static TaiKhoan USER = null;
 
     /**
-     * Đối tượng này chứa mã Phòng ban mà tài khoản đăng nhập quản lý
-     * Null tức là Giám đốc
+     * Đối tượng này chứa mã Phòng ban mà tài khoản quản lý
      */
     public static String MAPB = null;
     

@@ -141,13 +141,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void exit() {
-        Platform.exit();
+    public void closeWindow() {
+        Common.mainStage.close();
     }
 
     @FXML
-    public void minimun() {
-
+    public void minimizeWindow() {
+        Common.mainStage.setIconified(true);
     }
 
 //    tao 2 bien lưu tọa độ con trỏ chuột

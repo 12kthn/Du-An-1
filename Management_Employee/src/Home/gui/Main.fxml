@@ -28,7 +28,7 @@
                <children>
                   <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icone/Untitled-1.png" />
+                        <Image url="@../../Libraries/icon/Untitled-1.png" />
                      </image>
                   </ImageView>
                </children>
@@ -42,7 +42,7 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="198.0">
                            <children>
-                              <Label id="menu_taikhoan" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="50.0" styleClass="hover_buttonminize">
+                              <Label id="menu_taikhoan" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#minimizeWindow" prefHeight="30.0" prefWidth="50.0" styleClass="hover_buttonminize">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -55,12 +55,12 @@
                                  <graphic>
                                     <ImageView id="btn_minize" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" translateY="-3.0">
                                        <image>
-                                          <Image url="@../../Libraries/icone/minize.png" />
+                                          <Image url="@../../Libraries/icon/minize.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <Label id="btn_close" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" styleClass="hover_buttonclose">
+                              <Label id="btn_close" alignment="CENTER" onMouseClicked="#closeWindow" prefHeight="30.0" prefWidth="50.0" styleClass="hover_buttonclose">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -73,7 +73,7 @@
                                  <graphic>
                                     <ImageView id="btn_power" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" translateY="-3.0">
                                        <image>
-                                          <Image url="@../../Libraries/icone/close%20(2).png" />
+                                          <Image url="@../../Libraries/icon/close%20(2).png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -88,7 +88,7 @@
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../Libraries/icone/user-32.png" />
+                                    <Image url="@../../Libraries/icon/user-32.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -115,7 +115,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/home.png" />
+                                        <Image url="@../../Libraries/icon/home.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -144,7 +144,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/nhanvien.png" />
+                                        <Image url="@../../Libraries/icon/nhanvien.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -170,7 +170,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/tochuc.png" />
+                                        <Image url="@../../Libraries/icon/tochuc.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -196,7 +196,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/chamcong.png" />
+                                        <Image url="@../../Libraries/icon/chamcong.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -222,7 +222,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/luong.png" />
+                                        <Image url="@../../Libraries/icon/luong.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -248,7 +248,7 @@
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icone/gioithieu.png" />
+                                        <Image url="@../../Libraries/icon/gioithieu.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -272,7 +272,7 @@
                       <graphic>
                           <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                               <image>
-                                  <Image url="@../../Libraries/icone/caidat.png" />
+                                  <Image url="@../../Libraries/icon/caidat.png" />
                               </image>
                           </ImageView>
                       </graphic>

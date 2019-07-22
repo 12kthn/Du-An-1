@@ -103,6 +103,32 @@ AS
 	
 GO
 
+--Tao Stored Procedure đếm so luong nhan vien theo phong ban va nam
+IF (OBJECT_ID('SP_SLNVTheoPBVaNam') IS NOT NULL)
+	DROP PROCEDURE SP_SLNVTheoPBVaNam
+GO
+CREATE PROCEDURE SP_SLNVTheoPBVaNam
+(
+	@MaPB varchar(5),
+	@nam int
+)
+AS
+	--@MaPB bang null thi đếm SLNV cả công ty
+	IF @MaPB is not null
+		BEGIN
+			SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
+			WHERE PhongBan.MaPB = @MaPB AND YEAR(NgayVaoLam) <= @nam
+			GROUP BY PhongBan.MaPB, PhongBan.TenPB
+		END
+	ELSE
+		BEGIN
+			SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
+			WHERE YEAR(NgayVaoLam) <= @nam
+			GROUP BY PhongBan.MaPB, PhongBan.TenPB
+		END
+GO		
+
+SP_SLNVTheoPBVaNam null, 2017
 
 --Tao Stored Procedure tinh so luong nhan vien theo thoi gian va phong ban
 IF (OBJECT_ID('SP_SLNVTheoThoiGianVaPB') IS NOT NULL)

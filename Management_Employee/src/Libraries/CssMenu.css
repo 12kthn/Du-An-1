@@ -6,7 +6,7 @@
     -fx-border-color:   #196bac;
     -fx-border-width: 0px 0px 0px 10px ;
     -fx-background-color: #03a9f4;
-    
+
 }
 .hover_buttonclose:hover{
     -fx-background-color: #e81123;
@@ -117,12 +117,23 @@
 }
 
 .menu-item:focused {
-     -fx-background-color: #03A9F4;
+    -fx-background-color: #03A9F4;
 }
 
 .menu-item:focused .label {
     /*-fx-text-fill: blue;*/
 }
+
+
 .btn_timkiem:hover{
-      -fx-background-color:#e5e5e5;
+    -fx-background-color:#e5e5e5;
+}
+
+.combo-box{
+    -fx-border-width: 0;
+}
+.combo-box .list-cell{
+    -fx-font-size: 24pt;
+    -fx-text-fill: #004080;
+    -fx-font-weight: bold;
 }

@@ -60,6 +60,20 @@ public class NhanVienDAO {
         return SLNhanVien;
     }
     
+    public int getSLNVTheoPBVaNam(int year) {
+        int SLNhanVien = 0;
+        try {
+            String sql = "{call SP_SLNVTheoPBVaNam(?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, (Object) null, year);
+            while (rs.next()) {
+                SLNhanVien += rs.getInt(2);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return SLNhanVien;
+    }
+    
     public ObservableList getSLNVTheoThoiGianVaPB(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
         int month = 12;

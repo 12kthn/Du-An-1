@@ -20,8 +20,8 @@ public class TableChucVu {
         this.PhuCap = PhuCap;
         
         Picture picture = new Picture();
-        this.Delete = new Button("", picture.createIcone("delete.png"));
-        this.Update = new Button("", picture.createIcone("edit.png"));
+        this.Delete = new Button("", picture.createIcon("delete.png"));
+        this.Update = new Button("", picture.createIcon("edit.png"));
     }
 
     public Button getDelete() {

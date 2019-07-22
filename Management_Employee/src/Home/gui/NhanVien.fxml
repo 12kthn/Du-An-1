@@ -76,7 +76,7 @@
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icone/magnifying-glass%20(2).png" />
+                                    <Image url="@../../Libraries/icon/magnifying-glass%20(2).png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -123,21 +123,16 @@
                                                 <Insets top="40.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <Label prefHeight="28.0" text="Giới tính">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="18.0" />
-                                            </VBox.margin>
-                                        </Label>
-                                        <JFXComboBox fx:id="cboGioiTinh" prefHeight="30.0" prefWidth="451.0" />
+                                        <JFXComboBox fx:id="cboGioiTinh" labelFloat="true" prefHeight="30.0" prefWidth="451.0" promptText="Giới tính">
+                                 <VBox.margin>
+                                    <Insets top="46.0" />
+                                 </VBox.margin></JFXComboBox>
                                         <Label prefHeight="26.0" prefWidth="140.0" text="Ngày sinh">
                                             <font>
-                                                <Font size="14.0" />
+                                                <Font size="13.0" />
                                             </font>
                                             <VBox.margin>
-                                                <Insets bottom="1.0" top="18.0" />
+                                                <Insets bottom="1.0" top="22.0" />
                                             </VBox.margin>
                                         </Label>
                                         <DatePicker fx:id="DPickerNgaySinh" prefWidth="450.0" />
@@ -146,7 +141,7 @@
                                                 <Font size="16.0" />
                                             </font>
                                             <VBox.margin>
-                                                <Insets top="40.0" />
+                                                <Insets top="32.0" />
                                             </VBox.margin>
                                         </JFXTextField>
                                     </children>
@@ -185,15 +180,10 @@
                                                 <Insets top="40.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <Label prefHeight="28.0" text="Trạng thái">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="18.0" />
-                                            </VBox.margin>
-                                        </Label>
-                                        <JFXComboBox fx:id="cboTrangThai" prefHeight="30.0" prefWidth="451.0" />
+                                        <JFXComboBox fx:id="cboTrangThai" labelFloat="true" prefHeight="30.0" prefWidth="451.0" promptText="Trạng thái">
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin></JFXComboBox>
                                     </children>
                                 </VBox>
                                 <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
@@ -271,33 +261,18 @@
                                                 <Insets top="10.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <Label prefHeight="30.0" text="Phòng ban">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="15.0" />
-                                            </VBox.margin>
-                                        </Label>
-                                        <JFXComboBox fx:id="cboPhongBan" prefHeight="30.0" prefWidth="450.0" />
-                                        <Label prefHeight="30.0" prefWidth="140.0" text="Chức vụ">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="18.0" />
-                                            </VBox.margin>
-                                        </Label>
-                                        <JFXComboBox fx:id="cboChucVu" prefHeight="30.0" prefWidth="450.0" />
-                                        <Label prefHeight="30.0" prefWidth="140.0" text="Loại nhân viên">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="18.0" />
-                                            </VBox.margin>
-                                        </Label>
-                                        <JFXComboBox fx:id="cboLoaiNhanVien" prefHeight="30.0" prefWidth="450.0" />
+                                        <JFXComboBox fx:id="cboPhongBan" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Phòng ban">
+                                 <VBox.margin>
+                                    <Insets top="46.0" />
+                                 </VBox.margin></JFXComboBox>
+                                        <JFXComboBox fx:id="cboChucVu" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Chức vụ">
+                                 <VBox.margin>
+                                    <Insets top="46.0" />
+                                 </VBox.margin></JFXComboBox>
+                                        <JFXComboBox fx:id="cboLoaiNhanVien" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Loại nhân viên">
+                                 <VBox.margin>
+                                    <Insets top="46.0" />
+                                 </VBox.margin></JFXComboBox>
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="240.0" prefWidth="450.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">

@@ -1,3 +1,6 @@
+USE QuanLyNhanSu
+GO
+
 --Tao Stored Procedure tim kiem phong ban theo ma
 IF (OBJECT_ID('SP_FindPhongBanByCode') IS NOT NULL)
   DROP PROCEDURE SP_FindPhongBanByCode
@@ -39,3 +42,19 @@ AS
 GO
 
 EXEC SP_FindChucVuByCode 'NT'
+
+--Tao Stored Procedure tim kiem Tai khoan theo ten Tai khoan
+IF (OBJECT_ID('SP_FindTaiKhoanByName') IS NOT NULL)
+  DROP PROCEDURE SP_FindTaiKhoanByName
+GO
+CREATE PROCEDURE SP_FindTaiKhoanByName
+(
+	@TaiKhoan varchar(20)
+)
+AS
+	BEGIN
+		SELECT * FROM TaiKhoan WHERE TaiKhoan = @TaiKhoan
+	END
+GO
+
+EXEC SP_FindTaiKhoanByName 'admin'

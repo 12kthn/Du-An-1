@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -23,11 +24,12 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" text="2019" textFill="#004080">
+            <Label alignment="CENTER" prefHeight="76.0" prefWidth="162.0" text="Năm" textFill="#004080">
                <font>
-                  <Font name="System Bold" size="43.0" />
+                  <Font name="System Bold" size="36.0" />
                </font>
             </Label>
+            <JFXComboBox fx:id="cboNam" focusColor="#f3f3f3" prefHeight="61.0" prefWidth="162.0" stylesheets="@../../Libraries/CssMenu.css" unFocusColor="#f3f3f3" />
          </children>
       </HBox>
       <VBox layoutX="63.0" layoutY="42.0" prefHeight="155.0" prefWidth="310.0" style="-fx-background-color: #F3F3F3;" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0">
@@ -41,7 +43,7 @@
                   </Label>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icone/multiple-users-silhouette.png" />
+                        <Image url="@../../Libraries/icon/multiple-users-silhouette.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -71,7 +73,7 @@
                   </Label>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icone/three-oclock.png" />
+                        <Image url="@../../Libraries/icon/three-oclock.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -129,7 +131,7 @@
             </HBox>
          </children>
       </VBox>
-      <LineChart fx:id="chartTangTruongNV" layoutX="77.0" layoutY="313.0" minHeight="350.0" minWidth="1086.0" prefHeight="350.0" prefWidth="1086.0" title="Biểu đồ số lượng nhân viên năm 2019" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="280.0">
+      <LineChart fx:id="chartTangTruongNV" layoutX="77.0" layoutY="313.0" minHeight="350.0" minWidth="1086.0" prefHeight="350.0" prefWidth="1086.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="280.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
