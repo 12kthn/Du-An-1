@@ -24,7 +24,7 @@ public class Common {
     /**
      * Đối tượng này chứa mã Phòng ban mà tài khoản quản lý
      */
-    public static String MAPB = null;
+    public static String MAPB = "GD";
     
     /**
      * Xóa thông tin của người sử dụng khi có yêu cầu đăng xuất

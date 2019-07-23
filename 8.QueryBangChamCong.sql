@@ -1,3 +1,6 @@
+﻿USE QuanLyNhanSu
+GO
+
 --Tao Stored Procedure hien thi bang cham cong cua nhan vien theo thang nam
 IF (OBJECT_ID('SP_ChamCongTheoThang') IS NOT NULL)
   DROP PROCEDURE SP_ChamCongTheoThang
@@ -37,3 +40,34 @@ AS
 GO		
 EXEC SP_SoGioLamViec 2019
 EXEC SP_SoGioLamViec null
+
+--Tao Stored Procedure tinh so luong nhan vien di lam du 26 ngay trong tháng theo phòng ban
+IF (OBJECT_ID('SP_ChuyenCanTheoThang') IS NOT NULL)
+  DROP PROCEDURE SP_ChuyenCanTheoThang
+GO
+CREATE PROCEDURE SP_ChuyenCanTheoThang
+(
+	@MaPB varchar(5),
+	@Nam char(4),
+	@Thang varchar(2)
+)
+AS
+	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
+	DECLARE @NgayCuoiThang DATETIME = EOMONTH(@NgayDauThang)
+	IF @MaPB is not null
+		BEGIN
+			SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
+				SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
+				WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >=26) AND NhanVien.MaPB = @MaPB
+
+		END
+	ELSE
+		BEGIN
+		SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
+			SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
+			WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >=26)
+		END
+GO
+
+EXEC SP_ChuyenCanTheoThang null, 2019, 6
+

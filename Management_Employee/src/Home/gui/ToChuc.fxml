@@ -50,15 +50,10 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </JFXTextField>
-            <Label prefHeight="28.0" text="Trưởng phòng">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <JFXComboBox fx:id="cboNhanVien" labelFloat="true" prefHeight="31.0" prefWidth="520.0" promptText="Phòng ban">
                <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Label>
-            <JFXComboBox fx:id="cboNhanVien" prefHeight="31.0" prefWidth="520.0" />
+                  <Insets top="45.0" />
+               </VBox.margin></JFXComboBox>
          </children>
       </VBox>
       <TableView fx:id="tblPhongBan" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectPhongBan" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />

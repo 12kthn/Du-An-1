@@ -1,6 +1,7 @@
 
 package Home.controller;
 
+import Home.DAO.ChamCongDAO;
 import Home.DAO.TableChamCongDAO;
 import Home.model.table.TableChamCong;
 import java.net.URL;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -29,20 +31,24 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            setChartTyLeDiLam();
+            
+            loadChart(2019, 5);     
             setColumnModel(2019,5);
-            loadTable();
+            loadTable(2019, 5);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void loadTable(){
-        
-        tblChamCong.setItems(tbl_ccdao.getData(2019, 5));
+    private void loadChart(int year, int month){
+        chuyenCanChart.setData(ccdao.getDataForChuyenCanChart(year, month));
     }
     
-    private void setColumnModel(int nam, int thang) {
+    private void loadTable(int year, int month){
+        tblChamCong.setItems(tbl_ccdao.getData(year, month));
+    }
+    
+    private void setColumnModel(int year, int month) {
         //Khai bao cot
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("maNV"));
@@ -50,7 +56,7 @@ public class ChamCongController implements Initializable {
         col2.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         col3 = new TableColumn<>("Phòng ban");
         col3.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
-        dateCol = new TableColumn<>("Tháng " + thang + " năm " + nam);
+        dateCol = new TableColumn<>("Tháng " + month + " năm " + year);
         col4 = new TableColumn<>("Ngày1");
         col5 = new TableColumn<>("Ngày2");
         col6 = new TableColumn<>("Ngày3");
@@ -589,23 +595,8 @@ public class ChamCongController implements Initializable {
         tblChamCong.getColumns().addAll(col1, col2, col3, dateCol);
     }
 
-    private void setChartTyLeDiLam() {
-        
-        XYChart.Series col = new XYChart.Series<>();
-        
-        col.getData().add(new XYChart.Data("Tất cả", 98.0));
-        col.getData().add(new XYChart.Data("Kỹ thuậṭ", 98.0));
-        col.getData().add(new XYChart.Data("Kế toáṇ", 89.0));
-        col.getData().add(new XYChart.Data("Marketting̣", 100));
-        col.getData().add(new XYChart.Data("Nhân sự", 90.5));
-        col.getData().add(new XYChart.Data("Bán hàng̣", 90.5));
-        col.getData().add(new XYChart.Data("Giám đốc̣", 100));
-
-        chartTyLeDiLam.getData().add(col);
-    }
-
-    private ObservableList<TableChamCong> data = FXCollections.observableArrayList();
     TableChamCongDAO tbl_ccdao = new TableChamCongDAO();
+    ChamCongDAO ccdao = new ChamCongDAO();
     
     private TableColumn<TableChamCong, String> col1;
     private TableColumn<TableChamCong, String> col2;
@@ -646,10 +637,10 @@ public class ChamCongController implements Initializable {
     
     @FXML
     private TableView<TableChamCong> tblChamCong;
-
     
-
     @FXML
-    private BarChart chartTyLeDiLam;
+    private PieChart ngayLamViecChart;
+    @FXML
+    private PieChart chuyenCanChart;
     
 }

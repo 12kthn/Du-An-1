@@ -24,12 +24,12 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="138.0" text="Năm" textFill="#004080">
+            <Label alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="138.0" text="Năm" textFill="#004080">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="cboNam" focusColor="#f3f3f3" prefHeight="69.0" prefWidth="170.0" stylesheets="@../../Libraries/CssMenu.css" unFocusColor="#f3f3f3" />
+            <JFXComboBox fx:id="cboNam" focusColor="#f3f3f3" prefHeight="59.0" prefWidth="170.0" stylesheets="@../../Libraries/CssMenu.css" unFocusColor="#f3f3f3" />
          </children>
       </HBox>
       <VBox layoutX="63.0" layoutY="42.0" prefHeight="155.0" prefWidth="310.0" style="-fx-background-color: #F3F3F3;" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0">
