@@ -3,10 +3,15 @@ package Home.controller;
 
 import Home.DAO.BangLuongDAO;
 import Home.DAO.TableBangLuongDAO;
+import Home.common.XDate;
 import Home.model.table.TableBangLuong;
+import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -21,7 +26,15 @@ public class BangLuongController implements Initializable{
         try {
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
+            
+            loadCboNam();
+            year = cboNam.getSelectionModel().getSelectedItem();
+            loadCboThang();
+            month = cboThang.getSelectionModel().getSelectedItem();
+            addListener();
+            
             loadChart();
+            
             setColumnModel();
             loadTable(2019, 6);
         } catch (Exception ex) {
@@ -29,9 +42,62 @@ public class BangLuongController implements Initializable{
         }
     }
     
+    //Them du lieu vao cboNam
+    private void loadCboNam() {
+        cboNam.getItems().clear();
+
+        cboNam.getItems().add(LocalDate.now().getYear());//năm hiện tại
+        cboNam.getItems().add(LocalDate.now().getYear() - 1);
+        cboNam.getItems().add(LocalDate.now().getYear() - 2);
+        cboNam.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam.getSelectionModel().select(0);
+
+    }
+
+    //Them du lieu vao cboThang
+    private void loadCboThang() {
+        cboThang.getItems().clear();
+        for (int i = 1; i <= XDate.monthOfYear(year); i++) {
+            cboThang.getItems().add(i);
+        }
+        //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
+        //nếu không chọn tháng 1
+        if (year == LocalDate.now().getYear()) {
+            cboThang.getSelectionModel().select(XDate.monthOfYear(year) - 2);
+        } else {
+            cboThang.getSelectionModel().select(0);
+        }
+    }
+    
+    //Them su kien cho Combobox
+    private void addListener() {
+
+        cboNam.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                year = newValue;
+                loadCboThang();
+            }
+        });
+
+        cboThang.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                try {
+                    month = newValue;
+                } catch (Exception e) {
+                }
+                loadChart();
+            }
+        });
+    }
+    
     private void loadChart(){
-        chartPhanHoaTienLuong.getData().add(bldao.getDataForChartPhanHoaTienLuong());
-        chartTienLuongTheoPhongBan.getData().add(bldao.getDataForChartTienLuongTheoPhongBan());
+        chartPhanHoaTienLuong.getData().clear();
+        chartPhanHoaTienLuong.getData().add(bldao.getDataForChartPhanHoaTienLuong(year, month));
+        
+        chartTienLuongTheoPhongBan.getData().clear();
+        chartTienLuongTheoPhongBan.getData().add(bldao.getDataForChartTienLuongTheoPhongBan(year, month));
     }
     
     private void setColumnModel(){
@@ -81,6 +147,9 @@ public class BangLuongController implements Initializable{
     
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
+    private int year;
+    private int month;
+    
     private TableColumn<TableBangLuong, String> col1;
     private TableColumn<TableBangLuong, String> col2;
     private TableColumn<TableBangLuong, String> col3;
@@ -99,7 +168,10 @@ public class BangLuongController implements Initializable{
     private TableColumn<TableBangLuong, Integer> col16;
     private TableColumn<TableBangLuong, String> col17;
     
-    
+    @FXML
+    private JFXComboBox<Integer> cboNam;
+    @FXML
+    private JFXComboBox<Integer> cboThang;
     @FXML
     private BarChart<?,?> chartPhanHoaTienLuong;
     @FXML

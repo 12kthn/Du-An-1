@@ -65,6 +65,7 @@ public class LoginController implements Initializable {
                 break;
             case 2:
                 CustomDialog.showAlert(AlertType.INFORMATION, Common.mainStage, " ", "Đăng nhập thành công");
+                openMain();
                 break;
             default:
                 System.out.println("co loi xay ra");

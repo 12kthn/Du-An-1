@@ -18,7 +18,10 @@ public class TaiKhoanDAO {
                     //set thong tin tai khoan
                     Common.USER = new TaiKhoan(rs.getString(1), rs.getString(2), rs.getString(3));
                     //set MaPB tai khoan nay quan ly
-                    Common.MAPB = new NhanVienDAO().findByCode(rs.getString(3)).getMaPB();
+                    Common.MAPB = (Object)new NhanVienDAO().findByCode(rs.getString(3)).getMaPB();
+                    if (Common.MAPB.toString().equals("GD")) {
+                        Common.MAPB = null;
+                    }
                     //Tra ve ket qua
                     return 2;      
                 }else {

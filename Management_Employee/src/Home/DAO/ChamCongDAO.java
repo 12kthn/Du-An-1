@@ -28,10 +28,9 @@ public class ChamCongDAO {
     }
 
     public int getSLNVDiLamDayDuTheoThang(int year, int month) {
-        Object maPB = "GD".equals(Common.MAPB) ? (Object) null : Common.MAPB;
         try {
             String sql = "{Call SP_ChuyenCanTheoThang(?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, maPB, year, month);
+            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month);
             while (rs.next()) {
                 return rs.getInt(1);
             }
@@ -44,7 +43,7 @@ public class ChamCongDAO {
     public ObservableList<PieChart.Data> getDataForChuyenCanChart(int year, int month) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
         
-        double tongSLNV = new NhanVienDAO().getSLNVTheoPhongBan();
+        double tongSLNV = new NhanVienDAO().getSLNVTheoPhongBan(Common.MAPB);
         int SLNVDiLamDayDu = new ChamCongDAO().getSLNVDiLamDayDuTheoThang(year, month);
         
         chartData.add(new PieChart.Data("Số lượng nhân viên đi làm đầy đủ", SLNVDiLamDayDu));

@@ -1,5 +1,6 @@
 package Home.DAO;
 
+import Home.common.Common;
 import Home.common.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableChamCong;
@@ -14,7 +15,7 @@ public class TableChamCongDAO {
 
     public ObservableList<TableChamCong> getData(int nam, int thang) {
         ObservableList<TableChamCong> data = FXCollections.observableArrayList();
-        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findByMaPB(null);
+        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findByMaPB(Common.MAPB + "");
 
         for (NhanVien nv : listNhanVien) {
             try {

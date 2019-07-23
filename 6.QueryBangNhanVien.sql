@@ -37,6 +37,8 @@ AS
 		END
 GO
 
+EXEC SP_FindNVTheoPB 'it'
+
 --Tao Stored Procedure đếm so luong nhan vien theo phong ban
 IF (OBJECT_ID('SP_SLNVTheoPB') IS NOT NULL)
 	DROP PROCEDURE SP_SLNVTheoPB

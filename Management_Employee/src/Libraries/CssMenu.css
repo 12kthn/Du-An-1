@@ -133,8 +133,11 @@
     -fx-background-color: #0069d9;
    
 }
-.combo-box .list-cell{
+
+/*combo-box style*/
+.combo-box.comboxTitle .list-cell{
     -fx-font-size: 24pt;
-    -fx-text-fill: #004080;
+    -fx-text-fill: #007fff;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 0 20;
 }

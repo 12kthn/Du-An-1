@@ -69,5 +69,5 @@ AS
 		END
 GO
 
-EXEC SP_ChuyenCanTheoThang null, 2019, 6
+EXEC SP_ChuyenCanTheoThang 'it', 2019, 6
 

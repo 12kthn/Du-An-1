@@ -1,6 +1,7 @@
 
 package Home.DAO;
 
+import Home.common.Common;
 import Home.common.JDBC;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +23,11 @@ public class BangLuongDAO {
         return TongTienLuong;
     }
     
-    public XYChart.Series getDataForChartPhanHoaTienLuong() {
+    public XYChart.Series getDataForChartPhanHoaTienLuong(int year, int month) {
         XYChart.Series data = new XYChart.Series<>();
-        
         try {
-            String sql = "{call SP_PhanHoaTienLuong(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, (Object) null);
+            String sql = "{call SP_PhanHoaTienLuong(?,?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month);
             while (rs.next()) {
                 data.getData().add(new XYChart.Data("Cao nhất", rs.getDouble(1)));
                 data.getData().add(new XYChart.Data("Thấp nhất", rs.getDouble(2)));
@@ -40,20 +40,23 @@ public class BangLuongDAO {
         return data;
     }
     
-    public XYChart.Series getDataForChartTienLuongTheoPhongBan() {
+    public XYChart.Series getDataForChartTienLuongTheoPhongBan(int year, int month) {
         XYChart.Series data = new XYChart.Series<>();
         double tongTien = 0;
         int soPhongBan = 0;
         
         try {
-            String sql = "{call SP_TongTienLuong}";
-            ResultSet rs = JDBC.executeQuery(sql);
+            String sql = "{call SP_TongTienLuongVaPBTheoThang(?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, year, month);
             while (rs.next()) {
                 data.getData().add(new XYChart.Data(rs.getString(1), rs.getDouble(2)));
                 tongTien += rs.getDouble(2);
                 soPhongBan++;
             }
-            data.getData().add(new XYChart.Data("Trung bình", tongTien/soPhongBan));
+            if (tongTien > 0) {
+                data.getData().add(new XYChart.Data("Trung bình", tongTien/soPhongBan));
+            }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -28,6 +28,8 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            tbl_ccdao = new TableChamCongDAO();
+            ccdao = new ChamCongDAO();
 
             //load Tabpane1
             loadCboNam1();
@@ -704,8 +706,8 @@ public class ChamCongController implements Initializable {
         tblChamCong.getColumns().addAll(col1, col2, col3, dateCol);
     }
 
-    TableChamCongDAO tbl_ccdao = new TableChamCongDAO();
-    ChamCongDAO ccdao = new ChamCongDAO();
+    private TableChamCongDAO tbl_ccdao;
+    private ChamCongDAO ccdao;
 
     private int year1;//bien cua tab1
     private int month1;

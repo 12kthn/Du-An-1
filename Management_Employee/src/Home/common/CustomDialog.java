@@ -14,6 +14,6 @@ public class CustomDialog {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.initOwner(owner);
-        alert.show();
+        alert.showAndWait();
     }
 }
