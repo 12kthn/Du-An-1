@@ -42,7 +42,7 @@ public class HomeController implements Initializable, Runnable {
         thread.start();
     }
 
-    //Them du lieu và sự kiện vao Combobox
+    //Them du lieu và sự kiện vao cboNam
     private void loadCboNam() {
         cboNam.getItems().add(LocalDate.now().getYear());//năm hiện tại
         cboNam.getItems().add(LocalDate.now().getYear() - 1);
@@ -92,7 +92,7 @@ public class HomeController implements Initializable, Runnable {
 
         XYChart.Series series7 = new XYChart.Series<>();
         series7.setName("Tất cả");
-        series7.setData(nvdao.getSLNVTheoThoiGianVaPB("", year));
+        series7.setData(nvdao.getSLNVTheoThoiGianVaPB(null, year));
 
         //add series to chart
         chartTangTruongNV.getData().addAll(series1, series2, series3, series4, series5, series6, series7);
@@ -125,7 +125,7 @@ public class HomeController implements Initializable, Runnable {
             Thread.sleep(1000);
             double plusNum1 = nvdao.getSLNVTheoPBVaNam(year)/ 20.0;
             double plusNum2 = bldao.getTongTienLuongTrongNam(year) / 20.0;
-            double plusNum3 = ccdao.getSoGioLamViec(year) / 20.0;
+            double plusNum3 = ccdao.getSoGioLamViecTheoNam(year) / 20.0;
             for (int i = 1; i <= 20; i++) {
                 int value1 = (int) (i * plusNum1);
                 double value2 = i * plusNum2;

@@ -1,6 +1,7 @@
 package Home.DAO;
 
 import Home.common.JDBC;
+import Home.common.XDate;
 import Home.model.NhanVien;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,10 +77,7 @@ public class NhanVienDAO {
     
     public ObservableList getSLNVTheoThoiGianVaPB(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
-        int month = 12;
-        if (year == LocalDate.now().getYear()) {
-            month = LocalDate.now().getMonthValue();
-        }
+        int month = XDate.monthOfYear(year);
         for (int i = 1; i <= month; i++) {
             try {
                 String sql = "{call SP_SLNVTheoThoiGianVaPB(?,?,?)}";

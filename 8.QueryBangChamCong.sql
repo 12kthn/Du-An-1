@@ -21,10 +21,10 @@ GO
 EXEC SP_ChamCongTheoThang 'IT001', '2019', '5'
 
 --Tao Stored Procedure tinh so gio lam viec theo nam
-IF (OBJECT_ID('SP_SoGioLamViec') IS NOT NULL)
-  DROP PROCEDURE SP_SoGioLamViec
+IF (OBJECT_ID('SP_SoGioLamViecTheoNam') IS NOT NULL)
+  DROP PROCEDURE SP_SoGioLamViecTheoNam
 GO
-CREATE PROCEDURE SP_SoGioLamViec
+CREATE PROCEDURE SP_SoGioLamViecTheoNam
 (
 	@Nam int
 )
@@ -38,8 +38,8 @@ AS
 			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1
 		END
 GO		
-EXEC SP_SoGioLamViec 2019
-EXEC SP_SoGioLamViec null
+EXEC SP_SoGioLamViecTheoNam 2019
+EXEC SP_SoGioLamViecTheoNam null
 
 --Tao Stored Procedure tinh so luong nhan vien di lam du 26 ngay trong tháng theo phòng ban
 IF (OBJECT_ID('SP_ChuyenCanTheoThang') IS NOT NULL)

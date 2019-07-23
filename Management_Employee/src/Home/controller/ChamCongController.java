@@ -1,21 +1,20 @@
-
 package Home.controller;
 
 import Home.DAO.ChamCongDAO;
 import Home.DAO.TableChamCongDAO;
+import Home.common.XDate;
 import Home.model.table.TableChamCong;
+import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -26,29 +25,139 @@ import javafx.util.Callback;
 
 public class ChamCongController implements Initializable {
 
-    
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            
-            loadChart(2019, 5);     
-            setColumnModel(2019,5);
-            loadTable(2019, 5);
+
+            //load Tabpane1
+            loadCboNam1();
+            year1 = cboNam1.getSelectionModel().getSelectedItem();
+            loadCboThang1();
+            month1 = cboThang1.getSelectionModel().getSelectedItem();
+            loadChart();
+
+            //Loadtabpanel2
+            loadCboNam2();
+            year2 = cboNam2.getSelectionModel().getSelectedItem();
+            loadCboThang2();
+            month2 = cboThang2.getSelectionModel().getSelectedItem();
+            setColumnModel();
+            loadTable();
+
+            //load chung 2 Tab
+            addListener();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void loadChart(int year, int month){
-        chuyenCanChart.setData(ccdao.getDataForChuyenCanChart(year, month));
+    //Them du lieu vao cboNam1
+    private void loadCboNam1() {
+        cboNam1.getItems().clear();
+
+        cboNam1.getItems().add(LocalDate.now().getYear());//năm hiện tại
+        cboNam1.getItems().add(LocalDate.now().getYear() - 1);
+        cboNam1.getItems().add(LocalDate.now().getYear() - 2);
+        cboNam1.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam1.getSelectionModel().select(0);
+
     }
-    
-    private void loadTable(int year, int month){
-        tblChamCong.setItems(tbl_ccdao.getData(year, month));
+
+    //Them du lieu vao cboThang1
+    private void loadCboThang1() {
+        cboThang1.getItems().clear();
+        for (int i = 1; i <= XDate.monthOfYear(year1); i++) {
+            cboThang1.getItems().add(i);
+        }
+        //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
+        //nếu không chọn tháng 1
+        if (year1 == LocalDate.now().getYear()) {
+            cboThang1.getSelectionModel().select(XDate.monthOfYear(year1) - 1);
+        } else {
+            cboThang1.getSelectionModel().select(0);
+        }
     }
-    
-    private void setColumnModel(int year, int month) {
+
+    //Them du lieu vao cboNam2
+    private void loadCboNam2() {
+        cboNam2.getItems().clear();
+
+        cboNam2.getItems().add(LocalDate.now().getYear());//năm hiện tại
+        cboNam2.getItems().add(LocalDate.now().getYear() - 1);
+        cboNam2.getItems().add(LocalDate.now().getYear() - 2);
+        cboNam2.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam2.getSelectionModel().select(0);
+
+    }
+
+    //Them du lieu vao cboThang2
+    private void loadCboThang2() {
+        cboThang2.getItems().clear();
+        for (int i = 1; i <= XDate.monthOfYear(year2); i++) {
+            cboThang2.getItems().add(i);
+        }
+        //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
+        //nếu không chọn tháng 1
+        if (year2 == LocalDate.now().getYear()) {
+            cboThang2.getSelectionModel().select(XDate.monthOfYear(year2) - 1);
+        } else {
+            cboThang2.getSelectionModel().select(0);
+        }
+    }
+
+    //Them su kien cho Combobox
+    private void addListener() {
+
+        cboNam1.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                year1 = newValue;
+                loadCboThang1();
+            }
+        });
+
+        cboThang1.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                try {
+                    month1 = newValue;
+                } catch (Exception e) {
+                }
+                loadChart();
+            }
+        });
+
+        cboNam2.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                year2 = newValue;
+                loadCboThang2();
+            }
+        });
+
+        cboThang2.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+                try {
+                    month2 = newValue;
+                } catch (Exception e) {
+                }
+
+                loadTable();
+            }
+        });
+    }
+
+    private void loadChart() {
+        chuyenCanChart.setData(ccdao.getDataForChuyenCanChart(year1, month1));
+        soNgayLamViecChart.setData(ccdao.getDataForSoNgayLamViecChart(year1, month1));
+    }
+
+    private void loadTable() {
+        tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
+    }
+
+    private void setColumnModel() {
         //Khai bao cot
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("maNV"));
@@ -56,7 +165,7 @@ public class ChamCongController implements Initializable {
         col2.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         col3 = new TableColumn<>("Phòng ban");
         col3.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
-        dateCol = new TableColumn<>("Tháng " + month + " năm " + year);
+        dateCol = new TableColumn<>("Tháng " + month2 + " năm " + year2);
         col4 = new TableColumn<>("Ngày1");
         col5 = new TableColumn<>("Ngày2");
         col6 = new TableColumn<>("Ngày3");
@@ -597,7 +706,12 @@ public class ChamCongController implements Initializable {
 
     TableChamCongDAO tbl_ccdao = new TableChamCongDAO();
     ChamCongDAO ccdao = new ChamCongDAO();
-    
+
+    private int year1;//bien cua tab1
+    private int month1;
+    private int year2;//bien cua tab2
+    private int month2;
+
     private TableColumn<TableChamCong, String> col1;
     private TableColumn<TableChamCong, String> col2;
     private TableColumn<TableChamCong, String> col3;
@@ -634,13 +748,26 @@ public class ChamCongController implements Initializable {
     private TableColumn<TableChamCong, Boolean> col33;
     private TableColumn<TableChamCong, Boolean> col34;
     private TableColumn<TableChamCong, String> col35;
-    
+
+    @FXML
+    private JFXComboBox<Integer> cboNam1;
+
+    @FXML
+    private JFXComboBox<Integer> cboThang1;
+
+    @FXML
+    private JFXComboBox<Integer> cboNam2;
+
+    @FXML
+    private JFXComboBox<Integer> cboThang2;
+
     @FXML
     private TableView<TableChamCong> tblChamCong;
-    
+
     @FXML
-    private PieChart ngayLamViecChart;
+    private PieChart soNgayLamViecChart;
+
     @FXML
     private PieChart chuyenCanChart;
-    
+
 }
