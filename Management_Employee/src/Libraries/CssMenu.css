@@ -125,10 +125,14 @@
 }
 
 
-.btn_timkiem:hover{
-    -fx-background-color:#e5e5e5;
+.btn_timkiem{
+    -fx-background-color:#007bff;
+    
 }
-
+.btn_timkiem:hover{
+    -fx-background-color: #0069d9;
+   
+}
 .combo-box .list-cell{
     -fx-font-size: 24pt;
     -fx-text-fill: #004080;

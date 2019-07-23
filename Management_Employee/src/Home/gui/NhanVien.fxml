@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
@@ -25,6 +16,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,7 +24,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
     <children>
         <JFXTabPane fx:id="tabPane" stylesheets="@../../Libraries/CssMenu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -71,19 +63,19 @@
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>
                                 </TableView>
-                        <TextField layoutX="28.0" layoutY="43.0" prefHeight="32.0" prefWidth="300.0" />
-                        <JFXButton layoutX="328.0" layoutY="42.0" prefHeight="34.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm ">
+                        <JFXButton layoutX="378.0" layoutY="45.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe">
                            <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/magnifying-glass%20(2).png" />
+                                    <Image url="@../../Libraries/icon/search.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                            <font>
-                              <Font name="Arial" size="14.0" />
+                              <Font name="Arial" size="13.0" />
                            </font>
                         </JFXButton>
+                        <TextField layoutX="14.0" layoutY="45.0" prefHeight="20.0" prefWidth="350.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -188,7 +180,7 @@
                                 </VBox>
                                 <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -199,8 +191,15 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-primary" />
                                             </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/them%20moi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Sửa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -211,8 +210,15 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-success" />
                                             </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/capnhat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -223,8 +229,15 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-danger" />
                                             </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -235,6 +248,13 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-info" />
                                             </styleClass>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/taomoi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -307,7 +327,7 @@
                                 </VBox>
                                 <HBox alignment="CENTER" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -318,8 +338,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/them%20moi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Sửa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -330,8 +357,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/capnhat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -342,8 +376,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -354,6 +395,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/taomoi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -406,7 +454,7 @@
                                         </JFXTextField>
                                     </children>
                                 </VBox>
-                                <TableView fx:id="tblNhanThan" layoutX="472.0" prefHeight="345.0" prefWidth="664.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="472.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="110.0">
+                                <TableView fx:id="tblNhanThan" layoutX="488.0" layoutY="77.0" prefHeight="337.0" prefWidth="664.0" AnchorPane.bottomAnchor="191.0" AnchorPane.leftAnchor="488.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0">
                                     <columns>
                                         <TableColumn prefWidth="229.0" resizable="false" text="Họ tên" />
                                         <TableColumn prefWidth="145.0" resizable="false" text="Nghề nghiệp" />
@@ -414,9 +462,9 @@
                                         <TableColumn prefWidth="160.0" text="Giảm trừ phụ thuộc" />
                                     </columns>
                                 </TableView>
-                                <HBox alignment="CENTER" layoutX="31.0" layoutY="510.0" prefHeight="74.0" prefWidth="400.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="380.0">
+                                <HBox alignment="CENTER" layoutX="7.0" layoutY="510.0" prefHeight="74.0" prefWidth="478.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="380.0">
                                     <children>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>
@@ -427,8 +475,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/them%20moi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Sửa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="128.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>
@@ -439,8 +494,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/capnhat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>
@@ -451,8 +513,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
                                             </font>
@@ -463,12 +532,19 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/taomoi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -479,8 +555,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/them%20moi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Sửa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -491,8 +574,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/capnhat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -503,8 +593,15 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="120.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -515,6 +612,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/taomoi.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
