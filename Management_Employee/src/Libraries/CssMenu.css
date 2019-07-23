@@ -129,9 +129,6 @@
     -fx-background-color:#e5e5e5;
 }
 
-.combo-box{
-    -fx-border-width: 0;
-}
 .combo-box .list-cell{
     -fx-font-size: 24pt;
     -fx-text-fill: #004080;

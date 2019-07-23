@@ -29,36 +29,40 @@ public class HomeController implements Initializable, Runnable {
             loadCboNam();
             year = cboNam.getSelectionModel().getSelectedItem();
             runThread();
-            loadChartTangTruongNV(year);
+            loadChartTangTruongNV();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
     }
 
+    //Khởi tạo và chạy Thread
     private void runThread() {
         Thread thread = new Thread(this);
         thread.start();
     }
 
+    //Them du lieu và sự kiện vao Combobox
     private void loadCboNam() {
-        cboNam.getItems().add(LocalDate.now().getYear());
+        cboNam.getItems().add(LocalDate.now().getYear());//năm hiện tại
         cboNam.getItems().add(LocalDate.now().getYear() - 1);
         cboNam.getItems().add(LocalDate.now().getYear() - 2);
         cboNam.getItems().add(LocalDate.now().getYear() - 3);
         cboNam.getSelectionModel().select(0);
 
+        //Sự kiện khi chọn combobox
         cboNam.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override
             public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
                 year = newValue;
                 runThread();
-                loadChartTangTruongNV(year);
+                loadChartTangTruongNV();
             }
         });
     }
 
-    private void loadChartTangTruongNV(int year) {
+    //Thêm du lieu vào chartTangTruongNV
+    private void loadChartTangTruongNV() {
         chartTangTruongNV.getData().clear();
         chartTangTruongNV.setTitle("Biểu đồ số lượng nhân viên năm " + year);
 
@@ -97,7 +101,7 @@ public class HomeController implements Initializable, Runnable {
     private NhanVienDAO nvdao;
     private ChamCongDAO ccdao;
     private BangLuongDAO bldao;
-    private int year;
+    private int year;//năm hien thi thống kê
 
     @FXML
     private Label lblThuNhap;
@@ -114,6 +118,7 @@ public class HomeController implements Initializable, Runnable {
     @FXML
     private JFXComboBox<Integer> cboNam;
 
+    //Thread 
     @Override
     public void run() {
         try {
