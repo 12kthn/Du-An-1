@@ -2,6 +2,7 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/model/table/TableChamCong.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/TableChamCongDAO.java</file>
@@ -10,5 +11,8 @@
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/common/FormatNumber.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/ChamCongDAO.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> b95053d42d9bc21da5dcac974244b6412678fb6f
     </open-files>
 </project-private>
