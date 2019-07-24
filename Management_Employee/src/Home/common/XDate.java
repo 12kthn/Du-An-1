@@ -39,6 +39,10 @@ public class XDate {
         return new java.sql.Date(date.getTime()).toLocalDate();
     }
 
+    public static java.sql.Date toSqlDate(Date date){
+        return new java.sql.Date(date.getTime());
+    }
+    
     public static Date toDate(String dateString) {
         try {
             SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");

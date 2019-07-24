@@ -1,6 +1,30 @@
 ﻿USE QuanLyNhanSu
 GO
 
+--Tao Stored Procedure tim kiem bản lưu Cham cong cua NhanVien theo ngay
+IF (OBJECT_ID('SP_FindCCByPrimaryKey') IS NOT NULL)
+  DROP PROCEDURE SP_FindCCByPrimaryKey
+GO
+CREATE PROCEDURE SP_FindCCByPrimaryKey
+(
+	@MaNV varchar(10),
+	@Ngay datetime
+)
+AS
+	
+	IF @MaNV is not null
+		BEGIN 
+			SELECT * FROM ChamCong WHERE MaNV = @MaNV AND Ngay = @Ngay
+		END
+	ELSE
+	--@MaNV bang null thi lay hêt bản lưu theo ngày
+		BEGIN
+			SELECT * FROM ChamCong WHERE Ngay = @Ngay
+		END
+GO
+
+EXEC SP_FindCCByPrimaryKey 'it001', '2019/5/1'
+GO
 --Tao Stored Procedure hien thi bang cham cong cua nhan vien theo thang nam
 IF (OBJECT_ID('SP_ChamCongTheoThang') IS NOT NULL)
   DROP PROCEDURE SP_ChamCongTheoThang

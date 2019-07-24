@@ -175,7 +175,6 @@ CREATE PROCEDURE SP_ChamCong
 	@MaNV varchar(10),
 	@Ngay date,
 	@TinhTrang bit,
-	@TangCa int,
 	@StatementType char(6)
 )
 AS
@@ -185,12 +184,12 @@ AS
 				BEGIN
 					SET @Ngay = (SELECT CAST(getdate() AS date))
 				END
-			INSERT INTO ChamCong VALUES(@MaNV, @Ngay, @TinhTrang, @TangCa)
+			INSERT INTO ChamCong VALUES(@MaNV, @Ngay, @TinhTrang)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE ChamCong 
-			SET TinhTrang = @TinhTrang, TangCa = @TangCa
+			SET TinhTrang = @TinhTrang
 			WHERE MaNV = @MaNV AND Ngay = @Ngay
 		END
 	IF @StatementType = 'Delete'

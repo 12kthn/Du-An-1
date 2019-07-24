@@ -1,30 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Home.model;
 
 import java.util.Date;
 
-/**
- *
- * @author USER
- */
 public class ChamCong {
     private String MaNV;
     private Date Ngay;
     private boolean TinhTrang;
-    private int TangCa;
     
     public ChamCong(){
     }
     
-    public ChamCong(String MaNV, Date Ngay, boolean TinhTrang,int TangCa){
+    public ChamCong(String MaNV, Date Ngay, boolean TinhTrang){
         this.MaNV = MaNV;
         this.Ngay = Ngay;
         this.TinhTrang = TinhTrang;
-        this.TangCa = TangCa;
     }
     
     /*
@@ -39,13 +29,10 @@ public class ChamCong {
         return Ngay;
     }
 
-    public boolean isTinhTrang() {
+    public boolean getTinhTrang() {
         return TinhTrang;
     }
 
-    public int getTangCa() {
-        return TangCa;
-    }
     
     /*
     *Setter
@@ -63,9 +50,9 @@ public class ChamCong {
         this.TinhTrang = TinhTrang;
     }
 
-    public void setTangCa(int TangCa) {
-        this.TangCa = TangCa;
+    @Override
+    public String toString() {
+        return "ChamCong{" + "MaNV=" + MaNV + ", Ngay=" + Ngay + ", TinhTrang=" + TinhTrang + '}';
     }
-    
-    
+  
 }

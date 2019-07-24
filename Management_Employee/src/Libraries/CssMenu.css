@@ -18,44 +18,30 @@
 /*button style*/
 .btn{
     -fx-text-fill: #fff;
-    -fx-border-style: solid;
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 12pt;
-    -fx-padding: 6 3 6 3;
 }
 .btn-primary{
     -fx-background-color: #007bff;
-    -fx-border-color: #007bff;
 }
 .btn-primary:hover{
     -fx-background-color: #0069d9;
-    -fx-border-color: #0062cc;
 }
 .btn-danger{
     -fx-background-color:#dc3545;
-    -fx-border-color:#dc3545;
 }
 .btn-danger:hover{
     -fx-background-color:#c82333;
-    -fx-border-color:#bd2130;
 }
 .btn-success{
     -fx-background-color:#28a745;
-    -fx-border-color:#28a745;
 }
 .btn-success:hover{
     -fx-background-color:#218838;
-    -fx-border-color:#1e7e34;
 }
 .btn-info{
     -fx-background-color:#17a2b8;
-    -fx-border-color:#17a2b8;
 }
 .btn-info:hover{
     -fx-background-color:#138496;
-    -fx-border-color:#117a8b;
 }
 
 /*jfx-tab-pane style*/

@@ -4,8 +4,10 @@ import Home.common.Common;
 import Home.common.FormatNumber;
 import Home.common.JDBC;
 import Home.common.XDate;
+import Home.model.ChamCong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.function.Consumer;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -13,7 +15,51 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
 public class ChamCongDAO {
+    
+    public ChamCong findByCode(String maNV, Date ngay){
+        ChamCong cc = null;
+        try {
+            String sql = "{Call SP_FindCCByPrimaryKey(?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, maNV, XDate.toSqlDate(ngay));
+            while (rs.next()){
+                return cc = new ChamCong(maNV, ngay, rs.getBoolean(3));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return cc;
+    }
 
+    public int insert(ChamCong cc){
+        try {
+            String sql = "{Call SP_ChamCong(?,?,?,?)}";
+            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Insert");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int update(ChamCong cc){
+        try {
+            String sql = "{Call SP_ChamCong(?,?,?,?)}";
+            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Update");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int delete(ChamCong cc){
+        try {
+            String sql = "{Call SP_ChamCong(?,?,?,?)}";
+            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Delete");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
     public int getSoGioLamViecTheoNam(int year) {
         try {
             String sql = "{call SP_SoGioLamViecTheoNam(?)}";
@@ -79,4 +125,6 @@ public class ChamCongDAO {
         
         return chartData;
     }
+    
+    
 }

@@ -80,7 +80,7 @@ CREATE TABLE ChamCong
 	MaNV varchar(10) not null,
 	Ngay date not null,
 	TinhTrang bit not null,
-	TangCa int,
+
 	PRIMARY KEY (MaNV, Ngay),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )

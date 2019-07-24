@@ -63,19 +63,19 @@
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                     </padding>
                                 </TableView>
-                        <JFXButton layoutX="378.0" layoutY="45.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe">
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
-                                 <image>
-                                    <Image url="@../../Libraries/icon/search.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                        </JFXButton>
-                        <TextField layoutX="14.0" layoutY="45.0" prefHeight="20.0" prefWidth="350.0" />
+                                <JFXButton layoutX="378.0" layoutY="45.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe">
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                            <image>
+                                                <Image url="@../../Libraries/icon/search.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Arial" size="13.0" />
+                                    </font>
+                                </JFXButton>
+                                <TextField layoutX="14.0" layoutY="45.0" prefHeight="20.0" prefWidth="350.0" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -116,9 +116,10 @@
                                             </VBox.margin>
                                         </JFXTextField>
                                         <JFXComboBox fx:id="cboGioiTinh" labelFloat="true" prefHeight="30.0" prefWidth="451.0" promptText="Giới tính">
-                                 <VBox.margin>
-                                    <Insets top="46.0" />
-                                 </VBox.margin></JFXComboBox>
+                                            <VBox.margin>
+                                                <Insets top="46.0" />
+                                            </VBox.margin>
+                                        </JFXComboBox>
                                         <Label prefHeight="26.0" prefWidth="140.0" text="Ngày sinh">
                                             <font>
                                                 <Font size="13.0" />
@@ -173,9 +174,10 @@
                                             </VBox.margin>
                                         </JFXTextField>
                                         <JFXComboBox fx:id="cboTrangThai" labelFloat="true" prefHeight="30.0" prefWidth="451.0" promptText="Trạng thái">
-                                 <VBox.margin>
-                                    <Insets top="40.0" />
-                                 </VBox.margin></JFXComboBox>
+                                            <VBox.margin>
+                                                <Insets top="40.0" />
+                                            </VBox.margin>
+                                        </JFXComboBox>
                                     </children>
                                 </VBox>
                                 <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
@@ -191,13 +193,13 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-primary" />
                                             </styleClass>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/them%20moi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/them%20moi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                                             <font>
@@ -210,13 +212,13 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-success" />
                                             </styleClass>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/capnhat.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                                             <font>
@@ -229,13 +231,13 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-danger" />
                                             </styleClass>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
                                             <font>
@@ -248,13 +250,13 @@
                                                 <String fx:value="btn" />
                                                 <String fx:value="btn-info" />
                                             </styleClass>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/taomoi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -282,17 +284,20 @@
                                             </VBox.margin>
                                         </JFXTextField>
                                         <JFXComboBox fx:id="cboPhongBan" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Phòng ban">
-                                 <VBox.margin>
-                                    <Insets top="46.0" />
-                                 </VBox.margin></JFXComboBox>
+                                            <VBox.margin>
+                                                <Insets top="46.0" />
+                                            </VBox.margin>
+                                        </JFXComboBox>
                                         <JFXComboBox fx:id="cboChucVu" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Chức vụ">
-                                 <VBox.margin>
-                                    <Insets top="46.0" />
-                                 </VBox.margin></JFXComboBox>
+                                            <VBox.margin>
+                                                <Insets top="46.0" />
+                                            </VBox.margin>
+                                        </JFXComboBox>
                                         <JFXComboBox fx:id="cboLoaiNhanVien" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Loại nhân viên">
-                                 <VBox.margin>
-                                    <Insets top="46.0" />
-                                 </VBox.margin></JFXComboBox>
+                                            <VBox.margin>
+                                                <Insets top="46.0" />
+                                            </VBox.margin>
+                                        </JFXComboBox>
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="240.0" prefWidth="450.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
@@ -338,13 +343,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/them%20moi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/them%20moi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
@@ -357,13 +362,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/capnhat.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
@@ -376,13 +381,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
@@ -395,13 +400,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/taomoi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -475,13 +480,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/them%20moi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/them%20moi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="128.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
@@ -494,13 +499,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/capnhat.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
@@ -513,13 +518,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
@@ -532,13 +537,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/taomoi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>
@@ -555,13 +560,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/them%20moi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/them%20moi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
@@ -574,13 +579,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/capnhat.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
@@ -593,13 +598,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/rubbish-bin.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/rubbish-bin.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                         <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
@@ -612,13 +617,13 @@
                                             <HBox.margin>
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/taomoi.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
+                                            <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
                                         </JFXButton>
                                     </children>
                                 </HBox>

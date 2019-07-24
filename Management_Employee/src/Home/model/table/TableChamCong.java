@@ -11,6 +11,7 @@ public class TableChamCong {
     private String thang;
     private Boolean ngay1, ngay2, ngay3, ngay4, ngay5, ngay6, ngay7, ngay8, ngay9, ngay10, ngay11, ngay12, ngay13, ngay14, ngay15,
             ngay16, ngay17, ngay18, ngay19, ngay20, ngay21, ngay22, ngay23, ngay24, ngay25, ngay26, ngay27, ngay28, ngay29, ngay30, ngay31;
+    private Boolean[] onWork;
 
     public TableChamCong() {
 
@@ -56,7 +57,13 @@ public class TableChamCong {
         this.thang = thang;
     }
 
-    private void setNgay(Boolean[] onWork) {
+    public TableChamCong(String maNV, String hoTen, PhongBan phongBan, String nam, String thang, Boolean[] onWork) {
+        this.maNV = maNV;
+        this.hoTen = hoTen;
+        this.phongBan = phongBan;
+        this.nam = nam;
+        this.thang = thang;
+        this.onWork = new Boolean[31];
         this.ngay1 = onWork[0];
         this.ngay2 = onWork[1];
         this.ngay3 = onWork[2];
@@ -90,17 +97,6 @@ public class TableChamCong {
         this.ngay31 = onWork[30];
     }
 
-    public TableChamCong(String maNV, String hoTen, PhongBan phongBan, String nam, String thang, Boolean[] onWork) {
-        this.maNV = maNV;
-        this.hoTen = hoTen;
-        this.phongBan = phongBan;
-        this.nam = nam;
-        this.thang = thang;
-        this.setNgay(onWork);
-    }
-
-    
-    
     public Boolean getNgay1() {
         return ngay1;
     }
@@ -349,4 +345,41 @@ public class TableChamCong {
         this.ngay31 = ngay31;
     }
 
+    public void setOnWork() {
+        onWork[0] = this.ngay1;
+        onWork[1] = this.ngay2;
+        onWork[2] = this.ngay3;
+        onWork[3] = this.ngay4;
+        onWork[4] = this.ngay5;
+        onWork[5] = this.ngay6;
+        onWork[6] = this.ngay7;
+        onWork[7] = this.ngay8;
+        onWork[8] = this.ngay9;
+        onWork[9] = this.ngay10;
+        onWork[10] = this.ngay11;
+        onWork[11] = this.ngay12;
+        onWork[12] = this.ngay13;
+        onWork[13] = this.ngay14;
+        onWork[14] = this.ngay15;
+        onWork[15] = this.ngay16;
+        onWork[16] = this.ngay17;
+        onWork[17] = this.ngay18;
+        onWork[18] = this.ngay19;
+        onWork[19] = this.ngay20;
+        onWork[20] = this.ngay21;
+        onWork[21] = this.ngay22;
+        onWork[22] = this.ngay23;
+        onWork[23] = this.ngay24;
+        onWork[24] = this.ngay25;
+        onWork[25] = this.ngay26;
+        onWork[26] = this.ngay27;
+        onWork[27] = this.ngay28;
+        onWork[28] = this.ngay29;
+        onWork[29] = this.ngay30;
+        onWork[30] = this.ngay31;
+    }
+
+    public Boolean[] getOnWork() {
+        return onWork;
+    }
 }
