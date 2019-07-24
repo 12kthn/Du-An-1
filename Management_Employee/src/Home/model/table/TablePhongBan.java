@@ -10,16 +10,14 @@ public class TablePhongBan {
     private Button Update;
     private String MaPB;
     private String TenPB;
-    private NhanVien TruongPhong;
     
     public TablePhongBan(){
     
     }
     
-    public TablePhongBan(String MaPB,String TenPB,NhanVien TruongPhong){
+    public TablePhongBan(String MaPB,String TenPB){
         this.MaPB = MaPB;
         this.TenPB = TenPB;
-        this.TruongPhong = TruongPhong;
         
         Picture picture = new Picture();
         this.Delete = new Button("", picture.createIcon("delete.png"));
@@ -57,14 +55,4 @@ public class TablePhongBan {
     public void setTenPB(String TenPB) {
         this.TenPB = TenPB;
     }
-
-    public NhanVien getTruongPhong() {
-        return TruongPhong;
-    }
-
-    public void setTruongPhong(NhanVien TruongPhong) {
-        this.TruongPhong = TruongPhong;
-    }
-    
-    
 }

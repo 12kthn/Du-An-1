@@ -50,10 +50,6 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </JFXTextField>
-            <JFXComboBox fx:id="cboNhanVien" labelFloat="true" prefHeight="31.0" prefWidth="520.0" promptText="Phòng ban">
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin></JFXComboBox>
          </children>
       </VBox>
       <TableView fx:id="tblPhongBan" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectPhongBan" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />

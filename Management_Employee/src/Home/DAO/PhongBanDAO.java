@@ -17,7 +17,7 @@ public class PhongBanDAO {
             String sql = "{Call SP_FindPhongBanByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, code);
             while (rs.next()) {                
-                phongBan = new PhongBan(rs.getString(1), rs.getString(2), rs.getString(3));
+                phongBan = new PhongBan(rs.getString(1), rs.getString(2));
                 list.add(phongBan);
             }
         } catch (SQLException ex) {

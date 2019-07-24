@@ -4,16 +4,14 @@ package Home.model;
 public class PhongBan {
     private String MaPB;
     private String TenPB;
-    private String MaTruongPhong;
     
     public PhongBan(){
     
     }
     
-    public PhongBan(String MaPB,String TenPB,String MaTruongPhong){
+    public PhongBan(String MaPB,String TenPB){
         this.MaPB = MaPB;
         this.TenPB = TenPB;
-        this.MaTruongPhong = MaTruongPhong;
     }
     
     /*
@@ -28,9 +26,6 @@ public class PhongBan {
         return TenPB;
     }
 
-    public String getMaTruongPhong() {
-        return MaTruongPhong;
-    }
     
     /*
     *Setter
@@ -42,10 +37,6 @@ public class PhongBan {
 
     public void setTenPB(String TenPB) {
         this.TenPB = TenPB;
-    }
-
-    public void setMaTruongPhong(String MaTruongPhong) {
-        this.MaTruongPhong = MaTruongPhong;
     }
 
     @Override

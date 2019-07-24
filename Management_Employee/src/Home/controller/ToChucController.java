@@ -12,7 +12,6 @@ import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.table.TableChucVu;
 import Home.model.table.TablePhongBan;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,13 +52,6 @@ public class ToChucController implements Initializable {
 
     }
 
-    private void loadCboNhanVien(String maPB) {
-        //tạo danh sách Nhân viên có trong Phòng ban
-        listNhanVien = nvdao.findByMaPB(maPB);
-        //thêm vào Combobox
-        cboNhanVien.setItems(listNhanVien);
-    }
-
     private void setTableColumn_PB() {
         //Tạo và định dạng cột
         deleteColumn_PB = new TableColumn<>("");
@@ -72,18 +64,14 @@ public class ToChucController implements Initializable {
 
         col1_PB = new TableColumn<>("Mã PB");
         col1_PB.setCellValueFactory(new PropertyValueFactory<>("MaPB"));
-        col1_PB.setPrefWidth(100);
+        col1_PB.setPrefWidth(180);
 
         col2_PB = new TableColumn<>("Tên PB");
         col2_PB.setCellValueFactory(new PropertyValueFactory<>("TenPB"));
-        col2_PB.setPrefWidth(100);
-
-        col3_PB = new TableColumn<>("Trưởng phòng");
-        col3_PB.setCellValueFactory(new PropertyValueFactory<>("TruongPhong"));
-        col3_PB.setPrefWidth(180);
+        col2_PB.setPrefWidth(180);
 
         //thêm các cột vào table
-        tblPhongBan.getColumns().addAll(deleteColumn_PB, updateColumn_PB, col1_PB, col2_PB, col3_PB);
+        tblPhongBan.getColumns().addAll(deleteColumn_PB, updateColumn_PB, col1_PB, col2_PB);
     }
 
     private void setTableColumn_CV() {
@@ -129,12 +117,6 @@ public class ToChucController implements Initializable {
     public void setModel(PhongBan pb) {
         txtMaPB.setText(pb.getMaPB());
         txtTenPB.setText(pb.getTenPB());
-        loadCboNhanVien(pb.getMaPB());
-        for (NhanVien nv : listNhanVien) {
-            if (nv.getMaNV().equals(pb.getMaTruongPhong())) {
-                cboNhanVien.getSelectionModel().select(nv);
-            }
-        }
     }
 
     public void setModel(ChucVu cv) {
@@ -155,7 +137,6 @@ public class ToChucController implements Initializable {
     private TableColumn<TablePhongBan, Button> updateColumn_PB;
     private TableColumn<TablePhongBan, String> col1_PB;
     private TableColumn<TablePhongBan, String> col2_PB;
-    private TableColumn<TablePhongBan, String> col3_PB;
     //Khai báo  biến chứa dữ liệu của bảng Phòng ban
     private ObservableList<TablePhongBan> data_PB;
 
@@ -176,8 +157,6 @@ public class ToChucController implements Initializable {
     private JFXTextField txtMaPB;
     @FXML
     private JFXTextField txtTenPB;
-    @FXML
-    private JFXComboBox<NhanVien> cboNhanVien;
     @FXML
     private JFXTextField txtMaCV;
     @FXML

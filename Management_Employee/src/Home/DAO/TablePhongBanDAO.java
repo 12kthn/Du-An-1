@@ -22,7 +22,7 @@ public class TablePhongBanDAO {
             String sql = "{Call SP_FindPhongBanByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, (Object) null);
             while (rs.next()){
-                TablePhongBan tblpb = new TablePhongBan(rs.getString(1), rs.getString(2), nvdao.findByCode(rs.getString(3)));
+                TablePhongBan tblpb = new TablePhongBan(rs.getString(1), rs.getString(2));
                 
                 data.add(tblpb);
                 tblpb.getDelete().setOnAction(new EventHandler<ActionEvent>() {
