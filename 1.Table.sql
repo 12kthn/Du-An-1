@@ -14,7 +14,6 @@ CREATE TABLE PhongBan
 (
 	MaPB varchar(5) PRIMARY KEY,
 	TenPB nvarchar(50) not null,
-	MaTruongPhong varchar(10),
 )
 GO
 
@@ -48,24 +47,22 @@ CREATE TABLE NhanVien
 	TrangThai bit not null,
 
 	UNIQUE(SoCM, MaHD),
-	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV)
+	FOREIGN KEY (MaCV) REFERENCES ChucVu(MaCV),
+	FOREIGN KEY (MaPB) REFERENCES PhongBan(MaPB)
 )
 GO
 
-ALTER TABLE PhongBan
-ADD FOREIGN KEY (MaTruongPhong) REFERENCES NhanVien(MaNV)
-GO
 
 CREATE TABLE TaiKhoan
 (
 	TaiKhoan varchar(20) PRIMARY KEY,
 	MatKhau varchar(20) not null,
-	MaNV varchar(10),
+	MaNV varchar(10) UNIQUE,
 	
 
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
-
+GO
 CREATE TABLE ThanNhan
 (
 	MaTN int identity(1,1) PRIMARY KEY,
@@ -77,7 +74,7 @@ CREATE TABLE ThanNhan
 	
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
-
+GO
 CREATE TABLE ChamCong
 (
 	MaNV varchar(10) not null,
@@ -109,8 +106,8 @@ CREATE TABLE BangLuong
 	PRIMARY KEY (MaNV, NgayPhatLuong),
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 )
-
-CREATE TABLE GiaTriChung
+GO
+CREATE TABLE GiaTriTinhLuong
 (
 	TenGiaTri nvarchar(50) PRIMARY KEY,
 	GiaTri real not null
@@ -122,3 +119,4 @@ CREATE TABLE BacThueTNCN
 	Luong int PRIMARY KEY,
 	Thue real not null
 )
+GO

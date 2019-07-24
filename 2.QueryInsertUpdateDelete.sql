@@ -9,18 +9,17 @@ CREATE PROCEDURE SP_PhongBan
 (
 	@MaPB varchar(5),
 	@TenPB nvarchar(50),
-	@MaTruongPhong varchar(10),
 	@StatementType char(6)
 )
 AS
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO PhongBan VALUES(@MaPB, @TenPB, @MaTruongPhong)
+			INSERT INTO PhongBan VALUES(@MaPB, @TenPB)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE PhongBan 
-			SET TenPB = @TenPB, MaTruongPhong = @MaTruongPhong
+			SET TenPB = @TenPB
 			WHERE MaPB = @MaPB
 		END
 	IF @StatementType = 'Delete'
@@ -57,7 +56,7 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang NhanVien
+--Tao Stored Procedure Insert, Update, Delete cho bang NhanVien
 IF (OBJECT_ID('SP_NhanVien') IS NOT NULL)
   DROP PROCEDURE SP_NhanVien
 GO
@@ -106,33 +105,6 @@ AS
 		END
 GO
 
---Tao Stored Procedure Insert, Update, Delete cho bang PhongBan
-IF (OBJECT_ID('SP_PhongBan') IS NOT NULL)
-  DROP PROCEDURE SP_PhongBan
-GO
-CREATE PROCEDURE SP_PhongBan
-(
-	@MaPB varchar(5),
-	@TenPB nvarchar(50),
-	@MaTruongPhong varchar(10),
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO PhongBan VALUES(@MaPB, @TenPB, @MaTruongPhong)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE PhongBan 
-			SET TenPB = @TenPB, MaTruongPhong = @MaTruongPhong
-			WHERE MaPB = @MaPB
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM PhongBan WHERE MaPB = @MaPB
-		END
-GO
 
 --Tao Stored Procedure Insert, Update, Delete cho bang TaiKhoan
 IF (OBJECT_ID('SP_TaiKhoan') IS NOT NULL)
@@ -193,7 +165,7 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang ChamCong
+--Tao Stored Procedure Insert, Update, Delete cho bang ChamCong
 IF (OBJECT_ID('SP_ChamCong') IS NOT NULL)
   DROP PROCEDURE SP_ChamCong
 GO
@@ -227,12 +199,12 @@ AS
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang GiaTriChung
-IF (OBJECT_ID('SP_GiaTriChung') IS NOT NULL)
-  DROP PROCEDURE SP_GiaTriChung
+--Tao Stored Procedure Insert, Update, Delete cho bang GiaTriTinhLuong
+IF (OBJECT_ID('SP_GiaTriTinhLuong') IS NOT NULL)
+  DROP PROCEDURE SP_GiaTriTinhLuong
 GO
 
-CREATE PROCEDURE SP_GiaTriChung
+CREATE PROCEDURE SP_GiaTriTinhLuong
 (
 	@TenGiaTri nvarchar(50),
 	@GiaTri real,
@@ -241,21 +213,21 @@ CREATE PROCEDURE SP_GiaTriChung
 AS
 	IF @StatementType = 'Insert'
 		BEGIN
-			INSERT INTO GiaTriChung VALUES(@TenGiaTri, @GiaTri)
+			INSERT INTO GiaTriTinhLuong VALUES(@TenGiaTri, @GiaTri)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
-			UPDATE GiaTriChung 
+			UPDATE GiaTriTinhLuong 
 			SET GiaTri = @GiaTri
 			WHERE TenGiaTri = @TenGiaTri
 		END
 	IF @StatementType = 'Delete'
 		BEGIN
-			DELETE FROM GiaTriChung WHERE TenGiaTri = @TenGiaTri
+			DELETE FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri
 		END
 GO
 
---Tao Stored Procedure Select all, Insert, Update, Delete cho bang ThueTNCN
+--Tao Stored Procedure Insert, Update, Delete cho bang ThueTNCN
 IF (OBJECT_ID('SP_BacThueTNCN') IS NOT NULL)
   DROP PROCEDURE SP_BacThueTNCN
 GO
@@ -285,7 +257,7 @@ GO
 
 --Tao cac Function lay Gia tri de Insert cho BangLuong
 
---Tao Function lay Gia tri tu bang GiaTriChung
+--Tao Function lay Gia tri tu bang GiaTriTinhLuong
 IF (OBJECT_ID('FN_SelectGiaTri') IS NOT NULL)
   DROP FUNCTION FN_SelectGiaTri
 GO
@@ -297,7 +269,7 @@ RETURNS real
 AS
 	BEGIN
 		DECLARE @GiaTri real
-		SET @GiaTri = (SELECT GiaTri FROM GiaTriChung WHERE TenGiaTri = @TenGiaTri)
+		SET @GiaTri = (SELECT GiaTri FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri)
 		RETURN @GiaTri
 	END
 GO

@@ -2,12 +2,12 @@
 GO
 
 --Insert into PhongBan
-EXEC SP_PhongBan 'NS', N'Nhân sự', null, 'Insert'
-EXEC SP_PhongBan 'KT', N'Kế toán', null, 'Insert'
-EXEC SP_PhongBan 'MK', N'Marketing', null, 'Insert'
-EXEC SP_PhongBan 'SL', N'Bán hàng', null, 'Insert'
-EXEC SP_PhongBan 'IT', N'Kỹ thuật', null, 'Insert'
-EXEC SP_PhongBan 'GD', N'Giám đốc', null, 'Insert'
+EXEC SP_PhongBan 'NS', N'Nhân sự', 'Insert'
+EXEC SP_PhongBan 'KT', N'Kế toán', 'Insert'
+EXEC SP_PhongBan 'MK', N'Marketing', 'Insert'
+EXEC SP_PhongBan 'SL', N'Bán hàng', 'Insert'
+EXEC SP_PhongBan 'IT', N'Kỹ thuật', 'Insert'
+EXEC SP_PhongBan 'GD', N'Giám đốc', 'Insert'
 GO
 select * from PhongBan
 
@@ -185,40 +185,18 @@ GO
 
 select * from NhanVien
 
---Them truong phong
-UPDATE PhongBan 
-SET MaTruongPhong = 'IT001'
-WHERE MaPB = 'IT'
-UPDATE PhongBan 
-SET MaTruongPhong = 'KT001'
-WHERE MaPB = 'KT'
-UPDATE PhongBan 
-SET MaTruongPhong = 'MK002'
-WHERE MaPB = 'MK'
-UPDATE PhongBan 
-SET MaTruongPhong = 'NS001'
-WHERE MaPB = 'NS'
-UPDATE PhongBan 
-SET MaTruongPhong = 'SL001'
-WHERE MaPB = 'SL'	
-UPDATE PhongBan 
-SET MaTruongPhong = 'MK001'
-WHERE MaPB = 'GD'
-
-select* from PhongBan
-
 --Insert into ThanNhan
 EXEC SP_ThanNhan null, N'Phạm Ngọc Duy', N'Học Sinh', N'Em', 'IT001', 1, 'Insert'
 SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = 'IT001' AND GiamTruPhuThuoc = 1
 
 
---Insert into GiaTriChung
-EXEC SP_GiaTriChung 'LuongCB', 5000000, 'Insert'
-EXEC SP_GiaTriChung 'GiamTruBanThan', 9000000, 'Insert'
-EXEC SP_GiaTriChung 'GiamTruPhuThuoc', 3600000, 'Insert'
-EXEC SP_GiaTriChung 'BHXH', 0.08, 'Insert'
-EXEC SP_GiaTriChung 'BHYT', 0.015, 'Insert'
-EXEC SP_GiaTriChung 'BHTN', 0.01, 'Insert'
+--Insert into GiaTriTinhLuong
+EXEC SP_GiaTriTinhLuong 'LuongCB', 5000000, 'Insert'
+EXEC SP_GiaTriTinhLuong 'GiamTruBanThan', 9000000, 'Insert'
+EXEC SP_GiaTriTinhLuong 'GiamTruPhuThuoc', 3600000, 'Insert'
+EXEC SP_GiaTriTinhLuong 'BHXH', 0.08, 'Insert'
+EXEC SP_GiaTriTinhLuong 'BHYT', 0.015, 'Insert'
+EXEC SP_GiaTriTinhLuong 'BHTN', 0.01, 'Insert'
 GO
 --Insert into BacThueTNCN
 EXEC SP_BacThueTNCN 0, 0.05, 'Insert'
