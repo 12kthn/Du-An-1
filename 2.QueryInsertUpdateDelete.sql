@@ -309,7 +309,8 @@ AS
 		RETURN @NgayCong
 	END
 GO
-
+select * from ChamCong where MaNV = 'it001'
+select [dbo].[FN_SoNgayCong]('IT001', '2019-5-1')
 --Tao Function tinh thue TNCN
 IF (OBJECT_ID('FN_TinhThueTNCN') IS NOT NULL)
   DROP FUNCTION FN_TinhThueTNCN
@@ -337,11 +338,13 @@ CREATE PROCEDURE SP_Insert_BangLuong
 (
 	@MaNV varchar(10),
 	@NgayPhatLuong date,
-	@TamUng int,
 	@TrangThai bit
 )
 AS
-	DECLARE	@LuongChinh int,
+	DECLARE	@Nam char(4),
+			@Thang varchar(2),
+			@NgayDauThang datetime,
+			@LuongChinh int,
 			@NgayCong int,
 			@PC_TrachNhiem int,
 			@ThuNhap int,
@@ -351,9 +354,11 @@ AS
 			@GiamTruPhuThuoc int,
 			@ThueTNCN int,			
 			@ThucLanh int		
-	
+	SET @Nam = YEAR(@NgayPhatLuong)
+	SET @Thang = MONTH(@NgayPhatLuong) - 1
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
-	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', (SELECT DATEADD(DAY, 1, EOMONTH(@NgayPhatLuong, -1))))
+	SET @NgayDauThang = CAST(@Nam + '-' + @Thang + '-' + '1' AS datetime)
+	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', @NgayDauThang)
 	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM NhanVien WHERE MaNV = @MaNV))
 	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
 	SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
@@ -364,6 +369,27 @@ AS
 	SET @ThucLanh = @ThuNhap - @BHXH - @BHYT - @BHTN - @ThueTNCN
 
 	INSERT INTO BangLuong VALUES(@MaNV, @NgayPhatLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
-					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @TamUng, @ThucLanh, @TrangThai)
+					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @ThucLanh, @TrangThai)
 GO
 
+EXEC SP_Insert_BangLuong IT001, '2019/6/6', 0
+Go
+select * from BangLuong
+Go
+
+--Tao Stored Procedure update cho bang BangLuong
+IF (OBJECT_ID('SP_Update_BangLuong') IS NOT NULL)
+  DROP PROCEDURE SP_Update_BangLuong
+GO
+
+CREATE PROCEDURE SP_Update_BangLuong
+(
+	@MaNV varchar(10),
+	@NgayPhatLuong date,
+	@TrangThai bit
+)
+AS
+	UPDATE BangLuong
+	SET TrangThai = @TrangThai
+	WHERE MaNV = @MaNV AND NgayPhatLuong = @NgayPhatLuong
+GO

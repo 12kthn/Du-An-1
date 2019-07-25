@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -36,7 +37,8 @@ public class ChamCongController implements Initializable {
         try {
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
-
+            listUpdate = new ArrayList<>();
+            
             //load Tabpane1
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
@@ -52,7 +54,7 @@ public class ChamCongController implements Initializable {
             setColumnModel();
             loadTable();
 
-            //load chung 2 Tab
+            //load sự kiện
             addListener();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -151,7 +153,6 @@ public class ChamCongController implements Initializable {
                     month2 = newValue;
                 } catch (Exception e) {
                 }
-
                 loadTable();
             }
         });
@@ -163,6 +164,7 @@ public class ChamCongController implements Initializable {
     }
 
     private void loadTable() {
+        nonEditColumn();
         tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
     }
 
@@ -174,37 +176,37 @@ public class ChamCongController implements Initializable {
         colHoTen.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
         colPhongBan = new TableColumn<>("Phòng ban");
         colPhongBan.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
-        col1 = new TableColumn<>("Ngày1");
-        col2 = new TableColumn<>("Ngày2");
-        col3 = new TableColumn<>("Ngày3");
-        col4 = new TableColumn<>("Ngày4");
-        col5 = new TableColumn<>("Ngày5");
-        col6 = new TableColumn<>("Ngày6");
-        col7 = new TableColumn<>("Ngày7");
-        col8 = new TableColumn<>("Ngày8");
-        col9 = new TableColumn<>("Ngày9");
-        col10 = new TableColumn<>("Ngày10");
-        col11 = new TableColumn<>("Ngày11");
-        col12 = new TableColumn<>("Ngày12");
-        col13 = new TableColumn<>("Ngày13");
-        col14 = new TableColumn<>("Ngày14");
-        col15 = new TableColumn<>("Ngày15");
-        col16 = new TableColumn<>("Ngày16");
-        col17 = new TableColumn<>("Ngày17");
-        col18 = new TableColumn<>("Ngày18");
-        col19 = new TableColumn<>("Ngày19");
-        col20 = new TableColumn<>("Ngày20");
-        col21 = new TableColumn<>("Ngày21");
-        col22 = new TableColumn<>("Ngày22");
-        col23 = new TableColumn<>("Ngày23");
-        col24 = new TableColumn<>("Ngày24");
-        col25 = new TableColumn<>("Ngày25");
-        col26 = new TableColumn<>("Ngày26");
-        col27 = new TableColumn<>("Ngày27");
-        col28 = new TableColumn<>("Ngày28");
-        col29 = new TableColumn<>("Ngày29");
-        col30 = new TableColumn<>("Ngày30");
-        col31 = new TableColumn<>("Ngày31");
+        col1 = new TableColumn<>("Ngày 1");
+        col2 = new TableColumn<>("Ngày 2");
+        col3 = new TableColumn<>("Ngày 3");
+        col4 = new TableColumn<>("Ngày 4");
+        col5 = new TableColumn<>("Ngày 5");
+        col6 = new TableColumn<>("Ngày 6");
+        col7 = new TableColumn<>("Ngày 7");
+        col8 = new TableColumn<>("Ngày 8");
+        col9 = new TableColumn<>("Ngày 9");
+        col10 = new TableColumn<>("Ngày 10");
+        col11 = new TableColumn<>("Ngày 11");
+        col12 = new TableColumn<>("Ngày 12");
+        col13 = new TableColumn<>("Ngày 13");
+        col14 = new TableColumn<>("Ngày 14");
+        col15 = new TableColumn<>("Ngày 15");
+        col16 = new TableColumn<>("Ngày 16");
+        col17 = new TableColumn<>("Ngày 17");
+        col18 = new TableColumn<>("Ngày 18");
+        col19 = new TableColumn<>("Ngày 19");
+        col20 = new TableColumn<>("Ngày 20");
+        col21 = new TableColumn<>("Ngày 21");
+        col22 = new TableColumn<>("Ngày 22");
+        col23 = new TableColumn<>("Ngày 23");
+        col24 = new TableColumn<>("Ngày 24");
+        col25 = new TableColumn<>("Ngày 25");
+        col26 = new TableColumn<>("Ngày 26");
+        col27 = new TableColumn<>("Ngày 27");
+        col28 = new TableColumn<>("Ngày 28");
+        col29 = new TableColumn<>("Ngày 29");
+        col30 = new TableColumn<>("Ngày 30");
+        col31 = new TableColumn<>("Ngày 31");
         //them cot 32 de cot 31 ko bi thieu do dai
         col32 = new TableColumn<>("  ");
 
@@ -220,7 +222,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay1(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("1/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -244,7 +246,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay2(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("2/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -268,7 +270,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay3(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("3/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -292,7 +294,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay4(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("4/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -316,7 +318,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay5(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("5/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -340,7 +342,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay6(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("6/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -364,7 +366,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay7(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("7/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -388,7 +390,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay8(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("8/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -412,7 +414,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay9(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("9/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -436,7 +438,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay10(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("10/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -460,7 +462,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay11(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("11/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -484,7 +486,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay12(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("12/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -507,7 +509,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay13(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("13/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -531,7 +533,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay14(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("14/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -554,7 +556,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay15(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("15/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -578,7 +580,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay16(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("16/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -602,7 +604,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay17(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("17/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -626,7 +628,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay18(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("18/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -650,7 +652,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay19(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("19/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -674,7 +676,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay20(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("20/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -698,7 +700,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay21(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("21/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -722,7 +724,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay22(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("22/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -746,7 +748,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay23(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("23/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -770,7 +772,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay24(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("24/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -794,7 +796,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay25(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("25/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -818,7 +820,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay26(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("26/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -842,7 +844,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay27(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("27/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -866,7 +868,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay28(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("28/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -890,7 +892,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay29(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("29/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -914,7 +916,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay30(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("30/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -938,7 +940,7 @@ public class ChamCongController implements Initializable {
                     @Override
                     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
                             Boolean newValue) {
-                        obj.setNgay31(newValue);
+                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("31/" + month2 + "/" + year2), newValue));
                     }
                 });
                 return booleanProp;
@@ -956,29 +958,30 @@ public class ChamCongController implements Initializable {
         tblChamCong.getColumns().addAll(colMaNV, colHoTen, colPhongBan, col1, col2, col3, col4, col5, col6, col7, col8, col9,
                 col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24,
                 col25, col26, col27, col28, col29, col30, col31, col32);
+        
     }
-
-    //Lấy dữ liệu từ table
-    private ArrayList<ChamCong> getModel() {
-        //get data từ table
-        ObservableList<TableChamCong> data = tblChamCong.getItems();
-        //tạo list ChamCong
-        ArrayList<ChamCong> list = new ArrayList<>();
-        for (TableChamCong tableChamCong : data) {
-            tableChamCong.setOnWork();
-            Boolean[] onWork = tableChamCong.getOnWork();
-            for (int i = 0; i < 31; i++) {
-                ChamCong cc = new ChamCong();
-
-                cc.setMaNV(tableChamCong.getMaNV());
-                cc.setNgay(XDate.toDate((i + 1) + "/" + month2 + "/" + year2));
-                cc.setTinhTrang(onWork[i]);
-
-                list.add(cc);
+    
+    //Disable ngày lễ và chủ nhật
+    private void nonEditColumn(){
+      
+        ObservableList<TableColumn<TableChamCong,?>> colList = tblChamCong.getColumns();
+        //reset nonEdit trước đó
+        for (TableColumn<TableChamCong, ?> tableColumn : colList) {
+            tableColumn.setEditable(true);
+        }
+        
+        //Tao vong lap kiem tra từng ngày
+        for (int i = 0; i < 31; i++) {
+            Date date = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+            int maxDay = XDate.maxDaysInMonth(year2, month2);
+            if (i < maxDay) {
+                if (XDate.isHoliday(date)) {
+                    colList.get(i+3).setEditable(false);
+                }
+            } else {
+                colList.get(i+3).setEditable(false);
             }
         }
-
-        return list;
     }
 
     private TableChamCongDAO tbl_ccdao;
@@ -988,6 +991,8 @@ public class ChamCongController implements Initializable {
     private int month1;
     private int year2;//bien cua tab2
     private int month2;
+    
+    private ArrayList<ChamCong> listUpdate;
 
     private TableColumn<TableChamCong, String> colMaNV;
     private TableColumn<TableChamCong, String> colHoTen;
@@ -1048,7 +1053,8 @@ public class ChamCongController implements Initializable {
 
     @FXML
     private void update() {
-        ArrayList<ChamCong> list = getModel();
+        ArrayList<ChamCong> list = listUpdate;
+        
         for (ChamCong cc : list) {
             //kiểm tra bản ghi có tồn tại hay không
             if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {

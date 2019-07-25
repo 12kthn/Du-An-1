@@ -99,7 +99,6 @@ CREATE TABLE BangLuong
 	BHTN int not null,
 	PhuThuoc int not null,
 	ThueTNCN int not null,
-	TamUng int not null,
 	ThucLanh int not null,
 	TrangThai bit not null
 

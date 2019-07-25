@@ -3,11 +3,47 @@ package Home.DAO;
 
 import Home.common.Common;
 import Home.common.JDBC;
+import Home.common.XDate;
+import Home.model.BangLuong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.scene.chart.XYChart;
 
 public class BangLuongDAO {
+    
+    //Kiểm tra có tồn tại bản ghi nào trong tháng hay không
+    public Boolean banGhiTrongThang(int year, int month){
+        try {
+            String sql = "{call SP_BanGhiTrongThang(?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, year, month);
+            while (rs.next()) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public int insert(BangLuong bl){
+        try {
+            String sql = "{Call SP_Insert_BangLuong(?,?,?)}";
+            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int update(BangLuong bl){
+        try {
+            String sql = "{Call SP_Update_BangLuong(?,?,?)}";
+            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
     
     public double getTongTienLuongTrongNam(int year) {
         double TongTienLuong = 0;

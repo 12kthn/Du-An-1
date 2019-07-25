@@ -18,11 +18,10 @@ public class TableBangLuong {
     private Integer BHTN;
     private Integer PhuThuoc;
     private Integer TNCN;
-    private Integer TamUng;
     private Integer ThucLanh;
-    private String TrangThai;
+    private Boolean TrangThai;
 
-    public TableBangLuong(String MaNV, String HoTen, String TenPB, String TenCV, Date NgayPhatLuong, Integer LuongChinh, Integer NgayCong, Integer PC_TrachNhiem, Integer ThuNhap, Integer BHXH, Integer BHYT, Integer BHTN, Integer PhuThuoc, Integer TNCN, Integer TamUng, Integer ThucLanh, String TrangThai) {
+    public TableBangLuong(String MaNV, String HoTen, String TenPB, String TenCV, Date NgayPhatLuong, Integer LuongChinh, Integer NgayCong, Integer PC_TrachNhiem, Integer ThuNhap, Integer BHXH, Integer BHYT, Integer BHTN, Integer PhuThuoc, Integer TNCN, Integer ThucLanh, Boolean TrangThai) {
         this.MaNV = MaNV;
         this.HoTen = HoTen;
         this.TenPB = TenPB;
@@ -37,7 +36,6 @@ public class TableBangLuong {
         this.BHTN = BHTN;
         this.PhuThuoc = PhuThuoc;
         this.TNCN = TNCN;
-        this.TamUng = TamUng;
         this.ThucLanh = ThucLanh;
         this.TrangThai = TrangThai;
     }
@@ -154,14 +152,6 @@ public class TableBangLuong {
         this.TNCN = TNCN;
     }
 
-    public Integer getTamUng() {
-        return TamUng;
-    }
-
-    public void setTamUng(Integer TamUng) {
-        this.TamUng = TamUng;
-    }
-
     public Integer getThucLanh() {
         return ThucLanh;
     }
@@ -170,11 +160,11 @@ public class TableBangLuong {
         this.ThucLanh = ThucLanh;
     }
 
-    public String getTrangThai() {
+    public Boolean getTrangThai() {
         return TrangThai;
     }
 
-    public void setTrangThai(String TrangThai) {
+    public void setTrangThai(Boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
     

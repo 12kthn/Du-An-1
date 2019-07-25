@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/LoginController.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/common/XDate.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/model/BangLuong.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/BangLuongController.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/Main.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/ChamCongController.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/common/CustomDialog.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/ChamCongDAO.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/BangLuongDAO.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/NhanVienDAO.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/model/table/TableBangLuong.java</file>
         </group>
     </open-files>
 </project-private>

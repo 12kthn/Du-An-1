@@ -23,15 +23,17 @@ public class BangLuong {
     private int BHTN;
     private int PhuThuoc;
     private int TNCN;
-    private int TamUng;
     private int ThucLanh;
     private boolean TrangThai;
     
-    public BangLuong(){
+    public BangLuong(String MaNV,Date NgayNhanLuong, boolean TrangThai){
+        this.MaNV = MaNV;
+        this.NgayNhanLuong = NgayNhanLuong;
+        this.TrangThai = TrangThai;
     }
     
     public BangLuong(String MaNV,Date NgayNhanLuong,int LuongChinh,int NgayCong,int PC_TrachNhiem,int ThuNhap,int BHXH,
-            int BHYT, int BHTN, int PhuThuoc, int TNCN, int TamUng, int ThucLanh, boolean TrangThai){
+            int BHYT, int BHTN, int PhuThuoc, int TNCN, int ThucLanh, boolean TrangThai){
         
         this.MaNV = MaNV;
         this. NgayNhanLuong = NgayNhanLuong;
@@ -43,7 +45,6 @@ public class BangLuong {
         this.BHYT = BHYT;
         this.PhuThuoc = PhuThuoc;
         this.TNCN = TNCN;
-        this.TamUng = TamUng;
         this.ThucLanh = ThucLanh;
         this.TrangThai = TrangThai;
     
@@ -97,15 +98,11 @@ public class BangLuong {
         return TNCN;
     }
 
-    public int getTamUng() {
-        return TamUng;
-    }
-
     public int getThucLanh() {
         return ThucLanh;
     }
 
-    public boolean isTrangThai() {
+    public boolean getTrangThai() {
         return TrangThai;
     }
     
@@ -155,10 +152,6 @@ public class BangLuong {
 
     public void setTNCN(int TNCN) {
         this.TNCN = TNCN;
-    }
-
-    public void setTamUng(int TamUng) {
-        this.TamUng = TamUng;
     }
 
     public void setThucLanh(int ThucLanh) {

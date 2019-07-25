@@ -20,6 +20,7 @@ CREATE PROCEDURE SP_TBLBangLuong
 	@Thang varchar(2)
 )
 AS
+	SET @Thang = @Thang + 1
 	DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
 	IF @MaPB is not null
 		BEGIN

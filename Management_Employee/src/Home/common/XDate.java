@@ -90,16 +90,26 @@ public class XDate {
         
         calendar.set(year, month - 1, 1);//Tháng tính từ 0
         
-        int daysInMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);//ngày cao nhất trong tháng
+        int daysInMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
         return daysInMonth;
     }
 
+    //Ngày cao nhất trong tháng (ngày không lớn hơn ngày hiện tại)
+    public static int maxDaysInMonth(int year, int month) {
+        //Tháng, năm hiện tại thì trả về ngày hôm nay
+        if (year == LocalDate.now().getYear() && month == monthOfYear(year)) {
+            return LocalDate.now().getDayOfMonth();
+        }
+        //Ngược lại trả về tháng lớn nhất nếu
+        return daysInMonth(year, month);
+    }
+    
     //Tính số ngày nghỉ trong tháng
     public static int holidaysInMonth(int year, int month){
         //Khởi tạo Calendar
         Calendar calendar = Calendar.getInstance();
         int holidaysInMonth = 0;//Biến số ngày nghỉ
-        getHolidays();
+        initHolidays();
         
         //Vòng lặp kiểm tra từ ngay 1 đến ngày cuối tháng
         for (int day = 1; day <= daysInMonth(year, month); day++) {
@@ -131,7 +141,7 @@ public class XDate {
         Holidays.put(month, listDays);
     }
     
-    private static HashMap<String, Integer[]>  getHolidays(){
+    private static HashMap<String, Integer[]>  initHolidays(){
         Holidays.clear();
         putHolidays("January", 1);
         putHolidays("April", 30);
@@ -140,4 +150,34 @@ public class XDate {
         return Holidays;
     }
     
+    /**
+     * Kiểm tra vào truyền vào có phải là ngày lễ hay không
+     * @return true or false
+     */
+    public static Boolean isHoliday(Date date){
+        initHolidays();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        
+        //Kiểm tra date là ngày Chủ nhật
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            return true;
+        }
+        
+        //Kiểm tra date là ngày lễ
+        //Lay tên tháng
+        String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        //Lấy ngày
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        for (String key : Holidays.keySet()) {
+            if (monthName.equals(key)) {
+                for (Integer dayOfMonth : Holidays.get(key)) {
+                    if (day == dayOfMonth) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
