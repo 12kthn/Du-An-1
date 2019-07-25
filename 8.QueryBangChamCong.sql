@@ -55,11 +55,11 @@ CREATE PROCEDURE SP_SoGioLamViecTheoNam
 AS
 	IF @Nam is not null
 		BEGIN
-			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam
+			SELECT COUNT(*)*8 FROM ChamCong WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam
 		END
 	ELSE
 		BEGIN
-			SELECT COUNT(*)*8 + SUM(TangCa) FROM ChamCong WHERE TinhTrang = 1
+			SELECT COUNT(*)*8 FROM ChamCong WHERE TinhTrang = 1
 		END
 GO		
 EXEC SP_SoGioLamViecTheoNam 2019
