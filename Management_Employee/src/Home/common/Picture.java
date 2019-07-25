@@ -1,5 +1,14 @@
 package Home.common;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -9,20 +18,50 @@ public class Picture {
         ImageView imageView = new ImageView(this.getClass().getResource("/Libraries/icon/" + iconName).toString());
         return imageView;
     }
-    
+
     public ImageView createImage(String iconName) {
         Image image = new Image(this.getClass().getResource("/Libraries/images/" + iconName).toString());
         ImageView imageView = new ImageView(image);
         return imageView;
     }
-    
+
     public Image createImageInIconFolder(String imageName) {
         Image image = new Image(this.getClass().getResource("/Libraries/icon/" + imageName).toString());
         return image;
     }
-    
+
     public Image createImageInImagesFolder(String imageName) {
         Image image = new Image(this.getClass().getResource("/Libraries/images/" + imageName).toString());
         return image;
+    }
+
+    public static boolean saveAvatar(File file) {
+        File dir = new File("avatar");
+        // Tạo thư mục nếu chưa tồn tại
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File newFile = new File(dir, file.getName());
+        try {
+            // Copy vào thư mục logos (đè nếu đã tồn tại)
+            Path source = Paths.get(file.getAbsolutePath());
+            Path destination = Paths.get(newFile.getAbsolutePath());
+            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+    public static Image readAvatar(String fileName) {
+        try {
+            File file = new File(new File("avatar"), fileName);
+            String localUrl = file.toURI().toURL().toString();
+            
+            return new Image(localUrl);
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
