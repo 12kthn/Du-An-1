@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.validation.DoubleValidator?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -24,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
+<AnchorPane fx:id="anchorpane" prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
     <children>
         <JFXTabPane fx:id="tabPane" stylesheets="@../../Libraries/CssMenu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -84,7 +85,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../../Libraries/CssMenu.css">
                             <children>
-                                <ImageView fx:id="imgHinh" fitHeight="280.0" fitWidth="210.0" layoutX="39.0" layoutY="42.0" pickOnBounds="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+                                <ImageView fx:id="imgHinh" fitHeight="280.0" fitWidth="210.0" layoutX="39.0" layoutY="42.0" onMouseClicked="#chooserimage" pickOnBounds="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
@@ -165,7 +166,7 @@
                                                 <Insets top="40.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <JFXTextField fx:id="txtTrinhDoHV" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Trình độ học vấn">
+                                        <JFXTextField fx:id="txtTrinhDoHV" focusTraversable="false" labelFloat="true" onMouseClicked="#chooserimage" prefHeight="30.0" promptText="Trình độ học vấn">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
@@ -633,5 +634,6 @@
                 </Tab>
             </tabs>
         </JFXTabPane>
+      <DoubleValidator />
     </children>
 </AnchorPane>

@@ -38,6 +38,10 @@ public class XDate {
     public static LocalDate toLocalDate(Date date) {
         return new java.sql.Date(date.getTime()).toLocalDate();
     }
+    
+    public static Date toDate(LocalDate localDate) {
+        return java.sql.Date.valueOf(localDate);
+    }
 
     public static java.sql.Date toSqlDate(Date date){
         return new java.sql.Date(date.getTime());

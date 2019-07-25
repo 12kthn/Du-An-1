@@ -125,7 +125,20 @@ public class NhanVienDAO {
         }
         return data;
     }
-   
+   public void insert ( NhanVien nv ){
+       String sql = "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+       JDBC.executeUpdate(sql,
+               nv.getMaNV(),nv.getHoTen(),
+               nv.getGioiTinh(),nv.getGioiTinh(),
+               nv.getNgaySinh(),nv.getSoCM(),
+               nv.getDienThoai(),nv.getEmail(),
+               nv.getDiaChi(),nv.getHinh(),
+               nv.getTrinhDoHV(),nv.getMaHD(),
+               nv.getMaCV(),nv.getMaPB(),
+               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
+               nv.getHeSoLuong(),nv.getHeSoLuong(),
+               nv.getTrangThai(),"insert");
+   }
     
     
     
