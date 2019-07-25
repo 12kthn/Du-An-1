@@ -160,6 +160,7 @@ EXEC SP_ChamCong IT005, '2019/05/27', 1, 'Insert'
 EXEC SP_ChamCong IT005, '2019/05/28', 1, 'Insert'
 EXEC SP_ChamCong IT005, '2019/05/29', 1, 'Insert'
 EXEC SP_ChamCong IT005, '2019/05/30', 1, 'Insert'
+go
 -- Nhân viên IT006
 EXEC SP_ChamCong IT006, '2019/05/1', 1, 'Insert'
 EXEC SP_ChamCong IT006, '2019/05/2', 1, 'Insert'
@@ -191,6 +192,7 @@ EXEC SP_ChamCong IT006, '2019/05/27', 1, 'Insert'
 EXEC SP_ChamCong IT006, '2019/05/28', 1, 'Insert'
 EXEC SP_ChamCong IT006, '2019/05/29', 1, 'Insert'
 EXEC SP_ChamCong IT006, '2019/05/30', 1, 'Insert'
+go
 -- Nhân viên IT007
 EXEC SP_ChamCong IT007, '2019/05/1', 1, 'Insert'
 EXEC SP_ChamCong IT007, '2019/05/2', 1, 'Insert'
@@ -222,6 +224,7 @@ EXEC SP_ChamCong IT007, '2019/05/27', 1, 'Insert'
 EXEC SP_ChamCong IT007, '2019/05/28', 1, 'Insert'
 EXEC SP_ChamCong IT007, '2019/05/29', 1, 'Insert'
 EXEC SP_ChamCong IT007, '2019/05/30', 1, 'Insert'
+go
 -- Nhân viên IT008
 EXEC SP_ChamCong IT008, '2019/05/1', 1, 'Insert'
 EXEC SP_ChamCong IT008, '2019/05/2', 1, 'Insert'
@@ -253,6 +256,7 @@ EXEC SP_ChamCong IT008, '2019/05/27', 1, 'Insert'
 EXEC SP_ChamCong IT008, '2019/05/28', 1, 'Insert'
 EXEC SP_ChamCong IT008, '2019/05/29', 1, 'Insert'
 EXEC SP_ChamCong IT008, '2019/05/30', 1, 'Insert'
+go
 -- Nhân viên IT009
 EXEC SP_ChamCong IT009, '2019/05/1', 1, 'Insert'
 EXEC SP_ChamCong IT009, '2019/05/2', 1, 'Insert'
@@ -284,6 +288,7 @@ EXEC SP_ChamCong IT009, '2019/05/27', 1, 'Insert'
 EXEC SP_ChamCong IT009, '2019/05/28', 1, 'Insert'
 EXEC SP_ChamCong IT009, '2019/05/29', 1, 'Insert'
 EXEC SP_ChamCong IT009, '2019/05/30', 1, 'Insert'
+go
 -- Nhân viên IT010
 EXEC SP_ChamCong IT001,'2019/05/1', 1, 'Insert'
 EXEC SP_ChamCong IT001,'2019/05/2', 1, 'Insert'
@@ -2263,6 +2268,7 @@ EXEC SP_ChamCong MK002, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong MK002, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong MK002, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong MK002, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên MK003
 EXEC SP_ChamCong MK003, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong MK003, '2019/06/2', 1, 'Insert'
@@ -2920,6 +2926,7 @@ EXEC SP_ChamCong SL003, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL003, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL003, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL003, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL004
 EXEC SP_ChamCong SL004, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL004, '2019/06/2', 1, 'Insert'
@@ -2951,6 +2958,7 @@ EXEC SP_ChamCong SL004, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL004, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL004, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL004, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL005
 EXEC SP_ChamCong SL005, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL005, '2019/06/2', 1, 'Insert'
@@ -2982,6 +2990,7 @@ EXEC SP_ChamCong SL005, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL005, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL005, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL005, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL006
 EXEC SP_ChamCong SL006, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL006, '2019/06/2', 1, 'Insert'
@@ -3013,6 +3022,7 @@ EXEC SP_ChamCong SL006, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL006, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL006, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL006, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL007
 EXEC SP_ChamCong SL007, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL007, '2019/06/2', 1, 'Insert'
@@ -3044,6 +3054,7 @@ EXEC SP_ChamCong SL007, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL007, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL007, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL007, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL008
 EXEC SP_ChamCong SL008, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL008, '2019/06/2', 1, 'Insert'
@@ -3075,6 +3086,7 @@ EXEC SP_ChamCong SL008, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL008, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL008, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL008, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL009
 EXEC SP_ChamCong SL009, '2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL009, '2019/06/2', 1, 'Insert'
@@ -3106,6 +3118,7 @@ EXEC SP_ChamCong SL009, '2019/06/27', 1, 'Insert'
 EXEC SP_ChamCong SL009, '2019/06/28', 1, 'Insert'
 EXEC SP_ChamCong SL009, '2019/06/29', 1, 'Insert'
 EXEC SP_ChamCong SL009, '2019/06/30', 1, 'Insert'
+go
 -- Nhân viên SL001,0
 EXEC SP_ChamCong SL001,'2019/06/1', 1, 'Insert'
 EXEC SP_ChamCong SL001,'2019/06/2', 1, 'Insert'
