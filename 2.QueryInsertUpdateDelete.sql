@@ -79,7 +79,6 @@ CREATE PROCEDURE SP_NhanVien
 	@NgayVaoLam date,
 	@NgayKetThuc date,
 	@HeSoLuong real,
-	@LoaiNhanVien bit,
 	@TrangThai bit,
 	@StatementType char(6)
 )
@@ -88,7 +87,7 @@ AS
 		BEGIN
 			INSERT INTO NhanVien VALUES(@MaNV, @HoTen, @GioiTinh, @NgaySinh, @SoCM, 
 				@DienThoai, @MaNV + '@cty.com.vn', @DiaChi, @Hinh, @TrinhDoHV, @MaHD, @MaCV, @MaPB, 
-				@NgayVaoLam, @NgayKetThuc, @HeSoLuong, @LoaiNhanVien, @TrangThai)
+				@NgayVaoLam, @NgayKetThuc, @HeSoLuong, @TrangThai)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
@@ -96,7 +95,7 @@ AS
 			SET HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
 				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV,
 				MaHD = @MaHD, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, 
-				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, LoaiNhanVien = @LoaiNhanVien, TrangThai = @TrangThai
+				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, TrangThai = @TrangThai
 			WHERE MaNV = @MaNV
 		END
 	IF @StatementType = 'Delete'
@@ -372,10 +371,6 @@ AS
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @ThucLanh, @TrangThai)
 GO
 
-EXEC SP_Insert_BangLuong IT001, '2019/6/6', 0
-Go
-select * from BangLuong
-Go
 
 --Tao Stored Procedure update cho bang BangLuong
 IF (OBJECT_ID('SP_Update_BangLuong') IS NOT NULL)

@@ -43,7 +43,6 @@ CREATE TABLE NhanVien
 	NgayVaoLam date not null,
 	NgayKetThuc date,
 	HeSoLuong real not null,
-	LoaiNhanVien bit not null,
 	TrangThai bit not null,
 
 	UNIQUE(SoCM, MaHD),

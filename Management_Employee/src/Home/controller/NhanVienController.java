@@ -139,7 +139,8 @@ public class NhanVienController implements Initializable {
             if (event.getClickCount() == 2 && nv != null) {
                 changeTabPane(2);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     

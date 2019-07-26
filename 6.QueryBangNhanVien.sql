@@ -84,27 +84,6 @@ AS
 	
 GO
 
-
---Tao Stored Procedure đếm so luong nhan vien chinh thuc theo PhongBan
-IF (OBJECT_ID('SP_NVChinhThucTheoPB') IS NOT NULL)
-  DROP PROCEDURE SP_NVChinhThucTheoPB
-GO
-CREATE PROCEDURE SP_NVChinhThucTheoPB
-(
-	@MaPB varchar(5)
-)
-AS
-	IF @MaPB is not null
-		BEGIN
-			SELECT LoaiNhanVien, count(*) FROM NhanVien  WHERE MaPB = @MaPB GROUP BY LoaiNhanVien ORDER BY LoaiNhanVien DESC
-		END
-	ELSE
-		BEGIN
-			SELECT LoaiNhanVien, count(*) FROM NhanVien GROUP BY LoaiNhanVien ORDER BY LoaiNhanVien DESC
-		END
-	
-GO
-
 --Tao Stored Procedure đếm so luong nhan vien theo phong ban va nam
 IF (OBJECT_ID('SP_SLNVTheoPBVaNam') IS NOT NULL)
 	DROP PROCEDURE SP_SLNVTheoPBVaNam

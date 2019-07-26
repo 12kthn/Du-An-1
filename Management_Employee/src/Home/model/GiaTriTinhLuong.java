@@ -9,14 +9,14 @@ package Home.model;
  *
  * @author USER
  */
-public class GiaTriChung {
+public class GiaTriTinhLuong {
     private String TenGiaTri;
     private float GiaTri;
     
-    public GiaTriChung(){
+    public GiaTriTinhLuong(){
     }
     
-    public GiaTriChung(String TenGiaTri, float GiaTri){
+    public GiaTriTinhLuong(String TenGiaTri, float GiaTri){
         this.TenGiaTri = TenGiaTri;
         this.GiaTri = GiaTri;
     
