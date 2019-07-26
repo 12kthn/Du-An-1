@@ -125,7 +125,7 @@ public class NhanVienDAO {
         }
         return data;
     }
-   public void insert ( NhanVien nv ){
+   public void insertnv ( NhanVien nv ){
        String sql = "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
        JDBC.executeUpdate(sql,
                nv.getMaNV(),nv.getHoTen(),
@@ -140,12 +140,33 @@ public class NhanVienDAO {
                nv.getTrangThai(),"insert");
    }
     
-    
-    
-    
-    
-    
-    
-    
+    public void updatenv(NhanVien nv ){
+        String sql =  "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        JDBC.executeUpdate(sql,
+              nv.getHoTen(),
+               nv.getGioiTinh(),nv.getGioiTinh(),
+               nv.getNgaySinh(),nv.getSoCM(),
+               nv.getDienThoai(),nv.getEmail(),
+               nv.getDiaChi(),nv.getHinh(),
+               nv.getTrinhDoHV(),nv.getMaHD(),
+               nv.getMaCV(),nv.getMaPB(),
+               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
+               nv.getHeSoLuong(),nv.getHeSoLuong(),
+               nv.getTrangThai(), nv.getMaNV(),"update");
+    }
+     public void deletenv(NhanVien nv ){
+        String sql =  "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        JDBC.executeUpdate(sql,
+              nv.getHoTen(),
+               nv.getGioiTinh(),nv.getGioiTinh(),
+               nv.getNgaySinh(),nv.getSoCM(),
+               nv.getDienThoai(),nv.getEmail(),
+               nv.getDiaChi(),nv.getHinh(),
+               nv.getTrinhDoHV(),nv.getMaHD(),
+               nv.getMaCV(),nv.getMaPB(),
+               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
+               nv.getHeSoLuong(),nv.getHeSoLuong(),
+               nv.getTrangThai(), nv.getMaNV(),"delete");
+    }
 }
 

@@ -168,7 +168,7 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-   
+    
     public void getmodelnhanvien(NhanVien nv) {
         //get thong tin nhanvien
         nv.setMaNV(txtMaNV.getText());
@@ -196,10 +196,6 @@ public class NhanVienController implements Initializable {
     
     public void setModelnhanvien(NhanVien nv) {
         //set thong tin nhan vien
-        //set hinh cho image view imgHinh
-        InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
-        Image image = new Image(input);
-        imgHinh.setImage(image);
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
         cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
@@ -210,11 +206,11 @@ public class NhanVienController implements Initializable {
         txtDiaChi.setText(nv.getDiaChi());
         txtTrinhDoHV.setText(nv.getTrinhDoHV());
         cboTrangThai.getSelectionModel().select(nv.getTrangThai() ? 0 : 1);
+        InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
+        Image image = new Image(input);
+        imgHinh.setImage(image);
         //set thong tin Hop dong
-        txtHeSoLuong.setText(nv.getHeSoLuong() + "");
         txtMaHD.setText(nv.getMaHD());
-        DPickerNgayBatDau.setValue(XDate.toLocalDate(nv.getNgayVaoLam()));
-        DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
         for (PhongBan phongBan : listPhongBan) {
             if (phongBan.getMaPB().equals(nv.getMaPB())) {
                 cboPhongBan.getSelectionModel().select(phongBan);
@@ -225,16 +221,26 @@ public class NhanVienController implements Initializable {
                 cboChucVu.getSelectionModel().select(chucvu);
             }
         }
+        txtHeSoLuong.setText(nv.getHeSoLuong() + "");
+        DPickerNgayBatDau.setValue(XDate.toLocalDate(nv.getNgayVaoLam()));
+        DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
     }
-    
+
     //get model thông tin nhân thân
-    public void getmodelthongtinhanthan(ThanNhan thongtinThanNhan){
-//        thongtinThanNhan.setHoTen();
+    public void getmodelthanthan(ThanNhan TTNT) {
+        TTNT.setHoTen(txtHoTenNT.getText());
+        TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
+        TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
+        TTNT.setGiamTruPhuThuoc(Boolean.parseBoolean(txtGTPTNT.getText()));
     }
-    
-    
-    
-    
+
+    //set model thông tin nhân thân 
+    public void setmodelthannhan(ThanNhan TTNT) {
+        txtHoTenNT.setText(TTNT.getHoTen());
+        txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
+        txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
+        txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
+    }
     
     String imagename;
     @FXML

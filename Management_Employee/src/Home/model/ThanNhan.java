@@ -54,7 +54,7 @@ public class ThanNhan {
         return MaNV;
     }
 
-    public boolean isGiamTruPhuThuoc() {
+    public boolean getGiamTruPhuThuoc() {
         return GiamTruPhuThuoc;
     }
     
