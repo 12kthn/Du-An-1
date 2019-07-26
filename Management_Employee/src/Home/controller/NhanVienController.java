@@ -1,5 +1,6 @@
 package Home.controller;
 
+import Home.DAO.ChucVuDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableNhanVienDAO;
@@ -7,8 +8,10 @@ import Home.common.Common;
 import Home.common.CustomDialog;
 import Home.common.Picture;
 import Home.common.XDate;
+import Home.model.ChucVu;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
+import Home.model.ThanNhan;
 import Home.model.table.TableNhanVien;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
@@ -44,6 +47,7 @@ public class NhanVienController implements Initializable {
             Common.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
+            cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
             loadPieChart();
             loadBarChart();
@@ -127,6 +131,10 @@ public class NhanVienController implements Initializable {
         
         listPhongBan = pbdao.findByCode(null);
         cboPhongBan.setItems(listPhongBan);
+        
+        listChucVu = cvdao.findByCode(null);
+        cboChucVu.setItems(listChucVu);
+        
     }
     
     @FXML
@@ -135,7 +143,7 @@ public class NhanVienController implements Initializable {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "adsas", "select nhanvien");
             NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
-            setModel(nv);
+            setModelnhanvien(nv);
             if (event.getClickCount() == 2 && nv != null) {
                 changeTabPane(2);
             }
@@ -157,9 +165,9 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-    
-
-    public void getmodel(NhanVien nv) {
+   
+    public void getmodelnhanvien(NhanVien nv) {
+        //get thong tin nhanvien
         nv.setMaNV(txtMaNV.getText());
         nv.setHoTen(txtHoTen.getText());
         nv.setGioiTinh(cboGioiTinh.getSelectionModel().getSelectedIndex() == 0);
@@ -171,15 +179,24 @@ public class NhanVienController implements Initializable {
         nv.setEmail(txtEmail.getText());
         nv.setDiaChi(txtDiaChi.getText());
         nv.setTrinhDoHV(txtTrinhDoHV.getText());
-       
+        nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 0);//nếu 0 =true
+        nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 1);//nếu 1 =false
+        //get thong tin hopdong
+        nv.setMaHD(txtMaHD.getText());
+        nv.setMaPB(cboPhongBan.getSelectionModel().getSelectedItem().getMaPB());
+        nv.setMaCV(cboChucVu.getSelectionModel().getSelectedItem().getMaCV());
+        nv.setHeSoLuong(Integer.parseInt(txtHeSoLuong.getText()));
+        nv.setNgayVaoLam(XDate.toDate(DPickerNgayBatDau.getValue()));
+        nv.setNgayKetThuc(XDate.toDate(DPickerNgayKetThuc.getValue()));
+        
     }
-
-    public void setModel(NhanVien nv) {
+    
+    public void setModelnhanvien(NhanVien nv) {
+        //set thong tin nhan vien
         //set hinh cho image view imgHinh
         InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
         Image image = new Image(input);
         imgHinh.setImage(image);
-        
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
         cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
@@ -190,18 +207,32 @@ public class NhanVienController implements Initializable {
         txtDiaChi.setText(nv.getDiaChi());
         txtTrinhDoHV.setText(nv.getTrinhDoHV());
         cboTrangThai.getSelectionModel().select(nv.getTrangThai() ? 0 : 1);
-         txtHeSoLuong.setText(nv.getHeSoLuong() + "");
-        //set Hop dong
+        //set thong tin Hop dong
+        txtHeSoLuong.setText(nv.getHeSoLuong() + "");
         txtMaHD.setText(nv.getMaHD());
+        DPickerNgayBatDau.setValue(XDate.toLocalDate(nv.getNgayVaoLam()));
+        DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
         for (PhongBan phongBan : listPhongBan) {
             if (phongBan.getMaPB().equals(nv.getMaPB())) {
                 cboPhongBan.getSelectionModel().select(phongBan);
             }
         }
-        //setphongban
-      
-   
+        for (ChucVu chucvu : listChucVu) {
+            if (chucvu.getMaCV().equals(nv.getMaCV())) {
+                cboChucVu.getSelectionModel().select(chucvu);
+            }
+        }
     }
+    
+    //get model thông tin nhân thân
+    public void getmodelthongtinhanthan(ThanNhan thongtinThanNhan){
+//        thongtinThanNhan.setHoTen();
+    }
+    
+    
+    
+    
+    
     String imagename;
     @FXML
     private AnchorPane anchorpane;
@@ -248,7 +279,7 @@ public class NhanVienController implements Initializable {
     private JFXComboBox<?> cboTrangThai;
     
     @FXML
-    private JFXComboBox<?> cboChucVu;
+    private JFXComboBox<ChucVu> cboChucVu;
     
     @FXML
     private JFXTextField txtGTPTNT;
@@ -289,7 +320,7 @@ public class NhanVienController implements Initializable {
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
     private TableNhanVienDAO tbl_nvdao;
-    
+    private ChucVuDAO cvdao;
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
     private TableColumn<TableNhanVien, String> col1;
@@ -313,4 +344,6 @@ public class NhanVienController implements Initializable {
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;
+    private ObservableList<ChucVu> listChucVu;
+    private ObservableList listloainhanvien;
 }
