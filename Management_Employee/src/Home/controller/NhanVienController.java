@@ -141,13 +141,14 @@ public class NhanVienController implements Initializable {
     private void selectNhanVien(MouseEvent event) {
         try {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "adsas", "select nhanvien");
+//            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "adsas", "select nhanvien");
             NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
             setModelnhanvien(nv);
             if (event.getClickCount() == 2 && nv != null) {
                 changeTabPane(2);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
