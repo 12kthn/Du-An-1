@@ -227,7 +227,7 @@ public class NhanVienController implements Initializable {
     }
 
     //get model thông tin nhân thân
-    public void getmodelthanthan(ThanNhan TTNT) {
+    private void getmodelthanthan(ThanNhan TTNT) {
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
@@ -235,12 +235,13 @@ public class NhanVienController implements Initializable {
     }
 
     //set model thông tin nhân thân 
-    public void setmodelthannhan(ThanNhan TTNT) {
+    private void setmodelthannhan(ThanNhan TTNT) {
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
         txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
     }
+    //insert nhân viên 
     
     String imagename;
     @FXML
