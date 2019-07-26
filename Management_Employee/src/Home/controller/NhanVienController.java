@@ -54,6 +54,8 @@ public class NhanVienController implements Initializable {
             setTableColumn();
             loadDataToTable();
             DPickerNgaySinh.setConverter(XDate.converter);
+            DPickerNgayBatDau.setConverter(XDate.converter);
+            DPickerNgayKetThuc.setConverter(XDate.converter);
             loadCbo();
         } catch (Exception ex) {
             ex.printStackTrace();

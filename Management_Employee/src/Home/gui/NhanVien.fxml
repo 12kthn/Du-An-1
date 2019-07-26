@@ -294,11 +294,6 @@
                                                 <Insets top="46.0" />
                                             </VBox.margin>
                                         </JFXComboBox>
-                                        <JFXComboBox fx:id="cboLoaiNhanVien" labelFloat="true" prefHeight="30.0" prefWidth="450.0" promptText="Loại nhân viên">
-                                            <VBox.margin>
-                                                <Insets top="46.0" />
-                                            </VBox.margin>
-                                        </JFXComboBox>
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="240.0" prefWidth="450.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="150.0">
@@ -460,7 +455,7 @@
                                         </JFXTextField>
                                     </children>
                                 </VBox>
-                                <TableView fx:id="tblNhanThan" layoutX="488.0" layoutY="77.0" prefHeight="337.0" prefWidth="664.0" AnchorPane.bottomAnchor="191.0" AnchorPane.leftAnchor="488.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="77.0">
+                                <TableView fx:id="tblNhanThan" layoutX="485.0" layoutY="77.0" prefHeight="270.0" prefWidth="664.0" AnchorPane.bottomAnchor="258.0" AnchorPane.leftAnchor="485.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="77.0">
                                     <columns>
                                         <TableColumn prefWidth="229.0" resizable="false" text="Họ tên" />
                                         <TableColumn prefWidth="145.0" resizable="false" text="Nghề nghiệp" />
@@ -468,7 +463,7 @@
                                         <TableColumn prefWidth="160.0" text="Giảm trừ phụ thuộc" />
                                     </columns>
                                 </TableView>
-                                <HBox alignment="CENTER" layoutX="7.0" layoutY="510.0" prefHeight="74.0" prefWidth="478.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="380.0">
+                                <HBox alignment="CENTER" layoutX="6.0" layoutY="405.0" prefHeight="49.0" prefWidth="521.0" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="405.0">
                                     <children>
                                         <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
@@ -482,7 +477,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                             <graphic>
-                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../Libraries/icon/them%20moi.png" />
                                                     </image>
@@ -501,7 +496,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                             <graphic>
-                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="24.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../Libraries/icon/capnhat.png" />
                                                     </image>
@@ -520,7 +515,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                             <graphic>
-                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../Libraries/icon/rubbish-bin.png" />
                                                     </image>
@@ -539,7 +534,7 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                             <graphic>
-                                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../Libraries/icon/taomoi.png" />
                                                     </image>

@@ -21,7 +21,7 @@ public class NhanVienDAO {
             while (rs.next()) {                
                 nhanVien = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5), 
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), 
-                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(18));
+                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -126,7 +126,7 @@ public class NhanVienDAO {
         return data;
     }
    public void insert ( NhanVien nv ){
-       String sql = "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+       String sql = "call sp_nhanvien values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
        JDBC.executeUpdate(sql,
                nv.getMaNV(),nv.getHoTen(),
                nv.getGioiTinh(),nv.getGioiTinh(),

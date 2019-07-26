@@ -22,12 +22,11 @@ public class TableNhanVien {
     private String NgayVaoLam;
     private String NgayKetThuc;
     private int HeSoLuong;
-    private String LoaiNhanVien;
     private String TrangThai;
     
     public TableNhanVien(String MaNV, String HoTen, String GioiTinh, String NgaySinh, String SoCM, String DienThoai, 
             String Email, String DiaChi, String TrinhDoHV, String MaHD, String PhongBan, String ChucVu, String NgayVaoLam, 
-            String NgayKetThuc, int HeSoLuong, String LoaiNhanVien, String TrangThai) {
+            String NgayKetThuc, int HeSoLuong, String TrangThai) {
         this.MaNV = MaNV;
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
@@ -43,7 +42,6 @@ public class TableNhanVien {
         this.NgayVaoLam = NgayVaoLam;
         this.NgayKetThuc = NgayKetThuc;
         this.HeSoLuong = HeSoLuong;
-        this.LoaiNhanVien = LoaiNhanVien;
         this.TrangThai = TrangThai;
         
         Picture picture = new Picture();
@@ -187,14 +185,6 @@ public class TableNhanVien {
 
     public void setHeSoLuong(int HeSoLuong) {
         this.HeSoLuong = HeSoLuong;
-    }
-
-    public String getLoaiNhanVien() {
-        return LoaiNhanVien;
-    }
-
-    public void setLoaiNhanVien(String LoaiNhanVien) {
-        this.LoaiNhanVien = LoaiNhanVien;
     }
 
     public String getTrangThai() {

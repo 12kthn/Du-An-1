@@ -36,6 +36,9 @@ public class XDate {
     };
 
     public static LocalDate toLocalDate(Date date) {
+        if(date == null){
+            return LocalDate.now();
+        }
         return new java.sql.Date(date.getTime()).toLocalDate();
     }
     
