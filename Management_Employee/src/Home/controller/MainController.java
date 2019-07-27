@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -92,9 +91,9 @@ public class MainController implements Initializable {
     }
     
     @FXML
-    public void setGUISetting() {
+    public void setGUIKhoiPhuc() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Setting.fxml")));
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/KhoiPhuc.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

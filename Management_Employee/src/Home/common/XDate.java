@@ -11,6 +11,9 @@ import java.util.Locale;
 import javafx.util.StringConverter;
 
 public class XDate {
+    
+    //biến định dạng ngày/tháng/năm
+    static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
 
     public static StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
         DateTimeFormatter dateFormatter
@@ -50,9 +53,12 @@ public class XDate {
         return new java.sql.Date(date.getTime());
     }
     
-    public static Date toDate(String dateString) {
+    public static Date toDate(String dateString,  String... pattern) {
         try {
-            SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+            if (pattern.length > 0) {
+                DATE_FORMATER.applyPattern(pattern[0]);
+            }
+
             return DATE_FORMATER.parse(dateString);
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -60,11 +66,15 @@ public class XDate {
         }
     }
 
-    public static String toString(Date date) {
-        SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    public static String toString(Date date, String... pattern) {
+        if (pattern.length > 0) {
+            DATE_FORMATER.applyPattern(pattern[0]);
+        }
+        
         if (date == null) {
             date = XDate.now();
         }
+        
         return DATE_FORMATER.format(date);
     }
 
