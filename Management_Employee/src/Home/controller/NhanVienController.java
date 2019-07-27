@@ -1,11 +1,11 @@
 package Home.controller;
 
+import Home.common.CustomDialog;
 import Home.DAO.ChucVuDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableNhanVienDAO;
 import Home.common.Common;
-import Home.common.CustomDialog;
 import Home.common.Picture;
 import Home.common.XDate;
 import Home.model.ChucVu;
@@ -16,6 +16,7 @@ import Home.model.table.TableNhanVien;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.control.skin.CustomColorDialog;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -40,7 +41,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 public class NhanVienController implements Initializable {
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -61,25 +62,23 @@ public class NhanVienController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     private void loadPieChart() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
     }
-    
+
     private void loadBarChart() {
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
-    
+
     private void setTableColumn() {
         //Khai bao cot
         deleteColumn = new TableColumn<>("");
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
         deleteColumn.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
-        
         updateColumn = new TableColumn<>("");
         updateColumn.setCellValueFactory(new PropertyValueFactory<>("Update"));
         updateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
-        
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("MaNV"));
         col2 = new TableColumn<>("Họ tên");
@@ -114,36 +113,35 @@ public class NhanVienController implements Initializable {
         col16.setCellValueFactory(new PropertyValueFactory<>("LoaiNhanVien"));
         col17 = new TableColumn<>("Trạng thái");
         col17.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
-        
+
         tblNhanVien.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10,
                 col11, col12, col13, col14, col15, col16, col17);
     }
-    
+
     private void loadDataToTable() {
         data = tbl_nvdao.getData();
         tblNhanVien.setItems(data);
     }
-    
+
     private void loadCbo() {
         listGioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
         cboGioiTinh.setItems(listGioiTinh);
-        
+
         listTrangThai = FXCollections.observableArrayList("Đang làm việc", "Đã nghỉ việc");
         cboTrangThai.setItems(listTrangThai);
-        
+
         listPhongBan = pbdao.findByCode(null);
         cboPhongBan.setItems(listPhongBan);
-        
+
         listChucVu = cvdao.findByCode(null);
         cboChucVu.setItems(listChucVu);
-        
+
     }
-    
+
     @FXML
     private void selectNhanVien(MouseEvent event) {
         try {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
-//            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "adsas", "select nhanvien");
             NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
             setModelnhanvien(nv);
             if (event.getClickCount() == 2 && nv != null) {
@@ -153,7 +151,7 @@ public class NhanVienController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     public void changeTabPane(int tabIndex) {
         tabPane.getSelectionModel().select(tabIndex);
     }
@@ -168,9 +166,10 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-    
-    public void getmodelnhanvien(NhanVien nv) {
+
+    NhanVien getmodelnhanvien() {
         //get thong tin nhanvien
+        NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
         nv.setHoTen(txtHoTen.getText());
         nv.setGioiTinh(cboGioiTinh.getSelectionModel().getSelectedIndex() == 0);
@@ -184,17 +183,17 @@ public class NhanVienController implements Initializable {
         nv.setTrinhDoHV(txtTrinhDoHV.getText());
         nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 0);//nếu 0 =true
         nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 1);//nếu 1 =false
-        //get thong tin hopdong
         nv.setMaHD(txtMaHD.getText());
         nv.setMaPB(cboPhongBan.getSelectionModel().getSelectedItem().getMaPB());
         nv.setMaCV(cboChucVu.getSelectionModel().getSelectedItem().getMaCV());
         nv.setHeSoLuong(Integer.parseInt(txtHeSoLuong.getText()));
         nv.setNgayVaoLam(XDate.toDate(DPickerNgayBatDau.getValue()));
         nv.setNgayKetThuc(XDate.toDate(DPickerNgayKetThuc.getValue()));
-        
+        return nv;
     }
-    
+
     public void setModelnhanvien(NhanVien nv) {
+
         //set thong tin nhan vien
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
@@ -209,7 +208,6 @@ public class NhanVienController implements Initializable {
         InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
         Image image = new Image(input);
         imgHinh.setImage(image);
-        //set thong tin Hop dong
         txtMaHD.setText(nv.getMaHD());
         for (PhongBan phongBan : listPhongBan) {
             if (phongBan.getMaPB().equals(nv.getMaPB())) {
@@ -241,92 +239,101 @@ public class NhanVienController implements Initializable {
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
         txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
     }
+
     //insert nhân viên 
-    
-    String imagename;
+    @FXML
+    private void insertnv() {
+        NhanVien nv = getmodelnhanvien();
+        try {
+            nvdao.insertnv(nv);
+            loadDataToTable();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "thêm nhân viên thành công ");
+        } catch (Exception e) {
+        }
+    }
     @FXML
     private AnchorPane anchorpane;
     @FXML
     private JFXTextField txtMoiQuanHeNT;
-    
+
     @FXML
     private JFXComboBox<?> cboLoaiNhanVien;
-    
+
     @FXML
     private DatePicker DPickerNgayBatDau;
-    
+
     @FXML
     private JFXComboBox<PhongBan> cboPhongBan;
-    
+
     @FXML
     private JFXTextField txtSoCM;
-    
+
     @FXML
     private DatePicker DPickerNgayKetThuc;
-    
+
     @FXML
     private JFXComboBox cboGioiTinh;
-    
+
     @FXML
     private JFXTextField txtHoTenNT;
-    
+
     @FXML
     private DatePicker DPickerNgaySinh;
-    
+
     @FXML
     private JFXTextField txtHoTen;
-    
+
     @FXML
     private JFXTextField txtMaHD;
-    
+
     @FXML
     private ImageView imgHinh;
-    
+
     @FXML
     private JFXTextField txtDienThoai;
-    
+
     @FXML
     private JFXComboBox<?> cboTrangThai;
-    
+
     @FXML
     private JFXComboBox<ChucVu> cboChucVu;
-    
+
     @FXML
     private JFXTextField txtGTPTNT;
-    
+
     @FXML
     private JFXTextField txtEmail;
-    
+
     @FXML
     private BarChart<?, ?> chartSLNhanVien;
-    
+
     @FXML
     private JFXTextField txtTrinhDoHV;
-    
+
     @FXML
     private JFXTextField txtHeSoLuong;
-    
+
     @FXML
     private JFXTextField txtMaNV;
-    
+
     @FXML
     private JFXTextField txtDiaChi;
-    
+
     @FXML
     private PieChart chartTyLeNamNu;
-    
+
     @FXML
     private JFXTextField txtNgheNghiepNT;
-    
+
     @FXML
     private TableView<?> tblNhanThan;
-    
+
     @FXML
     private TableView<TableNhanVien> tblNhanVien;
-    
+
     @FXML
     private JFXTabPane tabPane;
-    
+    private String imagename;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
     private TableNhanVienDAO tbl_nvdao;
