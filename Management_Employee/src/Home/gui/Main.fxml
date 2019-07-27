@@ -240,39 +240,37 @@
                     </children>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
-                    <children>
-                        <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
+               <children>
+                        <Label id="lblChamcong" onMouseClicked="#setGUIKhoiPhuc" prefHeight="34.0" prefWidth="200.0" text="KHÔI PHỤC">
                             <font>
                                 <Font name="Arial" size="15.0" />
                             </font>
                             <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                                <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icon/gioithieu.png" />
+                                        <Image url="@../../Libraries/icon/caidat.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
-                            <HBox.margin>
-                                <Insets top="90.0" />
-                            </HBox.margin>
                             <padding>
-                                <Insets bottom="15.0" left="30.0" top="15.0" />
+                                <Insets bottom="15.0" left="30.0" top="100.0" />
                             </padding>
                      <styleClass>
                         <String fx:value="hove_border" />
+                        <String fx:value="jfx-tab-pane" />
                         <String fx:value="hover_menu" />
                      </styleClass>
                         </Label>
-                    </children>
+               </children>
                 </HBox>
-                  <Label id="lblChamcong" onMouseClicked="#setGUISetting" prefHeight="34.0" prefWidth="200.0" text="CÀI ĐẶT">
+                  <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
                       <font>
                           <Font name="Arial" size="15.0" />
                       </font>
                       <graphic>
-                          <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                               <image>
-                                  <Image url="@../../Libraries/icon/caidat.png" />
+                                  <Image url="@../../Libraries/icon/gioithieu.png" />
                               </image>
                           </ImageView>
                       </graphic>
@@ -281,11 +279,10 @@
                       </padding>
                <styleClass>
                   <String fx:value="hove_border" />
-                  <String fx:value="jfx-tab-pane" />
                   <String fx:value="hover_menu" />
                </styleClass>
                   </Label>
-            <Label id="lblChamcong" alignment="BOTTOM_LEFT" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="188.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
+            <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="176.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <VBox.margin>
                   <Insets left="11.0" top="110.0" />
                </VBox.margin>
