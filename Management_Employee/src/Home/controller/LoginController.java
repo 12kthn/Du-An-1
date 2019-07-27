@@ -3,13 +3,14 @@ package Home.controller;
 import Home.DAO.TaiKhoanDAO;
 import Home.common.Common;
 import Home.common.CustomDialog;
-import com.jfoenix.controls.JFXButton;
+import Home.common.Validate;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,12 +23,38 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tkdao = new TaiKhoanDAO();
+            validatorInit();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    //Phuong thuc mở Giao diện chính
+    //Phương thức khởi tạo validator
+    public void validatorInit() {
+        txtTaiKhoan.getValidators().add(Validate.createValidatorJFX("tài khoản"));
+        txtTaiKhoan.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    txtTaiKhoan.validate();
+                }
+            }
+
+        });
+        
+        txtMatKhau.getValidators().add(Validate.createValidatorJFX("mật khẩu"));
+        txtMatKhau.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (!newValue) {
+                    txtMatKhau.validate();
+                }
+            }
+
+        });
+    }
+
+    //Phuong thuc mở Giao diện chính - Main
     public void openMain() {
         try {
             Common.mainStage.close();
@@ -42,12 +69,6 @@ public class LoginController implements Initializable {
     private TaiKhoanDAO tkdao;
 
     @FXML
-    private JFXButton btnHuy;
-
-    @FXML
-    private JFXButton btnDangNhap;
-
-    @FXML
     private JFXTextField txtTaiKhoan;
 
     @FXML
@@ -55,26 +76,32 @@ public class LoginController implements Initializable {
 
     @FXML
     void login() {
+        if (!txtTaiKhoan.validate() || !txtMatKhau.validate()) {
+            CustomDialog.showAlert(AlertType.ERROR, "Vui lòng nhập đầy đủ");
+            return;
+        }
         int kq = tkdao.findByCode(txtTaiKhoan.getText(), txtMatKhau.getText());//Biến lưu kết quả trả về
         switch (kq) {
             case 0:
-                CustomDialog.showAlert(AlertType.ERROR, Common.mainStage, " ", "Sai tên đăng nhập");
+                CustomDialog.showAlert(AlertType.ERROR, "Sai tên đăng nhập");
                 break;
             case 1:
-                CustomDialog.showAlert(AlertType.ERROR, Common.mainStage, " ", "Sai mật khẩu");
+                CustomDialog.showAlert(AlertType.ERROR, "Sai mật khẩu");
                 break;
             case 2:
-                CustomDialog.showAlert(AlertType.INFORMATION, Common.mainStage, " ", "Đăng nhập thành công");
+                CustomDialog.showAlert(AlertType.INFORMATION, "Đăng nhập thành công");
                 openMain();
                 break;
             default:
-                System.out.println("co loi xay ra");
+                CustomDialog.showAlert(AlertType.ERROR, "Có lỗi xảy ra, không thể đăng nhập");
                 break;
         }
     }
 
     @FXML
     void exit() {
-        Platform.exit();
+        if (CustomDialog.confirm("Bạn có muốn thoát chương trình")){
+            Common.mainStage.close();
+        }        
     }
 }

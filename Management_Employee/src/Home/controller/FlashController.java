@@ -15,6 +15,7 @@ public class FlashController implements Initializable, Runnable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //set ProgressIndicator chạy vô hạn (dạng vòng tròn)
         progressIndicator.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
         Thread thread = new Thread(this);
         thread.start();
@@ -27,10 +28,12 @@ public class FlashController implements Initializable, Runnable {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+        //Tất cả sự kiện trong UI muốn chạy bằng Thread phải đặt trong Platform.runLater
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
+                    //tắt stage chính và mở Login
                     Common.mainStage.close();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
                     Common.mainStage.setScene(scene);
@@ -44,5 +47,5 @@ public class FlashController implements Initializable, Runnable {
 
     @FXML
     ProgressIndicator progressIndicator;
-//    Stage stage;
+
 }
