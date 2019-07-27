@@ -249,6 +249,8 @@ public class NhanVienController implements Initializable {
             loadDataToTable();
             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "thêm nhân viên thành công ");
         } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "thêm nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
     @FXML
