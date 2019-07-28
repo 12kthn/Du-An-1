@@ -16,7 +16,6 @@ import Home.model.table.TableNhanVien;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.scene.control.skin.CustomColorDialog;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -166,8 +165,7 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-
-    NhanVien getmodelnhanvien() {
+NhanVien getmodelnhanvien() {
         //get thong tin nhanvien
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
