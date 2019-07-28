@@ -237,10 +237,30 @@ NhanVien getmodelnhanvien() {
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
         txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
     }
-
+//check null form nhan vien 
+    @FXML
+    private  boolean checknull(){
+       if(txtMaNV.getText().equals("")){
+           CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập mã nhân viên");
+           txtMaNV.requestFocus();
+           return false;   
+           }
+       if(txtHoTen.getText().equals("")){
+            CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập họ tên nhân viên");
+            txtHoTen.requestFocus();
+           return false ;
+       } 
+        if (cboGioiTinh.getSelectionModel().getSelectedIndex()==-1) {
+             CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng chọn giới tính ");
+           cboGioiTinh.requestFocus();
+           return false;   
+        }
+       return true;
+    }
     //insert nhân viên 
     @FXML
     private void insertnv() {
+        if (checknull()) { 
         NhanVien nv = getmodelnhanvien();
         try {
             nvdao.insertnv(nv);
@@ -249,6 +269,7 @@ NhanVien getmodelnhanvien() {
         } catch (Exception e) {
             e.printStackTrace();
             CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
         }
     }
     @FXML
