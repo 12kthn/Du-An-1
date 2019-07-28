@@ -37,17 +37,9 @@
                               <Image url="@../../Libraries/icon/user%20(2).png" />
                            </image>
                         </ImageView>
-                        <JFXTextField fx:id="txtTaiKhoan" labelFloat="true" layoutX="75.0" layoutY="140.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Tài khoản" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="135.0">
-                           <font>
-                              <Font name="Roboto Medium" size="14.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" layoutX="75.0" layoutY="200.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="195.0">
-                           <font>
-                              <Font name="Roboto Medium" size="14.0" />
-                           </font>
-                        </JFXPasswordField>
-                        <JFXButton fx:id="btnDangNhap" layoutX="111.0" layoutY="286.0" onAction="#login" prefHeight="32.0" prefWidth="100.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="110.0">
+                        <JFXTextField fx:id="txtTaiKhoan" labelFloat="true" layoutX="75.0" layoutY="140.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Tài khoản" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="130.0" />
+                        <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" layoutX="75.0" layoutY="200.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="200.0" />
+                        <JFXButton layoutX="111.0" layoutY="286.0" onAction="#login" prefHeight="32.0" prefWidth="100.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="115.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -56,7 +48,7 @@
                               <String fx:value="btn-primary" />
                            </styleClass>
                         </JFXButton>
-                        <JFXButton fx:id="btnHuy" layoutX="265.0" layoutY="286.0" onAction="#exit" prefHeight="32.0" prefWidth="100.0" text="Hủy" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="110.0">
+                        <JFXButton layoutX="265.0" layoutY="286.0" onAction="#exit" prefHeight="32.0" prefWidth="100.0" text="Hủy" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0">
                            <font>
                               <Font size="14.0" />
                            </font>
