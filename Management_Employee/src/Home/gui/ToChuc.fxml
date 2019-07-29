@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.ToChucController">
+<AnchorPane prefHeight="672.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.ToChucController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,7 +34,7 @@
             </Label>
          </children>
       </HBox>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0">
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="148.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0">
          <children>
             <JFXTextField fx:id="txtMaPB" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Mã phòng ban">
                <font>
@@ -82,5 +84,103 @@
          </children>
       </VBox>
       <TableView fx:id="tblChucVu" layoutX="20.0" layoutY="20.0" onMouseClicked="#selectChucVu" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <HBox alignment="CENTER_RIGHT" layoutX="34.0" layoutY="345.0" prefHeight="50.0" prefWidth="500.0" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="40.0">
+         <children>
+            <JFXButton contentDisplay="CENTER" onAction="#insertPB" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onAction="#updatePB" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="btnUpdatePB" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-success" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onAction="#clearPB" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-info" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="44.0" layoutY="355.0" prefHeight="50.0" prefWidth="500.0" AnchorPane.bottomAnchor="277.0" AnchorPane.rightAnchor="40.0">
+         <children>
+            <JFXButton contentDisplay="CENTER" onAction="#insertCV" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onAction="#updateCV" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-success" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onAction="#clearCV" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-info" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -12,10 +12,12 @@ import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.table.TableChucVu;
 import Home.model.table.TablePhongBan;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,6 +27,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 public class ToChucController implements Initializable {
+
+    @FXML
+    private JFXButton btnInsertPB;
+    @FXML
+    private JFXButton btnUpdatePB;
+    @FXML
+    private JFXButton btnClearPB;
+    @FXML
+    private JFXButton btnInsertCV;
+    @FXML
+    private JFXButton btnUpdateCV;
+    @FXML
+    private JFXButton btnClearCV;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -118,11 +133,32 @@ public class ToChucController implements Initializable {
         txtMaPB.setText(pb.getMaPB());
         txtTenPB.setText(pb.getTenPB());
     }
+    
+    PhongBan getModelPhongBan(){
+        PhongBan pb = new PhongBan();
+        pb.setMaPB(txtMaPB.getText());
+        pb.setTenPB(txtTenPB.getText());
+        return pb;
+        
+    }
+    
+    
+    
+    
 
     public void setModel(ChucVu cv) {
         txtMaCV.setText(cv.getMaCV());
         txtTenCV.setText(cv.getTenCV());
         txtPhuCap.setText(FormatNumber.formatDouble(cv.getPhuCap()));
+    }
+    
+    ChucVu getModelChucVu(){
+        ChucVu cv = new ChucVu();
+        cv.setMaCV(txtMaCV.getText());
+        cv.setTenCV(txtMaCV.getText());
+        cv.setPhuCap(Double.valueOf(txtPhuCap.getText()));
+        return cv;
+        
     }
 
     //Khai báo các lớp DAO
@@ -180,5 +216,30 @@ public class ToChucController implements Initializable {
         TableChucVu tableModel = tblChucVu.getSelectionModel().getSelectedItem();
         ChucVu cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
         setModel(cv);
+    }
+
+    @FXML
+    private void insertPB(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void updatePB(ActionEvent event) {
+    }
+
+    @FXML
+    private void clearPB(ActionEvent event) {
+    }
+
+    @FXML
+    private void insertCV(ActionEvent event) {
+    }
+
+    @FXML
+    private void updateCV(ActionEvent event) {
+    }
+
+    @FXML
+    private void clearCV(ActionEvent event) {
     }
 }
