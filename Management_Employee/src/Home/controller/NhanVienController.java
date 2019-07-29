@@ -7,6 +7,7 @@ import Home.DAO.PhongBanDAO;
 import Home.DAO.TableNhanVienDAO;
 import Home.common.Common;
 import Home.common.Picture;
+import Home.common.Validate;
 import Home.common.XDate;
 import Home.model.ChucVu;
 import Home.model.NhanVien;
@@ -165,7 +166,8 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-NhanVien getmodelnhanvien() {
+
+    NhanVien getmodelnhanvien() {
         //get thong tin nhanvien
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
@@ -238,38 +240,92 @@ NhanVien getmodelnhanvien() {
         txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
     }
 //check null form nhan vien 
+
     @FXML
-    private  boolean checknull(){
-       if(txtMaNV.getText().equals("")){
-           CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập mã nhân viên");
-           txtMaNV.requestFocus();
-           return false;   
-           }
-       if(txtHoTen.getText().equals("")){
-            CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập họ tên nhân viên");
-            txtHoTen.requestFocus();
-           return false ;
-       } 
-        if (cboGioiTinh.getSelectionModel().getSelectedIndex()==-1) {
-             CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng chọn giới tính ");
-           cboGioiTinh.requestFocus();
-           return false;   
+    private boolean checknull() {
+        if (Validate.isNull(txtMaNV, "mã nhân viên")) {
+            return false;
         }
-       return true;
+        if (Validate.isNull(txtHoTen, "họ tên nhân viên")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboGioiTinh, "giới tính")) {
+            return false;
+        }
+        if (DPickerNgaySinh.getValue() == null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày sinh ");
+            DPickerNgaySinh.requestFocus();
+            return false;
+        }
+        if (Validate.isNull(txtSoCM, "SCMND")) {
+            return false;
+        }
+        if (Validate.isNull(txtDienThoai, "số điện thoại")) {
+            return false;
+        }
+        if (Validate.isNull(txtEmail, " địa chỉ email")) {
+            return false;
+        }
+        if (Validate.isNull(txtDiaChi, "địa chỉ")) {
+            return false;
+        }
+        if (Validate.isNull(txtTrinhDoHV, "trình độ học vấn ")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboTrangThai, "giới tính")) {
+            return false;
+        }
+        if (Validate.isNull(txtMaHD, "mã hợp đồng")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboPhongBan, "phòng ban")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboChucVu, "Chức vụ")) {
+            return false;
+        }
+        if (Validate.isNull(txtHeSoLuong, "hệ số lương")) {
+            return false;
+        }
+        if (DPickerNgayBatDau.getValue() == null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày bắt đầu ");
+            DPickerNgaySinh.requestFocus();
+            return false;
+        }
+        if (DPickerNgayKetThuc.getValue() == null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày kết thúc");
+            DPickerNgaySinh.requestFocus();
+            return false;
+        }
+        return true;
     }
+
     //insert nhân viên 
     @FXML
     private void insertnv() {
-        if (checknull()) { 
+        if (checknull()) {
+            NhanVien nv = getmodelnhanvien();
+            try {
+                nvdao.insertnv(nv);
+                loadDataToTable();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+            }
+        }
+    }
+
+    @FXML
+    private void updatenv() {
         NhanVien nv = getmodelnhanvien();
         try {
-            nvdao.insertnv(nv);
+            nvdao.updatenv(nv);
             loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "thêm nhân viên thành công ");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật nhân viên thành công ");
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "thêm nhân viên thất bại! vui lòng kiểm tra lại ");
-        }
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
     @FXML
