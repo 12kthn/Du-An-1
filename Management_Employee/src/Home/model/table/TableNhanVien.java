@@ -45,8 +45,8 @@ public class TableNhanVien {
         this.TrangThai = TrangThai;
         
         Picture picture = new Picture();
-        this.Delete = new Button("", picture.createIcon("delete.png"));
-        this.Update = new Button("", picture.createIcon("edit.png"));
+        this.Delete = new Button("", picture.createImageView("delete.png"));
+        this.Update = new Button("", picture.createImageView("edit.png"));
     }
 
     public Button getDelete() {

@@ -16,7 +16,6 @@ import Home.model.table.TableNhanVien;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.scene.control.skin.CustomColorDialog;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -166,8 +165,7 @@ public class NhanVienController implements Initializable {
         imagename = file.getName();
         imgHinh.setImage(Picture.readAvatar(imagename));
     }
-
-    NhanVien getmodelnhanvien() {
+NhanVien getmodelnhanvien() {
         //get thong tin nhanvien
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
@@ -239,10 +237,30 @@ public class NhanVienController implements Initializable {
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
         txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
     }
-
+//check null form nhan vien 
+    @FXML
+    private  boolean checknull(){
+       if(txtMaNV.getText().equals("")){
+           CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập mã nhân viên");
+           txtMaNV.requestFocus();
+           return false;   
+           }
+       if(txtHoTen.getText().equals("")){
+            CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng nhập họ tên nhân viên");
+            txtHoTen.requestFocus();
+           return false ;
+       } 
+        if (cboGioiTinh.getSelectionModel().getSelectedIndex()==-1) {
+             CustomDialog.showAlert(Alert.AlertType.WARNING,"Vui lòng chọn giới tính ");
+           cboGioiTinh.requestFocus();
+           return false;   
+        }
+       return true;
+    }
     //insert nhân viên 
     @FXML
     private void insertnv() {
+        if (checknull()) { 
         NhanVien nv = getmodelnhanvien();
         try {
             nvdao.insertnv(nv);
@@ -251,6 +269,7 @@ public class NhanVienController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
         }
     }
     @FXML

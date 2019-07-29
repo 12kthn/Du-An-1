@@ -234,7 +234,7 @@
                                 </VBox>
                                 <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton onAction="#insertnv" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
