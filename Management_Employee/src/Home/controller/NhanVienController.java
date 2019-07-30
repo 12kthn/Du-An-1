@@ -306,6 +306,11 @@ public class NhanVienController implements Initializable {
             txtMaNV.requestFocus();
             return false;
         }
+           if (nvdao.findbyCMND(txtSoCM.getText().trim())!=null) {
+             CustomDialog.showAlert(Alert.AlertType.WARNING, "Số  CMND đã tồn tại");
+           txtSoCM.requestFocus();
+            return false;
+        }
         return true;
 }
     //insert nhân viên 

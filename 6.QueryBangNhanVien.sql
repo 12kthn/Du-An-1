@@ -18,7 +18,7 @@ AS
 		END
 GO
 --tao Stored procedure tim kiem nhan vien theo chung minh nhan dan 
-If (OBJECT_ID('SP_FindNVTheoCMND') is not null)
+If (OBJECT_ID('SP_FindNVByCMND') is not null)
    Drop PROCEDURE SP_FindNVByCMND
 GO
 CREATE PROCEDURE SP_FINDNVBYCMND

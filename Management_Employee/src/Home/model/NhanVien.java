@@ -1,9 +1,9 @@
-
 package Home.model;
 
 import java.util.Date;
 
 public class NhanVien {
+
     private String MaNV;
     private String HoTen;
     private Boolean GioiTinh;
@@ -20,14 +20,14 @@ public class NhanVien {
     private Date NgayVaoLam;
     private Date NgayKetThuc;
     private int HeSoLuong;
- 
+
     private Boolean TrangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(String MaNV, String HoTen, Boolean GioiTinh, Date NgaySinh, String SoCM, String DienThoai, 
-            String Email, String DiaChi, String Hinh, String TrinhDoHV, String MaHD, String MaCV, String MaPB, 
+    public NhanVien(String MaNV, String HoTen, Boolean GioiTinh, Date NgaySinh, String SoCM, String DienThoai,
+            String Email, String DiaChi, String Hinh, String TrinhDoHV, String MaHD, String MaCV, String MaPB,
             Date NgayVaoLam, Date NgayKetThuc, int HeSoLuong, boolean TrangThai) {
         this.MaNV = MaNV;
         this.HoTen = HoTen;
@@ -45,8 +45,12 @@ public class NhanVien {
         this.NgayVaoLam = NgayVaoLam;
         this.NgayKetThuc = NgayKetThuc;
         this.HeSoLuong = HeSoLuong;
-      
+
         this.TrangThai = TrangThai;
+    }
+
+    public NhanVien(String string) {
+
     }
 
     public String getMaNV() {
@@ -176,6 +180,7 @@ public class NhanVien {
     public void setHeSoLuong(int HeSoLuong) {
         this.HeSoLuong = HeSoLuong;
     }
+
     public Boolean getTrangThai() {
         return TrangThai;
     }
@@ -188,5 +193,5 @@ public class NhanVien {
     public String toString() {
         return HoTen;
     }
-    
+
 }

@@ -28,17 +28,21 @@ public class NhanVienDAO {
         }
         return nhanVien;
     }
-public NhanVien findbyCMND(String cmnd){
-    NhanVien nhanVien = null;
-    try {
-        String sql = "{Call SP_FindNVTheoCMND(?)}";
-        ResultSet rs =JDBC.executeQuery(sql,cmnd);
-        while (rs.next()) {            
-            
+
+    public NhanVien findbyCMND(String cmnd) {
+        NhanVien nhanVien = null;
+        try {
+            String sql = "{Call SP_FindNVByCMND(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, cmnd);
+            while (rs.next()) {
+                nhanVien = new NhanVien(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
+        return nhanVien;
     }
-}
+
     public ObservableList<NhanVien> findByMaPB(String maPB) {
         ObservableList<NhanVien> list = FXCollections.observableArrayList();
 
@@ -182,7 +186,7 @@ public NhanVien findbyCMND(String cmnd){
 
     public void deletenv(NhanVien nv) {
         String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        JDBC.executeUpdate(sql,  
+        JDBC.executeUpdate(sql,
                 nv.getMaNV(),
                 nv.getHoTen(),
                 nv.getGioiTinh(),
@@ -199,6 +203,6 @@ public NhanVien findbyCMND(String cmnd){
                 nv.getNgayVaoLam(),
                 nv.getNgayKetThuc(),
                 nv.getHeSoLuong(),
-                nv.getTrangThai(),"delete");
+                nv.getTrangThai(), "delete");
     }
 }
