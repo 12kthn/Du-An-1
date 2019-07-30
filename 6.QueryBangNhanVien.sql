@@ -17,7 +17,24 @@ AS
 			SELECT * FROM NhanVien
 		END
 GO
-
+--tao Stored procedure tim kiem nhan vien theo chung minh nhan dan 
+If (OBJECT_ID('SP_FindNVTheoCMND') is not null)
+   Drop PROCEDURE SP_FindNVByCMND
+GO
+CREATE PROCEDURE SP_FINDNVBYCMND
+(
+     @CMND varchar(10)
+)
+AS
+  IF @CMND IS NOT NULL
+     BEGIN 
+          SELECT @CMND FROM NhanVien WHERE SoCM = @CMND
+	 END
+ ELSE 
+	 BEGIN 
+	      SELECT * FROM NhanVien
+	    END
+GO
 --Tao Stored Procedure tim kiem nhan vien theo PhongBan
 IF (OBJECT_ID('SP_FindNVTheoPB') IS NOT NULL)
   DROP PROCEDURE SP_FindNVTheoPB

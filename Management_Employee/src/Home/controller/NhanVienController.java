@@ -299,11 +299,19 @@ public class NhanVienController implements Initializable {
         }
         return true;
     }
-
+//check duplication
+    private boolean checkduplication(){
+        if (nvdao.findByCode(txtMaNV.getText().trim())!=null) {
+             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
+            txtMaNV.requestFocus();
+            return false;
+        }
+        return true;
+}
     //insert nhân viên 
     @FXML
     private void insertnv() {
-        if (checknull()) {
+        if (checknull()&& checkduplication()) {
             NhanVien nv = getmodelnhanvien();
             try {
                 nvdao.insertnv(nv);
@@ -322,10 +330,23 @@ public class NhanVienController implements Initializable {
         try {
             nvdao.updatenv(nv);
             loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật nhân viên thành công ");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật nhân viên thất bại! vui lòng kiểm tra lại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
+    }
+
+    @FXML
+    private void deletenv() {
+        NhanVien nv = getmodelnhanvien();
+        try {
+            nvdao.deletenv(nv);
+            loadDataToTable();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
+        } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
     @FXML

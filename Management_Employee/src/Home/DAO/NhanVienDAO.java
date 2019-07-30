@@ -13,14 +13,14 @@ import javafx.scene.chart.XYChart;
 
 public class NhanVienDAO {
 
-    public NhanVien findByCode(String code){
+    public NhanVien findByCode(String code) {
         NhanVien nhanVien = null;
         try {
             String sql = "{Call SP_FindNVByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, code);
-            while (rs.next()) {                
-                nhanVien = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5), 
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), 
+            while (rs.next()) {
+                nhanVien = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
                         rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
             }
         } catch (SQLException ex) {
@@ -28,16 +28,26 @@ public class NhanVienDAO {
         }
         return nhanVien;
     }
-    
-    public ObservableList<NhanVien> findByMaPB(String maPB){
+public NhanVien findbyCMND(String cmnd){
+    NhanVien nhanVien = null;
+    try {
+        String sql = "{Call SP_FindNVTheoCMND(?)}";
+        ResultSet rs =JDBC.executeQuery(sql,cmnd);
+        while (rs.next()) {            
+            
+        }
+    } catch (Exception e) {
+    }
+}
+    public ObservableList<NhanVien> findByMaPB(String maPB) {
         ObservableList<NhanVien> list = FXCollections.observableArrayList();
-        
+
         try {
             String sql = "{Call SP_FindNVTheoPB(?)}";
             ResultSet rs = JDBC.executeQuery(sql, Common.MAPB);
-            while (rs.next()) {    
-                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5), 
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), 
+            while (rs.next()) {
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
                         rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
                 list.add(nv);
             }
@@ -46,7 +56,7 @@ public class NhanVienDAO {
         }
         return list;
     }
-    
+
     public int getSLNVTheoPhongBan(Object maPB) {
         int SLNhanVien = 0;
         try {
@@ -60,7 +70,7 @@ public class NhanVienDAO {
         }
         return SLNhanVien;
     }
-    
+
     public int getSLNVTheoPBVaNam(int year) {
         int SLNhanVien = 0;
         try {
@@ -74,7 +84,7 @@ public class NhanVienDAO {
         }
         return SLNhanVien;
     }
-    
+
     public ObservableList getSLNVTheoThoiGianVaPB(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
         int month = XDate.monthOfYear(year);
@@ -91,21 +101,21 @@ public class NhanVienDAO {
         }
         return data;
     }
-    
+
     public ObservableList<PieChart.Data> getDataForPieChart() {
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
         try {
             String sql = "{call SP_SLNamNu(?)}";
             ResultSet rs = JDBC.executeQuery(sql, Common.MAPB);
             while (rs.next()) {
-                data.add(new PieChart.Data(rs.getBoolean(1)? "Nam" : "Nữ", rs.getInt(2)));
+                data.add(new PieChart.Data(rs.getBoolean(1) ? "Nam" : "Nữ", rs.getInt(2)));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return data;
     }
-    
+
     public XYChart.Series getDataForBarChart() {
         XYChart.Series data = new XYChart.Series<>();
         double SLNV = 0; //tong so luong nhan vien
@@ -118,55 +128,77 @@ public class NhanVienDAO {
                 SLNV += rs.getDouble(2);
                 count++;
             }
-            data.getData().add(new XYChart.Data("Trung bình", SLNV/count));
+            data.getData().add(new XYChart.Data("Trung bình", SLNV / count));
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return data;
     }
-   public void insertnv ( NhanVien nv ){
-       String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-       JDBC.executeUpdate(sql,
-               nv.getMaNV(),nv.getHoTen(),
-               nv.getGioiTinh(),
-               nv.getNgaySinh(),nv.getSoCM(),
-               nv.getDienThoai(),nv.getEmail(),
-               nv.getDiaChi(),nv.getHinh(),
-               nv.getTrinhDoHV(),nv.getMaHD(),
-               nv.getMaCV(),nv.getMaPB(),
-               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
-               nv.getHeSoLuong(),
-               nv.getTrangThai(),"insert");
-   }
-    
-    public void updatenv(NhanVien nv ){
-        String sql =  "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+
+    public void insertnv(NhanVien nv) {
+        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
         JDBC.executeUpdate(sql,
-              nv.getHoTen(),
-               nv.getGioiTinh(),nv.getGioiTinh(),
-               nv.getNgaySinh(),nv.getSoCM(),
-               nv.getDienThoai(),nv.getEmail(),
-               nv.getDiaChi(),nv.getHinh(),
-               nv.getTrinhDoHV(),nv.getMaHD(),
-               nv.getMaCV(),nv.getMaPB(),
-               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
-               nv.getHeSoLuong(),nv.getHeSoLuong(),
-               nv.getTrangThai(), nv.getMaNV(),"update");
+                nv.getMaNV(),
+                nv.getHoTen(),
+                nv.getGioiTinh(),
+                nv.getNgaySinh(),
+                nv.getSoCM(),
+                nv.getDienThoai(),
+                nv.getEmail(),
+                nv.getDiaChi(),
+                nv.getHinh(),
+                nv.getTrinhDoHV(),
+                nv.getMaHD(),
+                nv.getMaCV(),
+                nv.getMaPB(),
+                nv.getNgayVaoLam(),
+                nv.getNgayKetThuc(),
+                nv.getHeSoLuong(),
+                nv.getTrangThai(), "insert");
     }
-     public void deletenv(NhanVien nv ){
-        String sql =  "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        JDBC.executeUpdate(sql,
-              nv.getHoTen(),
-               nv.getGioiTinh(),nv.getGioiTinh(),
-               nv.getNgaySinh(),nv.getSoCM(),
-               nv.getDienThoai(),nv.getEmail(),
-               nv.getDiaChi(),nv.getHinh(),
-               nv.getTrinhDoHV(),nv.getMaHD(),
-               nv.getMaCV(),nv.getMaPB(),
-               nv.getNgayVaoLam(),nv.getNgayKetThuc(),
-               nv.getHeSoLuong(),nv.getHeSoLuong(),
-               nv.getTrangThai(), nv.getMaNV(),"delete");
+
+    public void updatenv(NhanVien nv) {
+        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        JDBC.executeUpdate(sql, nv.getMaNV(),
+                nv.getHoTen(),
+                nv.getGioiTinh(),
+                nv.getNgaySinh(),
+                nv.getSoCM(),
+                nv.getDienThoai(),
+                nv.getEmail(),
+                nv.getDiaChi(),
+                nv.getHinh(),
+                nv.getTrinhDoHV(),
+                nv.getMaHD(),
+                nv.getMaCV(),
+                nv.getMaPB(),
+                nv.getNgayVaoLam(),
+                nv.getNgayKetThuc(),
+                nv.getHeSoLuong(),
+                nv.getTrangThai(),
+                "update");
+    }
+
+    public void deletenv(NhanVien nv) {
+        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        JDBC.executeUpdate(sql,  
+                nv.getMaNV(),
+                nv.getHoTen(),
+                nv.getGioiTinh(),
+                nv.getNgaySinh(),
+                nv.getSoCM(),
+                nv.getDienThoai(),
+                nv.getEmail(),
+                nv.getDiaChi(),
+                nv.getHinh(),
+                nv.getTrinhDoHV(),
+                nv.getMaHD(),
+                nv.getMaCV(),
+                nv.getMaPB(),
+                nv.getNgayVaoLam(),
+                nv.getNgayKetThuc(),
+                nv.getHeSoLuong(),
+                nv.getTrangThai(),"delete");
     }
 }
-

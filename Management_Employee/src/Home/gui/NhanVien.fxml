@@ -42,7 +42,7 @@
                                         </Label>
                                     </children>
                                 </HBox>
-                                <PieChart fx:id="chartTyLeNamNu" layoutX="33.0" layoutY="30.0" legendVisible="false" prefWidth="450.0" title="Tỷ lệ giới tính" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0" />
+                                <PieChart fx:id="chartTyLeNamNu" layoutX="114.0" layoutY="100.0" legendVisible="false" prefWidth="450.0" title="Tỷ lệ giới tính" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="100.0" />
                                 <BarChart fx:id="chartSLNhanVien" layoutX="512.0" layoutY="46.0" legendVisible="false" prefHeight="340.0" prefWidth="600.0" title="Số lượng nhân viên" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                                     <xAxis>
                                         <CategoryAxis side="BOTTOM" />
@@ -253,7 +253,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+                                        <JFXButton onAction="#updatenv" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -272,7 +272,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton onAction="#deletenv" prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
