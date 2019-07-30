@@ -168,7 +168,7 @@ public class NhanVienController implements Initializable {
     }
 
     NhanVien getmodelnhanvien() {
-        //get thong tin nhanvien
+        //get model  thong tin nhanvien
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
         nv.setHoTen(txtHoTen.getText());
@@ -194,7 +194,7 @@ public class NhanVienController implements Initializable {
 
     public void setModelnhanvien(NhanVien nv) {
 
-        //set thong tin nhan vien
+        //set  model thong tin nhan vien
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
         cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
@@ -241,7 +241,6 @@ public class NhanVienController implements Initializable {
     }
 //check null form nhan vien 
 
-    @FXML
     private boolean checknull() {
         if (Validate.isNull(txtMaNV, "mã nhân viên")) {
             return false;
@@ -300,23 +299,30 @@ public class NhanVienController implements Initializable {
         return true;
     }
 //check duplication
-    private boolean checkduplication(){
-        if (nvdao.findByCode(txtMaNV.getText().trim())!=null) {
-             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
+
+    private boolean checkduplication() {
+        if (nvdao.findByCode(txtMaNV.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
             txtMaNV.requestFocus();
             return false;
         }
-           if (nvdao.findbyCMND(txtSoCM.getText().trim())!=null) {
-             CustomDialog.showAlert(Alert.AlertType.WARNING, "Số  CMND đã tồn tại");
-           txtSoCM.requestFocus();
+        if (nvdao.findbyCMND(txtSoCM.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Số  CMND đã tồn tại");
+            txtSoCM.requestFocus();
+            return false;
+        }
+        if (nvdao.findbyMaHD(txtMaHD.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã hợp đồng đã tồn tại");
+            txtMaHD.requestFocus();
             return false;
         }
         return true;
-}
+    }
+
     //insert nhân viên 
     @FXML
     private void insertnv() {
-        if (checknull()&& checkduplication()) {
+        if (checknull() && checkduplication()) {
             NhanVien nv = getmodelnhanvien();
             try {
                 nvdao.insertnv(nv);

@@ -43,6 +43,20 @@ public class NhanVienDAO {
         return nhanVien;
     }
 
+    public NhanVien findbyMaHD(String MaHD) {
+        NhanVien nhanVien = null;
+        try {
+            String sql = "{Call SP_FindNVByMaHD(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, MaHD);
+            while (rs.next()) {
+                nhanVien = new NhanVien(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nhanVien;
+    }
+
     public ObservableList<NhanVien> findByMaPB(String maPB) {
         ObservableList<NhanVien> list = FXCollections.observableArrayList();
 

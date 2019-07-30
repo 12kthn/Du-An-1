@@ -17,7 +17,7 @@ AS
 			SELECT * FROM NhanVien
 		END
 GO
---tao Stored procedure tim kiem nhan vien theo chung minh nhan dan 
+--tao Stored procedure check trung lap so chung minh nhan dan 
 If (OBJECT_ID('SP_FindNVByCMND') is not null)
    Drop PROCEDURE SP_FindNVByCMND
 GO
@@ -34,6 +34,24 @@ AS
 	 BEGIN 
 	      SELECT * FROM NhanVien
 	    END
+GO
+--tao procedure check trung lap ma hop dong 
+ IF(OBJECT_ID('SP_FindNVByMaHD') is not null)
+    DROP PROCEDURE SP_FindNVByMaHD
+go
+    CREATE PROCEDURE SP_FindNVByMaHD
+    (
+       @MaHD varchar(10)
+     )
+ AS 
+        IF @MaHD is not null 
+    BEGIN 
+         SELECT @MaHD FROM NhanVien WHERE MaHD = @MaHD
+END
+  ELSE 
+     BEGIN 
+        SELECT * FROM NhanVien
+  END 
 GO
 --Tao Stored Procedure tim kiem nhan vien theo PhongBan
 IF (OBJECT_ID('SP_FindNVTheoPB') IS NOT NULL)
