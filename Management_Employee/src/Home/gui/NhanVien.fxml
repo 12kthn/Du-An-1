@@ -169,7 +169,7 @@
                                                 <Insets top="30.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <JFXTextField fx:id="txtTrinhDoHV" focusTraversable="false" labelFloat="true" onMouseClicked="#chooserimage" prefHeight="30.0" promptText="Trình độ học vấn">
+                                        <JFXTextField fx:id="txtTrinhDoHV" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Trình độ học vấn">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
