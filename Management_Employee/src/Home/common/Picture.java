@@ -43,6 +43,9 @@ public class Picture {
 
     public static Image readAvatar(String fileName) {
         try {
+            if (fileName == null) {
+                return null;
+            }
             File file = new File(new File("avatar"), fileName);
             String localUrl = file.toURI().toURL().toString();
             
