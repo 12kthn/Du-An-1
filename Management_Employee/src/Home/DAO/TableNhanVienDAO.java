@@ -37,6 +37,7 @@ public class TableNhanVienDAO {
                     public void handle(ActionEvent event) {
                         Common.nvController.setModelnhanvien(new NhanVienDAO().findByCode(tblnv.getMaNV()));
                         Common.nvController.changeTabPane(2);
+                        Common.nvController.setstatus(false);
                     }
                 });
             }

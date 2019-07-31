@@ -217,54 +217,48 @@ public class ToChucController implements Initializable {
     }
 
     @FXML
-    private void insertPB(ActionEvent event) {
+    private void insertPB() {
 
     }
 
     @FXML
-    private void updatePB(ActionEvent event) {
+    private void updatePB() {
         PhongBan pb = getModelPhongBan();
         try {
             pbdao.UpdatePB(pb);
             loadDataToTblPhongBan();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
-                    "Managemnet System", "Cập nhật phòng ban thành công ");
-
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
-                    "Managemnet System", "Cập nhật phòng ban thành công ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,"Managemnet System", "Cập nhật phòng ban thất bại ");
             e.printStackTrace();
         }
 
     }
 
     @FXML
-    private void clearPB(ActionEvent event) {
-        
+    private void clearPB() {
+
     }
 
     @FXML
-    private void insertCV(ActionEvent event) {
+    private void insertCV() {
     }
 
     @FXML
-    private void updateCV(ActionEvent event) {
-                ChucVu cv = getModelChucVu();
+    private void updateCV() {
+        ChucVu cv = getModelChucVu();
         try {
             cvdao.UpdateCV(cv);
             loadDataToTblChucVu();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
-                    "Managemnet System", "Cập nhật chức vụ thành công ");
-
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật chức vụ thành công ");
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
-                    "Managemnet System", "Cập nhật chức vụ thất bại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Cập nhật chức vụ thất bại ");
             e.printStackTrace();
         }
-        
     }
 
     @FXML
-    private void clearCV(ActionEvent event) {
+    private void clearCV() {
+        
     }
 }

@@ -280,7 +280,7 @@
                   </Label>
             <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="176.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <VBox.margin>
-                  <Insets left="11.0" top="110.0" />
+                  <Insets left="11.0" top="88.0" />
                </VBox.margin>
             </Label>
             </children>

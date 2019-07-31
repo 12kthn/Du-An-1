@@ -14,6 +14,7 @@ import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.ThanNhan;
 import Home.model.table.TableNhanVien;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
@@ -49,11 +50,11 @@ public class NhanVienController implements Initializable {
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
             picture = new Picture();
-
             loadPieChart();
             loadBarChart();
             setTableColumn();
             loadDataToTable();
+            setstatus(true);
             DPickerNgaySinh.setConverter(XDate.converter);
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
@@ -199,13 +200,13 @@ public class NhanVienController implements Initializable {
         //set  model thong tin nhan vien
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
-        
+
         if (nv.getGioiTinh() == null) {
             cboGioiTinh.getSelectionModel().clearSelection();
         } else {
             cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
         }
-        
+
         DPickerNgaySinh.setValue(XDate.toLocalDate(nv.getNgaySinh()));
 
         txtSoCM.setText(nv.getSoCM());
@@ -243,9 +244,7 @@ public class NhanVienController implements Initializable {
                 }
             }
         }
-
         txtHeSoLuong.setText(nv.getHeSoLuong() + "");
-
         DPickerNgayBatDau.setValue(XDate.toLocalDate(nv.getNgayVaoLam()));
         DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
     }
@@ -324,6 +323,13 @@ public class NhanVienController implements Initializable {
         }
         return true;
     }
+    //setstatus
+   public void setstatus(boolean insertable){
+        txtMaNV.setDisable(!insertable);
+        btnCapnhat.setDisable(insertable);
+        btnXoa.setDisable(insertable);
+        btnThem.setDisable(!insertable);
+    }
 //check duplication
 
     private boolean checkduplication() {
@@ -368,14 +374,16 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updatenv() {
-        NhanVien nv = getmodelnhanvien();
-        try {
-            nvdao.updatenv(nv);
-            loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
-        } catch (Exception e) {
-            e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+        if (checknull()) {
+            NhanVien nv = getmodelnhanvien();
+            try {
+                nvdao.updatenv(nv);
+                loadDataToTable();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+            }
         }
     }
 
@@ -391,6 +399,14 @@ public class NhanVienController implements Initializable {
             CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
+    @FXML
+    private JFXButton btnThem;
+    @FXML
+    private JFXButton btnCapnhat;
+    @FXML
+    private JFXButton btnXoa;
+    @FXML
+    private JFXButton btnTaomoi;
     @FXML
     private AnchorPane anchorpane;
     @FXML
@@ -476,7 +492,6 @@ public class NhanVienController implements Initializable {
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
     private Picture picture;
-
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
     private TableColumn<TableNhanVien, String> col1;
