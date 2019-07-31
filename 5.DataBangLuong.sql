@@ -104,11 +104,5 @@ EXEC SP_Insert_BangLuong IT001, '2019/6/5', 0
 EXEC SP_Insert_BangLuong IT002, '2019/6/5', 0
 EXEC SP_Insert_BangLuong IT003, '2019/6/5', 0
 EXEC SP_Insert_BangLuong IT004, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT005, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT006, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT007, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT008, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT009, '2019/6/5', 0
-EXEC SP_Insert_BangLuong IT010, '2019/6/5', 0
 GO
 select* from BangLuong
