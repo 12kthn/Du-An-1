@@ -25,4 +25,32 @@ public class PhongBanDAO {
         }
         return list;
     }
+    
+    public void InsertPB(PhongBan pb){
+        
+        String sql = "{call sp_phongban(?,?,?)}";
+        JDBC.executeUpdate(sql,
+                pb.getMaPB(),
+                pb.getTenPB(),
+                "insert"
+                );
+    }
+    
+    public void UpdatePB(PhongBan pb){
+        String sql = "{call sp_phongban(?,?,?)}";
+        JDBC.executeUpdate(sql,
+                pb.getMaPB(),
+                pb.getTenPB(),
+                "update"
+                );
+    }
+    
+    public void DeletePB(PhongBan pb){
+        String sql = "{call sp_phongban(?,?,?)}";
+        JDBC.executeUpdate(sql,
+                pb.getMaPB(),
+                pb.getTenPB(),
+                "delete"
+                );
+    }
 }

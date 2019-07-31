@@ -7,6 +7,7 @@ import Home.DAO.TableChucVuDAO;
 import Home.DAO.TablePhongBanDAO;
 import Home.common.Common;
 import Home.common.FormatNumber;
+import Home.common.CustomDialog;
 import Home.model.ChucVu;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -20,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -44,23 +46,23 @@ public class ToChucController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            
+
             Common.tcController = this;
-            
+
             //tạo các đối tượng DAO
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
             tbl_PBdao = new TablePhongBanDAO();
             tbl_CVdao = new TableChucVuDAO();
-            
+
             //chạy các phương thức khi khởi tạo
             setTableColumn_PB();
             setTableColumn_CV();
-            
+
             loadDataToTblPhongBan();
             loadDataToTblChucVu();
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -133,32 +135,28 @@ public class ToChucController implements Initializable {
         txtMaPB.setText(pb.getMaPB());
         txtTenPB.setText(pb.getTenPB());
     }
-    
-    PhongBan getModelPhongBan(){
+
+    PhongBan getModelPhongBan() {
         PhongBan pb = new PhongBan();
         pb.setMaPB(txtMaPB.getText());
         pb.setTenPB(txtTenPB.getText());
         return pb;
-        
+
     }
-    
-    
-    
-    
 
     public void setModel(ChucVu cv) {
         txtMaCV.setText(cv.getMaCV());
         txtTenCV.setText(cv.getTenCV());
         txtPhuCap.setText(FormatNumber.formatDouble(cv.getPhuCap()));
     }
-    
-    ChucVu getModelChucVu(){
+
+    ChucVu getModelChucVu() {
         ChucVu cv = new ChucVu();
         cv.setMaCV(txtMaCV.getText());
         cv.setTenCV(txtMaCV.getText());
         cv.setPhuCap(Double.valueOf(txtPhuCap.getText()));
         return cv;
-        
+
     }
 
     //Khai báo các lớp DAO
@@ -167,7 +165,7 @@ public class ToChucController implements Initializable {
     private ChucVuDAO cvdao;
     private TablePhongBanDAO tbl_PBdao;
     private TableChucVuDAO tbl_CVdao;
-    
+
     //Khai báo  các cột cho bảng Phòng ban
     private TableColumn<TablePhongBan, Button> deleteColumn_PB;
     private TableColumn<TablePhongBan, Button> updateColumn_PB;
@@ -187,7 +185,7 @@ public class ToChucController implements Initializable {
 
     //Khai báo  biến chứa danh sách Nhân viên cho cboNhanVien
     private ObservableList<NhanVien> listNhanVien;
-    
+
     //Khai báo  các biến vá phương thức trong file FXML
     @FXML
     private JFXTextField txtMaPB;
@@ -203,7 +201,7 @@ public class ToChucController implements Initializable {
     private TableView<TablePhongBan> tblPhongBan;
     @FXML
     private TableView<TableChucVu> tblChucVu;
-    
+
     @FXML
     private void selectPhongBan(MouseEvent event) {
         TablePhongBan tableModel = tblPhongBan.getSelectionModel().getSelectedItem();
@@ -220,15 +218,29 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void insertPB(ActionEvent event) {
-        
+
     }
 
     @FXML
     private void updatePB(ActionEvent event) {
+        PhongBan pb = getModelPhongBan();
+        try {
+            pbdao.UpdatePB(pb);
+            loadDataToTblPhongBan();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
+                    "Managemnet System", "Cập nhật phòng ban thành công ");
+
+        } catch (Exception e) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
+                    "Managemnet System", "Cập nhật phòng ban thành công ");
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
     private void clearPB(ActionEvent event) {
+        
     }
 
     @FXML
@@ -237,6 +249,19 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void updateCV(ActionEvent event) {
+                ChucVu cv = getModelChucVu();
+        try {
+            cvdao.UpdateCV(cv);
+            loadDataToTblChucVu();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
+                    "Managemnet System", "Cập nhật chức vụ thành công ");
+
+        } catch (Exception e) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
+                    "Managemnet System", "Cập nhật chức vụ thất bại ");
+            e.printStackTrace();
+        }
+        
     }
 
     @FXML
