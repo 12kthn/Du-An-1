@@ -353,7 +353,8 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void clearNV() {
-        setModelnhanvien(new NhanVien());
+            
+        setstatus(true);
     }
 
     //insert nhân viên 
