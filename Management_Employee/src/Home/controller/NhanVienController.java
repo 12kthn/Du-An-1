@@ -50,6 +50,8 @@ public class NhanVienController implements Initializable {
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
+            picture = new Picture();
+
             loadPieChart();
             loadBarChart();
             setTableColumn();
@@ -162,9 +164,12 @@ public class NhanVienController implements Initializable {
         FileChooser selectimage = new FileChooser();
         selectimage.setTitle("select image");
         File file = selectimage.showOpenDialog(Common.mainStage);
-        Picture.saveAvatar(file.getAbsoluteFile());
-        imagename = file.getName();
-        imgHinh.setImage(Picture.readAvatar(imagename));
+        if (file != null) {
+            Picture.saveAvatar(file.getAbsoluteFile());
+            imagename = file.getName();
+            imgHinh.setImage(Picture.readAvatar(imagename));
+        }
+
     }
 
     NhanVien getmodelnhanvien() {
@@ -205,9 +210,8 @@ public class NhanVienController implements Initializable {
         txtDiaChi.setText(nv.getDiaChi());
         txtTrinhDoHV.setText(nv.getTrinhDoHV());
         cboTrangThai.getSelectionModel().select(nv.getTrangThai() ? 0 : 1);
-        InputStream input = getClass().getResourceAsStream("/Libraries/images/anh.jpg");
-        Image image = new Image(input);
-        imgHinh.setImage(image);
+        imagename = nv.getHinh();
+        imgHinh.setImage(Picture.readAvatar(nv.getHinh()));
         txtMaHD.setText(nv.getMaHD());
         for (PhongBan phongBan : listPhongBan) {
             if (phongBan.getMaPB().equals(nv.getMaPB())) {
@@ -319,6 +323,12 @@ public class NhanVienController implements Initializable {
         return true;
     }
 
+    
+    @FXML
+    private void clearNV(){
+        setModelnhanvien(new NhanVien());
+    }
+    
     //insert nhân viên 
     @FXML
     private void insertnv() {
@@ -365,8 +375,6 @@ public class NhanVienController implements Initializable {
     @FXML
     private JFXTextField txtMoiQuanHeNT;
 
-    @FXML
-    private JFXComboBox<?> cboLoaiNhanVien;
 
     @FXML
     private DatePicker DPickerNgayBatDau;
@@ -447,6 +455,8 @@ public class NhanVienController implements Initializable {
     private PhongBanDAO pbdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
+    private Picture picture;
+
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
     private TableColumn<TableNhanVien, String> col1;
