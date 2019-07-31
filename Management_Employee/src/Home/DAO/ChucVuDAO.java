@@ -25,4 +25,25 @@ public class ChucVuDAO {
         }
         return list;
     }
+    
+    public void InsertCV(ChucVu cv){
+        String sql = "{call sp_chucvu(?,?,?,?)}";
+        JDBC.executeUpdate(sql,
+                cv.getMaCV(),
+                cv.getTenCV(),
+                cv.getPhuCap(),
+                "insert"
+                );
+    
+    }
+    
+    public void UpdateCV(ChucVu cv){
+        String sql = "{call sp_chucvu(?,?,?,?)}";
+        JDBC.executeUpdate(sql,
+                cv.getMaCV(),
+                cv.getTenCV(),
+                cv.getPhuCap(),
+                "Update"
+                );
+    }
 }
