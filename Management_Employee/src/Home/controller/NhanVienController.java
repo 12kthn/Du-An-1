@@ -14,11 +14,11 @@ import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.ThanNhan;
 import Home.model.table.TableNhanVien;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -34,7 +34,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -51,15 +50,16 @@ public class NhanVienController implements Initializable {
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
             picture = new Picture();
-
             loadPieChart();
             loadBarChart();
             setTableColumn();
             loadDataToTable();
+            setstatus(true);
             DPickerNgaySinh.setConverter(XDate.converter);
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
             loadCbo();
+            clearNV();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class NhanVienController implements Initializable {
                 col11, col12, col13, col14, col15, col16, col17);
     }
 
-    private void loadDataToTable() {
+    public void loadDataToTable() {
         data = tbl_nvdao.getData();
         tblNhanVien.setItems(data);
     }
@@ -178,7 +178,6 @@ public class NhanVienController implements Initializable {
         nv.setMaNV(txtMaNV.getText());
         nv.setHoTen(txtHoTen.getText());
         nv.setGioiTinh(cboGioiTinh.getSelectionModel().getSelectedIndex() == 0);
-        nv.setGioiTinh(cboGioiTinh.getSelectionModel().getSelectedIndex() == 1);
         nv.setNgaySinh(XDate.toDate(DPickerNgaySinh.getValue()));
         nv.setHinh(imagename);
         nv.setSoCM(txtSoCM.getText());
@@ -186,8 +185,7 @@ public class NhanVienController implements Initializable {
         nv.setEmail(txtEmail.getText());
         nv.setDiaChi(txtDiaChi.getText());
         nv.setTrinhDoHV(txtTrinhDoHV.getText());
-        nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 0);//nếu 0 =true
-        nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 1);//nếu 1 =false
+        nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 0);
         nv.setMaHD(txtMaHD.getText());
         nv.setMaPB(cboPhongBan.getSelectionModel().getSelectedItem().getMaPB());
         nv.setMaCV(cboChucVu.getSelectionModel().getSelectedItem().getMaCV());
@@ -202,25 +200,48 @@ public class NhanVienController implements Initializable {
         //set  model thong tin nhan vien
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
-        cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
+
+        if (nv.getGioiTinh() == null) {
+            cboGioiTinh.getSelectionModel().clearSelection();
+        } else {
+            cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
+        }
+
         DPickerNgaySinh.setValue(XDate.toLocalDate(nv.getNgaySinh()));
+
         txtSoCM.setText(nv.getSoCM());
         txtDienThoai.setText(nv.getDienThoai());
         txtEmail.setText(nv.getEmail());
         txtDiaChi.setText(nv.getDiaChi());
         txtTrinhDoHV.setText(nv.getTrinhDoHV());
-        cboTrangThai.getSelectionModel().select(nv.getTrangThai() ? 0 : 1);
+
+        if (nv.getTrangThai() == null) {
+            cboTrangThai.getSelectionModel().clearSelection();
+        } else {
+            cboTrangThai.getSelectionModel().select(nv.getTrangThai() ? 0 : 1);
+        }
+
         imagename = nv.getHinh();
         imgHinh.setImage(Picture.readAvatar(nv.getHinh()));
         txtMaHD.setText(nv.getMaHD());
-        for (PhongBan phongBan : listPhongBan) {
-            if (phongBan.getMaPB().equals(nv.getMaPB())) {
-                cboPhongBan.getSelectionModel().select(phongBan);
+
+        if (nv.getMaPB() == null) {
+            cboPhongBan.getSelectionModel().clearSelection();
+        } else {
+            for (PhongBan phongBan : listPhongBan) {
+                if (phongBan.getMaPB().equals(nv.getMaPB())) {
+                    cboPhongBan.getSelectionModel().select(phongBan);
+                }
             }
         }
-        for (ChucVu chucvu : listChucVu) {
-            if (chucvu.getMaCV().equals(nv.getMaCV())) {
-                cboChucVu.getSelectionModel().select(chucvu);
+
+        if (nv.getMaCV() == null) {
+            cboChucVu.getSelectionModel().clearSelection();
+        } else {
+            for (ChucVu chucvu : listChucVu) {
+                if (chucvu.getMaCV().equals(nv.getMaCV())) {
+                    cboChucVu.getSelectionModel().select(chucvu);
+                }
             }
         }
         txtHeSoLuong.setText(nv.getHeSoLuong() + "");
@@ -302,6 +323,13 @@ public class NhanVienController implements Initializable {
         }
         return true;
     }
+    //setstatus
+   public void setstatus(boolean insertable){
+        txtMaNV.setDisable(!insertable);
+        btnCapnhat.setDisable(insertable);
+        btnXoa.setDisable(insertable);
+        btnThem.setDisable(!insertable);
+    }
 //check duplication
 
     private boolean checkduplication() {
@@ -323,12 +351,12 @@ public class NhanVienController implements Initializable {
         return true;
     }
 
-    
     @FXML
-    private void clearNV(){
-        setModelnhanvien(new NhanVien());
+    private void clearNV() {
+            
+        setstatus(true);
     }
-    
+
     //insert nhân viên 
     @FXML
     private void insertnv() {
@@ -347,19 +375,21 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updatenv() {
-        NhanVien nv = getmodelnhanvien();
-        try {
-            nvdao.updatenv(nv);
-            loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
-        } catch (Exception e) {
-            e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+        if (checknull()) {
+            NhanVien nv = getmodelnhanvien();
+            try {
+                nvdao.updatenv(nv);
+                loadDataToTable();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+            }
         }
     }
 
     @FXML
-    private void deletenv() {
+    public void deletenv() {
         NhanVien nv = getmodelnhanvien();
         try {
             nvdao.deletenv(nv);
@@ -371,10 +401,17 @@ public class NhanVienController implements Initializable {
         }
     }
     @FXML
+    private JFXButton btnThem;
+    @FXML
+    private JFXButton btnCapnhat;
+    @FXML
+    private JFXButton btnXoa;
+    @FXML
+    private JFXButton btnTaomoi;
+    @FXML
     private AnchorPane anchorpane;
     @FXML
     private JFXTextField txtMoiQuanHeNT;
-
 
     @FXML
     private DatePicker DPickerNgayBatDau;
@@ -456,7 +493,6 @@ public class NhanVienController implements Initializable {
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
     private Picture picture;
-
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
     private TableColumn<TableNhanVien, String> col1;

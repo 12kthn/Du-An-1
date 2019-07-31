@@ -49,8 +49,8 @@ public class NhanVien {
         this.TrangThai = TrangThai;
     }
 
-    public NhanVien(String string) {
-
+    public NhanVien(String MaNV) {
+        this.MaNV = MaNV;
     }
 
     public String getMaNV() {
