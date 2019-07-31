@@ -8,6 +8,7 @@ import Home.DAO.TablePhongBanDAO;
 import Home.common.Common;
 import Home.common.FormatNumber;
 import Home.common.CustomDialog;
+import Home.common.Validate;
 import Home.model.ChucVu;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -131,6 +132,40 @@ public class ToChucController implements Initializable {
         tblChucVu.setItems(data_CV);
     }
 
+    private boolean checknullPB() {
+        if (Validate.isNull(txtMaPB, "Chưa nhập mã phòng ban")) {
+            return false;
+        }
+        if (Validate.isNull(txtTenPB, "Chưa nhập tên phòng ban")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checknullCV() {
+        if (Validate.isNull(txtMaCV, "Chưa nhập mã chức vụ")) {
+            return false;
+        }
+        if (Validate.isNull(txtTenCV, "Chưa nhập tên chức vụ")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkDuplication() {
+        if (pbdao.findByCode(txtMaPB.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã phòng ban đã tồn tại");
+            txtMaPB.requestFocus();
+            return false;
+        }
+        if (cvdao.findByCode(txtMaCV.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã chức vụ đã tồn tại");
+            txtMaCV.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
     public void setModel(PhongBan pb) {
         txtMaPB.setText(pb.getMaPB());
         txtTenPB.setText(pb.getTenPB());
@@ -218,6 +253,20 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void insertPB(ActionEvent event) {
+        if (checknullPB() && checkDuplication()) {
+            PhongBan pb = getModelPhongBan();
+            try {
+                pbdao.InsertPB(pb);
+                loadDataToTblPhongBan();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System",
+                        "Thêm mới thành công ");
+
+            } catch (Exception e) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System",
+                        "Thêm mới thất bại ");
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -226,6 +275,7 @@ public class ToChucController implements Initializable {
         PhongBan pb = getModelPhongBan();
         try {
             pbdao.UpdatePB(pb);
+            System.out.println(pb.getMaPB());
             loadDataToTblPhongBan();
             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
                     "Managemnet System", "Cập nhật phòng ban thành công ");
@@ -240,16 +290,33 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void clearPB(ActionEvent event) {
-        
+        setModel(new PhongBan());
+
     }
 
     @FXML
     private void insertCV(ActionEvent event) {
+        if (checknullCV() && checkDuplication()) {
+            ChucVu cv = getModelChucVu();
+            try {
+                cvdao.InsertCV(cv);
+                System.out.println(cv.getMaCV());
+                loadDataToTblChucVu();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
+                        "Managemnet System", "Thêm mới chức vụ thành công ");
+
+            } catch (Exception e) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
+                        "Managemnet System", "Thêm mới chức vụ thất bại ");
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @FXML
     private void updateCV(ActionEvent event) {
-                ChucVu cv = getModelChucVu();
+        ChucVu cv = getModelChucVu();
         try {
             cvdao.UpdateCV(cv);
             loadDataToTblChucVu();
@@ -261,10 +328,11 @@ public class ToChucController implements Initializable {
                     "Managemnet System", "Cập nhật chức vụ thất bại ");
             e.printStackTrace();
         }
-        
+
     }
 
     @FXML
     private void clearCV(ActionEvent event) {
+        setModel(new ChucVu());
     }
 }
