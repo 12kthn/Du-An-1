@@ -8,7 +8,19 @@ AS
 		FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 	FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 GO
-
+--Tao Stored Procedure in ra Table than nhan
+IF(OBJECT_ID('SP_TBLThanNhan') IS NOT NULL)
+       DROP PROCEDURE SP_TBLThanNhan
+GO
+CREATE PROCEDURE SP_TBLThanNhan
+(
+	@MaNV varchar(10)
+)
+AS 
+       SELECT MaTN,HoTen,NgheNghiep,MoiQuanHe,MaNV,GiamTruPhuThuoc
+       FROM ThanNhan
+	   WHERE MaNV = @MaNV
+Go
 --Tao Stored Procedure hien thi du lieu cho table BangLuong
 IF (OBJECT_ID('SP_TBLBangLuong') IS NOT NULL)
   DROP PROCEDURE SP_TBLBangLuong
