@@ -29,9 +29,10 @@ public class LoginController implements Initializable {
         }
     }
 
-    //Phương thức khởi tạo validator
+    //Phương thức khởi tạo validatorJFX
     public void validatorInit() {
         txtTaiKhoan.getValidators().add(Validate.createValidatorJFX("tài khoản"));
+        //kiểm tra giá trị mới có lỗi hay ko
         txtTaiKhoan.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -43,6 +44,7 @@ public class LoginController implements Initializable {
         });
         
         txtMatKhau.getValidators().add(Validate.createValidatorJFX("mật khẩu"));
+        //kiểm tra giá trị mới có lỗi hay ko
         txtMatKhau.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -65,14 +67,6 @@ public class LoginController implements Initializable {
             ex.printStackTrace();
         }
     }
-
-    private TaiKhoanDAO tkdao;
-
-    @FXML
-    private JFXTextField txtTaiKhoan;
-
-    @FXML
-    private JFXPasswordField txtMatKhau;
 
     @FXML
     void login() {
@@ -104,4 +98,13 @@ public class LoginController implements Initializable {
             Common.mainStage.close();
         }        
     }
+    
+    private TaiKhoanDAO tkdao;
+
+    @FXML
+    private JFXTextField txtTaiKhoan;
+
+    @FXML
+    private JFXPasswordField txtMatKhau;
+  
 }

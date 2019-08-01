@@ -68,31 +68,31 @@ public class HomeController implements Initializable, Runnable {
 
         XYChart.Series series1 = new XYChart.Series<>();
         series1.setName("Giám đốc");
-        series1.setData(nvdao.getSLNVTheoThoiGianVaPB("GD", year));
+        series1.setData(nvdao.getSLNVTheoPBVaMoiThang("GD", year));
 
         XYChart.Series series2 = new XYChart.Series<>();
         series2.setName("Kỹ thuật");
-        series2.setData(nvdao.getSLNVTheoThoiGianVaPB("IT", year));
+        series2.setData(nvdao.getSLNVTheoPBVaMoiThang("IT", year));
 
         XYChart.Series series3 = new XYChart.Series<>();
         series3.setName("Kế toán");
-        series3.setData(nvdao.getSLNVTheoThoiGianVaPB("KT", year));
+        series3.setData(nvdao.getSLNVTheoPBVaMoiThang("KT", year));
 
         XYChart.Series series4 = new XYChart.Series<>();
         series4.setName("Marketing");
-        series4.setData(nvdao.getSLNVTheoThoiGianVaPB("MK", year));
+        series4.setData(nvdao.getSLNVTheoPBVaMoiThang("MK", year));
 
         XYChart.Series series5 = new XYChart.Series<>();
         series5.setName("Nhân sự");
-        series5.setData(nvdao.getSLNVTheoThoiGianVaPB("NS", year));
+        series5.setData(nvdao.getSLNVTheoPBVaMoiThang("NS", year));
 
         XYChart.Series series6 = new XYChart.Series<>();
         series6.setName("Bán hàng");
-        series6.setData(nvdao.getSLNVTheoThoiGianVaPB("SL", year));
+        series6.setData(nvdao.getSLNVTheoPBVaMoiThang("SL", year));
 
         XYChart.Series series7 = new XYChart.Series<>();
         series7.setName("Tất cả");
-        series7.setData(nvdao.getSLNVTheoThoiGianVaPB(null, year));
+        series7.setData(nvdao.getSLNVTheoPBVaMoiThang(null, year));
 
         //add series to chart
         chartTangTruongNV.getData().addAll(series1, series2, series3, series4, series5, series6, series7);

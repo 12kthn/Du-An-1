@@ -13,11 +13,10 @@ import javafx.util.StringConverter;
 public class XDate {
     
     //biến định dạng ngày/tháng/năm
-    static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
+    public static SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
 
     public static StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
-        DateTimeFormatter dateFormatter
-                = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         @Override
         public String toString(LocalDate date) {
@@ -57,8 +56,9 @@ public class XDate {
         try {
             if (pattern.length > 0) {
                 DATE_FORMATER.applyPattern(pattern[0]);
+            } else {
+                DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
             }
-
             return DATE_FORMATER.parse(dateString);
         } catch (ParseException ex) {
             ex.printStackTrace();
@@ -69,6 +69,8 @@ public class XDate {
     public static String toString(Date date, String... pattern) {
         if (pattern.length > 0) {
             DATE_FORMATER.applyPattern(pattern[0]);
+        } else {
+            DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
         }
         
         if (date == null) {

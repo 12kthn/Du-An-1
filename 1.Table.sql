@@ -74,6 +74,7 @@ CREATE TABLE ThanNhan
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
 )
 GO
+
 CREATE TABLE ChamCong
 (
 	MaNV varchar(10) not null,

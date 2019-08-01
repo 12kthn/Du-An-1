@@ -74,9 +74,12 @@ public class ChamCongDAO {
     }
 
     public int getSLNVDiLamDayDuTheoThang(int year, int month) {
+        int ngayTrongThang = XDate.daysInMonth(year, month);
+        int soNgayLe = XDate.holidaysInMonth(year, month);
+        int soNgayLamViecThapNhat = Integer.min(26, ngayTrongThang - soNgayLe);
         try {
-            String sql = "{Call SP_ChuyenCanTheoThang(?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month);
+            String sql = "{Call SP_ChuyenCanTheoThang(?,?,?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month, soNgayLamViecThapNhat);
             while (rs.next()) {
                 return rs.getInt(1);
             }
@@ -89,7 +92,7 @@ public class ChamCongDAO {
     public ObservableList<PieChart.Data> getDataForChuyenCanChart(int year, int month) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
         
-        double tongSLNV = new NhanVienDAO().getSLNVTheoPhongBan(Common.MAPB);
+        double tongSLNV = new NhanVienDAO().getSLNVTheoPBVaThang(Common.MAPB, year, month);
         int SLNVDiLamDayDu = new ChamCongDAO().getSLNVDiLamDayDuTheoThang(year, month);
         
         chartData.add(new PieChart.Data("Số lượng nhân viên đi làm đầy đủ", SLNVDiLamDayDu));
@@ -126,5 +129,17 @@ public class ChamCongDAO {
         return chartData;
     }
     
-    
+    public ObservableList<Integer> getListYear(){
+        ObservableList<Integer> list = FXCollections.observableArrayList();
+        try {
+            String sql = "{Call SP_ListYear}";
+            ResultSet rs = JDBC.executeQuery(sql);
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
 }

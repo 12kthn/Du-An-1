@@ -8,19 +8,20 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.scene.control.Alert;
 
 public class Validate {
-    public static RequiredFieldValidator createValidatorJFX(String fieldName){
+    
+    //Hiện thông báo lỗi của JFX
+    public static RequiredFieldValidator createValidatorJFX(String errMessage){
         RequiredFieldValidator validator = new RequiredFieldValidator();
-        validator.setMessage("Vui lòng nhập " + fieldName);
+        validator.setMessage(errMessage);
         validator.setIcon(new Picture().createImageView("warning16px.png"));
-//        validator.setStyle("-fx-font-size: 6px");
         return validator;
     }
     
     
     //Kiểm lỗi TextField not null
-    public static boolean isNull(JFXTextField txt, String textFieldName){
-        if (txt.getText().trim().equals("")) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng nhập " + textFieldName);
+    public static boolean isNull(JFXTextField txt, String errMessage){
+        if (txt.getText().trim().isEmpty()) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
             txt.requestFocus();
             return true;
         }
@@ -28,9 +29,9 @@ public class Validate {
     }
     
     //Kiểm lỗi PasswordField not null
-    public static boolean isNull(JFXPasswordField txt, String passwordFieldName){
-        if (txt.getText().trim().equals("")) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng nhập " + passwordFieldName);
+    public static boolean isNull(JFXPasswordField txt, String errMessage){
+        if (txt.getText().trim().isEmpty()) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
             txt.requestFocus();
             return true;
         }
@@ -38,9 +39,19 @@ public class Validate {
     }
     
     //Kiểm lỗi Combobox chưa được chọn giá trị
-    public static boolean isNotSelected(JFXComboBox cbo, String ComboBoxName){
+    public static boolean isNotSelected(JFXComboBox cbo, String errMessage){
         if (cbo.getSelectionModel().getSelectedIndex() == -1) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn " + ComboBoxName);
+            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
+            return true;
+        }
+        return false;
+    }
+    
+    //Kiểm lỗi TextField không đúng với mẫu
+    public static boolean isNotMatches(JFXTextField txt, String regex, String errMessage){
+        if (!txt.getText().matches(regex)) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
+            txt.requestFocus();
             return true;
         }
         return false;

@@ -19,6 +19,8 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -48,12 +50,10 @@ public class NhanVienController implements Initializable {
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
-            picture = new Picture();
 
-            loadPieChart();
-            loadBarChart();
-            setTableColumn();
-            loadDataToTable();
+            loadChart();
+            setTableNVColumn();
+            loadDataToTableNV();
             DPickerNgaySinh.setConverter(XDate.converter);
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
@@ -64,15 +64,14 @@ public class NhanVienController implements Initializable {
         }
     }
 
-    private void loadPieChart() {
+    private void loadChart() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
-    }
 
-    private void loadBarChart() {
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
 
-    private void setTableColumn() {
+    //định dạng cột cho bảng nhân viên
+    private void setTableNVColumn() {
         //Khai bao cot
         deleteColumn = new TableColumn<>("");
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
@@ -119,7 +118,8 @@ public class NhanVienController implements Initializable {
                 col11, col12, col13, col14, col15, col16, col17);
     }
 
-    public void loadDataToTable() {
+    //hiển thị dữ liệu lên bảng nhân viên
+    public void loadDataToTableNV() {
         data = tbl_nvdao.getData();
         tblNhanVien.setItems(data);
     }
@@ -136,17 +136,18 @@ public class NhanVienController implements Initializable {
 
         listChucVu = cvdao.findByCode(null);
         cboChucVu.setItems(listChucVu);
-
     }
 
     @FXML
     private void selectNhanVien(MouseEvent event) {
         try {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
-            NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
-            setModelnhanvien(nv);
-            if (event.getClickCount() == 2 && nv != null) {
-                changeTabPane(2);
+            if (tableNhanVien != null) {
+                NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
+                setModelnhanvien(nv);
+                if (event.getClickCount() == 2 && nv != null) {
+                    changeTabPane(2);
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -156,7 +157,6 @@ public class NhanVienController implements Initializable {
     public void changeTabPane(int tabIndex) {
         tabPane.getSelectionModel().select(tabIndex);
     }
-//select image cho nhan viên 
 
     @FXML
     public void chooserimage() {
@@ -188,7 +188,7 @@ public class NhanVienController implements Initializable {
         nv.setMaHD(txtMaHD.getText());
         nv.setMaPB(cboPhongBan.getSelectionModel().getSelectedItem().getMaPB());
         nv.setMaCV(cboChucVu.getSelectionModel().getSelectedItem().getMaCV());
-        nv.setHeSoLuong(Integer.parseInt(txtHeSoLuong.getText()));
+        nv.setHeSoLuong(Double.parseDouble(txtHeSoLuong.getText()));
         nv.setNgayVaoLam(XDate.toDate(DPickerNgayBatDau.getValue()));
         nv.setNgayKetThuc(XDate.toDate(DPickerNgayKetThuc.getValue()));
         return nv;
@@ -199,13 +199,13 @@ public class NhanVienController implements Initializable {
         //set  model thong tin nhan vien
         txtMaNV.setText(nv.getMaNV());
         txtHoTen.setText(nv.getHoTen());
-        
+
         if (nv.getGioiTinh() == null) {
             cboGioiTinh.getSelectionModel().clearSelection();
         } else {
             cboGioiTinh.getSelectionModel().select(nv.getGioiTinh() ? 0 : 1);
         }
-        
+
         DPickerNgaySinh.setValue(XDate.toLocalDate(nv.getNgaySinh()));
 
         txtSoCM.setText(nv.getSoCM());
@@ -324,8 +324,56 @@ public class NhanVienController implements Initializable {
         }
         return true;
     }
-//check duplication
 
+    //check content
+    private boolean checkContent() {
+        //kiểm tra họ và tên
+        String regexVietnamese = "[\\p{L}\\p{M} ]+";
+        // \\p{L} matches any kind of letter from any language
+        // \\p{M} matches a character intended to be combined with another character (e.g. accents, umlauts, enclosing boxes, etc.)
+        if (Validate.isNotMatches(txtHoTen, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+        
+        //Kiểm tra số CMND
+        if (Validate.isNotMatches(txtSoCM, "[0-9]{9,10}", "Số CMND chỉ có 9 hoặc 10 chữ số")) {
+            return false;
+        }
+        
+        //Kiểm tra ngày sinh
+        if (ChronoUnit.YEARS.between(DPickerNgaySinh.getValue(), LocalDate.now()) < 18) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Nhân viên phải lớn hơn 18 tuổi");
+            DPickerNgaySinh.requestFocus();
+            return false;
+        }
+        
+        //Kiểm tra số điện thoại
+        if (Validate.isNotMatches(txtDienThoai, "[0-9]{10}", "Số điện thoại chỉ có 10 chữ số")) {
+            return false;
+        }
+        
+        //Kiểm tra email
+        if (Validate.isNotMatches(txtEmail, "\\w+@\\w+(\\.\\w+){1,2}", "Email không đúng định dạng")) {
+            return false;
+        }
+        
+        
+        //Kiểm tra hệ số lương
+        if (Validate.isNotMatches(txtHeSoLuong, "[0-9]+(\\.[0-9]+)?", "Hệ số lương không hợp lệ")) {
+            return false;
+        }
+        
+        //Kiểm tra ngày kết thúc hợp đồng lao động
+        if (DPickerNgayKetThuc.getValue().isBefore(DPickerNgayBatDau.getValue())) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
+            DPickerNgayKetThuc.requestFocus();
+            return false;
+        }
+        
+        return true;
+    }
+
+    //check duplication
     private boolean checkduplication() {
         if (nvdao.findByCode(txtMaNV.getText().trim()) != null) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
@@ -353,11 +401,11 @@ public class NhanVienController implements Initializable {
     //insert nhân viên 
     @FXML
     private void insertnv() {
-        if (checknull() && checkduplication()) {
+        if (checknull() && checkContent()&& checkduplication()) {
             NhanVien nv = getmodelnhanvien();
             try {
                 nvdao.insertnv(nv);
-                loadDataToTable();
+                loadDataToTableNV();
                 CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -368,14 +416,19 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updatenv() {
-        NhanVien nv = getmodelnhanvien();
-        try {
-            nvdao.updatenv(nv);
-            loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
-        } catch (Exception e) {
-            e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+        if (checknull() && checkContent()&& checkduplication()) {
+            try {
+                NhanVien nv = getmodelnhanvien();
+                if (nvdao.updatenv(nv) > 0) {
+                    loadDataToTableNV();
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+            }
         }
     }
 
@@ -384,7 +437,7 @@ public class NhanVienController implements Initializable {
         NhanVien nv = getmodelnhanvien();
         try {
             nvdao.deletenv(nv);
-            loadDataToTable();
+            loadDataToTableNV();
             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
         } catch (Exception e) {
             e.printStackTrace();
@@ -470,12 +523,12 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private JFXTabPane tabPane;
+
     private String imagename;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
-    private Picture picture;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
@@ -501,5 +554,4 @@ public class NhanVienController implements Initializable {
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;
     private ObservableList<ChucVu> listChucVu;
-    private ObservableList listloainhanvien;
 }

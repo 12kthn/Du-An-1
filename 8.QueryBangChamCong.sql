@@ -65,7 +65,7 @@ GO
 EXEC SP_SoGioLamViecTheoNam 2019
 EXEC SP_SoGioLamViecTheoNam null
 
---Tao Stored Procedure tinh so luong nhan vien di lam du 26 ngay trong tháng theo phòng ban
+--Tao Stored Procedure tinh so luong nhan vien di lam đầy đủ trong tháng theo phòng ban
 IF (OBJECT_ID('SP_ChuyenCanTheoThang') IS NOT NULL)
   DROP PROCEDURE SP_ChuyenCanTheoThang
 GO
@@ -73,7 +73,8 @@ CREATE PROCEDURE SP_ChuyenCanTheoThang
 (
 	@MaPB varchar(5),
 	@Nam char(4),
-	@Thang varchar(2)
+	@Thang varchar(2),
+	@SoNgayLamViecThapNhat int
 )
 AS
 	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
@@ -82,16 +83,24 @@ AS
 		BEGIN
 			SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
 				SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
-				WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >=26) AND NhanVien.MaPB = @MaPB
+				WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >= @SoNgayLamViecThapNhat) AND NhanVien.MaPB = @MaPB
 
 		END
 	ELSE
 		BEGIN
 		SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
 			SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
-			WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >=26)
+			WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >= @SoNgayLamViecThapNhat)
 		END
 GO
 
-EXEC SP_ChuyenCanTheoThang 'it', 2019, 6
+--Tao Stored Procedure lay danh sách năm đã chấm công
+IF (OBJECT_ID('SP_ListYear') IS NOT NULL)
+  DROP PROCEDURE SP_ListYear
+GO
+CREATE PROCEDURE SP_ListYear
+AS
+	SELECT DISTINCT YEAR(Ngay) FROM ChamCong
+GO
+	
 

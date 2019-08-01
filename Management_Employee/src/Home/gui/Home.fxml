@@ -24,7 +24,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="138.0" text="Năm" textFill="#004080">
+            <Label alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="138.0" text="Năm" textFill="#007fff">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>

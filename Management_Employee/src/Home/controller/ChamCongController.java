@@ -38,7 +38,7 @@ public class ChamCongController implements Initializable {
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
             listUpdate = new ArrayList<>();
-            
+
             //load Tabpane1
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
@@ -65,10 +65,7 @@ public class ChamCongController implements Initializable {
     private void loadCboNam1() {
         cboNam1.getItems().clear();
 
-        cboNam1.getItems().add(LocalDate.now().getYear());//năm hiện tại
-        cboNam1.getItems().add(LocalDate.now().getYear() - 1);
-        cboNam1.getItems().add(LocalDate.now().getYear() - 2);
-        cboNam1.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam1.setItems(ccdao.getListYear());
         cboNam1.getSelectionModel().select(0);
 
     }
@@ -92,10 +89,7 @@ public class ChamCongController implements Initializable {
     private void loadCboNam2() {
         cboNam2.getItems().clear();
 
-        cboNam2.getItems().add(LocalDate.now().getYear());//năm hiện tại
-        cboNam2.getItems().add(LocalDate.now().getYear() - 1);
-        cboNam2.getItems().add(LocalDate.now().getYear() - 2);
-        cboNam2.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam2.setItems(ccdao.getListYear());
         cboNam2.getSelectionModel().select(0);
 
     }
@@ -166,6 +160,20 @@ public class ChamCongController implements Initializable {
     private void loadTable() {
         nonEditColumn();
         tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
+
+        //Kiểm tra tháng hiện tại đã có dữ liệu hay chưa
+        if (ccdao.getSLNVDiLamDayDuTheoThang(year2, month2) == 0) {
+            //insert dữ liệu cho ngày lễ
+            for (TableChamCong tableChamCong : tblChamCong.getItems()) {
+                for (int i = 0; i < 31; i++) {
+                    Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+                    if (XDate.isHoliday(ngay)) {
+                        ChamCong cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
+                        ccdao.insert(cc);
+                    }
+                }
+            }
+        }
     }
 
     private void setColumnModel() {
@@ -958,28 +966,28 @@ public class ChamCongController implements Initializable {
         tblChamCong.getColumns().addAll(colMaNV, colHoTen, colPhongBan, col1, col2, col3, col4, col5, col6, col7, col8, col9,
                 col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24,
                 col25, col26, col27, col28, col29, col30, col31, col32);
-        
+
     }
-    
-    //Disable ngày lễ và chủ nhật
-    private void nonEditColumn(){
-      
-        ObservableList<TableColumn<TableChamCong,?>> colList = tblChamCong.getColumns();
+
+    //Disable cột ngày lễ và chủ nhật
+    private void nonEditColumn() {
+
+        ObservableList<TableColumn<TableChamCong, ?>> colList = tblChamCong.getColumns();
         //reset nonEdit trước đó
         for (TableColumn<TableChamCong, ?> tableColumn : colList) {
             tableColumn.setEditable(true);
         }
-        
+
         //Tao vong lap kiem tra từng ngày
         for (int i = 0; i < 31; i++) {
             Date date = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
             int maxDay = XDate.maxDaysInMonth(year2, month2);
             if (i < maxDay) {
                 if (XDate.isHoliday(date)) {
-                    colList.get(i+3).setEditable(false);
+                    colList.get(i + 3).setEditable(false);
                 }
             } else {
-                colList.get(i+3).setEditable(false);
+                colList.get(i + 3).setEditable(false);
             }
         }
     }
@@ -991,7 +999,7 @@ public class ChamCongController implements Initializable {
     private int month1;
     private int year2;//bien cua tab2
     private int month2;
-    
+
     private ArrayList<ChamCong> listUpdate;
 
     private TableColumn<TableChamCong, String> colMaNV;
@@ -1054,17 +1062,29 @@ public class ChamCongController implements Initializable {
     @FXML
     private void update() {
         ArrayList<ChamCong> list = listUpdate;
-        
-        for (ChamCong cc : list) {
-            //kiểm tra bản ghi có tồn tại hay không
-            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
-                //Bản ghi không tồn tại -> insert
-                ccdao.insert(cc);
-            } else {
-                //Bản ghi đã tồn tại -> update
-                ccdao.update(cc);
+
+        for (TableChamCong tableChamCong : tblChamCong.getItems()) {
+
+            for (int i = 0; i < 31; i++) {
+                Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+                if (!XDate.isHoliday(ngay)) {
+                    ChamCong cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
+                    ccdao.insert(cc);                   
+                }
             }
+            
         }
+        loadTable();
+//        for (ChamCong cc : list) {
+//            //kiểm tra bản ghi có tồn tại hay không
+//            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
+//                //Bản ghi không tồn tại -> insert
+//                ccdao.insert(cc);
+//            } else {
+//                //Bản ghi đã tồn tại -> update
+//                ccdao.update(cc);
+//            }
+//        }
         CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
     }
 }

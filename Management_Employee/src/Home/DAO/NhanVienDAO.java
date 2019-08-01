@@ -103,12 +103,12 @@ public class NhanVienDAO {
         return SLNhanVien;
     }
 
-    public ObservableList getSLNVTheoThoiGianVaPB(String MaPB, int year) {
+    public ObservableList getSLNVTheoPBVaMoiThang(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
         int month = XDate.monthOfYear(year);
         for (int i = 1; i <= month; i++) {
             try {
-                String sql = "{call SP_SLNVTheoThoiGianVaPB(?,?,?)}";
+                String sql = "{call SP_SLNVTheoPBVaThang(?,?,?)}";
                 ResultSet rs = JDBC.executeQuery(sql, MaPB, i + "", year + "");
                 while (rs.next()) {
                     data.add(new XYChart.Data("Tháng " + i, rs.getInt(1)));
@@ -118,6 +118,38 @@ public class NhanVienDAO {
             }
         }
         return data;
+    }
+
+    public int getSLNVTheoPBVaThang(Object MaPB, int year, int month) {
+        try {
+            String sql = "{call SP_SLNVTheoPBVaThang(?,?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, MaPB, month, year);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public ObservableList<NhanVien> findByMonth(int year, int month) {
+        ObservableList<NhanVien> list = FXCollections.observableArrayList();
+
+        try {
+            String sql = "{Call SP_FindByMonth(?,?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month);
+            while (rs.next()) {
+                NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
+                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
+                list.add(nv);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 
     public ObservableList<PieChart.Data> getDataForPieChart() {
@@ -154,9 +186,9 @@ public class NhanVienDAO {
         return data;
     }
 
-    public void insertnv(NhanVien nv) {
+    public int insertnv(NhanVien nv) {
         String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        JDBC.executeUpdate(sql,
+        return JDBC.executeUpdate(sql,
                 nv.getMaNV(),
                 nv.getHoTen(),
                 nv.getGioiTinh(),
@@ -176,31 +208,36 @@ public class NhanVienDAO {
                 nv.getTrangThai(), "insert");
     }
 
-    public void updatenv(NhanVien nv) {
-        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        JDBC.executeUpdate(sql, nv.getMaNV(),
-                nv.getHoTen(),
-                nv.getGioiTinh(),
-                nv.getNgaySinh(),
-                nv.getSoCM(),
-                nv.getDienThoai(),
-                nv.getEmail(),
-                nv.getDiaChi(),
-                nv.getHinh(),
-                nv.getTrinhDoHV(),
-                nv.getMaHD(),
-                nv.getMaCV(),
-                nv.getMaPB(),
-                nv.getNgayVaoLam(),
-                nv.getNgayKetThuc(),
-                nv.getHeSoLuong(),
-                nv.getTrangThai(),
-                "update");
+    public int updatenv(NhanVien nv) {
+        try {
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql, nv.getMaNV(),
+                    nv.getHoTen(),
+                    nv.getGioiTinh(),
+                    nv.getNgaySinh(),
+                    nv.getSoCM(),
+                    nv.getDienThoai(),
+                    nv.getEmail(),
+                    nv.getDiaChi(),
+                    nv.getHinh(),
+                    nv.getTrinhDoHV(),
+                    nv.getMaHD(),
+                    nv.getMaCV(),
+                    nv.getMaPB(),
+                    nv.getNgayVaoLam(),
+                    nv.getNgayKetThuc(),
+                    nv.getHeSoLuong(),
+                    nv.getTrangThai(),
+                    "update");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
-    public void deletenv(NhanVien nv) {
+    public int deletenv(NhanVien nv) {
         String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        JDBC.executeUpdate(sql,
+        return JDBC.executeUpdate(sql,
                 nv.getMaNV(),
                 nv.getHoTen(),
                 nv.getGioiTinh(),

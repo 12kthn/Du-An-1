@@ -17,6 +17,8 @@ AS
 			SELECT * FROM NhanVien
 		END
 GO
+
+
 --tao Stored procedure check trung lap so chung minh nhan dan 
 If (OBJECT_ID('SP_FindNVByCMND') is not null)
    Drop PROCEDURE SP_FindNVByCMND
@@ -35,6 +37,8 @@ AS
 	      SELECT * FROM NhanVien
 	    END
 GO
+
+
 --tao procedure check trung lap ma hop dong 
  IF(OBJECT_ID('SP_FindNVByMaHD') is not null)
     DROP PROCEDURE SP_FindNVByMaHD
@@ -53,6 +57,8 @@ END
         SELECT * FROM NhanVien
   END 
 GO
+
+
 --Tao Stored Procedure tim kiem nhan vien theo PhongBan
 IF (OBJECT_ID('SP_FindNVTheoPB') IS NOT NULL)
   DROP PROCEDURE SP_FindNVTheoPB
@@ -71,8 +77,6 @@ AS
 			SELECT * FROM NhanVien
 		END
 GO
-
-EXEC SP_FindNVTheoPB 'it'
 
 --Tao Stored Procedure đếm so luong nhan vien theo phong ban
 IF (OBJECT_ID('SP_SLNVTheoPB') IS NOT NULL)
@@ -95,8 +99,7 @@ AS
 			SELECT PhongBan.TenPB, COUNT(*) FROM NhanVien JOIN PhongBan on NhanVien.MaPB = PhongBan.MaPB
 			GROUP BY PhongBan.MaPB, PhongBan.TenPB
 		END
-GO		
-SP_SLNVTheoPB null
+GO
 
 --Tao Stored Procedure đếm so luong nam nu theo Phong Ban
 IF (OBJECT_ID('SP_SLNamNu') IS NOT NULL)
@@ -142,15 +145,13 @@ AS
 			WHERE YEAR(NgayVaoLam) <= @nam
 			GROUP BY PhongBan.MaPB, PhongBan.TenPB
 		END
-GO		
-
-SP_SLNVTheoPBVaNam null, 2017
-
---Tao Stored Procedure tinh so luong nhan vien theo thoi gian va phong ban
-IF (OBJECT_ID('SP_SLNVTheoThoiGianVaPB') IS NOT NULL)
-  DROP PROCEDURE SP_SLNVTheoThoiGianVaPB
 GO
-CREATE PROCEDURE SP_SLNVTheoThoiGianVaPB
+
+--Tao Stored Procedure tinh so luong nhan vien theo phong ban va thang
+IF (OBJECT_ID('SP_SLNVTheoPBVaThang') IS NOT NULL)
+  DROP PROCEDURE SP_SLNVTheoPBVaThang
+GO
+CREATE PROCEDURE SP_SLNVTheoPBVaThang
 (
 	@MaPB varchar(5),
 	@Thang varchar(2),
@@ -168,6 +169,25 @@ AS
 	
 GO		
 
-SP_SLNVTheoThoiGianVaPB 'MK', '6', '2019'
+--Tao Stored Procedure lấy danh sách nhân viên theo phòng ban có ngày vào làm trước hoặc trong tháng - năm
+IF (OBJECT_ID('SP_FindByMonth') IS NOT NULL)
+  DROP PROCEDURE SP_FindByMonth
 GO
-SP_SLNVTheoThoiGianVaPB null, '6', '2018'
+CREATE PROCEDURE SP_FindByMonth
+(
+	@MaPB varchar(5),
+	@Nam char(4),
+	@Thang varchar(2)
+	
+)
+AS
+	IF @MaPB is not null
+		BEGIN
+			SELECT * FROM NhanVien WHERE MaPB = @MaPB AND NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM NhanVien WHERE NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
+		END
+	
+GO
