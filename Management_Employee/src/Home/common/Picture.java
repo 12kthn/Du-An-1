@@ -13,13 +13,13 @@ import javafx.scene.image.ImageView;
 public class Picture {
 
     public ImageView createImageView(String imageName) {
-        Image image = new Image(this.getClass().getResource("/Libraries/icon/" + imageName).toString());
+        Image image = new Image(this.getClass().getResource("/Libraries/icon/" + imageName).toExternalForm());
         ImageView imageView = new ImageView(image);
         return imageView;
     }
 
     public Image createImage(String imageName) {
-        Image image = new Image(this.getClass().getResource("/Libraries/icon/" + imageName).toString());
+        Image image = new Image(this.getClass().getResource("/Libraries/icon/" + imageName).toExternalForm());
         return image;
     }
 
@@ -47,7 +47,7 @@ public class Picture {
                 return null;
             }
             File file = new File(new File("avatar"), fileName);
-            String localUrl = file.toURI().toURL().toString();
+            String localUrl = file.toURI().toURL().toExternalForm();
             
             return new Image(localUrl);
         } catch (MalformedURLException ex) {

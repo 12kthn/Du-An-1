@@ -30,9 +30,13 @@ public class TableNhanVienDAO {
                 tblnv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + tblnv.getHoTen())) {
+                            return;
+                        }
                         if (new NhanVienDAO().deletenv(new NhanVien(tblnv.getMaNV())) > 0) {
                             Common.nvController.loadDataToTableNV();
                             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
+                            Common.nvController.newNV();
                         } else {
                             CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
                         }
@@ -42,9 +46,9 @@ public class TableNhanVienDAO {
                 tblnv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Common.nvController.setModelnhanvien(new NhanVienDAO().findByCode(tblnv.getMaNV()));
+                        Common.nvController.setModelNhanVien(new NhanVienDAO().findByCode(tblnv.getMaNV()));
                         Common.nvController.changeTabPane(2);
-                        Common.nvController.setstatus(false);
+                        Common.nvController.setStatus(false);
                     }
                 });
             }
