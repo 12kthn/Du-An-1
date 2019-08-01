@@ -98,7 +98,14 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+ @FXML
+    public void setGUITaikhoan() {
+        try {
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Taikhoan.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
     @FXML
     void getCoorMouse(MouseEvent event) {
         xMouse = event.getSceneX();
