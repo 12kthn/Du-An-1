@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import com.jfoenix.validation.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
@@ -28,6 +18,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,7 +26,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
+<AnchorPane fx:id="anchorpane" prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
     <children>
         <JFXTabPane fx:id="tabPane" stylesheets="@../../Libraries/CssMenu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -105,6 +96,9 @@
                                     <image>
                                         <Image url="@../../Libraries/images/anh.jpg" />
                                     </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                                 </ImageView>
                                 <Label layoutX="271.0" layoutY="20.0" text="Thông tin nhân viên" textFill="#007fff" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
                                     <font>
@@ -244,7 +238,7 @@
                                 </VBox>
                                 <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton onAction="#insertnv" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton fx:id="btnThem" onAction="#insertnv" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -263,7 +257,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton onAction="#updatenv" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnCapnhat" onAction="#updatenv" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -282,7 +276,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton onAction="#deletenv" prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnXoa" onAction="#deletenv" prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -301,7 +295,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton onAction="#clearNV" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnTaomoi" onAction="#clearNV" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
