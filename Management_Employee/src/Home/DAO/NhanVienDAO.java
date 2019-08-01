@@ -10,6 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import Home.model.ThanNhan;
+import org.omg.CORBA.NVList;
 
 public class NhanVienDAO {
 
@@ -187,25 +189,30 @@ public class NhanVienDAO {
     }
 
     public int insertnv(NhanVien nv) {
-        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        return JDBC.executeUpdate(sql,
-                nv.getMaNV(),
-                nv.getHoTen(),
-                nv.getGioiTinh(),
-                nv.getNgaySinh(),
-                nv.getSoCM(),
-                nv.getDienThoai(),
-                nv.getEmail(),
-                nv.getDiaChi(),
-                nv.getHinh(),
-                nv.getTrinhDoHV(),
-                nv.getMaHD(),
-                nv.getMaCV(),
-                nv.getMaPB(),
-                nv.getNgayVaoLam(),
-                nv.getNgayKetThuc(),
-                nv.getHeSoLuong(),
-                nv.getTrangThai(), "insert");
+        try {
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    nv.getMaNV(),
+                    nv.getHoTen(),
+                    nv.getGioiTinh(),
+                    nv.getNgaySinh(),
+                    nv.getSoCM(),
+                    nv.getDienThoai(),
+                    nv.getEmail(),
+                    nv.getDiaChi(),
+                    nv.getHinh(),
+                    nv.getTrinhDoHV(),
+                    nv.getMaHD(),
+                    nv.getMaCV(),
+                    nv.getMaPB(),
+                    nv.getNgayVaoLam(),
+                    nv.getNgayKetThuc(),
+                    nv.getHeSoLuong(),
+                    nv.getTrangThai(), "insert");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public int updatenv(NhanVien nv) {
@@ -229,31 +236,69 @@ public class NhanVienDAO {
                     nv.getHeSoLuong(),
                     nv.getTrangThai(),
                     "update");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return 0;
     }
 
     public int deletenv(NhanVien nv) {
-        String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        return JDBC.executeUpdate(sql,
-                nv.getMaNV(),
-                nv.getHoTen(),
-                nv.getGioiTinh(),
-                nv.getNgaySinh(),
-                nv.getSoCM(),
-                nv.getDienThoai(),
-                nv.getEmail(),
-                nv.getDiaChi(),
-                nv.getHinh(),
-                nv.getTrinhDoHV(),
-                nv.getMaHD(),
-                nv.getMaCV(),
-                nv.getMaPB(),
-                nv.getNgayVaoLam(),
-                nv.getNgayKetThuc(),
-                nv.getHeSoLuong(),
-                nv.getTrangThai(), "delete");
+        try {
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    nv.getMaNV(),
+                    nv.getHoTen(),
+                    nv.getGioiTinh(),
+                    nv.getNgaySinh(),
+                    nv.getSoCM(),
+                    nv.getDienThoai(),
+                    nv.getEmail(),
+                    nv.getDiaChi(),
+                    nv.getHinh(),
+                    nv.getTrinhDoHV(),
+                    nv.getMaHD(),
+                    nv.getMaCV(),
+                    nv.getMaPB(),
+                    nv.getNgayVaoLam(),
+                    nv.getNgayKetThuc(),
+                    nv.getHeSoLuong(),
+                    nv.getTrangThai(), "delete");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int insertNT(ThanNhan NT) {
+        try {
+            String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    NT.getMaTN(),
+                    NT.getHoTen(),
+                    NT.getNgheNghiep(),
+                    NT.getMoiQuanHe(),
+                    NT.getMaNV(),
+                    NT.getGiamTruPhuThuoc(), "insert");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int updateNT(ThanNhan NT) {
+        try {
+            String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    NT.getMaTN(),
+                    NT.getHoTen(),
+                    NT.getNgheNghiep(),
+                    NT.getMoiQuanHe(),
+                    NT.getMaNV(),
+                    NT.getGiamTruPhuThuoc(), "update");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

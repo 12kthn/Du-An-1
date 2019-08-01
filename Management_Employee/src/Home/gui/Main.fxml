@@ -232,6 +232,25 @@
                         </Label>
                     </children>
                 </HBox>
+            <Label id="lblChamcong" onMouseClicked="#setGUITaikhoan" prefHeight="34.0" prefWidth="200.0" text="TÀI KHOẢN">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
+                     <image>
+                        <Image url="@../../Libraries/icon/taikhoan.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="15.0" left="30.0" top="15.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="hove_border" />
+                  <String fx:value="hover_menu" />
+               </styleClass>
+            </Label>
                 <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
                <children>
                         <Label id="lblChamcong" onMouseClicked="#setGUIKhoiPhuc" prefHeight="34.0" prefWidth="200.0" text="KHÔI PHỤC">
@@ -241,7 +260,7 @@
                             <graphic>
                                 <ImageView id="menu_taikhoan" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-10.0">
                                     <image>
-                                        <Image url="@../../Libraries/icon/caidat.png" />
+                                        <Image url="@../../Libraries/icon/khoiphuc.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -254,10 +273,13 @@
                         <String fx:value="hover_menu" />
                      </styleClass>
                      <HBox.margin>
-                        <Insets top="100.0" />
+                        <Insets />
                      </HBox.margin>
                         </Label>
                </children>
+               <VBox.margin>
+                  <Insets top="70.0" />
+               </VBox.margin>
                 </HBox>
                   <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
                       <font>
@@ -280,9 +302,10 @@
                   </Label>
             <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="176.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
                <VBox.margin>
-                  <Insets left="11.0" top="88.0" />
+                  <Insets left="11.0" top="45.0" />
                </VBox.margin>
             </Label>
+            <HBox prefHeight="34.0" prefWidth="200.0" />
             </children>
         </VBox>
     </left>
