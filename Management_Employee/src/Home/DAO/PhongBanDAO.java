@@ -1,4 +1,3 @@
-
 package Home.DAO;
 
 import Home.common.JDBC;
@@ -9,14 +8,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PhongBanDAO {
-    
-    public ObservableList<PhongBan> findByCode(String code){
+
+    public ObservableList<PhongBan> findByCode(String code) {
         ObservableList<PhongBan> list = FXCollections.observableArrayList();
         PhongBan phongBan;
         try {
             String sql = "{Call SP_FindPhongBanByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, code);
-            while (rs.next()) {                
+            while (rs.next()) {
                 phongBan = new PhongBan(rs.getString(1), rs.getString(2));
                 list.add(phongBan);
             }
@@ -25,32 +24,46 @@ public class PhongBanDAO {
         }
         return list;
     }
-    
-    public void InsertPB(PhongBan pb){
-        
-        String sql = "{call sp_phongban(?,?,?)}";
-        JDBC.executeUpdate(sql,
-                pb.getMaPB(),
-                pb.getTenPB(),
-                "insert"
-                );
+
+    public int insert(PhongBan pb) {
+        try {
+            String sql = "{call sp_phongban(?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    pb.getMaPB(),
+                    pb.getTenPB(),
+                    "insert"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
     }
-    
-    public void UpdatePB(PhongBan pb){
-        String sql = "{call sp_phongban(?,?,?)}";
-        JDBC.executeUpdate(sql,
-                pb.getMaPB(),
-                pb.getTenPB(),
-                "update"
-                );
+
+    public int update(PhongBan pb) {
+        try {
+            String sql = "{call sp_phongban(?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    pb.getMaPB(),
+                    pb.getTenPB(),
+                    "update"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
     }
-    
-    public void DeletePB(PhongBan pb){
-        String sql = "{call sp_phongban(?,?,?)}";
-        JDBC.executeUpdate(sql,
-                pb.getMaPB(),
-                pb.getTenPB(),
-                "delete"
-                );
+
+    public int delete(PhongBan pb) {
+        try {
+            String sql = "{call sp_phongban(?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    pb.getMaPB(),
+                    pb.getTenPB(),
+                    "delete"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
     }
 }

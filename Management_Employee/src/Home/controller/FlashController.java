@@ -32,10 +32,8 @@ public class FlashController implements Initializable, Runnable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                try {
-                    //tắt stage chính và mở Login
+                try {                   
                     Common.mainStage.close();
-                    
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
                     Common.mainStage.setScene(scene);
                     Common.mainStage.show();
