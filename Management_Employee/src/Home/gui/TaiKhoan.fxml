@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -15,21 +22,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="1166.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.TaikhoanController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="1166.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.TaiKhoanController">
    <children>
       <Label layoutX="45.0" layoutY="67.0" prefHeight="54.0" prefWidth="159.0" text="Tài khoản" textFill="#007fff" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <VBox layoutX="30.0" layoutY="84.0" prefHeight="219.0" prefWidth="352.0" AnchorPane.bottomAnchor="311.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="110.0">
+      <VBox layoutX="30.0" layoutY="84.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
          <children>
-            <JFXTextField fx:id="txtTaikhoan" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Tài khoản">
+            <JFXTextField fx:id="txtTaikhoan" labelFloat="true" prefHeight="30.0" prefWidth="400.0" promptText="Tài khoản">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" maxWidth="502.0" minWidth="235.0" prefHeight="30.0" promptText="Mật khẩu">
+            <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" prefHeight="30.0" prefWidth="400.0" promptText="Mật khẩu">
                <font>
                   <Font size="16.0" />
                </font>
@@ -37,23 +44,27 @@
                   <Insets top="40.0" />
                </VBox.margin>
             </JFXPasswordField>
-            <JFXTextField fx:id="txtManv" labelFloat="true" prefHeight="30.0" promptText="Mã nhân viên">
+            <JFXPasswordField fx:id="txtXacNhanMatKhau" labelFloat="true" prefHeight="30.0" prefWidth="400.0" promptText="Xác nhận mật khẩu">
                <font>
                   <Font size="16.0" />
                </font>
                <VBox.margin>
                   <Insets top="40.0" />
                </VBox.margin>
-            </JFXTextField>
+            </JFXPasswordField>
+            <JFXComboBox fx:id="cboPhongBan" labelFloat="true" prefHeight="30.0" prefWidth="400.0" promptText="Phòng ban">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="cboNhanVien" prefHeight="30.0" prefWidth="400.0" promptText="Nhân viên">
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </JFXComboBox>
          </children>
       </VBox>
-      <TableView fx:id="tbltaikhoan" layoutX="405.0" layoutY="110.0" prefHeight="270.0" prefWidth="747.0">
-         <columns>
-            <TableColumn prefWidth="250.0" resizable="false" text="Tài khoản" />
-            <TableColumn prefWidth="250.0" resizable="false" text="Mật Khẩu" />
-            <TableColumn prefWidth="250.0" resizable="false" text="Mã nhân viên" />
-         </columns>
-      </TableView>
+      <TableView fx:id="tblTaiKhoan" layoutX="405.0" layoutY="110.0" onMouseClicked="#selectTaiKhoan" prefHeight="300.0" prefWidth="600.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="160.0" />
       <HBox alignment="CENTER" layoutY="545.0" prefHeight="96.0" prefWidth="1166.0">
          <children>
             <JFXButton fx:id="btnThem" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
@@ -75,7 +86,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnCapnhat" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+            <JFXButton fx:id="btnCapNhat" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -113,7 +124,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnTaomoi" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER" translateX="1.0">
+            <JFXButton fx:id="btnTaoMoi" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER" translateX="1.0">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

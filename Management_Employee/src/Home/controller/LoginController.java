@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
             CustomDialog.showAlert(AlertType.ERROR, "Vui lòng nhập đầy đủ");
             return;
         }
-        int kq = tkdao.findByCode(txtTaiKhoan.getText(), txtMatKhau.getText());//Biến lưu kết quả trả về
+        int kq = tkdao.checkAccount(txtTaiKhoan.getText(), txtMatKhau.getText());//Biến lưu kết quả trả về
         switch (kq) {
             case 0:
                 CustomDialog.showAlert(AlertType.ERROR, "Sai tên đăng nhập");

@@ -7,8 +7,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TaiKhoanDAO {
+    
+    public TaiKhoan findByCode(String taiKhoan) {
+        TaiKhoan tk = null;
+        try {
+            String sql = "{Call SP_FindTaiKhoanByName(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, taiKhoan);
+            while (rs.next()) {                
+                tk = new TaiKhoan(rs.getString(1), rs.getString(2), rs.getString(3));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return tk;
+    }
 
-    public int findByCode(String taiKhoan, String matKhau) {
+    public int checkAccount(String taiKhoan, String matKhau) {
         try {
             String sql = "{Call SP_FindTaiKhoanByName(?)}";
             ResultSet rs = JDBC.executeQuery(sql, taiKhoan);
@@ -35,4 +49,5 @@ public class TaiKhoanDAO {
         //Tai khoan khong chinh xac
         return 0;
     }
+    
 }

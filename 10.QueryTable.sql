@@ -1,4 +1,4 @@
---Tao Stored Procedure in ra table nhan vien
+--Tao Stored Procedure hien thi du lieu cho table nhan vien
 IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
   DROP PROCEDURE SP_TBLNhanVien
 GO
@@ -8,7 +8,8 @@ AS
 		FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 	FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 GO
---Tao Stored Procedure in ra Table than nhan
+
+--Tao Stored Procedure hien thi du lieu cho Table than nhan
 IF(OBJECT_ID('SP_TBLThanNhan') IS NOT NULL)
        DROP PROCEDURE SP_TBLThanNhan
 GO
@@ -21,6 +22,7 @@ AS
        FROM ThanNhan
 	   WHERE MaNV = @MaNV
 Go
+
 --Tao Stored Procedure hien thi du lieu cho table BangLuong
 IF (OBJECT_ID('SP_TBLBangLuong') IS NOT NULL)
   DROP PROCEDURE SP_TBLBangLuong
@@ -50,3 +52,13 @@ AS
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
 		END
 GO
+
+--Tao Stored Procedure hien thi du lieu cho Table Tai khoan
+IF(OBJECT_ID('SP_TBLTaiKhoan') IS NOT NULL)
+       DROP PROCEDURE SP_TBLTaiKhoan
+GO
+CREATE PROCEDURE SP_TBLTaiKhoan
+AS 
+       SELECT TaiKhoan, MatKhau, NhanVien.MaNV, NhanVien.MaPB
+       FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNV = NhanVien.MaNV
+Go

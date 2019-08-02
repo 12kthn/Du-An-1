@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import Home.model.ThanNhan;
-import org.omg.CORBA.NVList;
 
 public class NhanVienDAO {
 
@@ -64,7 +63,7 @@ public class NhanVienDAO {
 
         try {
             String sql = "{Call SP_FindNVTheoPB(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB);
+            ResultSet rs = JDBC.executeQuery(sql, maPB);
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
