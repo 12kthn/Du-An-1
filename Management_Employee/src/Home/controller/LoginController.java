@@ -32,7 +32,6 @@ public class LoginController implements Initializable {
     //Phương thức khởi tạo validatorJFX
     public void validatorInit() {
         txtTaiKhoan.getValidators().add(Validate.createValidatorJFX("tài khoản"));
-        //kiểm tra giá trị mới có lỗi hay ko
         txtTaiKhoan.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -44,7 +43,6 @@ public class LoginController implements Initializable {
         });
         
         txtMatKhau.getValidators().add(Validate.createValidatorJFX("mật khẩu"));
-        //kiểm tra giá trị mới có lỗi hay ko
         txtMatKhau.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -54,18 +52,6 @@ public class LoginController implements Initializable {
             }
 
         });
-    }
-
-    //Phuong thuc mở Giao diện chính - Main
-    public void openMain() {
-        try {
-            Common.mainStage.close();
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
-            Common.mainStage.setScene(scene);
-            Common.mainStage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     @FXML
@@ -99,6 +85,17 @@ public class LoginController implements Initializable {
         }        
     }
     
+    public void openMain() {
+        try {
+            Common.mainStage.close();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
+            Common.mainStage.setScene(scene);
+            Common.mainStage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private TaiKhoanDAO tkdao;
 
     @FXML
