@@ -7,9 +7,9 @@ public class TableNhanThan {
     private String NgheNghiep;
     private String MoiQuanHe;
     private String MaNV;
-    private boolean GiamTruPhuThuoc;
+    private String GiamTruPhuThuoc;
 
-    public TableNhanThan(int MaTN, String HoTen, String NgheNghiep, String MoiQuanHe, String MaNV, boolean GiamTruPhuThuoc) {
+    public TableNhanThan(int MaTN, String HoTen, String NgheNghiep, String MoiQuanHe, String MaNV, String GiamTruPhuThuoc) {
         this.MaTN = MaTN;
         this.HoTen = HoTen;
         this.NgheNghiep = NgheNghiep;
@@ -58,11 +58,11 @@ public class TableNhanThan {
         this.MaNV = MaNV;
     }
 
-    public boolean isGiamTruPhuThuoc() {
+    public String getGiamTruPhuThuoc() {
         return GiamTruPhuThuoc;
     }
 
-    public void setGiamTruPhuThuoc(boolean GiamTruPhuThuoc) {
+    public void setGiamTruPhuThuoc(String GiamTruPhuThuoc) {
         this.GiamTruPhuThuoc = GiamTruPhuThuoc;
     }
 
