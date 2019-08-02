@@ -50,7 +50,7 @@ public class TableNhanVienDAO {
                         Common.nvController.setStatus(false);
                         Common.nvController.setModelNhanVien(nv);
                         Common.nvController.changeTabPane(2);
-                        Common.nvController.loadDataToTableNT(nv.getMaNV());
+                        Common.nvController.loadDataToTableNT();
                     }
                 });
             }

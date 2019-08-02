@@ -58,7 +58,8 @@ public class NhanVienController implements Initializable {
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
             tbl_ntdao = new TableThanNhanDAO();
-
+            ntdao = new NhanThanDAO();
+            
             //tab 1
             loadCharts();
 
@@ -158,8 +159,8 @@ public class NhanVienController implements Initializable {
     }
 
     // hiển thị dữ liệu table nhân thân 
-    public void loadDataToTableNT(String maNV) {
-        tblNhanThan.setItems(tbl_ntdao.getDATA(maNV));
+    public void loadDataToTableNT() {
+        tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
     //đổ dữ liệu vào các Combobox
@@ -200,7 +201,7 @@ public class NhanVienController implements Initializable {
                 setStatus(false);
                 NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
                 setModelNhanVien(nv);
-                loadDataToTableNT(nv.getMaNV());
+                loadDataToTableNT();
                 if (event.getClickCount() == 2 && nv != null) {
                     changeTabPane(2);
                 }
@@ -331,6 +332,7 @@ public class NhanVienController implements Initializable {
     //get model thông tin nhân thân
     private ThanNhan getModelThanThan() {
         ThanNhan TTNT = new ThanNhan();
+        TTNT.setMaNV(txtMaNV.getText());
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
@@ -537,12 +539,12 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    private void insertNT(String maNV) {
+    private void insertNT() {
         if (true) {
-          ThanNhan nt = getModelThanThan();
+            ThanNhan nt = getModelThanThan();
             try {
                 ntdao.insertNT(nt);
-                loadDataToTableNT(maNV);
+                loadDataToTableNT();
                 CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
                 setStatus(false);
             } catch (Exception e) {
