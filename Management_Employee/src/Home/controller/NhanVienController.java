@@ -1,5 +1,5 @@
 package Home.controller;
-
+import Home.DAO.NhanThanDAO;
 import Home.DAO.TableThanNhanDAO;
 import Home.model.table.TableNhanThan;
 import Home.common.CustomDialog;
@@ -84,7 +84,6 @@ public class NhanVienController implements Initializable {
     //đổ dữ liệu vào các biểu đồ
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
-
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
 
@@ -538,12 +537,12 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    private void insertNT() {
+    private void insertNT(String maNV) {
         if (true) {
           ThanNhan nt = getModelThanThan();
             try {
-                nvdao.insertnv(nv);
-                loadDataToTableNV();
+                ntdao.insertNT(nt);
+                loadDataToTableNT(maNV);
                 CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
                 setStatus(false);
             } catch (Exception e) {
@@ -640,6 +639,7 @@ public class NhanVienController implements Initializable {
     private TableView<TableNhanVien> tblNhanVien;
     @FXML
     private JFXTabPane tabPane;
+    private NhanThanDAO ntdao;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
     private TableThanNhanDAO tbl_ntdao;

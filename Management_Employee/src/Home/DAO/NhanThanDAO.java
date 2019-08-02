@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 
 public class NhanThanDAO {
 
-    public ThanNhan findNTbycode(String code ) {
-ThanNhan thanNhan = null;
+    public ThanNhan findNTbycode(String code) {
+        ThanNhan thanNhan = null;
         try {
             String sql = "{call FindNTByCode}";
             ResultSet rs = JDBC.executeQuery(sql, code);
-            while(rs.next()){
-                thanNhan = new ThanNhan(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getBoolean(6));
+            while (rs.next()) {
+                thanNhan = new ThanNhan(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6));
             }
         } catch (Exception e) {
             e.printStackTrace();
