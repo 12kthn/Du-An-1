@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Common.mainStage = stage;
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/ToChuc.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);

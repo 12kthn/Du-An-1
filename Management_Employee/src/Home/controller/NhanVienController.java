@@ -1,5 +1,7 @@
 package Home.controller;
 
+import Home.DAO.TableThanNhanDAO;
+import Home.model.table.TableNhanThan;
 import Home.common.CustomDialog;
 import Home.DAO.ChucVuDAO;
 import Home.DAO.NhanVienDAO;
@@ -55,6 +57,7 @@ public class NhanVienController implements Initializable {
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
+            tbl_ntdao = new TableThanNhanDAO();
 
             //tab 1
             loadCharts();
@@ -66,6 +69,8 @@ public class NhanVienController implements Initializable {
             //tab 3
             txtMaNVNotification();
             loadComboboxs();
+            //tab4 
+            setTableNTcolumm();
             //định dạng ngày kiểu dd/MM/yyyy cho DatePicker
             DPickerNgaySinh.setConverter(XDate.converter);
             DPickerNgayBatDau.setConverter(XDate.converter);
@@ -130,11 +135,32 @@ public class NhanVienController implements Initializable {
         tblNhanVien.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10,
                 col11, col12, col13, col14, col15, col16, col17);
     }
+//khai bao cot cho bang nhan than 
+
+    private void setTableNTcolumm() {
+        HotenNT = new TableColumn<>("Họ tên");
+        HotenNT.setCellValueFactory(new PropertyValueFactory<>("HoTen"));
+        HotenNT.setPrefWidth(210);
+        NgheNghiep = new TableColumn<>("Nghề nghiệp");
+        NgheNghiep.setCellValueFactory(new PropertyValueFactory<>("NgheNghiep"));
+        NgheNghiep.setPrefWidth(140);
+        Moiquanhe = new TableColumn<>("Mối quan hệ");
+        Moiquanhe.setCellValueFactory(new PropertyValueFactory<>("MoiQuanHe"));
+        Moiquanhe.setPrefWidth(120);
+        giamtruphuthuoc = new TableColumn<>("Giảm trừ phụ thuộc");
+        giamtruphuthuoc.setCellValueFactory(new PropertyValueFactory<>("GiamTruPhuThuoc"));
+        giamtruphuthuoc.setPrefWidth(160);
+        tblNhanThan.getColumns().addAll(HotenNT, NgheNghiep, Moiquanhe, giamtruphuthuoc);
+    }
 
     //hiển thị dữ liệu lên bảng nhân viên
     public void loadDataToTableNV() {
-        data = tbl_nvdao.getData();
-        tblNhanVien.setItems(data);
+        tblNhanVien.setItems(tbl_nvdao.getData());
+    }
+
+    // hiển thị dữ liệu table nhân thân 
+    public void loadDataToTableNT(String maNV) {
+        tblNhanThan.setItems(tbl_ntdao.getDATA(maNV));
     }
 
     //đổ dữ liệu vào các Combobox
@@ -175,6 +201,7 @@ public class NhanVienController implements Initializable {
                 setStatus(false);
                 NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
                 setModelNhanVien(nv);
+                loadDataToTableNT(nv.getMaNV());
                 if (event.getClickCount() == 2 && nv != null) {
                     changeTabPane(2);
                 }
@@ -303,11 +330,13 @@ public class NhanVienController implements Initializable {
     }
 
     //get model thông tin nhân thân
-    private void getModelThanThan(ThanNhan TTNT) {
+    private ThanNhan getModelThanThan() {
+        ThanNhan TTNT = new ThanNhan();
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
         TTNT.setGiamTruPhuThuoc(Boolean.parseBoolean(txtGTPTNT.getText()));
+        return TTNT;
     }
 
     //set model thông tin nhân thân 
@@ -509,6 +538,21 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
+    private void insertNT() {
+        if (true) {
+          ThanNhan nt = getModelThanThan();
+            try {
+                nvdao.insertnv(nv);
+                loadDataToTableNV();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
+                setStatus(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+            }
+        }
+    }
+    @FXML
     private JFXButton btnThem;
 
     @FXML
@@ -590,20 +634,17 @@ public class NhanVienController implements Initializable {
     private JFXTextField txtNgheNghiepNT;
 
     @FXML
-    private TableView<?> tblNhanThan;
+    private TableView<TableNhanThan> tblNhanThan;
 
     @FXML
     private TableView<TableNhanVien> tblNhanVien;
-
     @FXML
     private JFXTabPane tabPane;
-
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
+    private TableThanNhanDAO tbl_ntdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
-
-    private ObservableList<TableNhanVien> data;
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;
@@ -611,6 +652,7 @@ public class NhanVienController implements Initializable {
     private Boolean insertable;
     private String imageName;
     private File imageFile;
+    private NhanVien nv;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
@@ -631,5 +673,8 @@ public class NhanVienController implements Initializable {
     private TableColumn<TableNhanVien, Integer> col15;
     private TableColumn<TableNhanVien, String> col16;
     private TableColumn<TableNhanVien, String> col17;
-
+    private TableColumn<TableNhanThan, String> HotenNT;
+    private TableColumn<TableNhanThan, String> NgheNghiep;
+    private TableColumn<TableNhanThan, String> Moiquanhe;
+    private TableColumn<TableNhanThan, String> giamtruphuthuoc;
 }
