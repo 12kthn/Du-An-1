@@ -105,7 +105,7 @@ public class NhanVienDAO {
         return SLNhanVien;
     }
 
-    public ObservableList getSLNVTheoPBVaMoiThang(String MaPB, int year) {
+    public ObservableList getSLNVTheoPBVaThang(String MaPB, int year) {
         ObservableList data = FXCollections.observableArrayList();
         int month = XDate.monthOfYear(year);
         for (int i = 1; i <= month; i++) {

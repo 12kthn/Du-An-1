@@ -26,9 +26,9 @@ public class HomeController implements Initializable, Runnable {
             ccdao = new ChamCongDAO();
             bldao = new BangLuongDAO();
             
-            loadCboNam();
-            year = cboNam.getSelectionModel().getSelectedItem();
             runThread();
+            loadCboNam();
+            yearStatistic = cboNam.getSelectionModel().getSelectedItem();
             loadChartTangTruongNV();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -42,9 +42,8 @@ public class HomeController implements Initializable, Runnable {
         thread.start();
     }
 
-    //Them du lieu và sự kiện vao cboNam
     private void loadCboNam() {
-        cboNam.getItems().add(LocalDate.now().getYear());//năm hiện tại
+        cboNam.getItems().add(LocalDate.now().getYear());
         cboNam.getItems().add(LocalDate.now().getYear() - 1);
         cboNam.getItems().add(LocalDate.now().getYear() - 2);
         cboNam.getItems().add(LocalDate.now().getYear() - 3);
@@ -54,45 +53,44 @@ public class HomeController implements Initializable, Runnable {
         cboNam.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override
             public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
-                year = newValue;
+                yearStatistic = newValue;
                 runThread();
                 loadChartTangTruongNV();
             }
         });
     }
 
-    //Thêm du lieu vào chartTangTruongNV
     private void loadChartTangTruongNV() {
         chartTangTruongNV.getData().clear();
-        chartTangTruongNV.setTitle("Biểu đồ số lượng nhân viên năm " + year);
+        chartTangTruongNV.setTitle("Biểu đồ số lượng nhân viên năm " + yearStatistic);
 
         XYChart.Series series1 = new XYChart.Series<>();
         series1.setName("Giám đốc");
-        series1.setData(nvdao.getSLNVTheoPBVaMoiThang("GD", year));
+        series1.setData(nvdao.getSLNVTheoPBVaThang("GD", yearStatistic));
 
         XYChart.Series series2 = new XYChart.Series<>();
         series2.setName("Kỹ thuật");
-        series2.setData(nvdao.getSLNVTheoPBVaMoiThang("IT", year));
+        series2.setData(nvdao.getSLNVTheoPBVaThang("IT", yearStatistic));
 
         XYChart.Series series3 = new XYChart.Series<>();
         series3.setName("Kế toán");
-        series3.setData(nvdao.getSLNVTheoPBVaMoiThang("KT", year));
+        series3.setData(nvdao.getSLNVTheoPBVaThang("KT", yearStatistic));
 
         XYChart.Series series4 = new XYChart.Series<>();
         series4.setName("Marketing");
-        series4.setData(nvdao.getSLNVTheoPBVaMoiThang("MK", year));
+        series4.setData(nvdao.getSLNVTheoPBVaThang("MK", yearStatistic));
 
         XYChart.Series series5 = new XYChart.Series<>();
         series5.setName("Nhân sự");
-        series5.setData(nvdao.getSLNVTheoPBVaMoiThang("NS", year));
+        series5.setData(nvdao.getSLNVTheoPBVaThang("NS", yearStatistic));
 
         XYChart.Series series6 = new XYChart.Series<>();
         series6.setName("Bán hàng");
-        series6.setData(nvdao.getSLNVTheoPBVaMoiThang("SL", year));
+        series6.setData(nvdao.getSLNVTheoPBVaThang("SL", yearStatistic));
 
         XYChart.Series series7 = new XYChart.Series<>();
         series7.setName("Tất cả");
-        series7.setData(nvdao.getSLNVTheoPBVaMoiThang(null, year));
+        series7.setData(nvdao.getSLNVTheoPBVaThang(null, yearStatistic));
 
         //add series to chart
         chartTangTruongNV.getData().addAll(series1, series2, series3, series4, series5, series6, series7);
@@ -101,7 +99,7 @@ public class HomeController implements Initializable, Runnable {
     private NhanVienDAO nvdao;
     private ChamCongDAO ccdao;
     private BangLuongDAO bldao;
-    private int year;//năm hien thi thống kê
+    private int yearStatistic;
 
     @FXML
     private Label lblThuNhap;
@@ -123,9 +121,9 @@ public class HomeController implements Initializable, Runnable {
     public void run() {
         try {
             Thread.sleep(1000);
-            double plusNum1 = nvdao.getSLNVTheoPBVaNam(year)/ 20.0;
-            double plusNum2 = bldao.getTongTienLuongTrongNam(year) / 20.0;
-            double plusNum3 = ccdao.getSoGioLamViecTheoNam(year) / 20.0;
+            double plusNum1 = nvdao.getSLNVTheoPBVaNam(yearStatistic)/ 20.0;
+            double plusNum2 = bldao.getTongTienLuongTrongNam(yearStatistic) / 20.0;
+            double plusNum3 = ccdao.getSoGioLamViecTheoNam(yearStatistic) / 20.0;
             for (int i = 1; i <= 20; i++) {
                 int value1 = (int) (i * plusNum1);
                 double value2 = i * plusNum2;
