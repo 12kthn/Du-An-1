@@ -101,7 +101,7 @@ public class MainController implements Initializable {
  @FXML
     public void setGUITaikhoan() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Taikhoan.fxml")));
+            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
