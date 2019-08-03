@@ -354,20 +354,17 @@
                                                 <Insets top="40.0" />
                                             </VBox.margin>
                                         </JFXTextField>
-                                        <JFXTextField fx:id="txtGTPTNT" labelFloat="true" prefHeight="30.0" promptText="Giảm trừ phụ thuộc">
-                                            <font>
-                                                <Font size="16.0" />
-                                            </font>
-                                            <VBox.margin>
-                                                <Insets top="40.0" />
-                                            </VBox.margin>
-                                        </JFXTextField>
+                              <JFXComboBox fx:id="cbogiamtruphuthuoc" labelFloat="true" prefHeight="30.0" prefWidth="451.0" promptText="Giảm trừ  phụ thuộc">
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
+                              </JFXComboBox>
                                     </children>
                                 </VBox>
-                                <TableView fx:id="tblNhanThan" layoutX="485.0" layoutY="77.0" prefHeight="270.0" prefWidth="620.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0" />
+                                <TableView fx:id="tblNhanThan" layoutX="485.0" layoutY="77.0" onMouseClicked="#selectNhanthan" prefHeight="270.0" prefWidth="620.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0" />
                                 <HBox alignment="CENTER" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
-                                        <JFXButton prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                        <JFXButton fx:id="btnThem1" onAction="#insertNT" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -386,7 +383,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnCapnhat1" prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -405,7 +402,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnXoa1" prefWidth="124.0" ripplerFill="#0476c3" text="Xóa" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>
@@ -424,7 +421,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnTaomoi1" prefWidth="124.0" ripplerFill="#0476c3" text="Tạo mới" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>

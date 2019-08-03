@@ -17,7 +17,6 @@ public class TableThanNhanDAO {
             while (rs.next()) {
                 TableNhanThan tblNT = new TableNhanThan(rs.getInt(1), rs.getString(2),
                         rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6)  ? "Có" : "Không");
-                System.out.println(rs.getInt(1));
                 DATA.add(tblNT);
             }
         } catch (SQLException e) {

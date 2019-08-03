@@ -1,4 +1,5 @@
 package Home.controller;
+
 import Home.DAO.NhanThanDAO;
 import Home.DAO.TableThanNhanDAO;
 import Home.model.table.TableNhanThan;
@@ -58,6 +59,7 @@ public class NhanVienController implements Initializable {
             cvdao = new ChucVuDAO();
             tbl_nvdao = new TableNhanVienDAO();
             tbl_ntdao = new TableThanNhanDAO();
+            ntdao = new NhanThanDAO();
 
             //tab 1
             loadCharts();
@@ -158,8 +160,8 @@ public class NhanVienController implements Initializable {
     }
 
     // hiển thị dữ liệu table nhân thân 
-    public void loadDataToTableNT(String maNV) {
-        tblNhanThan.setItems(tbl_ntdao.getDATA(maNV));
+    public void loadDataToTableNT() {
+        tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
     //đổ dữ liệu vào các Combobox
@@ -175,6 +177,9 @@ public class NhanVienController implements Initializable {
 
         listChucVu = cvdao.findByCode(null);
         cboChucVu.setItems(listChucVu);
+
+        listGiamtruphuthuoc = FXCollections.observableArrayList("Có", "Không");
+        cbogiamtruphuthuoc.setItems(listGiamtruphuthuoc);
     }
 
     //hiển thị thông báo trên TextField mã nhân viên
@@ -191,7 +196,7 @@ public class NhanVienController implements Initializable {
         });
     }
 
-    //Sự kiện click vào bảng
+    //Sự kiện click vào bảng nhan vien 
     @FXML
     private void selectNhanVien(MouseEvent event) {
         try {
@@ -200,7 +205,7 @@ public class NhanVienController implements Initializable {
                 setStatus(false);
                 NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
                 setModelNhanVien(nv);
-                loadDataToTableNT(nv.getMaNV());
+                loadDataToTableNT();
                 if (event.getClickCount() == 2 && nv != null) {
                     changeTabPane(2);
                 }
@@ -233,6 +238,15 @@ public class NhanVienController implements Initializable {
             }
         }
 
+    }
+//su kien click vao bang nhan than 
+
+    @FXML
+    private void selectNhanthan(MouseEvent event) {
+        TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
+        ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
+        setModelThanNhan(nt);
+        
     }
 
     private boolean copyImageToAvatarFolder() {
@@ -331,10 +345,11 @@ public class NhanVienController implements Initializable {
     //get model thông tin nhân thân
     private ThanNhan getModelThanThan() {
         ThanNhan TTNT = new ThanNhan();
+        TTNT.setMaNV(txtMaNV.getText());
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
-        TTNT.setGiamTruPhuThuoc(Boolean.parseBoolean(txtGTPTNT.getText()));
+        TTNT.setGiamTruPhuThuoc(cbogiamtruphuthuoc.getSelectionModel().getSelectedIndex() == 0);
         return TTNT;
     }
 
@@ -343,7 +358,11 @@ public class NhanVienController implements Initializable {
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
-        txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
+        if ( TTNT.getGiamTruPhuThuoc()==null) {
+            cbogiamtruphuthuoc.getSelectionModel().clearSelection();
+        } else {
+           cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc()? 0 : 1);
+        }
     }
 
     //check null form nhan vien 
@@ -402,6 +421,18 @@ public class NhanVienController implements Initializable {
             DPickerNgaySinh.requestFocus();
             return false;
         }
+        if (Validate.isNull(txtHoTenNT, "Vui lòng nhập họ tên nhân thân")) {
+            return false;
+        }
+        if (Validate.isNull(txtNgheNghiepNT, "Vui lòng nhập nghề nghiệp của nhân thân")) {
+            return false;
+        }
+        if (Validate.isNull(txtMoiQuanHeNT, "Vui lòng nhập mối quan hệ nhân thân ")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cbogiamtruphuthuoc, "Vui lòng chọn giảm trừ phụ thuộc")) {
+            return false;
+        }
         return true;
     }
 
@@ -448,7 +479,9 @@ public class NhanVienController implements Initializable {
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
-
+        if (Validate.isNotMatches(txtHoTenNT, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
         return true;
     }
 
@@ -537,17 +570,32 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    private void insertNT(String maNV) {
-        if (true) {
-          ThanNhan nt = getModelThanThan();
+    private void insertNT() {
+        if (checknull() && checkContent()) {
+            ThanNhan nt = getModelThanThan();
             try {
                 ntdao.insertNT(nt);
-                loadDataToTableNT(maNV);
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
-                setStatus(false);
+                loadDataToTableNT();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm thông tin nhân thân thành công ");
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+            }
+        }
+
+    }
+
+    @FXML
+    private void updateNT() {
+        if (checknull() && checkContent()) {
+            ThanNhan nt = new ThanNhan();
+            try {
+                ntdao.updateNT(nt);
+                loadDataToTableNT();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
             }
         }
     }
@@ -577,7 +625,8 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private DatePicker DPickerNgayKetThuc;
-
+    @FXML
+    private JFXComboBox cbogiamtruphuthuoc;
     @FXML
     private JFXComboBox cboGioiTinh;
 
@@ -645,6 +694,7 @@ public class NhanVienController implements Initializable {
     private TableThanNhanDAO tbl_ntdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
+    private ObservableList listGiamtruphuthuoc;
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;

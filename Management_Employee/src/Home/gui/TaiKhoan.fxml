@@ -67,7 +67,7 @@
       <TableView fx:id="tblTaiKhoan" layoutX="405.0" layoutY="110.0" onMouseClicked="#selectTaiKhoan" prefHeight="300.0" prefWidth="600.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="160.0" />
       <HBox alignment="CENTER" layoutY="545.0" prefHeight="96.0" prefWidth="1166.0">
          <children>
-            <JFXButton fx:id="btnThem" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton fx:id="btnThem" onAction="#InsertTK" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -86,7 +86,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnCapNhat" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+            <JFXButton fx:id="btnCapNhat" onAction="#updateTK" prefWidth="124.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -105,7 +105,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnXoa" prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
+            <JFXButton fx:id="btnXoa" onAction="#DeleteTK" prefWidth="124.0" ripplerFill="WHITE" text="Xóa" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -124,7 +124,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnTaoMoi" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER" translateX="1.0">
+            <JFXButton fx:id="btnTaoMoi" onAction="#clearTK" prefWidth="124.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER" translateX="1.0">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

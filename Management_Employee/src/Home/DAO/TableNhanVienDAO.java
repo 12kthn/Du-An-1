@@ -43,15 +43,12 @@ public class TableNhanVienDAO {
 
                     }
                 });
-                tblnv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                        Common.nvController.setStatus(false);
-                        Common.nvController.setModelNhanVien(nv);
-                        Common.nvController.changeTabPane(2);
-                        Common.nvController.loadDataToTableNT(nv.getMaNV());
-                    }
+                tblnv.getUpdate().setOnAction((ActionEvent event) -> {
+                    NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
+                    Common.nvController.setStatus(false);
+                    Common.nvController.setModelNhanVien(nv);
+                    Common.nvController.changeTabPane(2);
+                    Common.nvController.loadDataToTableNT();
                 });
             }
         } catch (SQLException ex) {
