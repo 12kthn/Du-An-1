@@ -3,21 +3,26 @@ package Home.DAO;
 import Home.common.JDBC;
 import Home.model.ThanNhan;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class NhanThanDAO {
 
-    public ThanNhan findNTbycode(String code) {
-        ThanNhan thanNhan = null;
+     public ObservableList<ThanNhan> findByCode(int code) {
+        ObservableList<ThanNhan> list = FXCollections.observableArrayList();
+      ThanNhan thanNhan;
         try {
-            String sql = "{call FindNTByCode}";
+            String sql = "{Call FindNTByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, code);
             while (rs.next()) {
-                thanNhan = new ThanNhan(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6));
+                thanNhan = new ThanNhan(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getBoolean(6));
+                list.add(thanNhan);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return thanNhan;
+        return list;
     }
 
     public int insertNT(ThanNhan NT) {
