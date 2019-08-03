@@ -196,7 +196,7 @@ public class NhanVienController implements Initializable {
         });
     }
 
-    //Sự kiện click vào bảng
+    //Sự kiện click vào bảng nhan vien 
     @FXML
     private void selectNhanVien(MouseEvent event) {
         try {
@@ -238,6 +238,15 @@ public class NhanVienController implements Initializable {
             }
         }
 
+    }
+//su kien click vao bang nhan than 
+
+    @FXML
+    private void selectNhanthan(MouseEvent event) {
+        TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
+        ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
+        setModelThanNhan(nt);
+        
     }
 
     private boolean copyImageToAvatarFolder() {
@@ -349,7 +358,11 @@ public class NhanVienController implements Initializable {
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
-        txtGTPTNT.setText(String.valueOf(TTNT.getGiamTruPhuThuoc()));
+        if ( TTNT.getGiamTruPhuThuoc()==null) {
+            cbogiamtruphuthuoc.getSelectionModel().clearSelection();
+        } else {
+           cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc()? 0 : 1);
+        }
     }
 
     //check null form nhan vien 
@@ -564,10 +577,25 @@ public class NhanVienController implements Initializable {
                 ntdao.insertNT(nt);
                 loadDataToTableNT();
                 CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm thông tin nhân thân thành công ");
-                setStatus(false);
             } catch (Exception e) {
                 e.printStackTrace();
                 CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+            }
+        }
+
+    }
+
+    @FXML
+    private void updateNT() {
+        if (checknull() && checkContent()) {
+            ThanNhan nt = new ThanNhan();
+            try {
+                ntdao.updateNT(nt);
+                loadDataToTableNT();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
             }
         }
     }

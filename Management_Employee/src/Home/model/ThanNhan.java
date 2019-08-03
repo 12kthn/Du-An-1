@@ -7,13 +7,13 @@ public class ThanNhan {
     private String NgheNghiep;
     private String MoiQuanHe;
     private String MaNV;
-    private boolean GiamTruPhuThuoc;
+    private Boolean GiamTruPhuThuoc;
     
     public ThanNhan(){
     }
     
     public ThanNhan(int MaTN,String HoTen,String NgheNghiep,
-            String MoiQuanHe,String MaNV,boolean GiamTruPhuThuoc){
+            String MoiQuanHe,String MaNV,Boolean GiamTruPhuThuoc){
         this.MaTN = MaTN;
         this.HoTen = HoTen;
         this.NgheNghiep = NgheNghiep;
@@ -46,7 +46,7 @@ public class ThanNhan {
         return MaNV;
     }
 
-    public boolean getGiamTruPhuThuoc() {
+    public Boolean getGiamTruPhuThuoc() {
         return GiamTruPhuThuoc;
     }
     
@@ -74,7 +74,7 @@ public class ThanNhan {
         this.MaNV = MaNV;
     }
 
-    public void setGiamTruPhuThuoc(boolean GiamTruPhuThuoc) {
+    public void setGiamTruPhuThuoc(Boolean GiamTruPhuThuoc) {
         this.GiamTruPhuThuoc = GiamTruPhuThuoc;
     }
     
