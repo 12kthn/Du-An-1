@@ -72,4 +72,19 @@ public class Validate {
 
         return false;
     }
+    
+    //Kiểm lỗi xác nhận Password không giống với password
+    public static boolean isNotMatches(JFXPasswordField pass, JFXPasswordField pass2, String errMessage) {
+        try {
+            if (!pass2.getText().matches(pass.getText())) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
+            pass2.requestFocus();
+            return true;
+        }
+
+        return false;
+    }
 }

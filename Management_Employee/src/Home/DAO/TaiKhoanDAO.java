@@ -50,4 +50,49 @@ public class TaiKhoanDAO {
         return 0;
     }
     
+    public int insert(TaiKhoan tk) {
+        try {
+            String sql = "{call sp_taikhoan(?,?,?,?)}";
+            return JDBC.executeUpdate(sql,                  
+                    tk.getTaiKhoan(),
+                    tk.getMatKhau(),
+                    tk.getMaNV(),
+                    "insert"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int update(TaiKhoan tk) {
+        try {
+            String sql = "{call sp_taikhoan(?,?,?,?)}";
+            return JDBC.executeUpdate(sql,                 
+                    tk.getTaiKhoan(),
+                    tk.getMatKhau(),
+                    tk.getMaNV(),
+                    "Update"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int delete(TaiKhoan tk) {
+        try {
+            String sql = "{call sp_taikhoan(?,?,?,?)}";
+            return JDBC.executeUpdate(sql,                 
+                    tk.getTaiKhoan(),
+                    tk.getMatKhau(),
+                    tk.getMaNV(),
+                    "Delete"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
 }

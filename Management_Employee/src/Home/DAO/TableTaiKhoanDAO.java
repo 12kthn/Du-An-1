@@ -8,13 +8,14 @@ import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
 public class TableTaiKhoanDAO {
     public ObservableList<TableTaiKhoan> getData(){
         ObservableList<TableTaiKhoan> data = FXCollections.observableArrayList();
         NhanVienDAO nvdao = new NhanVienDAO();
         PhongBanDAO pbdao = new PhongBanDAO();
         try {
-            String sql = "{Call SP_TBLTaiKhoan(?)}";
+            String sql = "{Call SP_TBLTaiKhoan()}";
             ResultSet rs = JDBC.executeQuery(sql);
             while (rs.next()){
                 TableTaiKhoan tbltk = new TableTaiKhoan(rs.getString(1), rs.getString(2),
@@ -28,4 +29,7 @@ public class TableTaiKhoanDAO {
         }
         return data;
     }
+    
 }
+
+

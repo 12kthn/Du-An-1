@@ -5,6 +5,9 @@ import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableTaiKhoanDAO;
 import Home.DAO.TaiKhoanDAO;
+import Home.common.Common;
+import Home.common.CustomDialog;
+import Home.common.Validate;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.TaiKhoan;
@@ -17,13 +20,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TaiKhoanController implements Initializable {
+
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -100,7 +107,7 @@ public class TaiKhoanController implements Initializable {
         
         String maPB = nvDAO.findByCode(tk.getMaNV()).getMaPB();
         for (PhongBan pb : cboPhongBan.getItems()) {
-            if (maPB.equals(pb.getMaPB())) {
+            if (maPB.equals(pb.getMaPB()) ) {
                 cboPhongBan.getSelectionModel().select(pb);
             }
         }
@@ -109,6 +116,7 @@ public class TaiKhoanController implements Initializable {
             if (tk.getMaNV().equals(nv.getMaNV())) {
                 cboNhanVien.getSelectionModel().select(nv);
             }
+            
         }
     }
     
@@ -122,8 +130,51 @@ public class TaiKhoanController implements Initializable {
     
     private void setStatus(boolean insertable){
         this.insertable = insertable;
+        btnThem.setDisable(!insertable);
+        btnCapNhat.setDisable(insertable);
+        btnXoa.setDisable(insertable);
+        btnTaoMoi.setDisable(insertable);
+        
         
     }
+    
+    private boolean checknull() {
+        if (Validate.isNull(txtTaikhoan, "Chưa nhập tên tài khoản")) {
+            return false;
+        }
+        if (Validate.isNull(txtMatKhau, "Chưa nhập mật khẩu")) {
+            return false;
+        }
+        
+        if (Validate.isNull(txtXacNhanMatKhau, "Chưa xác nhận mật khẩu")) {
+            return false;
+            
+        }
+        
+        if (Validate.isNotMatches(txtXacNhanMatKhau, txtMatKhau, "Mật khẩu xác nhận không đúng")) {
+            return false;
+            
+        }
+        return true;
+    }
+    
+    private boolean checkDuplication(){
+        if (insertable && tkDAO.findByCode(txtTaikhoan.getText().trim()) != null) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Tài khoản đã tồn tại");
+            txtTaikhoan.requestFocus();
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    public void newTK(){
+        setModel(new TaiKhoan());
+        setStatus(true);
+    }
+    
+    
     
     private TableTaiKhoanDAO tbl_tkDAO;
     private TaiKhoanDAO tkDAO;
@@ -151,19 +202,78 @@ public class TaiKhoanController implements Initializable {
     @FXML
     private JFXComboBox<NhanVien> cboNhanVien;
 
-    @FXML
-    private JFXButton btnThem;
-
-    @FXML
-    private JFXButton btnCapNhat;
-
-    @FXML
-    private JFXButton btnXoa;
     
     @FXML
     private JFXButton btnTaoMoi;
+    @FXML
+    private JFXButton btnXoa;
+    @FXML
+    private JFXButton btnThem;
+    @FXML
+    private JFXButton btnCapNhat;
+    
 
     @FXML
     private TableView<TableTaiKhoan> tblTaiKhoan;
+
+    @FXML
+    private void InsertTK(ActionEvent event) {
+        if (checknull() && checkDuplication()) {
+            TaiKhoan tk = getModel();
+            try {
+                tkDAO.insert(tk);
+                loadDataToTable();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System",
+                        "Thêm mới thành công ");
+                
+                
+            } catch (Exception e) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System",
+                        "Thêm mới thất bại ");
+                e.printStackTrace();
+            }
+        }
+        
+    }
+
+    @FXML
+    private void updateTK(ActionEvent event) {
+        TaiKhoan tk = getModel();
+        try {
+            tkDAO.update(tk);
+            
+            loadDataToTable();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
+                    "Managemnet System", "Cập nhật tài khoản thành công ");
+
+        } catch (Exception e) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
+                    "Managemnet System", "Cập nhật tài khoản thất bại ");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void DeleteTK(ActionEvent event) {
+        TaiKhoan tk = getModel();
+        try {
+            if (tkDAO.delete(tk) > 0) {
+                loadDataToTable();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa tài khoản thành công ");
+                
+            }
+        } catch (Exception ex) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa tài khoản thất bại ");
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clearTK(ActionEvent event) {
+        setModel(new TaiKhoan());
+        setStatus(true);
+    }
+
+    
 
 }

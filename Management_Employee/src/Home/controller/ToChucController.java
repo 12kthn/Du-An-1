@@ -175,6 +175,18 @@ public class ToChucController implements Initializable {
         }
         return true;
     }
+    
+    private boolean checkContent(){
+        try {
+            double phucap = Double.parseDouble(txtPhuCap.getText());
+            
+        } catch (NumberFormatException ex) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Phụ cấp không đúng định dạng số");
+            txtPhuCap.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
     public void setModel(PhongBan pb) {
         txtMaPB.setText(pb.getMaPB());
@@ -247,7 +259,8 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void updatePB(ActionEvent event) {
-        PhongBan pb = getModelPhongBan();
+        
+            PhongBan pb = getModelPhongBan();
         try {
             pbdao.update(pb);
             System.out.println(pb.getMaPB());
@@ -260,6 +273,8 @@ public class ToChucController implements Initializable {
                     "Managemnet System", "Cập nhật phòng ban thành công ");
             e.printStackTrace();
         }
+        
+        
 
     }
 
@@ -292,7 +307,7 @@ public class ToChucController implements Initializable {
     
     @FXML
     private void insertCV(ActionEvent event) {
-        if (checknullCV() && checkDuplication()) {
+        if (checknullCV() && checkDuplication() && checkContent()) {
             ChucVu cv = getModelChucVu();
             try {
                 cvdao.insert(cv);
@@ -312,7 +327,8 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void updateCV(ActionEvent event) {
-        ChucVu cv = getModelChucVu();
+        if (checkContent()) {
+            ChucVu cv = getModelChucVu();
         try {
             cvdao.update(cv);
             loadDataToTblChucVu();
@@ -324,6 +340,8 @@ public class ToChucController implements Initializable {
                     "Managemnet System", "Cập nhật chức vụ thất bại ");
             e.printStackTrace();
         }
+        }
+        
 
     }
 
