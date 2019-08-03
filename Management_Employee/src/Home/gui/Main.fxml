@@ -300,12 +300,16 @@
                   <String fx:value="hover_menu" />
                </styleClass>
                   </Label>
-            <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="21.0" prefWidth="176.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
+            <HBox prefHeight="34.0" prefWidth="200.0">
+               <children>
+                  <Label id="lblChamcong" alignment="CENTER" onMouseClicked="#setGUIChamCong" prefHeight="34.0" prefWidth="152.0" style="-fx-text-fill: white;" text="Phiên bản 1.1">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin></Label>
+               </children>
                <VBox.margin>
-                  <Insets left="11.0" top="45.0" />
-               </VBox.margin>
-            </Label>
-            <HBox prefHeight="34.0" prefWidth="200.0" />
+                  <Insets top="52.0" />
+               </VBox.margin></HBox>
             </children>
         </VBox>
     </left>
