@@ -41,6 +41,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -53,7 +54,6 @@ public class NhanVienController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             Common.nvController = this;
-
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
@@ -242,11 +242,11 @@ public class NhanVienController implements Initializable {
 //su kien click vao bang nhan than 
 
     @FXML
-    private void selectNhanthan(MouseEvent event) {
+    private void selectNhanthan() {
         TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
         ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
         setModelThanNhan(nt);
-        
+
     }
 
     private boolean copyImageToAvatarFolder() {
@@ -340,12 +340,16 @@ public class NhanVienController implements Initializable {
         btnXoa.setDisable(insertable);
         btnTaomoi.setDisable(insertable);
         btnThem.setDisable(!insertable);
+        btnCapnhat1.setDisable(insertable);
+        btnXoa1.setDisable(insertable);
+        btnTaomoi1.setDisable(insertable);
+        btnThem1.setDisable(insertable);
     }
 
     //get model thông tin nhân thân
     private ThanNhan getModelThanThan() {
         ThanNhan TTNT = new ThanNhan();
-        TTNT.setMaNV(txtMaNV.getText());
+        TTNT.setMaNV(txtMaTN.getText());
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
@@ -355,13 +359,14 @@ public class NhanVienController implements Initializable {
 
     //set model thông tin nhân thân 
     private void setModelThanNhan(ThanNhan TTNT) {
+        txtMaTN.setText(TTNT.getMaTN() + "");
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
-        if ( TTNT.getGiamTruPhuThuoc()==null) {
+        if (TTNT.getGiamTruPhuThuoc() == null) {
             cbogiamtruphuthuoc.getSelectionModel().clearSelection();
         } else {
-           cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc()? 0 : 1);
+            cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc() ? 0 : 1);
         }
     }
 
@@ -587,107 +592,19 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updateNT() {
-        if (checknull() && checkContent()) {
-            ThanNhan nt = new ThanNhan();
-            try {
-                ntdao.updateNT(nt);
-                loadDataToTableNT();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
-            } catch (Exception e) {
-                e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
-            }
+        ThanNhan nt = getModelThanThan();
+//        if (checknull() && checkContent()) {
+        try {
+            ntdao.updateNT(nt);
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+            loadDataToTableNT();
+        } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
         }
+//        }
     }
-    @FXML
-    private JFXButton btnThem;
-
-    @FXML
-    private JFXButton btnCapnhat;
-
-    @FXML
-    private JFXButton btnXoa;
-
-    @FXML
-    private JFXButton btnTaomoi;
-
-    @FXML
-    private JFXTextField txtMoiQuanHeNT;
-
-    @FXML
-    private DatePicker DPickerNgayBatDau;
-
-    @FXML
-    private JFXComboBox<PhongBan> cboPhongBan;
-
-    @FXML
-    private JFXTextField txtSoCM;
-
-    @FXML
-    private DatePicker DPickerNgayKetThuc;
-    @FXML
-    private JFXComboBox cbogiamtruphuthuoc;
-    @FXML
-    private JFXComboBox cboGioiTinh;
-
-    @FXML
-    private JFXTextField txtHoTenNT;
-
-    @FXML
-    private DatePicker DPickerNgaySinh;
-
-    @FXML
-    private JFXTextField txtHoTen;
-
-    @FXML
-    private JFXTextField txtMaHD;
-
-    @FXML
-    private ImageView imgHinh;
-
-    @FXML
-    private JFXTextField txtDienThoai;
-
-    @FXML
-    private JFXComboBox<?> cboTrangThai;
-
-    @FXML
-    private JFXComboBox<ChucVu> cboChucVu;
-
-    @FXML
-    private JFXTextField txtGTPTNT;
-
-    @FXML
-    private JFXTextField txtEmail;
-
-    @FXML
-    private BarChart<?, ?> chartSLNhanVien;
-
-    @FXML
-    private JFXTextField txtTrinhDoHV;
-
-    @FXML
-    private JFXTextField txtHeSoLuong;
-
-    @FXML
-    private JFXTextField txtMaNV;
-
-    @FXML
-    private JFXTextField txtDiaChi;
-
-    @FXML
-    private PieChart chartTyLeNamNu;
-
-    @FXML
-    private JFXTextField txtNgheNghiepNT;
-
-    @FXML
-    private TableView<TableNhanThan> tblNhanThan;
-
-    @FXML
-    private TableView<TableNhanVien> tblNhanVien;
-    @FXML
-    private JFXTabPane tabPane;
+    
     private NhanThanDAO ntdao;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
@@ -702,7 +619,6 @@ public class NhanVienController implements Initializable {
     private Boolean insertable;
     private String imageName;
     private File imageFile;
-    private NhanVien nv;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
@@ -723,8 +639,119 @@ public class NhanVienController implements Initializable {
     private TableColumn<TableNhanVien, Integer> col15;
     private TableColumn<TableNhanVien, String> col16;
     private TableColumn<TableNhanVien, String> col17;
+    
     private TableColumn<TableNhanThan, String> HotenNT;
     private TableColumn<TableNhanThan, String> NgheNghiep;
     private TableColumn<TableNhanThan, String> Moiquanhe;
     private TableColumn<TableNhanThan, String> giamtruphuthuoc;
+    
+    @FXML
+    private JFXTabPane tabPane;
+    
+    @FXML
+    private PieChart chartTyLeNamNu;
+
+    @FXML
+    private BarChart<?, ?> chartSLNhanVien;
+
+    @FXML
+    private TableView<TableNhanThan> tblNhanThan;
+    
+    @FXML
+    private JFXButton btnThem1;
+
+    @FXML
+    private JFXButton btnCapnhat1;
+
+    @FXML
+    private JFXButton btnXoa1;
+
+    @FXML
+    private JFXButton btnTaomoi1;
+
+    @FXML
+    private TableView<TableNhanVien> tblNhanVien;
+    
+    @FXML
+    private JFXButton btnThem;
+
+    @FXML
+    private JFXButton btnCapnhat;
+
+    @FXML
+    private JFXButton btnXoa;
+
+    @FXML
+    private JFXButton btnTaomoi;
+    
+    @FXML
+    private TextField txtTimKiem;
+    
+    
+    @FXML
+    private JFXTextField txtHoTen;
+   
+    @FXML
+    private JFXTextField txtMaNV;
+
+    @FXML
+    private JFXTextField txtSoCM;
+
+    @FXML
+    private JFXTextField txtDienThoai;
+    
+    @FXML
+    private JFXTextField txtEmail;
+
+    @FXML
+    private JFXTextField txtDiaChi;
+
+    @FXML
+    private JFXTextField txtTrinhDoHV;
+
+    @FXML
+    private JFXTextField txtMoiQuanHeNT;
+
+    @FXML
+    private JFXTextField txtMaHD;
+
+    @FXML
+    private JFXTextField txtHeSoLuong;
+    
+    @FXML
+    private JFXComboBox cboGioiTinh;
+
+    @FXML
+    private JFXComboBox cboTrangThai;
+
+    @FXML
+    private JFXComboBox<PhongBan> cboPhongBan;
+    
+    
+    private JFXTextField txtMaTN;
+
+    @FXML
+    private JFXComboBox<ChucVu> cboChucVu;
+
+    @FXML
+    private DatePicker DPickerNgaySinh;
+
+    @FXML
+    private DatePicker DPickerNgayBatDau;
+
+    @FXML
+    private DatePicker DPickerNgayKetThuc;
+        
+    @FXML
+    private ImageView imgHinh;
+
+    @FXML
+    private JFXTextField txtHoTenNT;
+ 
+    @FXML
+    private JFXTextField txtNgheNghiepNT;
+
+    @FXML
+    private JFXComboBox cbogiamtruphuthuoc;
+
 }
