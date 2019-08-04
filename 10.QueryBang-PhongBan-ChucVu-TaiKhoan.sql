@@ -23,7 +23,7 @@ GO
 EXEC SP_FindPhongBanByCode null
 
 --Tao Stored Procedure tim kiem Chuc vu theo ma
-IF (OBJECT_ID('SP_FindChucVyByCode') IS NOT NULL)
+IF (OBJECT_ID('SP_FindChucVuByCode') IS NOT NULL)
   DROP PROCEDURE SP_FindChucVuByCode
 GO
 CREATE PROCEDURE SP_FindChucVuByCode

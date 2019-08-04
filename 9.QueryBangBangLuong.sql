@@ -85,3 +85,12 @@ AS
 GO
 
 EXEC SP_TongTienLuongVaPBTheoThang 2019, 5
+
+--Tao Stored Procedure lay danh sách năm có trong BangLuong
+IF (OBJECT_ID('SP_ListYearBL') IS NOT NULL)
+  DROP PROCEDURE SP_ListYearBL
+GO
+CREATE PROCEDURE SP_ListYearBL
+AS
+	SELECT DISTINCT YEAR(NgayPhatLuong) FROM BangLuong
+GO

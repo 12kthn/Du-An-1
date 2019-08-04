@@ -61,7 +61,6 @@ public class ChamCongController implements Initializable {
         }
     }
 
-    //Them du lieu vao cboNam1
     private void loadCboNam1() {
         cboNam1.getItems().clear();
 
@@ -70,7 +69,6 @@ public class ChamCongController implements Initializable {
 
     }
 
-    //Them du lieu vao cboThang1
     private void loadCboThang1() {
         cboThang1.getItems().clear();
         for (int i = 1; i <= XDate.monthOfYear(year1); i++) {
@@ -85,7 +83,6 @@ public class ChamCongController implements Initializable {
         }
     }
 
-    //Them du lieu vao cboNam2
     private void loadCboNam2() {
         cboNam2.getItems().clear();
 
@@ -94,7 +91,6 @@ public class ChamCongController implements Initializable {
 
     }
 
-    //Them du lieu vao cboThang2
     private void loadCboThang2() {
         cboThang2.getItems().clear();
         for (int i = 1; i <= XDate.monthOfYear(year2); i++) {
@@ -158,22 +154,9 @@ public class ChamCongController implements Initializable {
     }
 
     private void loadTable() {
-        nonEditColumn();
+        setAllColumnsEditable();
+        setColumnsNotEditable();
         tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
-
-        //Kiểm tra tháng hiện tại đã có dữ liệu hay chưa
-        if (ccdao.getSLNVDiLamDayDuTheoThang(year2, month2) == 0) {
-            //insert dữ liệu cho ngày lễ
-            for (TableChamCong tableChamCong : tblChamCong.getItems()) {
-                for (int i = 0; i < 31; i++) {
-                    Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
-                    if (XDate.isHoliday(ngay)) {
-                        ChamCong cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
-                        ccdao.insert(cc);
-                    }
-                }
-            }
-        }
     }
 
     private void setColumnModel() {
@@ -969,25 +952,24 @@ public class ChamCongController implements Initializable {
 
     }
 
-    //Disable cột ngày lễ và chủ nhật
-    private void nonEditColumn() {
-
-        ObservableList<TableColumn<TableChamCong, ?>> colList = tblChamCong.getColumns();
-        //reset nonEdit trước đó
-        for (TableColumn<TableChamCong, ?> tableColumn : colList) {
+    private void setAllColumnsEditable() {
+        for (TableColumn<TableChamCong, ?> tableColumn : tblChamCong.getColumns()) {
             tableColumn.setEditable(true);
         }
+    }
 
+    private void setColumnsNotEditable() {
+        ObservableList<TableColumn<TableChamCong, ?>> colList = tblChamCong.getColumns();
+        int maxDay = XDate.maxDaysInMonth(year2, month2);
         //Tao vong lap kiem tra từng ngày
-        for (int i = 0; i < 31; i++) {
-            Date date = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
-            int maxDay = XDate.maxDaysInMonth(year2, month2);
-            if (i < maxDay) {
+        for (int dayInMonth = 1; dayInMonth <= 31; dayInMonth++) {
+            Date date = XDate.toDate(dayInMonth + "/" + month2 + "/" + year2);
+            if (dayInMonth <= maxDay) {
                 if (XDate.isHoliday(date)) {
-                    colList.get(i + 3).setEditable(false);
+                    colList.get(dayInMonth + 2).setEditable(false);//ngày bắt đầu từ cột thứ 3
                 }
             } else {
-                colList.get(i + 3).setEditable(false);
+                colList.get(dayInMonth + 2).setEditable(false);
             }
         }
     }
@@ -1064,15 +1046,16 @@ public class ChamCongController implements Initializable {
         ArrayList<ChamCong> list = listUpdate;
 
         for (TableChamCong tableChamCong : tblChamCong.getItems()) {
-
             for (int i = 0; i < 31; i++) {
                 Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+                ChamCong cc;
                 if (!XDate.isHoliday(ngay)) {
-                    ChamCong cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
-                    ccdao.insert(cc);                   
+                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
+                } else {
+                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
                 }
+                ccdao.insert(cc);
             }
-            
         }
         loadTable();
 //        for (ChamCong cc : list) {

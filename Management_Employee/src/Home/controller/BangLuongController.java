@@ -66,55 +66,49 @@ public class BangLuongController implements Initializable {
         }
     }
 
-    //Them du lieu vao cboNam1
     private void loadCboNam1() {
         cboNam1.getItems().clear();
 
-        cboNam1.getItems().add(LocalDate.now().getYear());//năm hiện tại
-        cboNam1.getItems().add(LocalDate.now().getYear() - 1);
+        cboNam1.setItems(bldao.getListYear());
         cboNam1.getSelectionModel().select(0);
-
     }
 
-    //Them du lieu vao cboThang1
     private void loadCboThang1() {
         cboThang1.getItems().clear();
         int monthOfYear = XDate.monthOfYear(year1);
-        if (LocalDate.now().getDayOfMonth() >= 5) {
-            monthOfYear = monthOfYear - 1;
-        } else {
+        if (LocalDate.now().getDayOfMonth() < 5) {
             monthOfYear = monthOfYear - 2;
+        } else {
+            monthOfYear = monthOfYear - 1;
         }
+
         for (int i = 1; i <= monthOfYear; i++) {
             cboThang1.getItems().add(i);
         }
-        //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
+        
+        //mặc định cboThang1 chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
         if (year1 == LocalDate.now().getYear()) {
-            cboThang1.getSelectionModel().select(XDate.monthOfYear(year1) - 2);
+            cboThang1.getSelectionModel().select(monthOfYear - 1);
         } else {
             cboThang1.getSelectionModel().select(0);
         }
     }
 
-    //Them du lieu vao cboNam
     private void loadCboNam2() {
         cboNam2.getItems().clear();
-
-        cboNam2.getItems().add(LocalDate.now().getYear());//năm hiện tại
-        cboNam2.getItems().add(LocalDate.now().getYear() - 1);
+        cboNam2.setItems(bldao.getListYear());
         cboNam2.getSelectionModel().select(0);
 
     }
 
-    //Them du lieu vao cboThang2
     private void loadCboThang2() {
         cboThang2.getItems().clear();
         int monthOfYear = XDate.monthOfYear(year2);
-        if (LocalDate.now().getDayOfMonth() >= 5) {
-            monthOfYear = monthOfYear - 1;
-        } else {
+        if (LocalDate.now().getDayOfMonth() < 5) {
             monthOfYear = monthOfYear - 2;
+        } else {
+            monthOfYear = monthOfYear - 1;
         }
         for (int i = 1; i <= monthOfYear; i++) {
             cboThang2.getItems().add(i);
@@ -122,7 +116,7 @@ public class BangLuongController implements Initializable {
         //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
         if (year2 == LocalDate.now().getYear()) {
-            cboThang2.getSelectionModel().select(XDate.monthOfYear(year2) - 2);
+            cboThang2.getSelectionModel().select(monthOfYear - 1);
         } else {
             cboThang2.getSelectionModel().select(0);
         }
@@ -178,14 +172,6 @@ public class BangLuongController implements Initializable {
 
         chartTienLuongTheoPhongBan.getData().clear();
         chartTienLuongTheoPhongBan.getData().add(bldao.getDataForChartTienLuongTheoPhongBan(year1, month1));
-    }
-
-    private void setBtnNewStatus() {
-        if (tblBangLuong.getItems().isEmpty()) {
-            btnNew.setDisable(false);
-        } else {
-            btnNew.setDisable(true);
-        }
     }
 
     private void setColumnModel() {
@@ -256,6 +242,46 @@ public class BangLuongController implements Initializable {
         tblBangLuong.setItems(tbl_bldao.getData(year, month));
     }
 
+    private void setBtnNewStatus() {
+        if (tblBangLuong.getItems().isEmpty()) {
+            btnNew.setDisable(false);
+        } else {
+            btnNew.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void insert() {
+        ObservableList<NhanVien> data = new NhanVienDAO().findByMaPB(null);
+        try {
+            for (NhanVien nv : data) {
+                BangLuong bl = new BangLuong(nv.getMaNV(), XDate.toDate("5/" + (month2 + 1) + "/" + year2), false);
+                if (bldao.insert(bl) == 0) {
+                    throw new Exception();
+                }
+            }
+            loadTable(year2, month2);
+            setBtnNewStatus();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Tạo mới thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void update() {
+        try {
+            for (BangLuong bangLuong : listUpdate) {
+                if (bldao.update(bangLuong) == 0) {
+                    throw new Exception();
+                }
+            }
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
     private int year1;
@@ -305,35 +331,4 @@ public class BangLuongController implements Initializable {
     @FXML
     private JFXButton btnNew;
 
-    @FXML
-    private void insert() {
-        ObservableList<NhanVien> data = new NhanVienDAO().findByMaPB(null);
-        try {
-            for (NhanVien nv : data) {
-                BangLuong bl = new BangLuong(nv.getMaNV(), XDate.toDate("5/" + (month2 + 1) + "/" + year2), false);
-                if (bldao.insert(bl) == 0) {
-                    throw new Exception();
-                }
-            }
-            loadTable(year2, month2);
-            setBtnNewStatus();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Tạo mới thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void update() {
-        try {
-            for (BangLuong bangLuong : listUpdate) {
-                if (bldao.update(bangLuong) == 0) {
-                    throw new Exception();
-                }
-            }
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 }

@@ -7,6 +7,8 @@ import Home.common.XDate;
 import Home.model.BangLuong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 
 public class BangLuongDAO {
@@ -23,26 +25,6 @@ public class BangLuongDAO {
             ex.printStackTrace();
         }
         return false;
-    }
-    
-    public int insert(BangLuong bl){
-        try {
-            String sql = "{Call SP_Insert_BangLuong(?,?,?)}";
-            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return 0;
-    }
-    
-    public int update(BangLuong bl){
-        try {
-            String sql = "{Call SP_Update_BangLuong(?,?,?)}";
-            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return 0;
     }
     
     public double getTongTienLuongTrongNam(int year) {
@@ -98,4 +80,39 @@ public class BangLuongDAO {
         }
         return data;
     }
+        
+    public ObservableList<Integer> getListYear(){
+        ObservableList<Integer> list = FXCollections.observableArrayList();
+        try {
+            String sql = "{Call SP_ListYearBL}";
+            ResultSet rs = JDBC.executeQuery(sql);
+            while (rs.next()) {
+                list.add(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    public int insert(BangLuong bl){
+        try {
+            String sql = "{Call SP_Insert_BangLuong(?,?,?)}";
+            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int update(BangLuong bl){
+        try {
+            String sql = "{Call SP_Update_BangLuong(?,?,?)}";
+            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
 }

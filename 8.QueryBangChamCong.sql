@@ -95,12 +95,27 @@ AS
 GO
 
 --Tao Stored Procedure lay danh sách năm đã chấm công
-IF (OBJECT_ID('SP_ListYear') IS NOT NULL)
-  DROP PROCEDURE SP_ListYear
+IF (OBJECT_ID('SP_ListYearCC') IS NOT NULL)
+  DROP PROCEDURE SP_ListYearCC
 GO
-CREATE PROCEDURE SP_ListYear
+CREATE PROCEDURE SP_ListYearCC
 AS
 	SELECT DISTINCT YEAR(Ngay) FROM ChamCong
 GO
 	
+--Tao Stored Procedure lay danh sách chấm công trong tháng
+IF (OBJECT_ID('SP_FindCCByMonth') IS NOT NULL)
+  DROP PROCEDURE SP_FindCCByMonth
+GO
+CREATE PROCEDURE SP_FindCCByMonth
+(
+	@Nam char(4),
+	@Thang varchar(2)
+)
+AS
+	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
+	DECLARE @NgayCuoiThang DATETIME = EOMONTH(@NgayDauThang)
+	SELECT * FROM ChamCong WHERE Ngay BETWEEN @NgayDauThang AND @NgayCuoiThang
+GO
 
+delete from ChamCong where month(ngay) = 8
