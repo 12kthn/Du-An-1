@@ -83,7 +83,6 @@ public class NhanVienController implements Initializable {
         }
     }
 
-    //đổ dữ liệu vào các biểu đồ
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
@@ -136,7 +135,6 @@ public class NhanVienController implements Initializable {
         tblNhanVien.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10,
                 col11, col12, col13, col14, col15, col16, col17);
     }
-//khai bao cot cho bang nhan than 
 
     private void setTableNTcolumm() {
         HotenNT = new TableColumn<>("Họ tên");
@@ -154,17 +152,14 @@ public class NhanVienController implements Initializable {
         tblNhanThan.getColumns().addAll(HotenNT, NgheNghiep, Moiquanhe, giamtruphuthuoc);
     }
 
-    //hiển thị dữ liệu lên bảng nhân viên
     public void loadDataToTableNV() {
         tblNhanVien.setItems(tbl_nvdao.getData());
     }
 
-    // hiển thị dữ liệu table nhân thân 
     public void loadDataToTableNT() {
         tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
-    //đổ dữ liệu vào các Combobox
     private void loadComboboxs() {
         listGioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
         cboGioiTinh.setItems(listGioiTinh);
@@ -178,8 +173,8 @@ public class NhanVienController implements Initializable {
         listChucVu = cvdao.findByCode(null);
         cboChucVu.setItems(listChucVu);
 
-        listGiamtruphuthuoc = FXCollections.observableArrayList("Có", "Không");
-        cbogiamtruphuthuoc.setItems(listGiamtruphuthuoc);
+        listGiamTruPhuThuoc = FXCollections.observableArrayList("Có", "Không");
+        cboGiamTruPhuThuoc.setItems(listGiamTruPhuThuoc);
     }
 
     //hiển thị thông báo trên TextField mã nhân viên
@@ -202,7 +197,7 @@ public class NhanVienController implements Initializable {
         try {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
             if (tableNhanVien != null) {
-                setStatus(false);
+                setStatusNV(false);
                 NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
                 setModelNhanVien(nv);
                 loadDataToTableNT();
@@ -215,57 +210,71 @@ public class NhanVienController implements Initializable {
         }
     }
 
-    public void changeTabPane(int tabIndex) {
-        tabPane.getSelectionModel().select(tabIndex);
+    @FXML
+    public void newNV() {
+        setModelNhanVien(new NhanVien());
+        setStatusNV(true);
+        imageFile = null;
+        imageName = "";
     }
 
-    //Chọn ảnh khi click vào ImageView Avatar
     @FXML
-    private void selectImage() {
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png", "*.gif");
-        FileChooser selectImage = new FileChooser();
-        selectImage.getExtensionFilters().add(imageFilter);
-        imageFile = selectImage.showOpenDialog(Common.mainStage);
-
-        //Hiển thị ảnh lên ImageView nếu có file được chọn
-        if (imageFile != null) {
-            imageName = imageFile.getName();
+    private void insertNV() {
+        if (checknull() && checkContent() && checkduplication(null) && copyImageToAvatarFolder()) {
+            NhanVien nv = getModelNhanVien();
             try {
-                imgHinh.setImage(new Image(imageFile.toURI().toURL().toExternalForm()));
-            } catch (MalformedURLException ex) {
-                ex.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, "File ảnh không hợp lệ");
+                nvdao.insertnv(nv);
+                loadDataToTableNV();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
+                setStatusNV(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
             }
         }
-
     }
-//su kien click vao bang nhan than 
 
     @FXML
-    private void selectNhanthan() {
-        TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
-        ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
-        setModelThanNhan(nt);
-
-    }
-
-    private boolean copyImageToAvatarFolder() {
-        try {
-            if (imageFile != null) {
-                Picture.saveAvatar(imageFile);
+    private void updateNV() {
+        NhanVien nv = getModelNhanVien();
+        if (checknull() && checkContent() && checkduplication(nv) && copyImageToAvatarFolder()) {
+            try {
+                if (nvdao.updatenv(nv) > 0) {
+                    loadDataToTableNV();
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
             }
-            return true;
-        } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Lỗi khi copy file ảnh");
-            return false;
         }
     }
 
-    private NhanVien getmodelnhanvien() {
-        //get model  thong tin nhanvien
+    @FXML
+    public void deleteNV() {
+        NhanVien nv = getModelNhanVien();
+        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
+            return;
+        }
+        try {
+            nvdao.deletenv(nv);
+            loadDataToTableNV();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
+            newNV();
+            tblNhanVien.getSelectionModel().clearSelection();
+        } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
+    }
+
+    private NhanVien getModelNhanVien() {
+
         NhanVien nv = new NhanVien();
         nv.setMaNV(txtMaNV.getText());
-        nv.setHoTen(txtHoTen.getText());
+        nv.setHoTen(txtHoTenNV.getText());
         nv.setGioiTinh(cboGioiTinh.getSelectionModel().getSelectedIndex() == 0);
         nv.setNgaySinh(XDate.toDate(DPickerNgaySinh.getValue()));
         nv.setHinh(imageName);
@@ -275,6 +284,7 @@ public class NhanVienController implements Initializable {
         nv.setDiaChi(txtDiaChi.getText());
         nv.setTrinhDoHV(txtTrinhDoHV.getText());
         nv.setTrangThai(cboTrangThai.getSelectionModel().getSelectedIndex() == 0);
+
         nv.setMaHD(txtMaHD.getText());
         nv.setMaPB(cboPhongBan.getSelectionModel().getSelectedItem().getMaPB());
         nv.setMaCV(cboChucVu.getSelectionModel().getSelectedItem().getMaCV());
@@ -284,12 +294,11 @@ public class NhanVienController implements Initializable {
         return nv;
     }
 
-    //Hiển thị thông tin nhân viên
     public void setModelNhanVien(NhanVien nv) {
         imageName = nv.getHinh();
-        imgHinh.setImage(Picture.readAvatar(nv.getHinh()));
+        displayAvatar(imageName);
         txtMaNV.setText(nv.getMaNV());
-        txtHoTen.setText(nv.getHoTen());
+        txtHoTenNV.setText(nv.getHoTen());
         if (nv.getGioiTinh() == null) {
             cboGioiTinh.getSelectionModel().clearSelection();
         } else {
@@ -331,42 +340,103 @@ public class NhanVienController implements Initializable {
         DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
     }
 
+    //Chọn ảnh khi click vào ImageView Avatar
+    @FXML
+    private void chooseImage() {
+        //loc file ảnh
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png", "*.gif");
+        FileChooser selectImage = new FileChooser();
+        selectImage.getExtensionFilters().add(imageFilter);
+        imageFile = selectImage.showOpenDialog(Common.mainStage);
+        displayAvatar(imageFile);
+    }
+
+    //Hiển thị ảnh lên ImageView nếu có file ảnh được chọn
+    private void displayAvatar(File imageFile) {
+        if (imageFile != null) {
+            imageName = imageFile.getName();
+            try {
+                imgHinh.setImage(new Image(imageFile.toURI().toURL().toExternalForm()));
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, "File ảnh không hợp lệ");
+            }
+        }
+    }
+
+    //Hiển thị ảnh lên ImageView từ Avatar folder
+    private void displayAvatar(String imageName) {
+        try {
+            imgHinh.setImage(Picture.readAvatar(imageName));
+        } catch (Exception ex) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Lỗi hiển thị ảnh");
+        }
+    }
+
+    private boolean copyImageToAvatarFolder() {
+        try {
+            if (imageFile != null) {
+                Picture.saveAvatar(imageFile);
+            }
+            return true;
+        } catch (Exception e) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Lỗi khi copy file ảnh");
+            return false;
+        }
+    }
+
+    //su kien click vao bang nhan than 
+    @FXML
+    private void selectNhanThan() {
+        TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
+        if (tableModel != null) {
+            ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
+            setModelThanNhan(nt);
+        }
+    }
+
     //setstatus
-    public void setStatus(boolean insertable) {
-        this.insertable = insertable;
+    public void setStatusNV(boolean insertableNV) {
+        this.insertableNV = insertableNV;
         txtMaNV.setDisable(true);
         txtMaHD.setDisable(true);
-        btnCapnhat.setDisable(insertable);
-        btnXoa.setDisable(insertable);
-        btnTaomoi.setDisable(insertable);
-        btnThem.setDisable(!insertable);
-        btnCapnhat1.setDisable(insertable);
-        btnXoa1.setDisable(insertable);
-        btnTaomoi1.setDisable(insertable);
-        btnThem1.setDisable(insertable);
+        btnCapNhatNV.setDisable(insertableNV);
+        btnXoaNV.setDisable(insertableNV);
+        btnTaoMoiNV.setDisable(insertableNV);
+        btnThemNV.setDisable(!insertableNV);
     }
 
     //get model thông tin nhân thân
     private ThanNhan getModelThanThan() {
         ThanNhan TTNT = new ThanNhan();
-        TTNT.setMaNV(txtMaTN.getText());
+        TTNT.setMaNV(txtMaNT.getText());
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
-        TTNT.setGiamTruPhuThuoc(cbogiamtruphuthuoc.getSelectionModel().getSelectedIndex() == 0);
+        TTNT.setGiamTruPhuThuoc(cboGiamTruPhuThuoc.getSelectionModel().getSelectedIndex() == 0);
         return TTNT;
+    }
+
+    public void setStatusNT(boolean insertableNT) {
+        this.insertableNT = insertableNT;
+        txtMaNT.setDisable(true);
+        txtMaHD.setDisable(true);
+        btnCapNhatNT.setDisable(insertableNT);
+        btnXoaNT.setDisable(insertableNT);
+        btnTaoMoiNT.setDisable(insertableNT);
+        btnThemNT.setDisable(!insertableNT);
     }
 
     //set model thông tin nhân thân 
     private void setModelThanNhan(ThanNhan TTNT) {
-        txtMaTN.setText(TTNT.getMaTN() + "");
+        txtMaNT.setText(TTNT.getMaTN() + "");
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
         if (TTNT.getGiamTruPhuThuoc() == null) {
-            cbogiamtruphuthuoc.getSelectionModel().clearSelection();
+            cboGiamTruPhuThuoc.getSelectionModel().clearSelection();
         } else {
-            cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc() ? 0 : 1);
+            cboGiamTruPhuThuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc() ? 0 : 1);
         }
     }
 
@@ -375,7 +445,7 @@ public class NhanVienController implements Initializable {
         if (Validate.isNull(txtMaNV, "Vui lòng nhập mã nhân viên")) {
             return false;
         }
-        if (Validate.isNull(txtHoTen, "Vui lòng nhập họ tên nhân viên")) {
+        if (Validate.isNull(txtHoTenNV, "Vui lòng nhập họ tên nhân viên")) {
             return false;
         }
         if (Validate.isNotSelected(cboGioiTinh, "Vui lòng chọn giới tính")) {
@@ -435,7 +505,7 @@ public class NhanVienController implements Initializable {
         if (Validate.isNull(txtMoiQuanHeNT, "Vui lòng nhập mối quan hệ nhân thân ")) {
             return false;
         }
-        if (Validate.isNotSelected(cbogiamtruphuthuoc, "Vui lòng chọn giảm trừ phụ thuộc")) {
+        if (Validate.isNotSelected(cboGiamTruPhuThuoc, "Vui lòng chọn giảm trừ phụ thuộc")) {
             return false;
         }
         return true;
@@ -447,7 +517,7 @@ public class NhanVienController implements Initializable {
         String regexVietnamese = "[\\p{L}\\p{M} ]+";
         // \\p{L} matches any kind of letter from any language
         // \\p{M} matches a character intended to be combined with another character (e.g. accents, umlauts, enclosing boxes, etc.)
-        if (Validate.isNotMatches(txtHoTen, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
+        if (Validate.isNotMatches(txtHoTenNV, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
             return false;
         }
 
@@ -493,7 +563,7 @@ public class NhanVienController implements Initializable {
     //check duplication
     private boolean checkduplication(NhanVien nv) {
         //Ki
-        if (insertable && nvdao.findByCode(txtMaNV.getText().trim()) != null) {
+        if (insertableNV && nvdao.findByCode(txtMaNV.getText().trim()) != null) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
             txtMaNV.requestFocus();
             return false;
@@ -512,66 +582,12 @@ public class NhanVienController implements Initializable {
         return true;
     }
 
-    //tạo nhân viên mới
     @FXML
-    public void newNV() {
-        setModelNhanVien(new NhanVien());
-        setStatus(true);
-        imageFile = null;
-        imageName = "";
-    }
-
-    //insert nhân viên 
-    @FXML
-    private void insertNV() {
-        if (checknull() && checkContent() && checkduplication(null) && copyImageToAvatarFolder()) {
-            NhanVien nv = getmodelnhanvien();
-            try {
-                nvdao.insertnv(nv);
-                loadDataToTableNV();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
-                setStatus(false);
-            } catch (Exception e) {
-                e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
-            }
-        }
-    }
-
-    @FXML
-    private void updateNV() {
-        NhanVien nv = getmodelnhanvien();
-        if (checknull() && checkContent() && checkduplication(nv) && copyImageToAvatarFolder()) {
-            try {
-                if (nvdao.updatenv(nv) > 0) {
-                    loadDataToTableNV();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
-                } else {
-                    throw new Exception();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
-            }
-        }
-    }
-
-    @FXML
-    public void deleteNV() {
-        NhanVien nv = getmodelnhanvien();
-        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
-            return;
-        }
-        try {
-            nvdao.deletenv(nv);
-            loadDataToTableNV();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
-            newNV();
-            tblNhanVien.getSelectionModel().clearSelection();
-        } catch (Exception e) {
-            e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
-        }
+    public void newNT() {
+//        setModelNhanVien(new NhanVien());
+//        setStatusNV(true);
+//        imageFile = null;
+//        imageName = "";
     }
 
     @FXML
@@ -604,19 +620,42 @@ public class NhanVienController implements Initializable {
         }
 //        }
     }
-    
+
+    @FXML
+    public void deleteNT() {
+//        NhanVien nv = getmodelnhanvien();
+//        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
+//            return;
+//        }
+//        try {
+//            nvdao.deletenv(nv);
+//            loadDataToTableNV();
+//            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
+//            newNV();
+//            tblNhanVien.getSelectionModel().clearSelection();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+//        }
+    }
+
+    public void changeTabPane(int tabIndex) {
+        tabPane.getSelectionModel().select(tabIndex);
+    }
+
     private NhanThanDAO ntdao;
     private NhanVienDAO nvdao;
     private PhongBanDAO pbdao;
     private TableThanNhanDAO tbl_ntdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
-    private ObservableList listGiamtruphuthuoc;
+    private ObservableList listGiamTruPhuThuoc;
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;
     private ObservableList<ChucVu> listChucVu;
-    private Boolean insertable;
+    private Boolean insertableNV;
+    private Boolean insertableNT;
     private String imageName;
     private File imageFile;
 
@@ -639,15 +678,15 @@ public class NhanVienController implements Initializable {
     private TableColumn<TableNhanVien, Integer> col15;
     private TableColumn<TableNhanVien, String> col16;
     private TableColumn<TableNhanVien, String> col17;
-    
+
     private TableColumn<TableNhanThan, String> HotenNT;
     private TableColumn<TableNhanThan, String> NgheNghiep;
     private TableColumn<TableNhanThan, String> Moiquanhe;
     private TableColumn<TableNhanThan, String> giamtruphuthuoc;
-    
+
     @FXML
     private JFXTabPane tabPane;
-    
+
     @FXML
     private PieChart chartTyLeNamNu;
 
@@ -656,50 +695,25 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private TableView<TableNhanThan> tblNhanThan;
-    
-    @FXML
-    private JFXButton btnThem1;
-
-    @FXML
-    private JFXButton btnCapnhat1;
-
-    @FXML
-    private JFXButton btnXoa1;
-
-    @FXML
-    private JFXButton btnTaomoi1;
 
     @FXML
     private TableView<TableNhanVien> tblNhanVien;
-    
-    @FXML
-    private JFXButton btnThem;
 
-    @FXML
-    private JFXButton btnCapnhat;
-
-    @FXML
-    private JFXButton btnXoa;
-
-    @FXML
-    private JFXButton btnTaomoi;
-    
     @FXML
     private TextField txtTimKiem;
-    
-    
-    @FXML
-    private JFXTextField txtHoTen;
-   
+
     @FXML
     private JFXTextField txtMaNV;
+
+    @FXML
+    private JFXTextField txtHoTenNV;
 
     @FXML
     private JFXTextField txtSoCM;
 
     @FXML
     private JFXTextField txtDienThoai;
-    
+
     @FXML
     private JFXTextField txtEmail;
 
@@ -710,14 +724,11 @@ public class NhanVienController implements Initializable {
     private JFXTextField txtTrinhDoHV;
 
     @FXML
-    private JFXTextField txtMoiQuanHeNT;
-
-    @FXML
     private JFXTextField txtMaHD;
 
     @FXML
     private JFXTextField txtHeSoLuong;
-    
+
     @FXML
     private JFXComboBox cboGioiTinh;
 
@@ -726,8 +737,6 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private JFXComboBox<PhongBan> cboPhongBan;
-    
-    private JFXTextField txtMaTN;
 
     @FXML
     private JFXComboBox<ChucVu> cboChucVu;
@@ -740,17 +749,47 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private DatePicker DPickerNgayKetThuc;
-        
+
     @FXML
     private ImageView imgHinh;
 
     @FXML
+    private JFXButton btnThemNV;
+
+    @FXML
+    private JFXButton btnCapNhatNV;
+
+    @FXML
+    private JFXButton btnXoaNV;
+
+    @FXML
+    private JFXButton btnTaoMoiNV;
+
+    @FXML
+    private JFXTextField txtMaNT;
+
+    @FXML
     private JFXTextField txtHoTenNT;
- 
+
+    @FXML
+    private JFXTextField txtMoiQuanHeNT;
+
     @FXML
     private JFXTextField txtNgheNghiepNT;
 
     @FXML
-    private JFXComboBox cbogiamtruphuthuoc;
+    private JFXComboBox cboGiamTruPhuThuoc;
+
+    @FXML
+    private JFXButton btnThemNT;
+
+    @FXML
+    private JFXButton btnCapNhatNT;
+
+    @FXML
+    private JFXButton btnXoaNT;
+
+    @FXML
+    private JFXButton btnTaoMoiNT;
 
 }

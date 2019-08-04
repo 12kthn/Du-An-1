@@ -1,3 +1,6 @@
+USE QuanLyNhanSu
+GO
+
 --Tao Stored Procedure hien thi du lieu cho table nhan vien
 IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
   DROP PROCEDURE SP_TBLNhanVien
