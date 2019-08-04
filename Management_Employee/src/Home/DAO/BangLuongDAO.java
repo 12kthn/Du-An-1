@@ -33,7 +33,7 @@ public class BangLuongDAO {
             String sql = "{call SP_TongTienLuongTrongNam(?)}";
             ResultSet rs = JDBC.executeQuery(sql, year);
             while (rs.next()) {
-                TongTienLuong = rs.getInt(1) / 1000000000.0;
+                TongTienLuong = rs.getLong(1) / 1000000000.0;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

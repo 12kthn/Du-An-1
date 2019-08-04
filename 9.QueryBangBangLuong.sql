@@ -1,4 +1,7 @@
-﻿--Tao Stored Procedure kiem tra co ton tai ban ghi nào trong tháng không
+﻿USE QuanLyNhanSu
+GO
+
+--Tao Stored Procedure kiem tra co ton tai ban ghi nào trong tháng không
 IF (OBJECT_ID('SP_BanGhiTrongThang') IS NOT NULL)
   DROP PROCEDURE SP_BanGhiTrongThang
 GO
@@ -27,7 +30,7 @@ CREATE PROCEDURE SP_TongTienLuongTrongNam
 AS
 	IF @Nam is not null
 		BEGIN
-			SELECT SUM(ThuNhap) FROM BangLuong WHERE YEAR(NgayPhatLuong) = @Nam
+			SELECT SUM(CAST(ThuNhap AS bigint)) FROM BangLuong WHERE YEAR(NgayPhatLuong) = @Nam
 		END
 	ELSE
 		BEGIN
