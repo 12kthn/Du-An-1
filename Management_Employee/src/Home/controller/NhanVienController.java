@@ -78,6 +78,7 @@ public class NhanVienController implements Initializable {
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
             newNV();
+            newNT();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -220,7 +221,7 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void insertNV() {
-        if (checknull() && checkContent() && checkduplication(null) && copyImageToAvatarFolder()) {
+        if (checknullformNhanvien() && checkContentformNhanvien() && checkduplicationformNhanvien(null) && copyImageToAvatarFolder()) {
             NhanVien nv = getModelNhanVien();
             try {
                 nvdao.insertnv(nv);
@@ -237,7 +238,7 @@ public class NhanVienController implements Initializable {
     @FXML
     private void updateNV() {
         NhanVien nv = getModelNhanVien();
-        if (checknull() && checkContent() && checkduplication(nv) && copyImageToAvatarFolder()) {
+        if (checknullformNhanvien() && checkContentformNhanvien() && checkduplicationformNhanvien(nv) && copyImageToAvatarFolder()) {
             try {
                 if (nvdao.updatenv(nv) > 0) {
                     loadDataToTableNV();
@@ -392,6 +393,7 @@ public class NhanVienController implements Initializable {
         if (tableModel != null) {
             ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
             setModelThanNhan(nt);
+            setStatusNT1(false);
         }
     }
 
@@ -417,16 +419,6 @@ public class NhanVienController implements Initializable {
         return TTNT;
     }
 
-    public void setStatusNT(boolean insertableNT) {
-        this.insertableNT = insertableNT;
-        txtMaNT.setDisable(true);
-        txtMaHD.setDisable(true);
-        btnCapNhatNT.setDisable(insertableNT);
-        btnXoaNT.setDisable(insertableNT);
-        btnTaoMoiNT.setDisable(insertableNT);
-        btnThemNT.setDisable(!insertableNT);
-    }
-
     //set model thông tin nhân thân 
     private void setModelThanNhan(ThanNhan TTNT) {
         txtMaNT.setText(TTNT.getMaTN() + "");
@@ -441,7 +433,7 @@ public class NhanVienController implements Initializable {
     }
 
     //check null form nhan vien 
-    private boolean checknull() {
+    private boolean checknullformNhanvien() {
         if (Validate.isNull(txtMaNV, "Vui lòng nhập mã nhân viên")) {
             return false;
         }
@@ -512,7 +504,7 @@ public class NhanVienController implements Initializable {
     }
 
     //check content
-    private boolean checkContent() {
+    private boolean checkContentformNhanvien() {
         //kiểm tra họ và tên
         String regexVietnamese = "[\\p{L}\\p{M} ]+";
         // \\p{L} matches any kind of letter from any language
@@ -554,15 +546,12 @@ public class NhanVienController implements Initializable {
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
-        if (Validate.isNotMatches(txtHoTenNT, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
-            return false;
-        }
         return true;
     }
 
     //check duplication
-    private boolean checkduplication(NhanVien nv) {
-        //Ki
+    private boolean checkduplicationformNhanvien(NhanVien nv) {
+
         if (insertableNV && nvdao.findByCode(txtMaNV.getText().trim()) != null) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
             txtMaNV.requestFocus();
@@ -584,15 +573,57 @@ public class NhanVienController implements Initializable {
 
     @FXML
     public void newNT() {
-//        setModelNhanVien(new NhanVien());
-//        setStatusNV(true);
-//        imageFile = null;
-//        imageName = "";
+        setStatusNT(true);
+    }
+
+    public void setStatusNT(boolean insertableNT) {
+        this.insertableNT = insertableNT;
+        txtMaNT.setDisable(true);
+        txtMaHD.setDisable(true);
+        btnCapNhatNT.setDisable(insertableNT);
+        btnXoaNT.setDisable(insertableNT);
+        btnTaoMoiNT.setDisable(insertableNT);
+        btnThemNT.setDisable(insertableNT);
+    }
+     public void setStatusNT1(boolean insertableNT) {
+        this.insertableNT = insertableNT;
+        txtMaNT.setDisable(true);
+        txtMaHD.setDisable(true);
+        btnCapNhatNT.setDisable(insertableNT);
+        btnXoaNT.setDisable(insertableNT);
+        btnTaoMoiNT.setDisable(insertableNT);
+        btnThemNT.setDisable(!insertableNT);
+    }
+//checkcontentfrom  nhan than 
+
+    private boolean checkcontentformNhanthan() {
+        String regexVietnamese = "[\\p{L}\\p{M} ]+";
+        if (Validate.isNotMatches(txtHoTenNT, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+        return true;
+    }
+//check null from nhan than
+
+    private boolean checknullformNhanthan() {
+        if (Validate.isNull(txtHoTenNT, "Vui lòng nhập họ tên nhân thân")) {
+            return false;
+        }
+        if (Validate.isNull(txtNgheNghiepNT, "Vui lòng nhập nghề nghiệp của nhân thân")) {
+            return false;
+        }
+        if (Validate.isNull(txtMoiQuanHeNT, "Vui lòng nhập mối quan hệ nhân thân ")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboGiamTruPhuThuoc, "Vui lòng chọn giảm trừ phụ thuộc")) {
+            return false;
+        }
+        return true;
     }
 
     @FXML
     private void insertNT() {
-        if (checknull() && checkContent()) {
+        if (checknullformNhanthan() && checkcontentformNhanthan()) {
             ThanNhan nt = getModelThanThan();
             try {
                 ntdao.insertNT(nt);
@@ -609,34 +640,34 @@ public class NhanVienController implements Initializable {
     @FXML
     private void updateNT() {
         ThanNhan nt = getModelThanThan();
-//        if (checknull() && checkContent()) {
-        try {
-            ntdao.updateNT(nt);
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
-            loadDataToTableNT();
-        } catch (Exception e) {
-            e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+        if (checknullformNhanthan() && checkcontentformNhanthan()) {
+            try {
+                ntdao.updateNT(nt);
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+                loadDataToTableNT();
+            } catch (Exception e) {
+                e.printStackTrace();
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+            }
         }
-//        }
     }
 
     @FXML
     public void deleteNT() {
-//        NhanVien nv = getmodelnhanvien();
-//        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
-//            return;
-//        }
-//        try {
-//            nvdao.deletenv(nv);
-//            loadDataToTableNV();
-//            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
-//            newNV();
-//            tblNhanVien.getSelectionModel().clearSelection();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
-//        }
+        NhanVien nv = getModelNhanVien();
+        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
+            return;
+        }
+        try {
+            nvdao.deletenv(nv);
+            loadDataToTableNV();
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
+            newNV();
+            tblNhanVien.getSelectionModel().clearSelection();
+        } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
     }
 
     public void changeTabPane(int tabIndex) {
