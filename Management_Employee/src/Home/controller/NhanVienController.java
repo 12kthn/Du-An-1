@@ -53,7 +53,6 @@ public class NhanVienController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             Common.nvController = this;
-
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
@@ -242,11 +241,11 @@ public class NhanVienController implements Initializable {
 //su kien click vao bang nhan than 
 
     @FXML
-    private void selectNhanthan(MouseEvent event) {
+    private void selectNhanthan() {
         TableNhanThan tableModel = tblNhanThan.getSelectionModel().getSelectedItem();
         ThanNhan nt = ntdao.findByCode(tableModel.getMaTN()).get(0);
         setModelThanNhan(nt);
-        
+
     }
 
     private boolean copyImageToAvatarFolder() {
@@ -340,12 +339,16 @@ public class NhanVienController implements Initializable {
         btnXoa.setDisable(insertable);
         btnTaomoi.setDisable(insertable);
         btnThem.setDisable(!insertable);
+        btnCapnhat1.setDisable(insertable);
+        btnXoa1.setDisable(insertable);
+        btnTaomoi1.setDisable(insertable);
+        btnThem1.setDisable(insertable);
     }
 
     //get model thông tin nhân thân
     private ThanNhan getModelThanThan() {
         ThanNhan TTNT = new ThanNhan();
-        TTNT.setMaNV(txtMaNV.getText());
+        TTNT.setMaNV(txtMaTN.getText());
         TTNT.setHoTen(txtHoTenNT.getText());
         TTNT.setNgheNghiep(txtNgheNghiepNT.getText());
         TTNT.setMoiQuanHe(txtMoiQuanHeNT.getText());
@@ -355,13 +358,14 @@ public class NhanVienController implements Initializable {
 
     //set model thông tin nhân thân 
     private void setModelThanNhan(ThanNhan TTNT) {
+        txtMaTN.setText(TTNT.getMaTN() + "");
         txtHoTenNT.setText(TTNT.getHoTen());
         txtNgheNghiepNT.setText(TTNT.getNgheNghiep());
         txtMoiQuanHeNT.setText(TTNT.getMoiQuanHe());
-        if ( TTNT.getGiamTruPhuThuoc()==null) {
+        if (TTNT.getGiamTruPhuThuoc() == null) {
             cbogiamtruphuthuoc.getSelectionModel().clearSelection();
         } else {
-           cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc()? 0 : 1);
+            cbogiamtruphuthuoc.getSelectionModel().select(TTNT.getGiamTruPhuThuoc() ? 0 : 1);
         }
     }
 
@@ -587,17 +591,17 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updateNT() {
-        if (checknull() && checkContent()) {
-            ThanNhan nt = new ThanNhan();
-            try {
-                ntdao.updateNT(nt);
-                loadDataToTableNT();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
-            } catch (Exception e) {
-                e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
-            }
+        ThanNhan nt = getModelThanThan();
+//        if (checknull() && checkContent()) {
+        try {
+            ntdao.updateNT(nt);
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+            loadDataToTableNT();
+        } catch (Exception e) {
+            e.printStackTrace();
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
         }
+//        }
     }
     @FXML
     private JFXButton btnThem;
@@ -610,7 +614,17 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private JFXButton btnTaomoi;
+    @FXML
+    private JFXButton btnThem1;
 
+    @FXML
+    private JFXButton btnCapnhat1;
+
+    @FXML
+    private JFXButton btnXoa1;
+
+    @FXML
+    private JFXButton btnTaomoi1;
     @FXML
     private JFXTextField txtMoiQuanHeNT;
 
@@ -671,6 +685,9 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private JFXTextField txtMaNV;
+    
+    
+    private JFXTextField txtMaTN;
 
     @FXML
     private JFXTextField txtDiaChi;

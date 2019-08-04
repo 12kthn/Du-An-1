@@ -383,7 +383,7 @@
                                                 </ImageView>
                                             </graphic>
                                         </JFXButton>
-                                        <JFXButton fx:id="btnCapnhat1" prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
+                                        <JFXButton fx:id="btnCapnhat1" onAction="#updateNT" prefWidth="124.0" ripplerFill="#0476c3" text="Cập nhật" textAlignment="CENTER">
                                             <font>
                                                 <Font name="System Bold" size="17.0" />
                                             </font>

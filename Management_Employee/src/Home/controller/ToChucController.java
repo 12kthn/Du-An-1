@@ -10,7 +10,6 @@ import Home.common.FormatNumber;
 import Home.common.CustomDialog;
 import Home.common.Validate;
 import Home.model.ChucVu;
-import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.table.TableChucVu;
 import Home.model.table.TablePhongBan;
@@ -239,18 +238,16 @@ public class ToChucController implements Initializable {
     }
 
     @FXML
-    private void insertPB(ActionEvent event) {
+    private void insertPB() {
         if (checknullPB() && checkDuplication()) {
             PhongBan pb = getModelPhongBan();
             try {
                 pbdao.insert(pb);
                 loadDataToTblPhongBan();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System",
-                        "Thêm mới thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm mới phòng ban thành công ");
                 newPB();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System",
-                        "Thêm mới thất bại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -258,31 +255,22 @@ public class ToChucController implements Initializable {
     }
 
     @FXML
-    private void updatePB(ActionEvent event) {
+    private void updatePB() {
         
             PhongBan pb = getModelPhongBan();
         try {
             pbdao.update(pb);
             System.out.println(pb.getMaPB());
             loadDataToTblPhongBan();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
-                    "Managemnet System", "Cập nhật phòng ban thành công ");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,"Managemnet System", "Cập nhật phòng ban thành công ");
 
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
-                    "Managemnet System", "Cập nhật phòng ban thành công ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
             e.printStackTrace();
         }
-        
-        
-
     }
 
-    @FXML
-    private void deletePB(ActionEvent event) {
-        PhongBan pb = getModelPhongBan();
-        deletePB(pb);
-    }
+  
 
     public void deletePB(PhongBan pb) {
         try {
@@ -292,7 +280,7 @@ public class ToChucController implements Initializable {
                 newPB();
             }
         } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa phòng ban thất bại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa phòng ban thất bại ! vui lòng kiểm tra lại  ");
             ex.printStackTrace();
         }
     }
@@ -306,19 +294,16 @@ public class ToChucController implements Initializable {
     
     
     @FXML
-    private void insertCV(ActionEvent event) {
+    private void insertCV() {
         if (checknullCV() && checkDuplication() && checkContent()) {
             ChucVu cv = getModelChucVu();
             try {
                 cvdao.insert(cv);
-                System.out.println(cv.getMaCV());
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
-                        "Managemnet System", "Thêm mới chức vụ thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm mới chức vụ thành công ");
                 newCV();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
-                        "Managemnet System", "Thêm mới chức vụ thất bại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -326,18 +311,16 @@ public class ToChucController implements Initializable {
     }
 
     @FXML
-    private void updateCV(ActionEvent event) {
+    private void updateCV() {
         if (checkContent()) {
             ChucVu cv = getModelChucVu();
         try {
             cvdao.update(cv);
             loadDataToTblChucVu();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
-                    "Managemnet System", "Cập nhật chức vụ thành công ");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật chức vụ thành công ");
 
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
-                    "Managemnet System", "Cập nhật chức vụ thất bại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,  "Managemnet System", "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
             e.printStackTrace();
         }
         }
@@ -346,7 +329,7 @@ public class ToChucController implements Initializable {
     }
 
     @FXML
-    private void deleteCV(ActionEvent event) {
+    private void deleteCV() {
         ChucVu cv = getModelChucVu();
         deleteCV(cv);
     }
@@ -355,11 +338,11 @@ public class ToChucController implements Initializable {
         try {
             if (cvdao.delete(cv) > 0) {
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa chức vụ thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION , Common.mainStage ,"Management System", "Xóa chức vụ thành công ");
                 newCV();
             }
         } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa chức vụ thất bại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR,Common.mainStage,"Management System", "Xóa chức vụ thất bại! vui lòng kiểm tra lại ");
             ex.printStackTrace();
         }
     }
