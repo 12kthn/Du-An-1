@@ -727,7 +727,6 @@ public class NhanVienController implements Initializable {
     @FXML
     private JFXComboBox<PhongBan> cboPhongBan;
     
-    
     private JFXTextField txtMaTN;
 
     @FXML
