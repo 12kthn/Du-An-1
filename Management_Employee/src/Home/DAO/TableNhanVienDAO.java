@@ -45,7 +45,7 @@ public class TableNhanVienDAO {
                 });
                 tblnv.getUpdate().setOnAction((ActionEvent event) -> {
                     NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                    Common.nvController.setStatusNV(false);
+                    Common.nvController.setStatusNT1(true);
                     Common.nvController.setModelNhanVien(nv);
                     Common.nvController.changeTabPane(2);
                     Common.nvController.loadDataToTableNT();
