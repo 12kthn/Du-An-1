@@ -25,7 +25,7 @@ public class NhanThanDAO {
         return list;
     }
 
-    public int insertNT(ThanNhan NT) {
+    public int insert(ThanNhan NT) {
         try {
             String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
             return JDBC.executeUpdate(sql,
@@ -41,7 +41,7 @@ public class NhanThanDAO {
         return 0;
     }
 
-    public int updateNT(ThanNhan NT) {
+    public int update(ThanNhan NT) {
         try {
             String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
             return JDBC.executeUpdate(sql,
@@ -51,6 +51,22 @@ public class NhanThanDAO {
                     NT.getMoiQuanHe(),
                     NT.getMaNV(),
                     NT.getGiamTruPhuThuoc(), "update");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int delete(ThanNhan NT) {
+        try {
+            String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
+            return JDBC.executeUpdate(sql,
+                    NT.getMaTN(),
+                    NT.getHoTen(),
+                    NT.getNgheNghiep(),
+                    NT.getMoiQuanHe(),
+                    NT.getMaNV(),
+                    NT.getGiamTruPhuThuoc(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
         }

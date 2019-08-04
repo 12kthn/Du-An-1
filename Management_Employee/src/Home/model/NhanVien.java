@@ -1,5 +1,7 @@
 package Home.model;
 
+import Home.common.XDate;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class NhanVien {
@@ -24,6 +26,9 @@ public class NhanVien {
     private Boolean TrangThai;
 
     public NhanVien() {
+        this.NgaySinh = XDate.toDate(LocalDate.now().minusYears(18));
+        this.NgayVaoLam = XDate.toDate(LocalDate.now());
+        this.NgayKetThuc = XDate.toDate(LocalDate.now().plusYears(10));
     }
 
     public NhanVien(String MaNV, String HoTen, Boolean GioiTinh, Date NgaySinh, String SoCM, String DienThoai,

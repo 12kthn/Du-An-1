@@ -33,7 +33,7 @@ public class TableNhanVienDAO {
                         if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + tblnv.getHoTen())) {
                             return;
                         }
-                        if (new NhanVienDAO().deletenv(new NhanVien(tblnv.getMaNV())) > 0) {
+                        if (new NhanVienDAO().delete(new NhanVien(tblnv.getMaNV())) > 0) {
                             Common.nvController.loadDataToTableNV();
                             CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
                             Common.nvController.newNV();
@@ -45,10 +45,10 @@ public class TableNhanVienDAO {
                 });
                 tblnv.getUpdate().setOnAction((ActionEvent event) -> {
                     NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                    Common.nvController.setStatusNT1(true);
                     Common.nvController.setModelNhanVien(nv);
                     Common.nvController.changeTabPane(2);
                     Common.nvController.loadDataToTableNT();
+                    Common.nvController.setStatusNV(false);
                 });
             }
         } catch (SQLException ex) {

@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import Home.model.ThanNhan;
 
 public class NhanVienDAO {
 
@@ -187,7 +186,7 @@ public class NhanVienDAO {
         return data;
     }
 
-    public int insertnv(NhanVien nv) {
+    public int insert(NhanVien nv) {
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             return JDBC.executeUpdate(sql,
@@ -214,7 +213,7 @@ public class NhanVienDAO {
         return 0;
     }
 
-    public int updatenv(NhanVien nv) {
+    public int update(NhanVien nv) {
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             return JDBC.executeUpdate(sql, nv.getMaNV(),
@@ -242,7 +241,7 @@ public class NhanVienDAO {
         return 0;
     }
 
-    public int deletenv(NhanVien nv) {
+    public int delete(NhanVien nv) {
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             return JDBC.executeUpdate(sql,
