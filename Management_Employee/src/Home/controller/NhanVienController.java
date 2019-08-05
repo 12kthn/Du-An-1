@@ -81,6 +81,13 @@ public class NhanVienController implements Initializable {
 
             txtMaNV.setDisable(true);
             txtMaHD.setDisable(true);
+            DPickerNgayBatDau.valueProperty().addListener(new ChangeListener<LocalDate>(){
+                @Override
+                public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                    DPickerNgayKetThuc.setValue(newValue.plusYears(10));
+                }
+                
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -418,18 +425,6 @@ public class NhanVienController implements Initializable {
         if (DPickerNgayKetThuc.getValue() == null) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày kết thúc");
             DPickerNgaySinh.requestFocus();
-            return false;
-        }
-        if (Validate.isNull(txtHoTenNT, "Vui lòng nhập họ tên nhân thân")) {
-            return false;
-        }
-        if (Validate.isNull(txtNgheNghiepNT, "Vui lòng nhập nghề nghiệp của nhân thân")) {
-            return false;
-        }
-        if (Validate.isNull(txtMoiQuanHeNT, "Vui lòng nhập mối quan hệ nhân thân ")) {
-            return false;
-        }
-        if (Validate.isNotSelected(cboGiamTruPhuThuoc, "Vui lòng chọn giảm trừ phụ thuộc")) {
             return false;
         }
         return true;
