@@ -958,6 +958,7 @@ public class ChamCongController implements Initializable {
         }
     }
 
+    //disable các cột là ngày lễ hoặc CN
     private void setColumnsNotEditable() {
         ObservableList<TableColumn<TableChamCong, ?>> colList = tblChamCong.getColumns();
         int maxDay = XDate.maxDaysInMonth(year2, month2);
@@ -1045,29 +1046,29 @@ public class ChamCongController implements Initializable {
     private void update() {
         ArrayList<ChamCong> list = listUpdate;
 
-        for (TableChamCong tableChamCong : tblChamCong.getItems()) {
-            for (int i = 0; i < 31; i++) {
-                Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
-                ChamCong cc;
-                if (!XDate.isHoliday(ngay)) {
-                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
-                } else {
-                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
-                }
+//        for (TableChamCong tableChamCong : tblChamCong.getItems()) {
+//            for (int i = 0; i < 31; i++) {
+//                Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+//                ChamCong cc;
+//                if (!XDate.isHoliday(ngay)) {
+//                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
+//                } else {
+//                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
+//                }
+//                ccdao.insert(cc);
+//            }
+//        }
+        for (ChamCong cc : list) {
+            //kiểm tra bản ghi có tồn tại hay không
+            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
+                //Bản ghi không tồn tại -> insert
                 ccdao.insert(cc);
+            } else {
+                //Bản ghi đã tồn tại -> update
+                ccdao.update(cc);
             }
         }
         loadTable();
-//        for (ChamCong cc : list) {
-//            //kiểm tra bản ghi có tồn tại hay không
-//            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
-//                //Bản ghi không tồn tại -> insert
-//                ccdao.insert(cc);
-//            } else {
-//                //Bản ghi đã tồn tại -> update
-//                ccdao.update(cc);
-//            }
-//        }
         CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
     }
 }

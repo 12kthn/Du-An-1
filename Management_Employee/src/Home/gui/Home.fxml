@@ -43,7 +43,7 @@
                   </Label>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icon/multiple-users-silhouette.png" />
+                        <Image url="@../../Libraries/icon/multiple%20users.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -21,7 +21,7 @@ public class NhanVienDAO {
             while (rs.next()) {
                 nhanVien = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
+                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getDouble(16), rs.getBoolean(17));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -66,7 +66,7 @@ public class NhanVienDAO {
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
+                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getDouble(16), rs.getBoolean(17));
                 list.add(nv);
             }
         } catch (SQLException ex) {
@@ -143,7 +143,7 @@ public class NhanVienDAO {
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),
-                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getInt(16), rs.getBoolean(17));
+                        rs.getString(12), rs.getString(13), rs.getDate(14), rs.getDate(15), rs.getDouble(16), rs.getBoolean(17));
                 list.add(nv);
             }
         } catch (SQLException ex) {
@@ -186,6 +186,35 @@ public class NhanVienDAO {
         return data;
     }
 
+    public String getMaxNaNVByPhongBan(String maPB) {
+        try {
+            String sql = "{call SP_MaxNaNVByPhongBan(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, maPB);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+    
+    public String getMaxMaHDOfYear(int year) {
+        String maHD = "HDLD" + String.valueOf(year).substring(2,4) + "0000";
+        try {
+            String sql = "{call SP_MaxMaHDOfYear(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, year);
+            while (rs.next()) {
+                if (rs.getString(1) != null) {
+                    maHD = rs.getString(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return maHD;
+    }
+    
     public int insert(NhanVien nv) {
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";

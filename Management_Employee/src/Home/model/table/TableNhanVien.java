@@ -21,12 +21,12 @@ public class TableNhanVien {
     private String ChucVu;  
     private String NgayVaoLam;
     private String NgayKetThuc;
-    private int HeSoLuong;
+    private String HeSoLuong;
     private String TrangThai;
     
     public TableNhanVien(String MaNV, String HoTen, String GioiTinh, String NgaySinh, String SoCM, String DienThoai, 
             String Email, String DiaChi, String TrinhDoHV, String MaHD, String PhongBan, String ChucVu, String NgayVaoLam, 
-            String NgayKetThuc, int HeSoLuong, String TrangThai) {
+            String NgayKetThuc, String HeSoLuong, String TrangThai) {
         this.MaNV = MaNV;
         this.HoTen = HoTen;
         this.GioiTinh = GioiTinh;
@@ -179,11 +179,11 @@ public class TableNhanVien {
         this.NgayKetThuc = NgayKetThuc;
     }
 
-    public int getHeSoLuong() {
+    public String getHeSoLuong() {
         return HeSoLuong;
     }
 
-    public void setHeSoLuong(int HeSoLuong) {
+    public void setHeSoLuong(String HeSoLuong) {
         this.HeSoLuong = HeSoLuong;
     }
 
