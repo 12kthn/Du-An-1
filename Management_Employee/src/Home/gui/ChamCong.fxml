@@ -79,14 +79,14 @@
                                 </JFXButton>
                                 <TextField layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0" />
                                 <TableView fx:id="tblChamCong" editable="true" layoutX="10.0" layoutY="140.0" prefHeight="451.0" prefWidth="1146.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0" />
-                        <JFXButton layoutX="1042.0" layoutY="101.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
+                        <JFXButton layoutX="1025.0" layoutY="100.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/capnhat.png" />
+                                    <Image url="@../../Libraries/icon/capnhat_14x14.png" />
                                  </image></ImageView>
                            </graphic>
                            <styleClass>

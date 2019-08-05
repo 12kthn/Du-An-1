@@ -65,7 +65,7 @@
                     <content>
                         <AnchorPane>
                             <children>
-                                <JFXButton layoutX="374.0" layoutY="91.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="374.0" AnchorPane.topAnchor="91.0">
+                                <JFXButton layoutX="374.0" layoutY="100.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="374.0" AnchorPane.topAnchor="100.0">
                                     <graphic>
                                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                             <image>
@@ -77,8 +77,8 @@
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </JFXButton>
-                                <TextField layoutX="14.0" layoutY="91.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="91.0" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1166.0">
+                                <TextField layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0" />
+                                <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1166.0">
                                     <children>
                                         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="47.0" prefWidth="406.0" text="Thống kê tiền lương tháng" textFill="#007fff">
                                             <font>
@@ -94,7 +94,7 @@
                                         <JFXComboBox fx:id="cboNam2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="133.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                     </children>
                                 </HBox>
-                                <TableView fx:id="tblBangLuong" editable="true" layoutY="151.0" prefHeight="444.0" prefWidth="1146.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0" />
+                                <TableView fx:id="tblBangLuong" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="442.0" prefWidth="1146.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="143.0" />
                         <JFXButton fx:id="btnNew" layoutX="388.0" layoutY="55.0" onAction="#insert" prefHeight="30.0" prefWidth="110.0" text="Tạo mới" textFill="#fffefe" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="Arial" size="13.0" />
@@ -102,8 +102,9 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/luong.png" />
-                                 </image></ImageView>
+                                    <Image url="@../../Libraries/icon/themmoi.png" />
+                                 </image>
+                              </ImageView>
                            </graphic>
                            <styleClass>
                               <String fx:value="btn" />
@@ -117,7 +118,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/capnhat.png" />
+                                    <Image url="@../../Libraries/icon/capnhat_14x14.png" />
                                  </image></ImageView>
                            </graphic>
                            <styleClass>

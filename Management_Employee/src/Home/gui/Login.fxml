@@ -39,7 +39,7 @@
                            <font>
                               <Font size="14.0" />
                            </font></JFXPasswordField>
-                        <JFXButton layoutX="111.0" layoutY="286.0" onAction="#login" prefHeight="32.0" prefWidth="100.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="115.0">
+                        <JFXButton layoutX="121.0" layoutY="281.0" onAction="#login" prefHeight="34.0" prefWidth="126.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -47,8 +47,15 @@
                               <String fx:value="btn" />
                               <String fx:value="btn-primary" />
                            </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/dangnhap.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </JFXButton>
-                        <JFXButton layoutX="265.0" layoutY="286.0" onAction="#exit" prefHeight="32.0" prefWidth="100.0" text="Hủy" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="115.0">
+                        <JFXButton layoutX="283.0" layoutY="274.0" onAction="#exit" prefHeight="32.0" prefWidth="126.0" text="Thoát" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -56,6 +63,13 @@
                               <String fx:value="btn" />
                               <String fx:value="btn-danger" />
                            </styleClass>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/dangnhap.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </JFXButton>
                      </children>
                   </AnchorPane>
