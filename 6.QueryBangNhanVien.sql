@@ -191,3 +191,30 @@ AS
 		END
 	
 GO
+
+--Tao Stored Procedure lấy mã nhân viên lớn nhất theo Phòng ban
+IF (OBJECT_ID('SP_MaxNaNVByPhongBan') IS NOT NULL)
+  DROP PROCEDURE SP_MaxNaNVByPhongBan
+GO
+CREATE PROCEDURE SP_MaxNaNVByPhongBan
+(
+	@MaPB varchar(5)
+)
+AS
+	SELECT MAX(MaNV) FROM NhanVien WHERE MaPB = @MaPB
+GO
+EXEC SP_MaxNaNVByPhongBan 'MK'
+
+--Tao Stored Procedure lấy mã hợp đồng lớn nhất trong năm
+IF (OBJECT_ID('SP_MaxMaHDOfYear') IS NOT NULL)
+  DROP PROCEDURE SP_MaxMaHDOfYear
+GO
+CREATE PROCEDURE SP_MaxMaHDOfYear
+(
+	@Nam int
+)
+AS
+	SELECT MAX(MaHD) FROM NhanVien WHERE YEAR(NgayVaoLam) = @Nam
+GO
+
+EXEC SP_MaxMaHDOfYear 2018

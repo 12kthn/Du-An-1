@@ -2,6 +2,7 @@ package Home.DAO;
 
 import Home.common.Common;
 import Home.common.CustomDialog;
+import Home.common.FormatNumber;
 import Home.common.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableNhanVien;
@@ -23,7 +24,7 @@ public class TableNhanVienDAO {
             while (rs.next()) {
                 TableNhanVien tblnv = new TableNhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3) ? "Nam" : "Nữ", rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
-                        rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getInt(15),
+                        rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), FormatNumber.formatDouble(Double.parseDouble(rs.getString(15))),
                         rs.getBoolean(16) ? "Đang làm việc" : "Đã nghỉ việc");
 
                 data.add(tblnv);

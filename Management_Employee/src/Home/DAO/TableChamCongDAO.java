@@ -1,6 +1,5 @@
 package Home.DAO;
 
-import Home.common.Common;
 import Home.common.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableChamCong;
@@ -22,10 +21,9 @@ public class TableChamCongDAO {
                 Arrays.fill(onwork, Boolean.FALSE);
                 String sql = "{Call SP_ChamCongTheoThang(?,?,?)}";
                 ResultSet rs = JDBC.executeQuery(sql, nv.getMaNV(), year, month);
-                int i = 0;
                 while (rs.next()) {
-                    onwork[i] = rs.getBoolean(2);
-                    i++;
+                    String dayOfMonth = rs.getString(1).substring(8,10);
+                    onwork[Integer.parseInt(dayOfMonth)-1] = rs.getBoolean(2);
                 }
                 TableChamCong tableChamCong = new TableChamCong(nv.getMaNV(), nv.getHoTen(),
                         new PhongBanDAO().findByCode(nv.getMaPB()).get(0), year + "", month + "", onwork);

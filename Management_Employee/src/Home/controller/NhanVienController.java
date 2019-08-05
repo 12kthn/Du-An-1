@@ -9,6 +9,7 @@ import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableNhanVienDAO;
 import Home.common.Common;
+import Home.common.FormatNumber;
 import Home.common.Picture;
 import Home.common.Validate;
 import Home.common.XDate;
@@ -69,7 +70,6 @@ public class NhanVienController implements Initializable {
             loadDataToTableNV();
 
             //tab 3
-            txtMaNVNotification();
             loadComboboxs();
             //tab4 
             setTableNTcolumm();
@@ -78,16 +78,11 @@ public class NhanVienController implements Initializable {
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
             newNV();
-
             txtMaNV.setDisable(true);
             txtMaHD.setDisable(true);
-            DPickerNgayBatDau.valueProperty().addListener(new ChangeListener<LocalDate>(){
-                @Override
-                public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
-                    DPickerNgayKetThuc.setValue(newValue.plusYears(10));
-                }
-                
-            });
+            txtMaNV.setText("Tự động tạo khi chọn phòng ban");
+            txtMaHD.setText(createNewMaHD(LocalDate.now().getYear()));
+            addListener();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -136,13 +131,11 @@ public class NhanVienController implements Initializable {
         col14.setCellValueFactory(new PropertyValueFactory<>("NgayKetThuc"));
         col15 = new TableColumn<>("Hệ số lương");
         col15.setCellValueFactory(new PropertyValueFactory<>("HeSoLuong"));
-        col16 = new TableColumn<>("Loại nhân viên");
-        col16.setCellValueFactory(new PropertyValueFactory<>("LoaiNhanVien"));
-        col17 = new TableColumn<>("Trạng thái");
-        col17.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
+        col16 = new TableColumn<>("Trạng thái");
+        col16.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
 
         tblNhanVien.getColumns().addAll(deleteColumn, updateColumn, col1, col2, col3, col4, col5, col6, col7, col8, col9, col10,
-                col11, col12, col13, col14, col15, col16, col17);
+                col11, col12, col13, col14, col15, col16);
     }
 
     private void setTableNTcolumm() {
@@ -186,18 +179,51 @@ public class NhanVienController implements Initializable {
         cboGiamTruPhuThuoc.setItems(listGiamTruPhuThuoc);
     }
 
-    //hiển thị thông báo trên TextField mã nhân viên
-    private void txtMaNVNotification() {
-        txtMaNV.setText("Tự động tạo theo phòng ban");
+    
+    private void addListener() {
         txtMaNV.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue == null) {
-                    txtMaNV.setText("Tự động tạo theo phòng ban");
+                if (newValue == null || newValue == "") {
+                    txtMaNV.setText("Tự động tạo khi chọn phòng ban");
                 }
             }
 
         });
+        
+        DPickerNgayBatDau.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                DPickerNgayKetThuc.setValue(newValue.plusYears(10));
+                txtMaHD.setText(createNewMaHD(newValue.getYear()));
+            }
+        });
+        
+        cboPhongBan.valueProperty().addListener(new ChangeListener<PhongBan>(){
+            @Override
+            public void changed(ObservableValue<? extends PhongBan> observable, PhongBan oldValue, PhongBan newValue) {
+                txtMaNV.setText(createNewMaNV(newValue));
+            }
+            
+        });
+    }
+    
+    private String createNewMaHD(int year){
+        String maxMaHD = nvdao.getMaxMaHDOfYear(year);
+        String suffix = maxMaHD.substring(6, 10);
+        //Thêm số không vào trước suffix và tổng cộng chỉ có 4 chữ số
+        String newsuffix = String.format("%04d", Integer.parseInt(suffix) + 1);
+        String newMaHD = maxMaHD.substring(0, 6) + newsuffix;
+        return newMaHD;
+    }
+    
+    private String createNewMaNV(PhongBan pb){
+        String maxMaNV = nvdao.getMaxNaNVByPhongBan(pb.getMaPB());
+        String suffix = maxMaNV.substring(2, 5);
+        //Thêm số không vào trước suffix và tổng cộng chỉ có 3 chữ số
+        String newsuffix = String.format("%03d", Integer.parseInt(suffix) + 1);
+        String newMaNV = maxMaNV.substring(0, 2) + newsuffix;
+        return newMaNV;
     }
 
     //Sự kiện click vào bảng nhan vien 
@@ -345,7 +371,7 @@ public class NhanVienController implements Initializable {
                 }
             }
         }
-        txtHeSoLuong.setText(nv.getHeSoLuong() + "");
+        txtHeSoLuong.setText(FormatNumber.formatDouble(nv.getHeSoLuong()));
         DPickerNgayBatDau.setValue(XDate.toLocalDate(nv.getNgayVaoLam()));
         DPickerNgayKetThuc.setValue(XDate.toLocalDate(nv.getNgayKetThuc()));
     }
@@ -365,7 +391,7 @@ public class NhanVienController implements Initializable {
         }
     }
 
-    private void clearFormThanNhan(){
+    private void clearFormThanNhan() {
         newNT();
         btnThemNT.setDisable(true);
         tblNhanThan.getSelectionModel().clearSelection();
@@ -701,7 +727,6 @@ public class NhanVienController implements Initializable {
     private TableColumn<TableNhanVien, Date> col14;
     private TableColumn<TableNhanVien, Integer> col15;
     private TableColumn<TableNhanVien, String> col16;
-    private TableColumn<TableNhanVien, String> col17;
 
     private TableColumn<TableNhanThan, String> HotenNT;
     private TableColumn<TableNhanThan, String> NgheNghiep;

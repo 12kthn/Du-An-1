@@ -42,7 +42,7 @@ AS
 	END
 GO
 
-EXEC SP_ChamCongTheoThang 'IT001', '2019', '5'
+EXEC SP_ChamCongTheoThang 'IT001', '2019', '8'
 
 --Tao Stored Procedure tinh so gio lam viec theo nam
 IF (OBJECT_ID('SP_SoGioLamViecTheoNam') IS NOT NULL)
