@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import java.lang.String?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.ChamCongController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.ChamCongController">
     <children>
         <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -69,7 +65,7 @@
                                         <JFXComboBox fx:id="cboNam2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="173.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                     </children>
                                 </HBox>
-                                <JFXButton layoutX="364.0" layoutY="101.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="100.0">
+                                <JFXButton layoutX="396.0" layoutY="100.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="396.0" AnchorPane.topAnchor="100.0">
                                     <graphic>
                                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                             <image>
@@ -81,14 +77,17 @@
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </JFXButton>
-                                <TextField layoutX="14.0" layoutY="100.0" prefHeight="20.0" prefWidth="350.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0" />
+                                <TextField layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0" />
                                 <TableView fx:id="tblChamCong" editable="true" layoutX="10.0" layoutY="140.0" prefHeight="451.0" prefWidth="1146.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0" />
                         <JFXButton layoutX="1042.0" layoutY="101.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="Arial" size="13.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" />
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/capnhat.png" />
+                                 </image></ImageView>
                            </graphic>
                            <styleClass>
                               <String fx:value="btn" />

@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import java.lang.String?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F4F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.BangLuongController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F4F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.BangLuongController">
     <children>
         <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -66,7 +65,7 @@
                     <content>
                         <AnchorPane>
                             <children>
-                                <JFXButton layoutX="378.0" layoutY="45.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="100.0">
+                                <JFXButton layoutX="374.0" layoutY="91.0" prefHeight="30.0" prefWidth="110.0" styleClass="btn_timkiem" text="Tìm kiếm " textFill="#fffefe" AnchorPane.leftAnchor="374.0" AnchorPane.topAnchor="91.0">
                                     <graphic>
                                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                             <image>
@@ -78,7 +77,7 @@
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </JFXButton>
-                                <TextField layoutX="14.0" layoutY="45.0" prefHeight="20.0" prefWidth="350.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="100.0" />
+                                <TextField layoutX="14.0" layoutY="91.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="91.0" />
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1166.0">
                                     <children>
                                         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="47.0" prefWidth="406.0" text="Thống kê tiền lương tháng" textFill="#007fff">
@@ -101,7 +100,10 @@
                               <Font name="Arial" size="13.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" />
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/luong.png" />
+                                 </image></ImageView>
                            </graphic>
                            <styleClass>
                               <String fx:value="btn" />
@@ -113,7 +115,10 @@
                               <Font name="Arial" size="13.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" />
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/capnhat.png" />
+                                 </image></ImageView>
                            </graphic>
                            <styleClass>
                               <String fx:value="btn" />
