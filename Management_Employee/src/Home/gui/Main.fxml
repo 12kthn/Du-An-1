@@ -26,7 +26,7 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="1166.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="167.0" translateX="1000.0">
                <children>
                   <VBox prefHeight="80.0" prefWidth="148.0">
                      <HBox.margin>
@@ -75,13 +75,20 @@
                         </HBox>
                         <MenuButton alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="42.0" prefWidth="3.0" style="-fx-background-color: transparent;">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="ĐỔI MẬT KHẨU" />
+                            <MenuItem mnemonicParsing="false" text="ĐỔI MẬT KHẨU">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="7.0">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/doimatkhau.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
                             <MenuItem mnemonicParsing="false" text="ĐĂNG XUẤT" />
                           </items>
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../Libraries/icon/user-32.png" />
+                                    <Image url="@../../Libraries/icon/user.png" />
                                  </image>
                               </ImageView>
                            </graphic>

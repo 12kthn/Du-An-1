@@ -31,20 +31,22 @@
                <children>
                   <AnchorPane layoutX="166.0" layoutY="114.0" prefHeight="342.0" prefWidth="469.0" style="-fx-background-color: WHITE; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-border-radius: 4; -fx-padding: 8;" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="114.0">
                      <children>
-                        <ImageView fitHeight="90.0" fitWidth="115.0" layoutX="188.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="10.0">
+                        <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="188.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="2.0">
                            <image>
-                              <Image url="@../../Libraries/icon/user.png" />
+                              <Image url="@../../Libraries/icon/user128x128.png" />
                            </image>
                         </ImageView>
                         <JFXTextField fx:id="txtTaiKhoan" labelFloat="true" layoutX="75.0" layoutY="140.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Tài khoản" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="130.0">
                            <font>
                               <Font size="14.0" />
-                           </font></JFXTextField>
+                           </font>
+                        </JFXTextField>
                         <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" layoutX="75.0" layoutY="200.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" AnchorPane.topAnchor="200.0">
                            <font>
                               <Font size="14.0" />
-                           </font></JFXPasswordField>
-                        <JFXButton layoutX="121.0" layoutY="281.0" onAction="#login" prefHeight="34.0" prefWidth="126.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
+                           </font>
+                        </JFXPasswordField>
+                        <JFXButton layoutX="121.0" layoutY="281.0" onAction="#login" prefHeight="34.0" prefWidth="126.0" text="Đăng nhập" textFill="WHITE" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -60,7 +62,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton layoutX="283.0" layoutY="274.0" onAction="#exit" prefHeight="32.0" prefWidth="126.0" text="Thoát" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="95.0">
+                        <JFXButton layoutX="283.0" layoutY="274.0" onAction="#exit" prefHeight="32.0" prefWidth="126.0" text="Thoát" textFill="WHITE" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -71,7 +73,7 @@
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/dangnhap.png" />
+                                    <Image url="@../../Libraries/icon/thoat.png" />
                                  </image>
                               </ImageView>
                            </graphic>
