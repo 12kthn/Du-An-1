@@ -101,6 +101,7 @@ GO
 CREATE PROCEDURE SP_ListYearCC
 AS
 	SELECT DISTINCT YEAR(Ngay) FROM ChamCong
+	ORDER BY 1 DESC
 GO
 	
 --Tao Stored Procedure lay danh sách chấm công trong tháng

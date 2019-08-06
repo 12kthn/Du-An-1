@@ -1,11 +1,11 @@
 ﻿USE QuanLyNhanSu
 GO
-
+delete from ChamCong where MaNV = 'MK006'
 ---Chấm công phòng IT
-
+select * from chamcong 
 ---Chấm công Tháng 5
 -- Nhân viên IT001
-EXEC SP_ChamCong IT001, '2019/05/2', 1, 'Insert'
+EXEC SP_ChamCong IT001, '2018/05/2', 1, 'Insert'
 EXEC SP_ChamCong IT001, '2019/05/3', 1, 'Insert'
 EXEC SP_ChamCong IT001, '2019/05/4', 1, 'Insert'
 EXEC SP_ChamCong IT001, '2019/05/6', 1, 'Insert'

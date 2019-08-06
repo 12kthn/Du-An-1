@@ -78,10 +78,8 @@ public class NhanVienController implements Initializable {
             DPickerNgayBatDau.setConverter(XDate.converter);
             DPickerNgayKetThuc.setConverter(XDate.converter);
             newNV();
-            txtMaNV.setDisable(true);
-            txtMaHD.setDisable(true);
-            txtMaNV.setText("Tự động tạo khi chọn phòng ban");
-            txtMaHD.setText(createNewMaHD(LocalDate.now().getYear()));
+            setDisableTextFields();
+            setDefaultValueForDisableTextFields();
             addListener();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -97,40 +95,60 @@ public class NhanVienController implements Initializable {
         //Khai bao cot
         deleteColumn = new TableColumn<>("");
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+        deleteColumn.setStyle( "-fx-alignment: CENTER-RIGHT; "
+                                + "-fx-border-width: 1 0 1 1; "
+                                + "-fx-border-color: transparent");
+        
         updateColumn = new TableColumn<>("");
         updateColumn.setCellValueFactory(new PropertyValueFactory<>("Update"));
-        updateColumn.setStyle("-fx-alignment: CENTER-LEFT;");
+        updateColumn.setStyle("-fx-alignment: CENTER-LEFT;"
+                            + "-fx-border-color: transparent");
+        
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("MaNV"));
+        
         col2 = new TableColumn<>("Họ tên");
         col2.setCellValueFactory(new PropertyValueFactory<>("HoTen"));
+        
         col3 = new TableColumn<>("Giới tính");
         col3.setCellValueFactory(new PropertyValueFactory<>("GioiTinh"));
+        
         col4 = new TableColumn<>("Ngày sinh");
         col4.setCellValueFactory(new PropertyValueFactory<>("NgaySinh"));
+        
         col5 = new TableColumn<>("Số CMND");
         col5.setCellValueFactory(new PropertyValueFactory<>("SoCM"));
+        
         col6 = new TableColumn<>("Điện thoại");
         col6.setCellValueFactory(new PropertyValueFactory<>("DienThoai"));
+        
         col7 = new TableColumn<>("Email");
         col7.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        
         col8 = new TableColumn<>("Địa chỉ");
         col8.setCellValueFactory(new PropertyValueFactory<>("DiaChi"));
+        
         col9 = new TableColumn<>("Trình độ học vấn");
         col9.setCellValueFactory(new PropertyValueFactory<>("TrinhDoHV"));
+        
         col10 = new TableColumn<>("Mã hợp đồng");
         col10.setCellValueFactory(new PropertyValueFactory<>("MaHD"));
+        
         col11 = new TableColumn<>("Phòng ban");
         col11.setCellValueFactory(new PropertyValueFactory<>("PhongBan"));
+        
         col12 = new TableColumn<>("Chức vụ");
         col12.setCellValueFactory(new PropertyValueFactory<>("ChucVu"));
+        
         col13 = new TableColumn<>("Ngày vào làm");
         col13.setCellValueFactory(new PropertyValueFactory<>("NgayVaoLam"));
+        
         col14 = new TableColumn<>("Ngày kết thúc");
         col14.setCellValueFactory(new PropertyValueFactory<>("NgayKetThuc"));
+        
         col15 = new TableColumn<>("Hệ số lương");
         col15.setCellValueFactory(new PropertyValueFactory<>("HeSoLuong"));
+        
         col16 = new TableColumn<>("Trạng thái");
         col16.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
 
@@ -179,18 +197,30 @@ public class NhanVienController implements Initializable {
         cboGiamTruPhuThuoc.setItems(listGiamTruPhuThuoc);
     }
 
+    private void setDisableTextFields() {
+        txtMaNV.setDisable(true);
+        txtMaHD.setDisable(true);
+        txtEmail.setDisable(true);
+    }
     
+    private void setDefaultValueForDisableTextFields() {
+        txtMaNV.setText("Tự động tạo khi chọn phòng ban");
+        txtMaHD.setText(createNewMaHD(LocalDate.now().getYear()));
+        txtEmail.setText("@cty.com.vn");
+    }
+
     private void addListener() {
         txtMaNV.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue == null || newValue == "") {
+                if (newValue == null || newValue.equals("")) {
                     txtMaNV.setText("Tự động tạo khi chọn phòng ban");
                 }
+                txtEmail.setText(newValue + "@cty.com.vn");
             }
 
         });
-        
+
         DPickerNgayBatDau.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
             public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
@@ -198,17 +228,19 @@ public class NhanVienController implements Initializable {
                 txtMaHD.setText(createNewMaHD(newValue.getYear()));
             }
         });
-        
-        cboPhongBan.valueProperty().addListener(new ChangeListener<PhongBan>(){
+
+        cboPhongBan.valueProperty().addListener(new ChangeListener<PhongBan>() {
             @Override
             public void changed(ObservableValue<? extends PhongBan> observable, PhongBan oldValue, PhongBan newValue) {
-                txtMaNV.setText(createNewMaNV(newValue));
+                if (newValue != null) {
+                    txtMaNV.setText(createNewMaNV(newValue));
+                }   
             }
-            
+
         });
     }
-    
-    private String createNewMaHD(int year){
+
+    private String createNewMaHD(int year) {
         String maxMaHD = nvdao.getMaxMaHDOfYear(year);
         String suffix = maxMaHD.substring(6, 10);
         //Thêm số không vào trước suffix và tổng cộng chỉ có 4 chữ số
@@ -216,8 +248,8 @@ public class NhanVienController implements Initializable {
         String newMaHD = maxMaHD.substring(0, 6) + newsuffix;
         return newMaHD;
     }
-    
-    private String createNewMaNV(PhongBan pb){
+
+    private String createNewMaNV(PhongBan pb) {
         String maxMaNV = nvdao.getMaxNaNVByPhongBan(pb.getMaPB());
         String suffix = maxMaNV.substring(2, 5);
         //Thêm số không vào trước suffix và tổng cộng chỉ có 3 chữ số

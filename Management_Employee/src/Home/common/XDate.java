@@ -104,23 +104,23 @@ public class XDate {
     /**
      * Số ngày trong tháng
      */
-    public static int daysInMonth(int year, int month) {
+    public static int daysOfMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         
         calendar.set(year, month - 1, 1);//Tháng tính từ 0
         
-        int daysInMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
-        return daysInMonth;
+        int daysOfMonth = calendar.getActualMaximum(calendar.DAY_OF_MONTH);
+        return daysOfMonth;
     }
 
     //Ngày cao nhất trong tháng (ngày không lớn hơn ngày hiện tại)
-    public static int maxDaysInMonth(int year, int month) {
+    public static int maxDaysOfMonth(int year, int month) {
         //Tháng, năm hiện tại thì trả về ngày hôm nay
         if (year == LocalDate.now().getYear() && month == monthOfYear(year)) {
             return LocalDate.now().getDayOfMonth();
         }
-        //Ngược lại trả về tháng lớn nhất nếu
-        return daysInMonth(year, month);
+        //Ngược lại trả về tháng lớn nhất
+        return daysOfMonth(year, month);
     }
     
     //Tính số ngày nghỉ trong tháng
@@ -131,7 +131,7 @@ public class XDate {
         initHolidays();
         
         //Vòng lặp kiểm tra từ ngay 1 đến ngày cuối tháng
-        for (int day = 1; day <= daysInMonth(year, month); day++) {
+        for (int day = 1; day <= daysOfMonth(year, month); day++) {
             calendar.set(year, month - 1, day);
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             //Tính số ngày chủ nhật

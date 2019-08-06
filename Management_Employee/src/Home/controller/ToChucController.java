@@ -58,7 +58,9 @@ public class ToChucController implements Initializable {
         //Tạo và định dạng cột
         deleteColumn_PB = new TableColumn<>("");
         deleteColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn_PB.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+        deleteColumn_PB.setStyle( "-fx-alignment: CENTER-RIGHT; "
+                                + "-fx-border-width: 1 0 1 1; "
+                                + "-fx-border-color: transparent");
 
         updateColumn_PB = new TableColumn<>("");
         updateColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Update"));
@@ -81,7 +83,9 @@ public class ToChucController implements Initializable {
         //Tạo và định dạng cột
         deleteColumn_CV = new TableColumn<>("");
         deleteColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn_CV.setStyle("-fx-alignment: CENTER-RIGHT; -fx-border-width: 1 0 1 1;");
+        deleteColumn_CV.setStyle( "-fx-alignment: CENTER-RIGHT; "
+                                + "-fx-border-width: 1 0 1 1; "
+                                + "-fx-border-color: transparent");
 
         updateColumn_CV = new TableColumn<>("");
         updateColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Update"));

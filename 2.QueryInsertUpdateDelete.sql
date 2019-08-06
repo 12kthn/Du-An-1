@@ -303,13 +303,13 @@ AS
 	BEGIN
 		DECLARE @NgayCong int
 		SET @NgayCong = (SELECT COUNT(MaNV) FROM ChamCong WHERE MaNV = @MaNV AND 
-				Ngay BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang))
+				Ngay BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang) AND TinhTrang = 1)
 
 		RETURN @NgayCong
 	END
 GO
-select * from ChamCong where MaNV = 'it001'
-select [dbo].[FN_SoNgayCong]('IT001', '2019-5-1')
+select * from ChamCong where MaNV = 'MK014'
+select [dbo].[FN_SoNgayCong]('MK014', '2019-7-1')
 --Tao Function tinh thue TNCN
 IF (OBJECT_ID('FN_TinhThueTNCN') IS NOT NULL)
   DROP FUNCTION FN_TinhThueTNCN
@@ -343,6 +343,7 @@ AS
 	DECLARE	@Nam char(4),
 			@Thang varchar(2),
 			@NgayDauThang datetime,
+			@NgayVaoLam datetime,
 			@LuongChinh int,
 			@NgayCong int,
 			@PC_TrachNhiem int,
@@ -357,12 +358,22 @@ AS
 	SET @Thang = MONTH(@NgayPhatLuong) - 1
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
 	SET @NgayDauThang = CAST(@Nam + '-' + @Thang + '-' + '1' AS datetime)
-	SET @NgayCong = [dbo].[FN_SoNgayCong]('IT001', @NgayDauThang)
+	SET @NgayCong = [dbo].[FN_SoNgayCong](@MaNV, @NgayDauThang)
 	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM NhanVien WHERE MaNV = @MaNV))
 	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
-	SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
-	SET @BHYT = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHYT')
-	SET @BHTN = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHTN')
+	SET @NgayVaoLam = (SELECT NgayVaoLam FROM NhanVien WHERE MaNV = @MaNV)
+	IF Year(@NgayVaoLam) = @Nam AND MONTH(@NgayVaoLam) = @Thang
+		BEGIN
+			SET @BHXH = 0
+			SET @BHYT = 0
+			SET @BHTN = 0
+		END
+	ELSE
+		BEGIN
+			SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
+			SET @BHYT = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHYT')
+			SET @BHTN = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHTN')
+		END
 	SET @GiamTruPhuThuoc = 3600000*(SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = @MaNV AND GiamTruPhuThuoc = 1)
 	SET @ThueTNCN = [dbo].[FN_TinhThueTNCN](@ThuNhap - @BHXH - @BHYT - @BHTN - @GiamTruPhuThuoc)
 	SET @ThucLanh = @ThuNhap - @BHXH - @BHYT - @BHTN - @ThueTNCN

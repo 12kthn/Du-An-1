@@ -58,7 +58,7 @@ public class ChamCongDAO {
     }
 
     public int getSLNVDiLamDayDuTheoThang(int year, int month) {
-        int ngayTrongThang = XDate.daysInMonth(year, month);
+        int ngayTrongThang = XDate.daysOfMonth(year, month);
         int soNgayLe = XDate.holidaysInMonth(year, month);
         int soNgayLamViecThapNhat = Integer.min(26, ngayTrongThang - soNgayLe);
         try {
@@ -96,7 +96,7 @@ public class ChamCongDAO {
     public ObservableList<PieChart.Data> getDataForSoNgayLamViecChart(int year, int month) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
         
-        double ngayTrongThang = XDate.daysInMonth(year, month);
+        double ngayTrongThang = XDate.daysOfMonth(year, month);
         int soNgayLe = XDate.holidaysInMonth(year, month);
         
         chartData.add(new PieChart.Data("Số ngày làm việc trong tháng", ngayTrongThang - soNgayLe));

@@ -1,11 +1,12 @@
 package Home.controller;
 
 import Home.DAO.ChamCongDAO;
+import Home.DAO.NhanVienDAO;
 import Home.DAO.TableChamCongDAO;
-import Home.common.Common;
 import Home.common.CustomDialog;
 import Home.common.XDate;
 import Home.model.ChamCong;
+import Home.model.NhanVien;
 import Home.model.table.TableChamCong;
 import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
@@ -19,7 +20,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
@@ -37,6 +37,7 @@ public class ChamCongController implements Initializable {
         try {
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
+            nvdao = new NhanVienDAO();
             listUpdate = new ArrayList<>();
 
             //load Tabpane1
@@ -154,19 +155,20 @@ public class ChamCongController implements Initializable {
     }
 
     private void loadTable() {
-        setAllColumnsEditable();
-        setColumnsNotEditable();
+
+        tblChamCong.getItems().clear();
         tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
+        disableCells();
     }
 
     private void setColumnModel() {
         //Khai bao cot
-        colMaNV = new TableColumn<>("Mã nhân viên");
-        colMaNV.setCellValueFactory(new PropertyValueFactory<>("maNV"));
-        colHoTen = new TableColumn<>("Họ tên");
-        colHoTen.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
-        colPhongBan = new TableColumn<>("Phòng ban");
-        colPhongBan.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
+        maNVCol = new TableColumn<>("Mã nhân viên");
+        maNVCol.setCellValueFactory(new PropertyValueFactory<>("maNV"));
+        hoTenCol = new TableColumn<>("Họ tên");
+        hoTenCol.setCellValueFactory(new PropertyValueFactory<>("hoTen"));
+        phongBanCol = new TableColumn<>("Phòng ban");
+        phongBanCol.setCellValueFactory(new PropertyValueFactory<>("phongBan"));
         col1 = new TableColumn<>("Ngày 1");
         col2 = new TableColumn<>("Ngày 2");
         col3 = new TableColumn<>("Ngày 3");
@@ -207,24 +209,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay1());
-
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("1/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 1);
                 return booleanProp;
-            }
-        });
-        col1.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col2.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -232,23 +218,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay2());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("2/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 2);
                 return booleanProp;
-            }
-        });
-        col2.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col3.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -256,23 +227,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay3());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("3/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 3);
                 return booleanProp;
-            }
-        });
-        col3.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col4.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -280,23 +236,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay4());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("4/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 4);
                 return booleanProp;
-            }
-        });
-        col4.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col5.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -304,23 +245,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay5());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("5/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 5);
                 return booleanProp;
-            }
-        });
-        col5.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col6.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -328,23 +254,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay6());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("6/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 6);
                 return booleanProp;
-            }
-        });
-        col6.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col7.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -352,23 +263,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay7());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("7/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 7);
                 return booleanProp;
-            }
-        });
-        col7.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col8.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -376,23 +272,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay8());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("8/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 8);
                 return booleanProp;
-            }
-        });
-        col8.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col9.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -400,23 +281,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay9());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("9/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 9);
                 return booleanProp;
-            }
-        });
-        col9.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col10.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -424,23 +290,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay10());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("10/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 10);
                 return booleanProp;
-            }
-        });
-        col10.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col11.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -448,23 +299,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay11());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("11/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 11);
                 return booleanProp;
-            }
-        });
-        col11.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col12.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -472,23 +308,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay12());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("12/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 12);
                 return booleanProp;
-            }
-        });
-        col12.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col13.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -496,22 +317,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay13());//khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("13/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 13);
                 return booleanProp;
-            }
-        });
-        col13.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col14.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -519,23 +326,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay14());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("14/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 14);
                 return booleanProp;
-            }
-        });
-        col14.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col15.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -543,22 +335,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay15());//khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("15/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 15);
                 return booleanProp;
-            }
-        });
-        col15.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col16.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -566,23 +344,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay16());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("16/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 16);
                 return booleanProp;
-            }
-        });
-        col16.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col17.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -590,23 +353,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay17());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("17/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 17);
                 return booleanProp;
-            }
-        });
-        col17.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col18.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -614,23 +362,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay18());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("18/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 18);
                 return booleanProp;
-            }
-        });
-        col18.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col19.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -638,23 +371,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay19());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("19/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 19);
                 return booleanProp;
-            }
-        });
-        col19.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col20.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -662,23 +380,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay20());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("20/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 20);
                 return booleanProp;
-            }
-        });
-        col20.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col21.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -686,23 +389,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay21());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("21/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 21);
                 return booleanProp;
-            }
-        });
-        col21.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col22.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -710,23 +398,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay22());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("22/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 22);
                 return booleanProp;
-            }
-        });
-        col22.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col23.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -734,23 +407,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay23());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("23/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 23);
                 return booleanProp;
-            }
-        });
-        col23.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col24.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -758,23 +416,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay24());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("24/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 24);
                 return booleanProp;
-            }
-        });
-        col24.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col25.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -782,23 +425,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay25());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("25/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 25);
                 return booleanProp;
-            }
-        });
-        col25.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col26.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -806,23 +434,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay26());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("26/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 26);
                 return booleanProp;
-            }
-        });
-        col26.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col27.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -830,23 +443,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay27());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("27/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 27);
                 return booleanProp;
-            }
-        });
-        col27.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col28.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -854,23 +452,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay28());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("28/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 28);
                 return booleanProp;
-            }
-        });
-        col28.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col29.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -878,23 +461,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay29());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("29/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 29);
                 return booleanProp;
-            }
-        });
-        col29.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col30.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -902,23 +470,8 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay30());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("30/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 30);
                 return booleanProp;
-            }
-        });
-        col30.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
             }
         });
         col31.setCellValueFactory(new Callback<CellDataFeatures<TableChamCong, Boolean>, ObservableValue<Boolean>>() {
@@ -926,57 +479,137 @@ public class ChamCongController implements Initializable {
             public ObservableValue<Boolean> call(CellDataFeatures<TableChamCong, Boolean> param) {
                 TableChamCong obj = param.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(obj.getNgay31());
-                //khi thay đổi
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate("31/" + month2 + "/" + year2), newValue));
-                    }
-                });
+                addCheckBoxCellListener(booleanProp, obj, 31);
                 return booleanProp;
             }
         });
-        col31.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
-            @Override
-            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
-                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
-            }
-        });
 
-        tblChamCong.getColumns().addAll(colMaNV, colHoTen, colPhongBan, col1, col2, col3, col4, col5, col6, col7, col8, col9,
+        tblChamCong.getColumns().addAll(maNVCol, hoTenCol, phongBanCol, col1, col2, col3, col4, col5, col6, col7, col8, col9,
                 col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24,
                 col25, col26, col27, col28, col29, col30, col31, col32);
 
-    }
-
-    private void setAllColumnsEditable() {
-        for (TableColumn<TableChamCong, ?> tableColumn : tblChamCong.getColumns()) {
-            tableColumn.setEditable(true);
+        for (int colIndex = 3; colIndex < tblChamCong.getColumns().size() - 1; colIndex++) {
+            TableColumn<TableChamCong, Boolean> BooleanCol = (TableColumn<TableChamCong, Boolean>) tblChamCong.getColumns().get(colIndex);
+            setCellFactor(BooleanCol);
         }
+
     }
 
-    //disable các cột là ngày lễ hoặc CN
-    private void setColumnsNotEditable() {
+    private void setCellFactor(TableColumn<TableChamCong, Boolean> column) {
+        column.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
+            @Override
+            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> p) {
+                CheckBoxTableCell<TableChamCong, Boolean> cell = new CheckBoxTableCell<>();
+                return cell;
+            }
+        });
+        column.setStyle("-fx-alignment: CENTER;");
+    }
+
+    private void addCheckBoxCellListener(SimpleBooleanProperty booleanProp, TableChamCong obj, int dayOfMonth) {
+        booleanProp.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                listUpdate.add(new ChamCong(obj.getMaNV(), XDate.toDate(dayOfMonth + "/" + month2 + "/" + year2), newValue));
+            }
+        });
+    }
+
+    //Phuong thuc disable các ô là ngày lễ, CN, không tồn tại trong tháng 
+    //hoặc trước ngày nhân viên bắt đầu đi làm
+    private void disableCells() {
         ObservableList<TableColumn<TableChamCong, ?>> colList = tblChamCong.getColumns();
-        int maxDay = XDate.maxDaysInMonth(year2, month2);
-        //Tao vong lap kiem tra từng ngày
-        for (int dayInMonth = 1; dayInMonth <= 31; dayInMonth++) {
-            Date date = XDate.toDate(dayInMonth + "/" + month2 + "/" + year2);
-            if (dayInMonth <= maxDay) {
-                if (XDate.isHoliday(date)) {
-                    colList.get(dayInMonth + 2).setEditable(false);//ngày bắt đầu từ cột thứ 3
-                }
+        int maxDay = XDate.maxDaysOfMonth(year2, month2);
+        
+        for (int dayOfMonth = 1; dayOfMonth <= 31; dayOfMonth++) {
+            Date date = XDate.toDate(dayOfMonth + "/" + month2 + "/" + year2);
+            //disable các ô là ngày lễ, CN và không tồn tại trong tháng
+            if (XDate.isHoliday(date) || dayOfMonth > maxDay) {
+                colList.get(dayOfMonth + 2).setEditable(false);
             } else {
-                colList.get(dayInMonth + 2).setEditable(false);
+                colList.get(dayOfMonth + 2).setEditable(true);
+                disableCellsBeforeStartWorking(dayOfMonth + 2);
             }
         }
+
+    }
+
+    private void disableCellsBeforeStartWorking(int colIndex) {
+        TableColumn<TableChamCong, Boolean> column = (TableColumn<TableChamCong, Boolean>) tblChamCong.getColumns().get(colIndex);
+        ArrayList<Integer> listDisableRowIndex = new ArrayList<>();
+        ObservableList<NhanVien> listNV = nvdao.findNVStartWorkingInMonth(year2, month2);
+        for (NhanVien nv : listNV) {
+            for (TableChamCong row : tblChamCong.getItems()) {
+                if (row.getMaNV().equals(nv.getMaNV())) {
+                    LocalDate ngayVaoLam = XDate.toLocalDate(nv.getNgayVaoLam());
+                    if (ngayVaoLam.getDayOfMonth() > (colIndex - 2)) {
+                        listDisableRowIndex.add(tblChamCong.getItems().indexOf(row));
+                    }
+                }
+            }
+        }
+        disableCellInColum(listDisableRowIndex, column);
+
+    }
+
+    private void disableCellInColum(ArrayList<Integer> listDisableRowIndex, TableColumn<TableChamCong, Boolean> column) {
+        column.setCellFactory(new Callback<TableColumn<TableChamCong, Boolean>, TableCell<TableChamCong, Boolean>>() {
+            @Override
+            public TableCell<TableChamCong, Boolean> call(TableColumn<TableChamCong, Boolean> param) {
+                return new CheckBoxTableCell<TableChamCong, Boolean>() {
+                    @Override
+                    public void updateItem(Boolean item, boolean empty) {
+                        super.updateItem(item, empty);
+                        try {
+                            for (Integer rowIndex : listDisableRowIndex) {
+                                if (getIndex() == rowIndex) {
+                                    setEditable(false);
+                                }
+                            }
+                        } catch (Exception ex) {
+
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    @FXML
+    private void update() {
+//        for (TableChamCong tableChamCong : tblChamCong.getItems()) {
+//            for (int i = 0; i < 31; i++) {
+//                Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
+//                if (!XDate.isHoliday(ngay) && (i + 1) <= XDate.maxDaysOfMonth(year2, month2)) {
+//                    ChamCong cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
+//                    if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
+//                        //Bản ghi không tồn tại -> insert
+//                        ccdao.insert(cc);
+//                    } else {
+//                        //Bản ghi đã tồn tại -> update
+//                        ccdao.update(cc);
+//                    }
+//                }
+//            }
+//        }
+        for (ChamCong cc : listUpdate) {
+            //kiểm tra bản ghi có tồn tại hay không
+            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
+                //Bản ghi không tồn tại -> insert
+                ccdao.insert(cc);
+            } else {
+                //Bản ghi đã tồn tại -> update
+                ccdao.update(cc);
+            }
+        }
+        loadTable();
+        listUpdate.clear();
+        CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Cập nhật thành công");
     }
 
     private TableChamCongDAO tbl_ccdao;
     private ChamCongDAO ccdao;
+    private NhanVienDAO nvdao;
 
     private int year1;//bien cua tab1
     private int month1;
@@ -985,9 +618,9 @@ public class ChamCongController implements Initializable {
 
     private ArrayList<ChamCong> listUpdate;
 
-    private TableColumn<TableChamCong, String> colMaNV;
-    private TableColumn<TableChamCong, String> colHoTen;
-    private TableColumn<TableChamCong, String> colPhongBan;
+    private TableColumn<TableChamCong, String> maNVCol;
+    private TableColumn<TableChamCong, String> hoTenCol;
+    private TableColumn<TableChamCong, String> phongBanCol;
     private TableColumn<TableChamCong, Boolean> col1;
     private TableColumn<TableChamCong, Boolean> col2;
     private TableColumn<TableChamCong, Boolean> col3;
@@ -1042,33 +675,4 @@ public class ChamCongController implements Initializable {
     @FXML
     private PieChart chuyenCanChart;
 
-    @FXML
-    private void update() {
-        ArrayList<ChamCong> list = listUpdate;
-
-//        for (TableChamCong tableChamCong : tblChamCong.getItems()) {
-//            for (int i = 0; i < 31; i++) {
-//                Date ngay = XDate.toDate((i + 1) + "/" + month2 + "/" + year2);
-//                ChamCong cc;
-//                if (!XDate.isHoliday(ngay)) {
-//                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, true);
-//                } else {
-//                    cc = new ChamCong(tableChamCong.getMaNV(), ngay, false);
-//                }
-//                ccdao.insert(cc);
-//            }
-//        }
-        for (ChamCong cc : list) {
-            //kiểm tra bản ghi có tồn tại hay không
-            if (ccdao.findByCode(cc.getMaNV(), cc.getNgay()) == null) {
-                //Bản ghi không tồn tại -> insert
-                ccdao.insert(cc);
-            } else {
-                //Bản ghi đã tồn tại -> update
-                ccdao.update(cc);
-            }
-        }
-        loadTable();
-        CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
-    }
 }

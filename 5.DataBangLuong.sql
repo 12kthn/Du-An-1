@@ -1,7 +1,10 @@
 USE QuanLyNhanSu
 GO
-
-EXEC SP_Insert_BangLuong NS001, '2019/7/5', 0
+delete from BangLuong where MaNV like '%'
+delete from BangLuong where MaNV = 'NS001' and NgayPhatLuong = '2018/7/5'
+delete from BangLuong where MaNV = 'NS002' and NgayPhatLuong = '2019/7/5'
+GO
+EXEC SP_Insert_BangLuong NS001, '2018/7/5', 0
 EXEC SP_Insert_BangLuong NS002, '2019/7/5', 0
 EXEC SP_Insert_BangLuong NS003, '2019/7/5', 0
 EXEC SP_Insert_BangLuong NS004, '2019/7/5', 0

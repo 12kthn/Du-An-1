@@ -22,7 +22,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
@@ -229,11 +228,11 @@ public class BangLuongController implements Initializable {
             @Override
             public TableCell<TableBangLuong, Boolean> call(TableColumn<TableBangLuong, Boolean> p) {
                 CheckBoxTableCell<TableBangLuong, Boolean> cell = new CheckBoxTableCell<>();
-                cell.setAlignment(Pos.CENTER);
                 return cell;
             }
         });
-
+        col16.setStyle("-fx-alignment: CENTER;");
+        
         tblBangLuong.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13,
                 col14, col15, col16);
     }
@@ -252,10 +251,10 @@ public class BangLuongController implements Initializable {
 
     @FXML
     private void insert() {
-        ObservableList<NhanVien> data = new NhanVienDAO().findByMaPB(null);
+        ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2);
         try {
             for (NhanVien nv : data) {
-                BangLuong bl = new BangLuong(nv.getMaNV(), XDate.toDate("5/" + (month2 + 1) + "/" + year2), false);
+                BangLuong bl = new BangLuong(nv.getMaNV(), XDate.toDate("5/" + (month2 + 1) + "/" + year2), true);
                 if (bldao.insert(bl) == 0) {
                     throw new Exception();
                 }

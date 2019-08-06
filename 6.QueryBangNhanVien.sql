@@ -191,6 +191,31 @@ AS
 		END
 	
 GO
+EXEC SP_FindByMonth null, '2019', '7'
+--Tao Stored Procedure lấy danh sách nhân viên theo phòng ban bắt đầu làm việc trong tháng - năm
+IF (OBJECT_ID('SP_FindNVStartWorkingInMonth') IS NOT NULL)
+  DROP PROCEDURE SP_FindNVStartWorkingInMonth
+GO
+CREATE PROCEDURE SP_FindNVStartWorkingInMonth
+(
+	@MaPB varchar(5),
+	@Nam char(4),
+	@Thang varchar(2)
+	
+)
+AS
+	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
+	DECLARE @NgayCuoiThang DATETIME = EOMONTH(@NgayDauThang)
+	IF @MaPB is not null
+		BEGIN
+			SELECT * FROM NhanVien WHERE MaPB = @MaPB AND NgayVaoLam BETWEEN @NgayDauThang AND @NgayCuoiThang
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM NhanVien WHERE NgayVaoLam BETWEEN @NgayDauThang AND @NgayCuoiThang
+		END
+	
+GO
 
 --Tao Stored Procedure lấy mã nhân viên lớn nhất theo Phòng ban
 IF (OBJECT_ID('SP_MaxNaNVByPhongBan') IS NOT NULL)
