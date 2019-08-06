@@ -102,7 +102,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/themmoi.png" />
+                                    <Image url="@../../Libraries/icon/taomoi.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -118,7 +118,7 @@
                            <graphic>
                               <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
                                  <image>
-                                    <Image url="@../../Libraries/icon/capnhat_14x14.png" />
+                                    <Image url="@../../Libraries/icon/capnhat.png" />
                                  </image></ImageView>
                            </graphic>
                            <styleClass>
