@@ -4,10 +4,10 @@ import Home.DAO.ChucVuDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableChucVuDAO;
 import Home.DAO.TablePhongBanDAO;
-import Home.common.Common;
-import Home.common.FormatNumber;
-import Home.common.CustomDialog;
-import Home.common.Validate;
+import Home.helper.Share;
+import Home.helper.FormatNumber;
+import Home.helper.CustomDialog;
+import Home.helper.Validate;
 import Home.model.ChucVu;
 import Home.model.PhongBan;
 import Home.model.table.TableChucVu;
@@ -30,7 +30,7 @@ public class ToChucController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            Common.tcController = this;
+            Share.tcController = this;
 
             //tạo các đối tượng DAO
             pbdao = new PhongBanDAO();
@@ -234,10 +234,10 @@ public class ToChucController implements Initializable {
             try {
                 pbdao.insert(pb);
                 loadDataToTblPhongBan();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm mới phòng ban thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm mới phòng ban thành công ");
                 newPB();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -250,10 +250,10 @@ public class ToChucController implements Initializable {
         try {
             pbdao.update(pb);
             loadDataToTblPhongBan();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
 
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
             e.printStackTrace();
         }
     }
@@ -284,10 +284,10 @@ public class ToChucController implements Initializable {
             try {
                 cvdao.insert(cv);
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm mới chức vụ thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm mới chức vụ thành công ");
                 newCV();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -301,10 +301,10 @@ public class ToChucController implements Initializable {
             try {
                 cvdao.update(cv);
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật chức vụ thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật chức vụ thành công ");
 
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System", "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
                 e.printStackTrace();
             }
         }
@@ -315,11 +315,11 @@ public class ToChucController implements Initializable {
         try {
             if (cvdao.delete(cv) > 0) {
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Management System", "Xóa chức vụ thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Management System", "Xóa chức vụ thành công ");
                 newCV();
             }
         } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa chức vụ thất bại! vui lòng kiểm tra lại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa chức vụ thất bại! vui lòng kiểm tra lại ");
             ex.printStackTrace();
         }
     }

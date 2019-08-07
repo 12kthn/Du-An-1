@@ -1,6 +1,6 @@
 package Home.controller;
 
-import Home.common.Common;
+import Home.helper.Share;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,10 +33,10 @@ public class FlashController implements Initializable, Runnable {
             @Override
             public void run() {
                 try {                   
-                    Common.mainStage.close();
+                    Share.mainStage.close();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
-                    Common.mainStage.setScene(scene);
-                    Common.mainStage.show();
+                    Share.mainStage.setScene(scene);
+                    Share.mainStage.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

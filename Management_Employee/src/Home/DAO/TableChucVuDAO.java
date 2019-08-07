@@ -1,9 +1,9 @@
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.FormatNumber;
-import Home.common.JDBC;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.FormatNumber;
+import Home.helper.JDBC;
 import Home.model.table.TableChucVu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,15 +30,15 @@ public class TableChucVuDAO {
                     @Override
                     public void handle(ActionEvent event) {
                         if (CustomDialog.confirm("Bạn chắc chắn muốn xóa Chức vụ " + tblcv.getTenCV())) {
-                            Common.tcController.deleteCV(cvdao.findByCode(tblcv.getMaCV()).get(0));
+                            Share.tcController.deleteCV(cvdao.findByCode(tblcv.getMaCV()).get(0));
                         }
                     }
                 });
                 tblcv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Common.tcController.setModel(cvdao.findByCode(tblcv.getMaCV()).get(0));
-                        Common.tcController.setStatusPB(false);
+                        Share.tcController.setModel(cvdao.findByCode(tblcv.getMaCV()).get(0));
+                        Share.tcController.setStatusPB(false);
                     }
                 });
             }

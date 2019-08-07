@@ -1,6 +1,6 @@
 package Home.DAO;
 
-import Home.common.JDBC;
+import Home.helper.JDBC;
 import Home.model.ThanNhan;
 import java.sql.ResultSet;
 import java.sql.SQLException;

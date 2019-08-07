@@ -1,9 +1,9 @@
 package Home.controller;
 
 import Home.DAO.TaiKhoanDAO;
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.Validate;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.Validate;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -81,16 +81,16 @@ public class LoginController implements Initializable {
     @FXML
     void exit() {
         if (CustomDialog.confirm("Bạn có muốn thoát chương trình")){
-            Common.mainStage.close();
+            Share.mainStage.close();
         }        
     }
     
     public void openMain() {
         try {
-            Common.mainStage.close();
+            Share.mainStage.close();
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
-            Common.mainStage.setScene(scene);
-            Common.mainStage.show();
+            Share.mainStage.setScene(scene);
+            Share.mainStage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -1,7 +1,7 @@
 
 package Home.controller;
 
-import Home.common.Common;
+import Home.helper.Share;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,7 +39,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Common.mainPane = borderPane;
+        Share.mainPane = borderPane;
         setGUIHome();
 //        AccountBox.setOpacity(0);
 //        lblUsername.toFront();
@@ -48,7 +48,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIHome() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Home.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Home.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUINhanVien() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIToChuc() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ToChuc.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ToChuc.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIChamCong() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -84,7 +84,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIBangLuong() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/BangLuong.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/BangLuong.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class MainController implements Initializable {
     @FXML
     public void setGUIKhoiPhuc() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/KhoiPhuc.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/KhoiPhuc.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -101,7 +101,7 @@ public class MainController implements Initializable {
  @FXML
     public void setGUITaikhoan() {
         try {
-            Common.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -117,8 +117,8 @@ public class MainController implements Initializable {
         double x = event.getScreenX();
         double y = event.getScreenY();
         //set tọa độ mới cho JDialog khi rê chuột
-        Common.mainStage.setX(x - xMouse);
-        Common.mainStage.setY(y - yMouse);
+        Share.mainStage.setX(x - xMouse);
+        Share.mainStage.setY(y - yMouse);
     }
 
     @FXML
@@ -148,12 +148,12 @@ public class MainController implements Initializable {
 
     @FXML
     public void closeWindow() {
-        Common.mainStage.close();
+        Share.mainStage.close();
     }
 
     @FXML
     public void minimizeWindow() {
-        Common.mainStage.setIconified(true);
+        Share.mainStage.setIconified(true);
     }
 
 //    tao 2 bien lưu tọa độ con trỏ chuột

@@ -1,5 +1,5 @@
 
-package Home.common;
+package Home.helper;
 
 import Home.controller.NhanVienController;
 import Home.controller.ToChucController;
@@ -7,7 +7,7 @@ import Home.model.TaiKhoan;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class Common {
+public class Share {
     
     public static Stage mainStage = null;
     public static BorderPane mainPane;
@@ -28,6 +28,6 @@ public class Common {
      * Xóa thông tin của người sử dụng khi có yêu cầu đăng xuất
      */
     public static void logoff() {
-        Common.USER = null;
+        Share.USER = null;
     }
 }

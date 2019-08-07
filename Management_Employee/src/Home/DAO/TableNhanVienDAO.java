@@ -1,9 +1,9 @@
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.FormatNumber;
-import Home.common.JDBC;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.FormatNumber;
+import Home.helper.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableNhanVien;
 import java.sql.ResultSet;
@@ -35,21 +35,21 @@ public class TableNhanVienDAO {
                             return;
                         }
                         if (new NhanVienDAO().delete(new NhanVien(tblnv.getMaNV())) > 0) {
-                            Common.nvController.loadDataToTableNV();
-                            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
-                            Common.nvController.newNV();
+                            Share.nvController.loadDataToTableNV();
+                            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
+                            Share.nvController.newNV();
                         } else {
-                            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+                            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
                         }
 
                     }
                 });
                 tblnv.getUpdate().setOnAction((ActionEvent event) -> {
                     NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                    Common.nvController.setModelNhanVien(nv);
-                    Common.nvController.changeTabPane(2);
-                    Common.nvController.loadDataToTableNT();
-                    Common.nvController.setStatusNV(false);
+                    Share.nvController.setModelNhanVien(nv);
+                    Share.nvController.changeTabPane(2);
+                    Share.nvController.loadDataToTableNT();
+                    Share.nvController.setStatusNV(false);
                 });
             }
         } catch (SQLException ex) {

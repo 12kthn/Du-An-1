@@ -3,8 +3,8 @@ package Home.controller;
 
 import Home.DAO.KhoiPhucDAO;
 import Home.DAO.TableFileDAO;
-import Home.common.Common;
-import Home.common.CustomDialog;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
 import Home.model.table.TableFile;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -96,19 +96,19 @@ public class KhoiPhucController implements Initializable{
         String folder = "C:\\Program Files\\Microsoft SQL Server\\MSSQL11.MSSQLSERVER\\MSSQL\\Backup";
         //kiểm tra người dùng đã chọn file chưa
         if (tfFull  == null) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "", "Vui lòng chọn file Fullbackup");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "", "Vui lòng chọn file Fullbackup");
             return;
         }
         if (tfDiff == null) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "", "Vui lòng chọn file DifferentialBackup");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "", "Vui lòng chọn file DifferentialBackup");
             return;
         }
 
         try {
             kpdao.restoreDB(folder + "\\" + tfFull.getFileName(), folder + "\\" + tfDiff.getFileName());
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Khôi phục thành công");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "", "Khôi phục thành công");
         } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "", "Khôi phục thất bại");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "", "Khôi phục thất bại");
             ex.printStackTrace();
         }
     }

@@ -1,7 +1,7 @@
 
 package Home;
 
-import Home.common.Common;
+import Home.helper.Share;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +13,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Common.mainStage = stage;
+        Share.mainStage = stage;
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
         stage.setScene(scene);
         stage.setResizable(false);

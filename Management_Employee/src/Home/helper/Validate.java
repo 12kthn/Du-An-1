@@ -1,4 +1,4 @@
-package Home.common;
+package Home.helper;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;

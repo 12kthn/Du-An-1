@@ -1,4 +1,4 @@
-package Home.common;
+package Home.helper;
 
 import java.util.Optional;
 import javafx.scene.control.Alert;
@@ -27,7 +27,7 @@ public class CustomDialog {
         alert.setTitle("Management System");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.initOwner(Common.mainStage);
+        alert.initOwner(Share.mainStage);
         alert.showAndWait();
     }
 
@@ -38,7 +38,7 @@ public class CustomDialog {
         alert.setTitle("Management System");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.initOwner(Common.mainStage);
+        alert.initOwner(Share.mainStage);
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.get() == ButtonType.OK;

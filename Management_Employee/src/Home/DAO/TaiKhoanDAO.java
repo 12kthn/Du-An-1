@@ -1,7 +1,7 @@
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.JDBC;
+import Home.helper.Share;
+import Home.helper.JDBC;
 import Home.model.TaiKhoan;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,11 +30,11 @@ public class TaiKhoanDAO {
                 if (rs.getString(2).equals(matKhau)) {
                     //Tai khoan va mat khau chinh xac
                     //set thong tin tai khoan
-                    Common.USER = new TaiKhoan(rs.getString(1), rs.getString(2), rs.getString(3));
+                    Share.USER = new TaiKhoan(rs.getString(1), rs.getString(2), rs.getString(3));
                     //set MaPB tai khoan nay quan ly
-                    Common.MAPB = (Object)new NhanVienDAO().findByCode(rs.getString(3)).getMaPB();
-                    if (Common.MAPB.toString().equals("GD")) {
-                        Common.MAPB = null;
+                    Share.MAPB = (Object)new NhanVienDAO().findByCode(rs.getString(3)).getMaPB();
+                    if (Share.MAPB.toString().equals("GD")) {
+                        Share.MAPB = null;
                     }
                     //Tra ve ket qua
                     return 2;      

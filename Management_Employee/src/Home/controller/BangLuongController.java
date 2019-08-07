@@ -3,9 +3,9 @@ package Home.controller;
 import Home.DAO.BangLuongDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.TableBangLuongDAO;
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.XDate;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.XDate;
 import Home.model.BangLuong;
 import Home.model.NhanVien;
 import Home.model.table.TableBangLuong;
@@ -261,7 +261,7 @@ public class BangLuongController implements Initializable {
             }
             loadTable(year2, month2);
             setBtnNewStatus();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Tạo mới thành công");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "", "Tạo mới thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -275,7 +275,7 @@ public class BangLuongController implements Initializable {
                     throw new Exception();
                 }
             }
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "", "Cập nhật thành công");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "", "Cập nhật thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

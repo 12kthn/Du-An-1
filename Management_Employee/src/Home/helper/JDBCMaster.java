@@ -1,15 +1,16 @@
 
-package Home.common;
+package Home.helper;
 
+import static Home.helper.JDBC.prepareStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class JDBC {
+public class JDBCMaster {
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyNhanSu";
+    private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=master";
     private static String username = "sa";
     private static String password = "fpolyduan1";
     private static Connection connection;
@@ -21,7 +22,7 @@ public class JDBC {
             ex.printStackTrace();
         }
     }
-
+    
     /**
      * Xây dựng PreparedStatement
      *
@@ -48,49 +49,22 @@ public class JDBC {
         }
         return pstmt;
     }
-
+    
     /**
-     * Thực hiện câu lệnh SQL thao tác (INSERT, UPDATE, DELETE) hoặc thủ tục lưu
-     * thao tác dữ liệu
-     *
-     * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời
-     * gọi thủ tục lưu
-     * @param args là danh sách các giá trị được cung cấp cho các tham số trong
-     * câu lệnh sql *
-     * @return số dòng được thực thi
-     */
-    public static int executeUpdate(String sql, Object... args) {
-        try {
-            PreparedStatement pstm = prepareStatement(sql, args);
-            try {
-                return pstm.executeUpdate();
-            } finally {
-                pstm.getConnection().close();
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return 0;
-        }
-    }
-
-    /**
-     * Thực hiện câu lệnh SQL truy vấn (SELECT) hoặc thủ tục lưu truy vấn dữ
-     * liệu
+     * Thực hiện câu lệnh SQL hoặc thủ tục lưu
      *
      * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời
      * gọi thủ tục lưu
      * @param args là danh sách các giá trị được cung cấp cho các tham số trong
      * câu lệnh sql
-     * @return kết quả câu lệnh truy vấn
      */
-    public static ResultSet executeQuery(String sql, Object... args) {
+    public static void execute(String sql, Object... args) {
         try {
             PreparedStatement pstm = prepareStatement(sql, args);
-            return pstm.executeQuery();
+            pstm.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
     
     /**

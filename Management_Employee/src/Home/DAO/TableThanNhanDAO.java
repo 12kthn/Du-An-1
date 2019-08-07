@@ -1,6 +1,6 @@
 package Home.DAO;
 
-import Home.common.JDBC;
+import Home.helper.JDBC;
 import javafx.collections.ObservableList;
 import Home.model.table.TableNhanThan;
 import java.sql.ResultSet;

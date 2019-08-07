@@ -1,9 +1,9 @@
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.FormatNumber;
-import Home.common.JDBC;
-import Home.common.XDate;
+import Home.helper.Share;
+import Home.helper.FormatNumber;
+import Home.helper.JDBC;
+import Home.helper.XDate;
 import Home.model.ChamCong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,7 +63,7 @@ public class ChamCongDAO {
         int soNgayLamViecThapNhat = Integer.min(26, ngayTrongThang - soNgayLe);
         try {
             String sql = "{Call SP_ChuyenCanTheoThang(?,?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month, soNgayLamViecThapNhat);
+            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month, soNgayLamViecThapNhat);
             while (rs.next()) {
                 return rs.getInt(1);
             }
@@ -76,7 +76,7 @@ public class ChamCongDAO {
     public ObservableList<PieChart.Data> getDataForChuyenCanChart(int year, int month) {
         ObservableList<PieChart.Data> chartData = FXCollections.observableArrayList();
         
-        double tongSLNV = new NhanVienDAO().getSLNVTheoPBVaThang(Common.MAPB, year, month);
+        double tongSLNV = new NhanVienDAO().getSLNVTheoPBVaThang(Share.MAPB, year, month);
         int SLNVDiLamDayDu = new ChamCongDAO().getSLNVDiLamDayDuTheoThang(year, month);
         
         chartData.add(new PieChart.Data("Số lượng nhân viên đi làm đầy đủ", SLNVDiLamDayDu));

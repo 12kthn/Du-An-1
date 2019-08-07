@@ -3,7 +3,7 @@ package Home.controller;
 import Home.DAO.BangLuongDAO;
 import Home.DAO.ChamCongDAO;
 import Home.DAO.NhanVienDAO;
-import Home.common.FormatNumber;
+import Home.helper.FormatNumber;
 import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
 import java.time.LocalDate;

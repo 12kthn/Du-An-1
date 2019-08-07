@@ -1,9 +1,9 @@
 
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.JDBC;
-import Home.common.XDate;
+import Home.helper.Share;
+import Home.helper.JDBC;
+import Home.helper.XDate;
 import Home.model.BangLuong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,7 +45,7 @@ public class BangLuongDAO {
         XYChart.Series data = new XYChart.Series<>();
         try {
             String sql = "{call SP_PhanHoaTienLuong(?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Common.MAPB, year, month);
+            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month);
             while (rs.next()) {
                 data.getData().add(new XYChart.Data("Cao nhất", rs.getDouble(1)));
                 data.getData().add(new XYChart.Data("Thấp nhất", rs.getDouble(2)));

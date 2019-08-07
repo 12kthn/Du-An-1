@@ -4,9 +4,9 @@ import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableTaiKhoanDAO;
 import Home.DAO.TaiKhoanDAO;
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.Validate;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.Validate;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
 import Home.model.TaiKhoan;
@@ -221,11 +221,11 @@ public class TaiKhoanController implements Initializable {
             try {
                 tkDAO.insert(tk);
                 loadDataToTable();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System",
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System",
                         "Thêm mới thành công ");
 
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Managemnet System",
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System",
                         "Thêm mới thất bại ");
                 e.printStackTrace();
             }
@@ -240,11 +240,11 @@ public class TaiKhoanController implements Initializable {
             tkDAO.update(tk);
 
             loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage,
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage,
                     "Managemnet System", "Cập nhật tài khoản thành công ");
 
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage,
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage,
                     "Managemnet System", "Cập nhật tài khoản thất bại ");
             e.printStackTrace();
         }

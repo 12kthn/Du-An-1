@@ -1,7 +1,7 @@
 
 package Home.model.table;
 
-import Home.common.Picture;
+import Home.helper.Picture;
 import Home.model.NhanVien;
 import javafx.scene.control.Button;
 

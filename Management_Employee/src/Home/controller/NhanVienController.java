@@ -3,16 +3,16 @@ package Home.controller;
 import Home.DAO.NhanThanDAO;
 import Home.DAO.TableThanNhanDAO;
 import Home.model.table.TableNhanThan;
-import Home.common.CustomDialog;
+import Home.helper.CustomDialog;
 import Home.DAO.ChucVuDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableNhanVienDAO;
-import Home.common.Common;
-import Home.common.FormatNumber;
-import Home.common.Picture;
-import Home.common.Validate;
-import Home.common.XDate;
+import Home.helper.Share;
+import Home.helper.FormatNumber;
+import Home.helper.Picture;
+import Home.helper.Validate;
+import Home.helper.XDate;
 import Home.model.ChucVu;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -54,7 +54,7 @@ public class NhanVienController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            Common.nvController = this;
+            Share.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
             cvdao = new ChucVuDAO();
@@ -293,11 +293,11 @@ public class NhanVienController implements Initializable {
             try {
                 nvdao.insert(nv);
                 loadDataToTableNV();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
                 setStatusNV(false);
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
             }
         }
     }
@@ -309,13 +309,13 @@ public class NhanVienController implements Initializable {
             try {
                 if (nvdao.update(nv) > 0) {
                     loadDataToTableNV();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
             }
         }
     }
@@ -329,12 +329,12 @@ public class NhanVienController implements Initializable {
         try {
             nvdao.delete(nv);
             loadDataToTableNV();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân viên thành công");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân viên thành công");
             newNV();
             tblNhanVien.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
 
@@ -561,7 +561,7 @@ public class NhanVienController implements Initializable {
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png", "*.gif");
         FileChooser selectImage = new FileChooser();
         selectImage.getExtensionFilters().add(imageFilter);
-        imageFile = selectImage.showOpenDialog(Common.mainStage);
+        imageFile = selectImage.showOpenDialog(Share.mainStage);
         displayAvatar(imageFile);
     }
 
@@ -623,11 +623,11 @@ public class NhanVienController implements Initializable {
             try {
                 ntdao.insert(nt);
                 loadDataToTableNT();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Thêm thông tin nhân thân thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm thông tin nhân thân thành công ");
                 newNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
             }
         }
 
@@ -639,11 +639,11 @@ public class NhanVienController implements Initializable {
         if (checkNullFormNhanThan() && checkContentFormNhanThan()) {
             try {
                 ntdao.update(nt);
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
                 loadDataToTableNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
             }
         }
     }
@@ -657,12 +657,12 @@ public class NhanVienController implements Initializable {
         try {
             ntdao.delete(nt);
             loadDataToTableNT();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Common.mainStage, "Managemnet System", "Xóa nhân thân thành công");
+            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân thân thành công");
             newNT();
             tblNhanThan.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Common.mainStage, "Management System", "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
+            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
         }
     }
 

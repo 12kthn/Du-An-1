@@ -1,9 +1,9 @@
 
 package Home.DAO;
 
-import Home.common.Common;
-import Home.common.CustomDialog;
-import Home.common.JDBC;
+import Home.helper.Share;
+import Home.helper.CustomDialog;
+import Home.helper.JDBC;
 import Home.model.table.TablePhongBan;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,15 +30,15 @@ public class TablePhongBanDAO {
                     @Override
                     public void handle(ActionEvent event) {
                         if (CustomDialog.confirm("Bạn chắc chắn muốn xóa Phòng ban " + tblpb.getTenPB())) {
-                            Common.tcController.deletePB(pbdao.findByCode(tblpb.getMaPB()).get(0));
+                            Share.tcController.deletePB(pbdao.findByCode(tblpb.getMaPB()).get(0));
                         }
                     }
                 });
                 tblpb.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Common.tcController.setModel(pbdao.findByCode(tblpb.getMaPB()).get(0));
-                        Common.tcController.setStatusPB(false);
+                        Share.tcController.setModel(pbdao.findByCode(tblpb.getMaPB()).get(0));
+                        Share.tcController.setStatusPB(false);
                     }
                 });
             }

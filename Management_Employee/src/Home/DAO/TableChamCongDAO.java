@@ -1,6 +1,6 @@
 package Home.DAO;
 
-import Home.common.JDBC;
+import Home.helper.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableChamCong;
 import java.sql.ResultSet;

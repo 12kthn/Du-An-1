@@ -1,7 +1,7 @@
 
 package Home.DAO;
 
-import Home.common.JDBCMaster;
+import Home.helper.JDBCMaster;
 
 public class KhoiPhucDAO {
     public void restoreDB(String fullPath, String diffPath){
