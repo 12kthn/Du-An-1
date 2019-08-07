@@ -27,7 +27,7 @@ public class Share {
     /**
      * Xóa thông tin của người sử dụng khi có yêu cầu đăng xuất
      */
-    public static void logoff() {
+    public static void logOut() {
         Share.USER = null;
     }
 }

@@ -20,29 +20,10 @@ import javafx.util.Duration;
 
 public class MainController implements Initializable {
 
-    private Stage stage;
-
-    @FXML
-    private BorderPane borderPane;
-
-    @FXML
-    private HBox topPane;
-
-    @FXML
-    HBox AccountBox;
-    @FXML
-    Label lblDoiMatKhau;
-    @FXML
-    Label lblDangXuat;
-    @FXML
-    Label lblUsername;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Share.mainPane = borderPane;
         setGUIHome();
-//        AccountBox.setOpacity(0);
-//        lblUsername.toFront();
     }
 
     @FXML
@@ -98,7 +79,8 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
- @FXML
+    
+    @FXML
     public void setGUITaikhoan() {
         try {
             Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
@@ -106,6 +88,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
+    
     @FXML
     void getCoorMouse(MouseEvent event) {
         xMouse = event.getSceneX();
@@ -119,33 +102,18 @@ public class MainController implements Initializable {
         //set tọa độ mới cho JDialog khi rê chuột
         Share.mainStage.setX(x - xMouse);
         Share.mainStage.setY(y - yMouse);
-    }
+    } 
 
     @FXML
-    public void accountPanelIn() {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5), AccountBox);
-        transition.setToX(-140);
-
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), AccountBox);
-        fadeIn.setFromValue(0);
-        fadeIn.setToValue(1);
-
-        ParallelTransition parallelTransition = new ParallelTransition(transition, fadeIn);
-        parallelTransition.play();
+    public void logOut() {
+        try {
+            Share.logOut();
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
-    @FXML
-    public void accountPanelOut() {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5), AccountBox);
-        transition.setToX(-50);
-
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), AccountBox);
-        fadeOut.setToValue(0);
-
-        ParallelTransition parallelTransition = new ParallelTransition(transition, fadeOut);
-        parallelTransition.play();
-    }
-
     @FXML
     public void closeWindow() {
         Share.mainStage.close();
@@ -156,7 +124,23 @@ public class MainController implements Initializable {
         Share.mainStage.setIconified(true);
     }
 
-//    tao 2 bien lưu tọa độ con trỏ chuột
+    //tọa độ con trỏ chuột
     double xMouse;
     double yMouse;
+    
+    @FXML
+    private BorderPane borderPane;
+
+    @FXML
+    HBox AccountBox;
+    
+    @FXML
+    Label lblDoiMatKhau;
+    
+    @FXML
+    Label lblDangXuat;
+    
+    @FXML
+    Label lblUsername;
+
 }
