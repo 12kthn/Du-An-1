@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.net.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.KhoiPhucController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.KhoiPhucController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -127,7 +126,17 @@
                </VBox.margin>
             </HBox>
          </children></VBox>
-      <JFXButton alignment="CENTER" layoutX="502.0" layoutY="474.0" onAction="#restore" style="-fx-font-weight: bold; -fx-font-size: 16pt;" text="Khôi phục" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="502.0" AnchorPane.rightAnchor="501.0" AnchorPane.topAnchor="474.0">
+      <VBox layoutX="20.0" layoutY="20.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <Label text="Chọn file Differential backup" textFill="#007fff">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblDiffBackup" prefHeight="230.0" prefWidth="500.0" />
+         </children>
+      </VBox>
+      <JFXButton alignment="CENTER" layoutX="502.0" layoutY="415.0" onAction="#restore" prefHeight="57.0" prefWidth="190.0" style="-fx-font-weight: bold; -fx-font-size: 18pt;" text="Khôi phục" AnchorPane.bottomAnchor="168.0" AnchorPane.leftAnchor="502.0" AnchorPane.rightAnchor="474.0" AnchorPane.topAnchor="415.0">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-danger" />
@@ -135,6 +144,13 @@
          <font>
             <Font size="18.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Libraries/icon/restore.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
    </children>
 </AnchorPane>
