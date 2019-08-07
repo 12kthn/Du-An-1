@@ -24,18 +24,27 @@ CREATE PROCEDURE SP_RESTOREQLNS
 	@DiffPath varchar(MAX)
 )
 AS
+	BEGIN TRY
+		
+		BEGIN TRAN
+			RESTORE DATABASE QuanLyNhanSu  
+			FROM DISK = @Fullpath
+			WITH REPLACE, NORECOVERY
 
-	RESTORE DATABASE QuanLyNhanSu  
-	FROM DISK = @Fullpath
-	WITH REPLACE, NORECOVERY
-
-	RESTORE DATABASE QuanLyNhanSu  
-	FROM DISK = @DiffPath
-	WITH REPLACE, RECOVERY
+			RESTORE DATABASE QuanLyNhanSu  
+			FROM DISK = @DiffPath
+			WITH REPLACE, RECOVERY
+		COMMIT TRAN
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRAN
+		PRINT 'loi'
+	END CATCH
+	
 GO
 
-EXEC SP_RESTOREQLNS 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak', 
-				'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVSaturday1DiffBackup.bak'
+EXEC SP_RESTOREQLNS 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak',
+				''
 
 --Tao Stored Procedure phục hồi CSDL chỉ với file Full Backup
 IF (OBJECT_ID('SP_RESTOREQLNSOnlyFullBackup') IS NOT NULL)
@@ -52,7 +61,7 @@ AS
 	WITH REPLACE, RECOVERY
 GO 
 
-EXEC SP_RESTOREQLNSOnlyFullBackup 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak'
+EXEC SP_RESTOREQLNSOnlyFullBackup 'D:\work\fullQLNS.bak'
 
 USE QuanLyNhanSu
 GO
