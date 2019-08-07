@@ -21,14 +21,17 @@ public class ChucVuDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
 
     public int insert(ChucVu cv) {
+        int result = 0;
         try {
             String sql = "{call sp_chucvu(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     cv.getMaCV(),
                     cv.getTenCV(),
                     cv.getPhuCap(),
@@ -36,14 +39,17 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int update(ChucVu cv) {
+        int result = 0;
         try {
             String sql = "{call sp_chucvu(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     cv.getMaCV(),
                     cv.getTenCV(),
                     cv.getPhuCap(),
@@ -51,14 +57,17 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int delete(ChucVu cv) {
+        int result = 0;
         try {
             String sql = "{call sp_chucvu(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     cv.getMaCV(),
                     cv.getTenCV(),
                     cv.getPhuCap(),
@@ -66,7 +75,9 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 }

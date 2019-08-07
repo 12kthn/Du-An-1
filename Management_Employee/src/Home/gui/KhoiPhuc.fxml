@@ -23,32 +23,117 @@
             </Label>
          </children>
       </HBox>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="140.0">
+      <VBox alignment="CENTER" layoutX="150.0" layoutY="216.0" prefHeight="130.0" prefWidth="866.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="216.0">
          <children>
-            <Label text="Chọn file Full backup" textFill="#007fff">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tblFullBackup" prefHeight="230.0" prefWidth="500.0" />
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="500.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="220.0" text="Full backup" textFill="#ff1600">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtFullBackup" editable="false" focusTraversable="false" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff1600;">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <JFXButton alignment="CENTER" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Libraries/icon/folder%20-%20blue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" onAction="#deleteFullBackupFile" prefHeight="35.0" prefWidth="150.0" text="Bỏ chọn File">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Libraries/icon/folder%20-%20blue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-danger" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="500.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="220.0" text="Differential backup" textFill="#ff6000">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtDiffBackup" editable="false" focusTraversable="false" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff6000;">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <JFXButton alignment="CENTER" onAction="#chooseDiffBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Libraries/icon/folder%20-%20blue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" onAction="#deleteDiffBackupFile" prefHeight="35.0" prefWidth="150.0" text="Bỏ chọn File">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Libraries/icon/folder%20-%20blue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-danger" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </HBox>
          </children></VBox>
-      <VBox layoutX="20.0" layoutY="20.0" prefHeight="231.0" prefWidth="500.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="140.0">
-         <children>
-            <Label text="Chọn file Differential backup" textFill="#007fff">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <TableView fx:id="tblDiffBackup" prefHeight="230.0" prefWidth="500.0" />
-         </children>
-      </VBox>
-      <JFXButton alignment="CENTER" layoutX="502.0" layoutY="415.0" onAction="#restore" style="-fx-font-weight: bold; -fx-font-size: 18pt;" text="Khôi phục" AnchorPane.bottomAnchor="168.0" AnchorPane.leftAnchor="502.0" AnchorPane.rightAnchor="501.0" AnchorPane.topAnchor="415.0">
+      <JFXButton alignment="CENTER" layoutX="502.0" layoutY="474.0" onAction="#restore" style="-fx-font-weight: bold; -fx-font-size: 16pt;" text="Khôi phục" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="502.0" AnchorPane.rightAnchor="501.0" AnchorPane.topAnchor="474.0">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-danger" />
          </styleClass>
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
          </font>
       </JFXButton>
    </children>

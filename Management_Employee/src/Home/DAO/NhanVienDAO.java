@@ -25,6 +25,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -39,6 +41,8 @@ public class NhanVienDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -53,6 +57,8 @@ public class NhanVienDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -71,10 +77,12 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
-    
+
     public ObservableList<NhanVien> findNVStartWorkingInMonth(int year, int month) {
         ObservableList<NhanVien> list = FXCollections.observableArrayList();
 
@@ -89,6 +97,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
@@ -103,6 +113,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return SLNhanVien;
     }
@@ -117,6 +129,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return SLNhanVien;
     }
@@ -133,23 +147,28 @@ public class NhanVienDAO {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
+            } finally {
+                JDBC.closeConnection();
             }
         }
         return data;
     }
 
     public int getSLNVTheoPBVaThang(Object MaPB, int year, int month) {
+        int result = 0;
         try {
             String sql = "{call SP_SLNVTheoPBVaThang(?,?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, MaPB, month, year);
             while (rs.next()) {
-                return rs.getInt(1);
+                result = rs.getInt(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
 
-        return 0;
+        return result;
     }
 
     public ObservableList<NhanVien> findByMonth(int year, int month) {
@@ -166,6 +185,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
@@ -180,6 +201,8 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return data;
     }
@@ -200,25 +223,30 @@ public class NhanVienDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return data;
     }
 
     public String getMaxNaNVByPhongBan(String maPB) {
+        String maNV = "";
         try {
             String sql = "{call SP_MaxNaNVByPhongBan(?)}";
             ResultSet rs = JDBC.executeQuery(sql, maPB);
             while (rs.next()) {
-                return rs.getString(1);
+                maNV = rs.getString(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return "";
+        return maNV;
     }
-    
+
     public String getMaxMaHDOfYear(int year) {
-        String maHD = "HDLD" + String.valueOf(year).substring(2,4) + "0000";
+        String maHD = "HDLD" + String.valueOf(year).substring(2, 4) + "0000";
         try {
             String sql = "{call SP_MaxMaHDOfYear(?)}";
             ResultSet rs = JDBC.executeQuery(sql, year);
@@ -229,14 +257,17 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return maHD;
     }
-    
+
     public int insert(NhanVien nv) {
+        int result = 0;
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),
@@ -256,14 +287,17 @@ public class NhanVienDAO {
                     nv.getTrangThai(), "insert");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int update(NhanVien nv) {
+        int result = 0;
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql, nv.getMaNV(),
+            result = JDBC.executeUpdate(sql, nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),
                     nv.getNgaySinh(),
@@ -284,14 +318,17 @@ public class NhanVienDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int delete(NhanVien nv) {
+        int result = 0;
         try {
             String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),
@@ -311,7 +348,9 @@ public class NhanVienDAO {
                     nv.getTrangThai(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 }

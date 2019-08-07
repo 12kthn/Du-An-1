@@ -1,11 +1,10 @@
 
 package Home.helper;
 
-import static Home.helper.JDBC.prepareStatement;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JDBCMaster {
@@ -65,6 +64,20 @@ public class JDBCMaster {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static CallableStatement callableStatement(String sql, Object... args) {
+        CallableStatement cstmt = null;
+        try {
+            connection = DriverManager.getConnection(dburl, username, password);   
+            cstmt = connection.prepareCall(sql);
+            for (int i = 0; i < args.length; i++) {
+                cstmt.setObject(i + 1, args[i]);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return cstmt;
     }
     
     /**

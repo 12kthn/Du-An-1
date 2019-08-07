@@ -22,14 +22,16 @@ public class TableChamCongDAO {
                 String sql = "{Call SP_ChamCongTheoThang(?,?,?)}";
                 ResultSet rs = JDBC.executeQuery(sql, nv.getMaNV(), year, month);
                 while (rs.next()) {
-                    String dayOfMonth = rs.getString(1).substring(8,10);
-                    onwork[Integer.parseInt(dayOfMonth)-1] = rs.getBoolean(2);
+                    String dayOfMonth = rs.getString(1).substring(8, 10);
+                    onwork[Integer.parseInt(dayOfMonth) - 1] = rs.getBoolean(2);
                 }
                 TableChamCong tableChamCong = new TableChamCong(nv.getMaNV(), nv.getHoTen(),
                         new PhongBanDAO().findByCode(nv.getMaPB()).get(0), year + "", month + "", onwork);
                 data.add(tableChamCong);
             } catch (SQLException ex) {
                 ex.printStackTrace();
+            } finally {
+                JDBC.closeConnection();
             }
         }
 

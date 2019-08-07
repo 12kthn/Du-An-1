@@ -21,14 +21,17 @@ public class NhanThanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
 
     public int insert(ThanNhan NT) {
+        int result = 0;
         try {
             String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     NT.getMaTN(),
                     NT.getHoTen(),
                     NT.getNgheNghiep(),
@@ -37,14 +40,17 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "insert");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int update(ThanNhan NT) {
+        int result = 0;
         try {
             String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     NT.getMaTN(),
                     NT.getHoTen(),
                     NT.getNgheNghiep(),
@@ -53,14 +59,17 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "update");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int delete(ThanNhan NT) {
+        int result = 0;
         try {
             String sql = "{ call SP_ThanNhan(?,?,?,?,?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     NT.getMaTN(),
                     NT.getHoTen(),
                     NT.getNgheNghiep(),
@@ -69,7 +78,9 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 }
