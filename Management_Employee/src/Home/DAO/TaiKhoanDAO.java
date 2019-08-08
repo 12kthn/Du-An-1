@@ -39,6 +39,7 @@ public class TaiKhoanDAO {
                     if (Share.MAPB.toString().equals("GD")) {
                         Share.MAPB = null;
                     }
+                    System.out.println(Share.MAPB);
                     //Tra ve ket qua
                     result = 2;      
                 }else {

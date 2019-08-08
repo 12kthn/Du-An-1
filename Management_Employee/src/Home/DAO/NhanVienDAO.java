@@ -1,11 +1,14 @@
 package Home.DAO;
 
+import Home.helper.FormatNumber;
 import Home.helper.Share;
 import Home.helper.JDBC;
 import Home.helper.XDate;
 import Home.model.NhanVien;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.function.Consumer;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
@@ -198,6 +201,23 @@ public class NhanVienDAO {
             while (rs.next()) {
                 data.add(new PieChart.Data(rs.getBoolean(1) ? "Nam" : "Nữ", rs.getInt(2)));
             }
+            if (data.size() < 2) {
+                if (data.get(0).getName().equals("Nam")) {
+                    data.add(new PieChart.Data("Nữ", 0));
+                }
+                if (data.get(0).getName().equals("Nữ")) {
+                    data.add(new PieChart.Data("Nam", 0));
+                }
+            }
+            data.forEach(new Consumer<PieChart.Data>() {
+                @Override
+                public void accept(PieChart.Data data) {
+                    double soLuong = new NhanVienDAO().getSLNVTheoPhongBan(Share.MAPB);
+                    data.nameProperty().bind(Bindings.concat(data.getName(), ": ", 
+                        FormatNumber.formatDouble(data.getPieValue() / soLuong * 100), "%"));
+                }
+            });
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -212,7 +232,7 @@ public class NhanVienDAO {
         int count = 0; //So luong phong ban
         try {
             String sql = "{call SP_SLNVTheoPB(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB);
+            ResultSet rs = JDBC.executeQuery(sql, (Object) null);
             while (rs.next()) {
                 data.getData().add(new XYChart.Data(rs.getString(1), rs.getDouble(2)));
                 SLNV += rs.getDouble(2);

@@ -4,6 +4,7 @@ import Home.DAO.TaiKhoanDAO;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
 import Home.helper.Validate;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class LoginController implements Initializable {
 
@@ -31,7 +34,7 @@ public class LoginController implements Initializable {
 
     //Phương thức khởi tạo validatorJFX
     public void validatorInit() {
-        txtTaiKhoan.getValidators().add(Validate.createValidatorJFX("tài khoản"));
+        txtTaiKhoan.getValidators().add(Validate.createValidatorJFX("Vui lòng nhập tài khoản"));
         txtTaiKhoan.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -42,7 +45,7 @@ public class LoginController implements Initializable {
 
         });
         
-        txtMatKhau.getValidators().add(Validate.createValidatorJFX("mật khẩu"));
+        txtMatKhau.getValidators().add(Validate.createValidatorJFX("Vui lòng nhập mật khẩu"));
         txtMatKhau.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -79,6 +82,13 @@ public class LoginController implements Initializable {
     }
 
     @FXML
+    void enterToLogin(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            btnLogin.fire();
+        }
+    }
+    
+    @FXML
     void exit() {
         if (CustomDialog.confirm("Bạn có muốn thoát chương trình")){
             Share.mainStage.close();
@@ -104,4 +114,6 @@ public class LoginController implements Initializable {
     @FXML
     private JFXPasswordField txtMatKhau;
   
+    @FXML
+    private JFXButton btnLogin;
 }

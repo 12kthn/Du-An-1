@@ -2,6 +2,7 @@
 package Home.DAO;
 
 import Home.helper.JDBC;
+import Home.helper.Share;
 import Home.model.table.TableBangLuong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ public class TableBangLuongDAO {
         ObservableList<TableBangLuong> data = FXCollections.observableArrayList();
         try {
             String sql = "{Call SP_TBLBangLuong(?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, (Object) null, year, month);
+            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month);
             while (rs.next()){
                 TableBangLuong tblbl = new TableBangLuong(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), 
                     rs.getDate(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11), rs.getInt(12), 

@@ -19,8 +19,8 @@ public class TableNhanVienDAO {
     public ObservableList<TableNhanVien> getData() {
         ObservableList<TableNhanVien> data = FXCollections.observableArrayList();
         try {
-            String sql = "{Call SP_TBLNhanVien}";
-            ResultSet rs = JDBC.executeQuery(sql);
+            String sql = "{Call SP_TBLNhanVien(?)}";
+            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB);
             while (rs.next()) {
                 TableNhanVien tblnv = new TableNhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3) ? "Nam" : "Nữ", rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
