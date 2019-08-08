@@ -75,7 +75,7 @@
                         </HBox>
                         <MenuButton alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="42.0" prefWidth="3.0" style="-fx-background-color: transparent;">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="ĐỔI MẬT KHẨU">
+                            <MenuItem mnemonicParsing="false" onAction="#setGUIDoimatkhau" text="ĐỔI MẬT KHẨU">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="7.0">
                                        <image>
