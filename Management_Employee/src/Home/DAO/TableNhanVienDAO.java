@@ -54,6 +54,8 @@ public class TableNhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return data;
     }

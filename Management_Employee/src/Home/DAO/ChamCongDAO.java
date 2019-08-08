@@ -22,42 +22,51 @@ public class ChamCongDAO {
             String sql = "{Call SP_FindCCByPrimaryKey(?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, maNV, XDate.toSqlDate(ngay));
             while (rs.next()){
-                return cc = new ChamCong(maNV, ngay, rs.getBoolean(3));
+                cc = new ChamCong(maNV, ngay, rs.getBoolean(3));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return cc;
     }
     
     //Phuong thuc kiem tra tháng này đã chấm công chưa
-    public Boolean noRecordExist(int year, int month){
+    public boolean noRecordExist(int year, int month){
+        boolean result = true;
         try {
             String sql = "{Call SP_FindCCByMonth(?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, year, month);
             while (rs.next()){
-                return false;
+                result = false;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return true;
+        return result;
     }
     
     public int getSoGioLamViecTheoNam(int year) {
+        int result = 0;
         try {
             String sql = "{call SP_SoGioLamViecTheoNam(?)}";
             ResultSet rs = JDBC.executeQuery(sql, year);
             while (rs.next()) {
-                return rs.getInt(1);
+                result = rs.getInt(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int getSLNVDiLamDayDuTheoThang(int year, int month) {
+        int result = 0;
         int ngayTrongThang = XDate.daysOfMonth(year, month);
         int soNgayLe = XDate.holidaysInMonth(year, month);
         int soNgayLamViecThapNhat = Integer.min(26, ngayTrongThang - soNgayLe);
@@ -65,12 +74,14 @@ public class ChamCongDAO {
             String sql = "{Call SP_ChuyenCanTheoThang(?,?,?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month, soNgayLamViecThapNhat);
             while (rs.next()) {
-                return rs.getInt(1);
+                result = rs.getInt(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public ObservableList<PieChart.Data> getDataForChuyenCanChart(int year, int month) {
@@ -123,37 +134,48 @@ public class ChamCongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
     
     public int insert(ChamCong cc){
+        int result = 0;
         try {
             String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Insert");
+            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Insert");
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int update(ChamCong cc){
+        int result = 0;
         try {
             String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Update");
+            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Update");
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int delete(ChamCong cc){
+        int result = 0;
         try {
             String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            return JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Delete");
+            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Delete");
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 }

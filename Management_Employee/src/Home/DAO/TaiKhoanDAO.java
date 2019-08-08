@@ -18,11 +18,14 @@ public class TaiKhoanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return tk;
     }
 
     public int checkAccount(String taiKhoan, String matKhau) {
+        int result = 0;
         try {
             String sql = "{Call SP_FindTaiKhoanByName(?)}";
             ResultSet rs = JDBC.executeQuery(sql, taiKhoan);
@@ -37,23 +40,26 @@ public class TaiKhoanDAO {
                         Share.MAPB = null;
                     }
                     //Tra ve ket qua
-                    return 2;      
+                    result = 2;      
                 }else {
                     //Tai khoan dung nhung sai mat khau
-                    return 1;
+                    result = 1;
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         //Tai khoan khong chinh xac
-        return 0;
+        return result;
     }
     
     public int insert(TaiKhoan tk) {
+        int result = 0;
         try {
             String sql = "{call sp_taikhoan(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,                  
+            result = JDBC.executeUpdate(sql,                  
                     tk.getTaiKhoan(),
                     tk.getMatKhau(),
                     tk.getMaNV(),
@@ -61,14 +67,17 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int update(TaiKhoan tk) {
+        int result = 0;
         try {
             String sql = "{call sp_taikhoan(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,                 
+            result = JDBC.executeUpdate(sql,                 
                     tk.getTaiKhoan(),
                     tk.getMatKhau(),
                     tk.getMaNV(),
@@ -76,14 +85,17 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int delete(TaiKhoan tk) {
+        int result = 0;
         try {
             String sql = "{call sp_taikhoan(?,?,?,?)}";
-            return JDBC.executeUpdate(sql,                 
+            result = JDBC.executeUpdate(sql,                 
                     tk.getTaiKhoan(),
                     tk.getMatKhau(),
                     tk.getMaNV(),
@@ -91,8 +103,10 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
 }

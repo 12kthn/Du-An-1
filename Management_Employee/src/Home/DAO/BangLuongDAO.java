@@ -14,17 +14,20 @@ import javafx.scene.chart.XYChart;
 public class BangLuongDAO {
     
     //Kiểm tra có tồn tại bản ghi nào trong tháng hay không
-    public Boolean banGhiTrongThang(int year, int month){
+    public boolean banGhiTrongThang(int year, int month){
+        boolean result = false;
         try {
             String sql = "{call SP_BanGhiTrongThang(?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, year, month);
             while (rs.next()) {
-                return true;
+                result = true;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return false;
+        return result;
     }
     
     public double getTongTienLuongTrongNam(int year) {
@@ -37,6 +40,8 @@ public class BangLuongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return TongTienLuong;
     }
@@ -54,6 +59,8 @@ public class BangLuongDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return data;
     }
@@ -77,6 +84,8 @@ public class BangLuongDAO {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return data;
     }
@@ -91,28 +100,36 @@ public class BangLuongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
     
     public int insert(BangLuong bl){
+        int result = 0;
         try {
             String sql = "{Call SP_Insert_BangLuong(?,?,?)}";
-            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+            result = JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
     
     public int update(BangLuong bl){
+        int result = 0;
         try {
             String sql = "{Call SP_Update_BangLuong(?,?,?)}";
-            return JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
+            result = JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
 }

@@ -21,49 +21,60 @@ public class PhongBanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
         return list;
     }
 
     public int insert(PhongBan pb) {
+        int result = 0;
         try {
             String sql = "{call sp_phongban(?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     pb.getMaPB(),
                     pb.getTenPB(),
                     "insert"
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int update(PhongBan pb) {
+        int result = 0;
         try {
             String sql = "{call sp_phongban(?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     pb.getMaPB(),
                     pb.getTenPB(),
                     "update"
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 
     public int delete(PhongBan pb) {
+        int result = 0;
         try {
             String sql = "{call sp_phongban(?,?,?)}";
-            return JDBC.executeUpdate(sql,
+            result = JDBC.executeUpdate(sql,
                     pb.getMaPB(),
                     pb.getTenPB(),
                     "delete"
             );
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
-        return 0;
+        return result;
     }
 }

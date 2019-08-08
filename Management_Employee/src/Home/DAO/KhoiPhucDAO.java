@@ -1,27 +1,45 @@
 package Home.DAO;
 
 import Home.helper.JDBCMaster;
-import java.sql.PreparedStatement;
-import java.sql.SQLWarning;
+import java.sql.CallableStatement;
 
 public class KhoiPhucDAO {
 
-    public boolean restoreDB(String fullPath, String diffPath) {
+    public boolean restoreDBWithDifferential(String fullPath, String diffPath) {
+        boolean success = true;
         try {
-            String sql = "{Call SP_RESTOREQLNS(?,?)}";
-            PreparedStatement pstm = JDBCMaster.prepareStatement(sql, fullPath, diffPath);
-            pstm.execute();
-            SQLWarning warning = pstm.getWarnings();
-            while (warning != null) {
-                JDBCMaster.closeConnection();
-                return false;
+            String sql = "{Call SP_RESTOREDB(?,?,?)}";
+            CallableStatement cstm = JDBCMaster.callableStatement(sql, fullPath, diffPath);
+            cstm.registerOutParameter(3, java.sql.Types.BIT);
+            cstm.execute();
+            if (!cstm.getBoolean(3)) {
+                throw new Exception();
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
+            success = false;
+        } finally {
+            JDBCMaster.closeConnection();
         }
-        JDBCMaster.closeConnection();
-        return true;
+        return success;
+    }
+    
+    public boolean restoreDBOnlyFullBackup(String fullPath) {
+        boolean success = true;
+        try {
+            String sql = "{Call SP_RESTOREQLNSOnlyFullBackup(?,?)}";
+            CallableStatement cstm = JDBCMaster.callableStatement(sql, fullPath);
+            cstm.registerOutParameter(2, java.sql.Types.BIT);
+            cstm.execute();
+            if (!cstm.getBoolean(2)) {
+                throw new Exception();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            success = false;
+        } finally {
+            JDBCMaster.closeConnection();
+        }
+        return success;
     }
 }

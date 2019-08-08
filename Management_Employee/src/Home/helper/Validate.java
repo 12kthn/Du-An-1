@@ -1,10 +1,10 @@
 package Home.helper;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 public class Validate {
 
@@ -17,7 +17,7 @@ public class Validate {
     }
 
     //Kiểm lỗi TextField not null
-    public static boolean isNull(JFXTextField txt, String errMessage) {
+    public static boolean isNull(TextField txt, String errMessage) {
         try {
             if (txt.getText().trim().equals("")) {
                 throw new Exception();
@@ -31,7 +31,7 @@ public class Validate {
     }
 
     //Kiểm lỗi PasswordField not null
-    public static boolean isNull(JFXPasswordField txt, String errMessage) {
+    public static boolean isNull(PasswordField txt, String errMessage) {
         try {
             if (txt.getText().trim().equals("")) {
                 throw new Exception();
@@ -45,7 +45,7 @@ public class Validate {
     }
 
     //Kiểm lỗi Combobox chưa được chọn giá trị
-    public static boolean isNotSelected(JFXComboBox cbo, String errMessage) {
+    public static boolean isNotSelected(ComboBox cbo, String errMessage) {
         try {
             if (cbo.getSelectionModel().getSelectedIndex() == -1) {
                 throw new Exception();
@@ -59,7 +59,7 @@ public class Validate {
     }
 
     //Kiểm lỗi TextField không đúng với mẫu
-    public static boolean isNotMatches(JFXTextField txt, String regex, String errMessage) {
+    public static boolean isNotMatches(TextField txt, String regex, String errMessage) {
         try {
             if (!txt.getText().matches(regex)) {
                 throw new Exception();
@@ -74,7 +74,7 @@ public class Validate {
     }
     
     //Kiểm lỗi xác nhận Password không giống với password
-    public static boolean isNotMatches(JFXPasswordField pass, JFXPasswordField pass2, String errMessage) {
+    public static boolean isNotMatches(PasswordField pass, PasswordField pass2, String errMessage) {
         try {
             if (!pass2.getText().matches(pass.getText())) {
                 throw new Exception();

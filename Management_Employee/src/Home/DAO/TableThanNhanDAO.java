@@ -13,14 +13,16 @@ public class TableThanNhanDAO {
         ObservableList<TableNhanThan> DATA = FXCollections.observableArrayList();
         try {
             String sql = "{Call SP_TBLThanNhan(?)}";
-            ResultSet rs = JDBC.executeQuery(sql,maNV);
+            ResultSet rs = JDBC.executeQuery(sql, maNV);
             while (rs.next()) {
                 TableNhanThan tblNT = new TableNhanThan(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6)  ? "Có" : "Không");
+                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6) ? "Có" : "Không");
                 DATA.add(tblNT);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            JDBC.closeConnection();
         }
 
         return DATA;

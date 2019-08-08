@@ -157,7 +157,6 @@ public class TaiKhoanController implements Initializable {
 
         if (Validate.isNotMatches(txtXacNhanMatKhau, txtMatKhau, "Mật khẩu xác nhận không đúng")) {
             return false;
-
         }
         return true;
     }
