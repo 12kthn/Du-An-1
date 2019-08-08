@@ -1,4 +1,3 @@
-
 package Home.controller;
 
 import Home.helper.Share;
@@ -47,7 +46,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     @FXML
     public void setGUIChamCong() {
         try {
@@ -56,7 +55,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     @FXML
     public void setGUIBangLuong() {
         try {
@@ -65,7 +64,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     @FXML
     public void setGUIKhoiPhuc() {
         try {
@@ -74,7 +73,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     @FXML
     public void setGUITaikhoan() {
         try {
@@ -83,7 +82,16 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
+    @FXML
+    public void setGUIDoimatkhau() {
+        try {
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Doimatkhau.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @FXML
     void getCoorMouse(MouseEvent event) {
         xMouse = event.getSceneX();
@@ -97,7 +105,7 @@ public class MainController implements Initializable {
         //set tọa độ mới cho JDialog khi rê chuột
         Share.mainStage.setX(x - xMouse);
         Share.mainStage.setY(y - yMouse);
-    } 
+    }
 
     @FXML
     public void logOut() {
@@ -108,7 +116,7 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
-    
+
     @FXML
     public void closeWindow() {
         Share.mainStage.close();
@@ -122,19 +130,19 @@ public class MainController implements Initializable {
     //tọa độ con trỏ chuột
     double xMouse;
     double yMouse;
-    
+
     @FXML
     private BorderPane borderPane;
 
     @FXML
     HBox AccountBox;
-    
+
     @FXML
     Label lblDoiMatKhau;
-    
+
     @FXML
     Label lblDangXuat;
-    
+
     @FXML
     Label lblUsername;
 
