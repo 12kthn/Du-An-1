@@ -1,7 +1,7 @@
-
 package Home.model;
 
 public class TaiKhoan {
+
     private String TaiKhoan;
     private String MatKhau;
     private String MaNV;
@@ -38,6 +38,4 @@ public class TaiKhoan {
     public void setMaNV(String MaNV) {
         this.MaNV = MaNV;
     }
-    
-    
 }

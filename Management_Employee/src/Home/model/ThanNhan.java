@@ -22,10 +22,7 @@ public class ThanNhan {
         this.GiamTruPhuThuoc = GiamTruPhuThuoc;
     
     }
-    /*
-    *Getter
-    */
-
+    
     public int getMaTN() {
         return MaTN;
     }
@@ -49,10 +46,6 @@ public class ThanNhan {
     public Boolean getGiamTruPhuThuoc() {
         return GiamTruPhuThuoc;
     }
-    
-    /*
-    *Setter
-    */
 
     public void setMaTN(int MaTN) {
         this.MaTN = MaTN;
@@ -77,7 +70,4 @@ public class ThanNhan {
     public void setGiamTruPhuThuoc(Boolean GiamTruPhuThuoc) {
         this.GiamTruPhuThuoc = GiamTruPhuThuoc;
     }
-    
-    
-    
 }

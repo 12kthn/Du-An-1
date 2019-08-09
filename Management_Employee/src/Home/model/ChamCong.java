@@ -1,4 +1,3 @@
-
 package Home.model;
 
 import java.util.Date;
@@ -16,10 +15,6 @@ public class ChamCong {
         this.Ngay = Ngay;
         this.TinhTrang = TinhTrang;
     }
-    
-    /*
-    *Getter
-    */
 
     public String getMaNV() {
         return MaNV;
@@ -32,11 +27,6 @@ public class ChamCong {
     public boolean getTinhTrang() {
         return TinhTrang;
     }
-
-    
-    /*
-    *Setter
-    */
 
     public void setMaNV(String MaNV) {
         this.MaNV = MaNV;

@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Home.model;
 
 import java.util.Date;
 
-/**
- *
- * @author USER
- */
 public class BangLuong {
     private String MaNV;
     private Date NgayNhanLuong;
@@ -49,10 +40,6 @@ public class BangLuong {
         this.TrangThai = TrangThai;
     
     }
-    
-    /*
-    *Getter
-    */
 
     public String getMaNV() {
         return MaNV;
@@ -105,10 +92,6 @@ public class BangLuong {
     public boolean getTrangThai() {
         return TrangThai;
     }
-    
-    /*
-    *Setter
-    */
 
     public void setMaNV(String MaNV) {
         this.MaNV = MaNV;
@@ -161,6 +144,5 @@ public class BangLuong {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
-    
+
 }

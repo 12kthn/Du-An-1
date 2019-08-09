@@ -13,10 +13,6 @@ public class PhongBan {
         this.MaPB = MaPB;
         this.TenPB = TenPB;
     }
-    
-    /*
-    *Getter
-    */
 
     public String getMaPB() {
         return MaPB;
@@ -25,11 +21,6 @@ public class PhongBan {
     public String getTenPB() {
         return TenPB;
     }
-
-    
-    /*
-    *Setter
-    */
 
     public void setMaPB(String MaPB) {
         this.MaPB = MaPB;
