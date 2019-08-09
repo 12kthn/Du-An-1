@@ -132,8 +132,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return SLNhanVien;
     }
@@ -152,7 +150,6 @@ public class NhanVienDAO {
                 ex.printStackTrace();
             }
         }
-        JDBC.closeConnection();
         return data;
     }
 

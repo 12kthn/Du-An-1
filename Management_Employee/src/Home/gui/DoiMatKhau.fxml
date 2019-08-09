@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.DoiMatKhauController">
    <children>
       <StackPane layoutX="184.0" layoutY="100.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -36,22 +36,22 @@
                               <Image url="@../../Libraries/icon/user128x128.png" />
                            </image>
                         </ImageView>
-                        <JFXPasswordField fx:id="txtMatKhau1" labelFloat="true" layoutX="85.0" layoutY="210.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToLogin" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu cũ" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="130.0">
+                        <JFXPasswordField fx:id="txtMatKhauCu" labelFloat="true" layoutX="85.0" layoutY="210.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToChange" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu cũ" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="130.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </JFXPasswordField>
-                        <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" layoutX="84.0" layoutY="210.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToLogin" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="190.0">
+                        <JFXPasswordField fx:id="txtMatKhauMoi" labelFloat="true" layoutX="84.0" layoutY="210.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToChange" prefHeight="31.0" prefWidth="316.0" promptText="Mật khẩu" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="190.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </JFXPasswordField>
-                        <JFXPasswordField fx:id="txtMatKhau2" labelFloat="true" layoutX="94.0" layoutY="220.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToLogin" prefHeight="31.0" prefWidth="316.0" promptText="Xác nhân mật khẩu" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="250.0">
+                        <JFXPasswordField fx:id="txtXacNhanMatKhau" labelFloat="true" layoutX="94.0" layoutY="220.0" maxWidth="316.0" minWidth="235.0" onKeyPressed="#enterToChange" prefHeight="31.0" prefWidth="316.0" promptText="Xác nhân mật khẩu" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="250.0">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </JFXPasswordField>
-                        <JFXButton fx:id="btnLogin" layoutX="121.0" layoutY="281.0" onAction="#login" prefHeight="34.0" prefWidth="126.0" text="Xác nhận" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
+                        <JFXButton fx:id="btnLogin" layoutX="121.0" layoutY="281.0" onAction="#changePassword" prefHeight="34.0" prefWidth="126.0" text="Xác nhận" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -67,7 +67,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton layoutX="283.0" layoutY="274.0" onAction="#exit" prefHeight="32.0" prefWidth="126.0" text="Hủy" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="95.0">
+                        <JFXButton layoutX="283.0" layoutY="274.0" onAction="#cancel" prefHeight="32.0" prefWidth="126.0" text="Hủy" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="95.0">
                            <font>
                               <Font size="14.0" />
                            </font>

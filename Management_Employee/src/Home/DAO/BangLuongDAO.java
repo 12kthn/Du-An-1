@@ -40,8 +40,6 @@ public class BangLuongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return TongTienLuong;
     }

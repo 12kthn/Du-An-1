@@ -7,10 +7,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainController implements Initializable {
 
@@ -84,11 +87,21 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void setGUIDoimatkhau() {
-        
-       
-    
+    public void openGUIDoimatkhau() {
+        try {
+            Stage secondStage = new Stage();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/DoiMatKhau.fxml")));
+            secondStage.setScene(scene);
+            secondStage.setResizable(false);
+            secondStage.initStyle(StageStyle.UNDECORATED);
+            secondStage.show();
+            Share.secondStage = secondStage;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
+
     @FXML
     void getCoorMouse(MouseEvent event) {
         xMouse = event.getSceneX();
@@ -108,12 +121,16 @@ public class MainController implements Initializable {
     public void logOut() {
         try {
             Share.logOut();
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
+            Share.mainStage.close();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
+            Share.mainStage.setScene(scene);
+            Share.mainStage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
- @FXML
+
+    @FXML
     public void setGUIGioithieu() {
         try {
             Share.logOut();
