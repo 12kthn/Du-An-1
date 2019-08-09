@@ -21,7 +21,7 @@
             </Label>
          </children>
       </HBox>
-      <JFXButton alignment="CENTER" layoutX="444.0" layoutY="439.0" onAction="#restore" prefHeight="57.0" prefWidth="190.0" style="-fx-font-weight: bold; -fx-font-size: 18;" text="Khôi phục" AnchorPane.leftAnchor="444.0" AnchorPane.rightAnchor="532.0" AnchorPane.topAnchor="439.0">
+      <JFXButton alignment="CENTER" layoutX="511.0" layoutY="430.0" onAction="#restore" prefHeight="57.0" prefWidth="190.0" style="-fx-font-weight: bold; -fx-font-size: 18;" text="Khôi phục" AnchorPane.leftAnchor="511.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="430.0">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-danger" />
@@ -37,23 +37,23 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="92.0" layoutY="276.0" prefHeight="35.0" prefWidth="220.0" text="Differential backup" textFill="#ff6000">
+      <Label alignment="CENTER" layoutX="159.0" layoutY="267.0" prefHeight="35.0" prefWidth="220.0" text="Differential backup" textFill="#ff6000">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="92.0" layoutY="216.0" prefHeight="35.0" prefWidth="220.0" text="Full backup" textFill="#ff1600">
+      <Label alignment="CENTER" layoutX="159.0" layoutY="207.0" prefHeight="35.0" prefWidth="220.0" text="Full backup" textFill="#ff1600">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFullBackup" editable="false" focusTraversable="false" layoutX="324.0" layoutY="216.0" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff1600;" />
-      <TextField fx:id="txtDiffBackup" editable="false" focusTraversable="false" layoutX="324.0" layoutY="276.0" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff6000;" />
-      <JFXButton alignment="CENTER" layoutX="924.0" layoutY="276.0" onAction="#deleteDiffBackupFile" prefHeight="35.0" prefWidth="150.0" text="Bỏ chọn File">
+      <TextField fx:id="txtFullBackup" editable="false" focusTraversable="false" layoutX="391.0" layoutY="207.0" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff1600;" />
+      <TextField fx:id="txtDiffBackup" editable="false" focusTraversable="false" layoutX="391.0" layoutY="267.0" prefHeight="35.0" prefWidth="430.0" style="-fx-text-fill: #ff6000;" />
+      <JFXButton alignment="CENTER" layoutX="991.0" layoutY="267.0" onAction="#deleteDiffBackupFile" prefHeight="35.0" prefWidth="150.0" text="Bỏ chọn File">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Libraries/icon/open-computer-folder.png" />
+                  <Image url="@../../Libraries/icon/remove-folder.png" />
                </image>
             </ImageView>
          </graphic>
@@ -65,7 +65,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton alignment="CENTER" layoutX="780.0" layoutY="276.0" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
+      <JFXButton alignment="CENTER" layoutX="847.0" layoutY="267.0" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-primary" />
@@ -73,7 +73,7 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Libraries/icon/open-computer-folder.png" />
+                  <Image url="@../../Libraries/icon/open-add-folder.png" />
                </image>
             </ImageView>
          </graphic>
@@ -81,7 +81,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton alignment="CENTER" layoutX="924.0" layoutY="216.0" onAction="#deleteFullBackupFile" prefHeight="35.0" prefWidth="150.0" text="Bỏ chọn File">
+      <JFXButton alignment="CENTER" layoutX="991.0" layoutY="207.0" onAction="#deleteFullBackupFile" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #DA1E1E;" text="Bỏ chọn File">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-danger" />
@@ -89,7 +89,7 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Libraries/icon/open-computer-folder.png" />
+                  <Image url="@../../Libraries/icon/remove-folder.png" />
                </image>
             </ImageView>
          </graphic>
@@ -97,7 +97,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton alignment="CENTER" layoutX="780.0" layoutY="216.0" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
+      <JFXButton alignment="CENTER" layoutX="847.0" layoutY="207.0" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-primary" />
@@ -105,7 +105,7 @@
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Libraries/icon/open-computer-folder.png" />
+                  <Image url="@../../Libraries/icon/open-add-folder.png" />
                </image>
             </ImageView>
          </graphic>
