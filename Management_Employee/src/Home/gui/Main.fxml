@@ -79,11 +79,18 @@
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="7.0">
                                        <image>
-                                          <Image url="@../../Libraries/icon/doimatkhau.png" />
+                                          <Image url="@../../Libraries/icon/key.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></MenuItem>
-                            <MenuItem mnemonicParsing="false" text="ĐĂNG XUẤT" />
+                            <MenuItem mnemonicParsing="false" text="ĐĂNG XUẤT">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Libraries/icon/thoat.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></MenuItem>
                           </items>
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
