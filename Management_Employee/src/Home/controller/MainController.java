@@ -85,13 +85,10 @@ public class MainController implements Initializable {
 
     @FXML
     public void setGUIDoimatkhau() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Doimatkhau.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        
+       
+    
     }
-
     @FXML
     void getCoorMouse(MouseEvent event) {
         xMouse = event.getSceneX();
