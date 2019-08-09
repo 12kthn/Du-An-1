@@ -288,7 +288,7 @@
                   <Insets top="70.0" />
                </VBox.margin>
                 </HBox>
-                  <Label id="menu_gioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
+                  <Label id="menu_gioithieu" onMouseClicked="#setGUIGioithieu" prefHeight="34.0" prefWidth="200.0" text="GIỚI THIỆU">
                       <font>
                           <Font name="Arial" size="15.0" />
                       </font>
