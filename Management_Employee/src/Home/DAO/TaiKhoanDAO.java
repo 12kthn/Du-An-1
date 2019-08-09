@@ -18,8 +18,6 @@ public class TaiKhoanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return tk;
     }
@@ -39,7 +37,6 @@ public class TaiKhoanDAO {
                     if (Share.MAPB.toString().equals("GD")) {
                         Share.MAPB = null;
                     }
-                    System.out.println(Share.MAPB);
                     //Tra ve ket qua
                     result = 2;      
                 }else {
@@ -49,10 +46,7 @@ public class TaiKhoanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
-        //Tai khoan khong chinh xac
         return result;
     }
     

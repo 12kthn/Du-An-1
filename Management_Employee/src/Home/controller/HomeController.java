@@ -6,7 +6,6 @@ import Home.DAO.NhanVienDAO;
 import Home.helper.FormatNumber;
 import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +32,6 @@ public class HomeController implements Initializable, Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     //Khởi tạo và chạy Thread
@@ -43,10 +41,7 @@ public class HomeController implements Initializable, Runnable {
     }
 
     private void loadCboNam() {
-        cboNam.getItems().add(LocalDate.now().getYear());
-        cboNam.getItems().add(LocalDate.now().getYear() - 1);
-        cboNam.getItems().add(LocalDate.now().getYear() - 2);
-        cboNam.getItems().add(LocalDate.now().getYear() - 3);
+        cboNam.setItems(ccdao.getListYear());
         cboNam.getSelectionModel().select(0);
 
         //Sự kiện khi chọn combobox

@@ -3,7 +3,6 @@ package Home.controller;
 import Home.DAO.KhoiPhucDAO;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
-import Home.helper.Validate;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
