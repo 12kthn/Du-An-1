@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
@@ -17,7 +23,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F4F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.BangLuongController">
+<AnchorPane prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F4F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.BangLuongController">
     <children>
         <JFXTabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -32,13 +38,13 @@
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboThang1" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="74.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboThang1" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="90.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                         <Label prefHeight="47.0" prefWidth="66.0" text="năm" textFill="#007fff">
                                             <font>
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboNam1" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="133.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboNam1" focusColor="#f3f3f3" prefHeight="60.0" prefWidth="118.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                     </children>
                                 </HBox>
                                 <BarChart fx:id="chartPhanHoaTienLuong" layoutX="101.0" layoutY="134.0" legendVisible="false" prefHeight="485.0" prefWidth="396.0" title="Biểu đồ phân hóa tiền lương" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="100.0">
@@ -85,13 +91,13 @@
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboThang2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="74.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboThang2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="90.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                         <Label prefHeight="47.0" prefWidth="66.0" text="năm" textFill="#007fff">
                                             <font>
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboNam2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="133.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboNam2" focusColor="#f3f3f3" prefHeight="60.0" prefWidth="118.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                     </children>
                                 </HBox>
                                 <TableView fx:id="tblBangLuong" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="442.0" prefWidth="1146.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="143.0" />
