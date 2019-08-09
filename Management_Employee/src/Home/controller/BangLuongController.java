@@ -121,7 +121,6 @@ public class BangLuongController implements Initializable {
         }
     }
 
-    //Them su kien cho Combobox
     private void addListener() {
 
         cboNam1.valueProperty().addListener(new ChangeListener<Integer>() {

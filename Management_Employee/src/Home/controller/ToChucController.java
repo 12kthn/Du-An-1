@@ -53,7 +53,6 @@ public class ToChucController implements Initializable {
 
     }
 
-    //định dạng các cột cho bảng Phòng ban
     private void setTableColumn_PB() {
         //Tạo và định dạng cột
         deleteColumn_PB = new TableColumn<>("");
@@ -78,7 +77,6 @@ public class ToChucController implements Initializable {
         tblPhongBan.getColumns().addAll(deleteColumn_PB, updateColumn_PB, col1_PB, col2_PB);
     }
 
-    //Định dạng các cột cho bảng Chức vụ
     private void setTableColumn_CV() {
         //Tạo và định dạng cột
         deleteColumn_CV = new TableColumn<>("");

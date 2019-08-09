@@ -106,7 +106,6 @@ public class ChamCongController implements Initializable {
         }
     }
 
-    //Them su kien cho Combobox
     private void addListener() {
 
         //load lại cboThang1 khi thay đổi cboNam1

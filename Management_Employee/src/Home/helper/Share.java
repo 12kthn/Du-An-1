@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 public class Share {
     
     public static Stage mainStage = null;
+    public static Stage secondStage = null;
     public static BorderPane mainPane;
     public static NhanVienController nvController;
     public static ToChucController tcController;

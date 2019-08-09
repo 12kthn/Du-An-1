@@ -59,8 +59,6 @@ public class ChamCongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -134,8 +132,6 @@ public class ChamCongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
