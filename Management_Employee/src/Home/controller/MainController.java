@@ -113,6 +113,15 @@ public class MainController implements Initializable {
             ex.printStackTrace();
         }
     }
+ @FXML
+    public void setGUIGioithieu() {
+        try {
+            Share.logOut();
+            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/GioiThieu.fxml")));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     public void closeWindow() {
