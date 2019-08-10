@@ -142,7 +142,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Libraries/icon/taomoi24x24.png" />
+                        <Image url="@../../Libraries/icon/taomoi.png" />
                      </image>
                   </ImageView>
                </graphic>

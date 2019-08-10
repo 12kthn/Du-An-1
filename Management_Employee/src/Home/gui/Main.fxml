@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -13,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1366.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.MainController">
     <top>
         <HBox fx:id="topPane" onMouseDragged="#movePanel" onMousePressed="#getCoorMouse" prefHeight="80.0" prefWidth="1366.0" style="-fx-background-color: #2a323c;" BorderPane.alignment="CENTER">
             <children>
@@ -75,22 +82,15 @@
                         </HBox>
                         <MenuButton alignment="BOTTOM_LEFT" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="42.0" prefWidth="3.0" style="-fx-background-color: transparent;">
                           <items>
-                            <MenuItem mnemonicParsing="false" onAction="#setGUIDoimatkhau" text="ĐỔI MẬT KHẨU">
+                            <MenuItem mnemonicParsing="false" onAction="#openGUIDoimatkhau" text="ĐỔI MẬT KHẨU">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" translateX="7.0">
                                        <image>
-                                          <Image url="@../../Libraries/icon/key.png" />
+                                          <Image url="@../../Libraries/icon/doimatkhau.png" />
                                        </image>
                                     </ImageView>
                                  </graphic></MenuItem>
-                            <MenuItem mnemonicParsing="false" text="ĐĂNG XUẤT">
-                                 <graphic>
-                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Libraries/icon/thoat.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></MenuItem>
+                            <MenuItem mnemonicParsing="false" onAction="#logOut" text="ĐĂNG XUẤT" />
                           </items>
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -136,6 +136,9 @@
                         <String fx:value="hove_border" />
                         <String fx:value="hover_menu" />
                      </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                     </children>
                     <VBox.margin>
@@ -165,6 +168,9 @@
                         <String fx:value="hove_border" />
                         <String fx:value="hover_menu" />
                      </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                     </children>
                 </HBox>
@@ -191,6 +197,9 @@
                         <String fx:value="hove_border" />
                         <String fx:value="hover_menu" />
                      </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                     </children>
                 </HBox>
@@ -217,6 +226,9 @@
                         <String fx:value="hove_border" />
                         <String fx:value="hover_menu" />
                      </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                     </children>
                 </HBox>
@@ -243,6 +255,9 @@
                         <String fx:value="hove_border" />
                         <String fx:value="hover_menu" />
                      </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                     </children>
                 </HBox>
@@ -264,6 +279,9 @@
                   <String fx:value="hove_border" />
                   <String fx:value="hover_menu" />
                </styleClass>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
                 <HBox layoutX="10.0" layoutY="380.0" prefHeight="34.0" prefWidth="200.0">
                <children>
@@ -289,6 +307,9 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </Label>
                </children>
                <VBox.margin>
@@ -313,6 +334,9 @@
                   <String fx:value="hove_border" />
                   <String fx:value="hover_menu" />
                </styleClass>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                   </Label>
             <HBox prefHeight="34.0" prefWidth="200.0">
                <children>
