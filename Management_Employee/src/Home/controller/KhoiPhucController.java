@@ -21,6 +21,8 @@ public class KhoiPhucController implements Initializable {
             kpdao = new KhoiPhucDAO();
             txtFullBackup.setText("Vui lòng chọn File");
             txtDiffBackup.setText("Vui lòng chọn File");
+            fullBackupDir = new File("C:\\Program Files\\Microsoft SQL Server\\MSSQL11.MSSQLSERVER\\MSSQL\\Backup");
+            diffBackupDir = new File("C:\\Program Files\\Microsoft SQL Server\\MSSQL11.MSSQLSERVER\\MSSQL\\Backup");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -28,9 +30,11 @@ public class KhoiPhucController implements Initializable {
 
     @FXML
     private void chooseFullBackupFile(ActionEvent event) {
-        File temporaryFile = openFolder();
+        File temporaryFile = openFolder(fullBackupDir);
         if (temporaryFile != null) {
             fullBackupFile = temporaryFile;
+            
+            fullBackupDir = temporaryFile.getParentFile();
             txtFullBackup.setText(fullBackupFile.getAbsolutePath());
         }
         if (fullBackupFile == null) {
@@ -40,10 +44,11 @@ public class KhoiPhucController implements Initializable {
 
     @FXML
     private void chooseDiffBackupFile(ActionEvent event) {
-        File temporaryFile = openFolder();
+        File temporaryFile = openFolder(diffBackupDir);
         if (temporaryFile != null) {
             diffBackupFile = temporaryFile;
-            txtDiffBackup.setText(diffBackupFile.getAbsolutePath());
+            diffBackupDir = temporaryFile.getParentFile();
+            txtDiffBackup.setText(diffBackupFile.getAbsolutePath());             
         }
         if (diffBackupFile == null) {
             txtDiffBackup.setText("Vui lòng chọn File");
@@ -72,11 +77,12 @@ public class KhoiPhucController implements Initializable {
 
     }
 
-    private File openFolder() {
+    private File openFolder(File initialDirectory) {
         //loc file .bak
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Local Backup File", "*.bak");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(imageFilter);
+        fileChooser.setInitialDirectory(initialDirectory);
         return fileChooser.showOpenDialog(Share.mainStage);
     }
 
@@ -128,7 +134,9 @@ public class KhoiPhucController implements Initializable {
 
     private KhoiPhucDAO kpdao;
     private File fullBackupFile = null;
+    private File fullBackupDir = null;
     private File diffBackupFile = null;
+    private File diffBackupDir = null;
 
     @FXML
     private TextField txtDiffBackup;

@@ -34,7 +34,7 @@ AS
 		END
 	ELSE
 		BEGIN
-			SELECT SUM(ThuNhap) FROM BangLuong
+			SELECT SUM(CAST(ThuNhap AS bigint)) FROM BangLuong
 		END
 GO		
 EXEC SP_TongTienLuongTrongNam 2019

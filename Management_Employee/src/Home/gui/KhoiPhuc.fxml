@@ -71,7 +71,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton alignment="CENTER" layoutX="776.0" layoutY="285.0" onAction="#chooseFullBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File" AnchorPane.rightAnchor="240.0">
+      <JFXButton alignment="CENTER" layoutX="776.0" layoutY="285.0" onAction="#chooseDiffBackupFile" prefHeight="35.0" prefWidth="130.0" text="Chọn File" AnchorPane.rightAnchor="240.0">
          <styleClass>
             <String fx:value="btn" />
             <String fx:value="btn-primary" />

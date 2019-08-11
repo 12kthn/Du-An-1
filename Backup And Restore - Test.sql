@@ -25,13 +25,18 @@ CREATE PROCEDURE SP_RESTOREDB
 	@Success bit OUTPUT
 )
 AS
-	--backup bd hiện tại
-	BACKUP DATABASE QuanLyNhanSu  
-	TO DISK = 'D:\TemporalityBackup.bak'
-	WITH INIT
-	--bat dau restore
-	BEGIN TRY
-		
+	BEGIN TRY	
+		IF EXISTS(select * from sys.databases where name='QuanLyNhanSu')
+		BEGIN
+			--backup bd hiện tại
+			BACKUP DATABASE QuanLyNhanSu  
+			TO DISK = 'D:\TemporalityBackup.bak'
+			WITH INIT
+			--dong tat ca cac ket noi
+			ALTER DATABASE QuanLyNhanSu
+			SET SINGLE_USER
+			WITH ROLLBACK IMMEDIATE;
+		END
 
 		RESTORE DATABASE QuanLyNhanSu  
 		FROM DISK = @Fullpath
@@ -50,6 +55,8 @@ AS
 				RESTORE DATABASE QuanLyNhanSu  
 				FROM DISK = 'D:\TemporalityBackup.bak'
 				WITH REPLACE, RECOVERY
+			ALTER DATABASE QuanLyNhanSu
+			SET MULTI_USER;
 		END
 	END CATCH
 GO
@@ -70,13 +77,25 @@ CREATE PROCEDURE SP_RESTOREQLNSOnlyFullBackup
 )
 AS
 	BEGIN TRY
+		IF EXISTS(select * from sys.databases where name='QuanLyNhanSu')
+		BEGIN
+			ALTER DATABASE QuanLyNhanSu
+			SET SINGLE_USER
+			WITH ROLLBACK IMMEDIATE;
+		END
+
 		RESTORE DATABASE QuanLyNhanSu  
 		FROM DISK = @Fullpath
 		WITH REPLACE, RECOVERY
 		SET @Success = 1
+
+		ALTER DATABASE QuanLyNhanSu
+		SET MULTI_USER;
 	END TRY
 	BEGIN CATCH
 		SET @Success = 0	
+		ALTER DATABASE QuanLyNhanSu
+		SET MULTI_USER;
 	END CATCH	
 GO 
 
