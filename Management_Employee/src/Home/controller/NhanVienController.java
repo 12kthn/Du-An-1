@@ -718,6 +718,12 @@ public class NhanVienController implements Initializable {
         if (Validate.isNotMatches(txtHoTenNT, regexVietnamese, "Họ tên không được chứa số và các ký tự đặc biệt")) {
             return false;
         }
+        if (Validate.isNotMatches(txtNgheNghiepNT, regexVietnamese, "Nghề nghiệp không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+        if (Validate.isNotMatches(txtMoiQuanHeNT, regexVietnamese, "Mối quan hệ không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
         return true;
     }
 

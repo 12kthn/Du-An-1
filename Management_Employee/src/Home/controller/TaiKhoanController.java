@@ -57,7 +57,7 @@ public class TaiKhoanController implements Initializable {
                 if (newValue != null) {
                     loadCboNhanVien(newValue.getMaPB());
                 }
-                
+
             }
 
         });
@@ -134,7 +134,6 @@ public class TaiKhoanController implements Initializable {
     }
 
     private void setStatus(boolean insertable) {
-        this.insertable = insertable;
         btnThem.setDisable(!insertable);
         btnCapNhat.setDisable(insertable);
         btnXoa.setDisable(insertable);
@@ -143,26 +142,43 @@ public class TaiKhoanController implements Initializable {
     }
 
     private boolean checknull() {
-        if (Validate.isNull(txtTaikhoan, "Chưa nhập tên tài khoản")) {
+        if (Validate.isNull(txtTaikhoan, "Vui lòng nhập tên tài khoản")) {
             return false;
         }
-        if (Validate.isNull(txtMatKhau, "Chưa nhập mật khẩu")) {
+        if (Validate.isNull(txtMatKhau, "Vui lòng nhập mật khẩu")) {
             return false;
         }
-
-        if (Validate.isNull(txtXacNhanMatKhau, "Chưa xác nhận mật khẩu")) {
+        if (Validate.isNull(txtXacNhanMatKhau, "Vui lòng nhập xác nhận mật khẩu")) {
             return false;
-
         }
+        if (Validate.isNotSelected(cboPhongBan, "Vui lòng chọn phòng ban")) {
+            return false;
+        }
+        if (Validate.isNotSelected(cboNhanVien, "Vui lòng chọn nhân viên")) {
+            return false;
+        }
+        return true;
+    }
 
-        if (Validate.isNotMatches(txtXacNhanMatKhau, txtMatKhau, "Mật khẩu xác nhận không đúng")) {
+    private boolean checkContent() {
+        String regexEnglish = "[\\p{L}0-9 ]+";
+        if (Validate.isNotMatches(txtTaikhoan, regexEnglish, "Tài khoản không được chứa chữ cái có dấu, "
+                + "và các ký tự đặc biệt")) {
+            return false;
+        }
+        if (Validate.isNotMatches(txtMatKhau, regexEnglish, "Mật khẩu không được chứa chữ cái có dấu, "
+                + "và các ký tự đặc biệt")) {
+            return false;
+        }
+        if (!txtMatKhau.getText().equals(txtXacNhanMatKhau.getText())) {
+            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xác nhận mật khẩu không chính xác");
             return false;
         }
         return true;
     }
 
     private boolean checkDuplication() {
-        if (insertable && tkDAO.findByCode(txtTaikhoan.getText().trim()) != null) {
+        if (tkDAO.findByCode(txtTaikhoan.getText().trim()) != null) {
             CustomDialog.showAlert(Alert.AlertType.ERROR, "Tài khoản đã tồn tại");
             txtTaikhoan.requestFocus();
             return false;
@@ -179,8 +195,6 @@ public class TaiKhoanController implements Initializable {
     private TaiKhoanDAO tkDAO;
     private PhongBanDAO pbDAO;
     private NhanVienDAO nvDAO;
-
-    private boolean insertable;
 
     private TableColumn<TableTaiKhoan, String> taiKhoanCol;
     private TableColumn<TableTaiKhoan, NhanVien> nhanVienCol;
@@ -215,17 +229,17 @@ public class TaiKhoanController implements Initializable {
 
     @FXML
     private void InsertTK(ActionEvent event) {
-        if (checknull() && checkDuplication()) {
+        if (checknull() && checkContent() && checkDuplication()) {
             TaiKhoan tk = getModel();
             try {
-                tkDAO.insert(tk);
-                loadDataToTable();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System",
-                        "Thêm mới thành công ");
-
+                if (tkDAO.insert(tk) > 0) {
+                    loadDataToTable();
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Thêm mới thành công ");
+                } else {
+                    throw new Exception();
+                }
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System",
-                        "Thêm mới thất bại ");
+                CustomDialog.showAlert(Alert.AlertType.ERROR, "Thêm mới thất bại ");
                 e.printStackTrace();
             }
         }
@@ -234,33 +248,37 @@ public class TaiKhoanController implements Initializable {
 
     @FXML
     private void updateTK(ActionEvent event) {
-        TaiKhoan tk = getModel();
-        try {
-            tkDAO.update(tk);
-
-            loadDataToTable();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage,
-                    "Managemnet System", "Cập nhật tài khoản thành công ");
-
-        } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage,
-                    "Managemnet System", "Cập nhật tài khoản thất bại ");
-            e.printStackTrace();
+        if (checknull() && checkContent()) {
+            TaiKhoan tk = getModel();
+            try {
+                if (tkDAO.update(tk) > 0) {
+                    loadDataToTable();
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Cập nhật tài khoản thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, "Cập nhật tài khoản thất bại ");
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void DeleteTK(ActionEvent event) {
         TaiKhoan tk = getModel();
-        try {
-            if (tkDAO.delete(tk) > 0) {
-                loadDataToTable();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa tài khoản thành công ");
-
+        if (CustomDialog.confirm("Bạn chắc chắn muốn xóa tài khoản " + tk.getTaiKhoan())) {
+            try {
+                if (tkDAO.delete(tk) > 0) {
+                    loadDataToTable();
+                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa tài khoản thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa tài khoản thất bại ");
+                ex.printStackTrace();
             }
-        } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa tài khoản thất bại ");
-            ex.printStackTrace();
         }
     }
 

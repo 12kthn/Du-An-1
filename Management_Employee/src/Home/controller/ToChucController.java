@@ -57,9 +57,9 @@ public class ToChucController implements Initializable {
         //Tạo và định dạng cột
         deleteColumn_PB = new TableColumn<>("");
         deleteColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn_PB.setStyle( "-fx-alignment: CENTER-RIGHT; "
-                                + "-fx-border-width: 1 0 1 1; "
-                                + "-fx-border-color: transparent");
+        deleteColumn_PB.setStyle("-fx-alignment: CENTER-RIGHT; "
+                + "-fx-border-width: 1 0 1 1; "
+                + "-fx-border-color: transparent");
 
         updateColumn_PB = new TableColumn<>("");
         updateColumn_PB.setCellValueFactory(new PropertyValueFactory<>("Update"));
@@ -81,9 +81,9 @@ public class ToChucController implements Initializable {
         //Tạo và định dạng cột
         deleteColumn_CV = new TableColumn<>("");
         deleteColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn_CV.setStyle( "-fx-alignment: CENTER-RIGHT; "
-                                + "-fx-border-width: 1 0 1 1; "
-                                + "-fx-border-color: transparent");
+        deleteColumn_CV.setStyle("-fx-alignment: CENTER-RIGHT; "
+                + "-fx-border-width: 1 0 1 1; "
+                + "-fx-border-color: transparent");
 
         updateColumn_CV = new TableColumn<>("");
         updateColumn_CV.setCellValueFactory(new PropertyValueFactory<>("Update"));
@@ -114,7 +114,6 @@ public class ToChucController implements Initializable {
     }
 
     public void setStatusPB(boolean insertablePB) {
-        this.insertablePB = insertablePB;
         txtMaPB.setDisable(!insertablePB);
         btnInsertPB.setDisable(!insertablePB);
         btnUpdatePB.setDisable(insertablePB);
@@ -122,7 +121,6 @@ public class ToChucController implements Initializable {
     }
 
     public void setStatusCV(boolean insertableCV) {
-        this.insertableCV = insertableCV;
         txtMaCV.setDisable(!insertableCV);
         btnInsertCV.setDisable(!insertableCV);
         btnUpdateCV.setDisable(insertableCV);
@@ -130,33 +128,39 @@ public class ToChucController implements Initializable {
     }
 
     private boolean checknullPB() {
-        if (Validate.isNull(txtMaPB, "Chưa nhập mã phòng ban")) {
+        if (Validate.isNull(txtMaPB, "Vui lòng nhập mã phòng ban")) {
             return false;
         }
-        if (Validate.isNull(txtTenPB, "Chưa nhập tên phòng ban")) {
+        if (Validate.isNull(txtTenPB, "Vui lòng nhập tên phòng ban")) {
             return false;
         }
         return true;
     }
 
     private boolean checknullCV() {
-        if (Validate.isNull(txtMaCV, "Chưa nhập mã chức vụ")) {
+        if (Validate.isNull(txtMaCV, "Vui lòng nhập mã chức vụ")) {
             return false;
         }
-        if (Validate.isNull(txtTenCV, "Chưa nhập tên chức vụ")) {
+        if (Validate.isNull(txtTenCV, "Vui lòng nhập tên chức vụ")) {
+            return false;
+        }
+        if (Validate.isNull(txtPhuCap, "Vui lòng nhập phụ cấp")) {
             return false;
         }
         return true;
     }
 
-    private boolean checkDuplication() {
-        if (!insertablePB && pbdao.findByCode(txtMaPB.getText().trim()) != null) {
+    private boolean checkDuplicationPhongBan() {
+        if (pbdao.findByCode(txtMaPB.getText().trim()).size() > 0) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã phòng ban đã tồn tại");
             txtMaPB.requestFocus();
             return false;
         }
+        return true;
+    }
 
-        if (!insertableCV && cvdao.findByCode(txtMaCV.getText().trim()) != null) {
+    private boolean checkDuplicationChucVu() {
+        if (cvdao.findByCode(txtMaCV.getText().trim()).size() > 0) {
             CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã chức vụ đã tồn tại");
             txtMaCV.requestFocus();
             return false;
@@ -164,9 +168,29 @@ public class ToChucController implements Initializable {
         return true;
     }
 
-    private boolean checkContent() {
-        //Kiểm tra hệ số lương
-        return !Validate.isNotMatches(txtPhuCap, "[0-9]+(\\.[0-9]+)?", "Phụ cấp không hợp lệ");
+    private boolean checkContentPhongBan() {
+        if (Validate.isNotMatches(txtMaPB, "[A-Z]{2}", "Mã phòng ban chỉ chứa 2 chữ cái in hoa")) {
+            return false;
+        }
+        String regexVietnamese = "[\\p{L}\\p{M} ]+";
+        if (Validate.isNotMatches(txtTenPB, regexVietnamese, "Tên phòng ban không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkContentChucVu() {
+        if (Validate.isNotMatches(txtMaCV, "[A-Z]{2}", "Mã chức vụ chỉ chứa 2 chữ cái in hoa")) {
+            return false;
+        }
+        String regexVietnamese = "[\\p{L}\\p{M} ]+";
+        if (Validate.isNotMatches(txtTenCV, regexVietnamese, "Tên chức vụ không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+        if (Validate.isNotMatches(txtPhuCap, "[0-9]+(\\.[0-9]+)?", "Phụ cấp không hợp lệ")) {
+            return false;
+        }
+        return true;
     }
 
     public void setModel(PhongBan pb) {
@@ -206,17 +230,22 @@ public class ToChucController implements Initializable {
     @FXML
     private void selectPhongBan(MouseEvent event) {
         TablePhongBan tableModel = tblPhongBan.getSelectionModel().getSelectedItem();
-        PhongBan pb = pbdao.findByCode(tableModel.getMaPB()).get(0);
-        setModel(pb);
-        setStatusPB(false);
+        if (tableModel != null) {
+            PhongBan pb = pbdao.findByCode(tableModel.getMaPB()).get(0);
+            setModel(pb);
+            setStatusPB(false);
+        }
     }
 
     @FXML
     private void selectChucVu(MouseEvent event) {
         TableChucVu tableModel = tblChucVu.getSelectionModel().getSelectedItem();
-        ChucVu cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
-        setModel(cv);
-        setStatusCV(false);
+        if (tableModel != null) {
+            ChucVu cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
+            setModel(cv);
+            setStatusCV(false);
+        }
+
     }
 
     @FXML
@@ -227,7 +256,7 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void insertPB() {
-        if (checknullPB() && checkDuplication()) {
+        if (checknullPB() && checkDuplicationPhongBan() && checkContentPhongBan()) {
             PhongBan pb = getModelPhongBan();
             try {
                 pbdao.insert(pb);
@@ -239,20 +268,21 @@ public class ToChucController implements Initializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     @FXML
     private void updatePB() {
-        PhongBan pb = getModelPhongBan();
-        try {
-            pbdao.update(pb);
-            loadDataToTblPhongBan();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
+        if (checknullPB() && checkContentPhongBan()) {
+            PhongBan pb = getModelPhongBan();
+            try {
+                pbdao.update(pb);
+                loadDataToTblPhongBan();
+                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
 
-        } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
-            e.printStackTrace();
+            } catch (Exception e) {
+                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -277,7 +307,7 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void insertCV() {
-        if (checknullCV() && checkDuplication() && checkContent()) {
+        if (checknullCV() && checkDuplicationChucVu() && checkContentChucVu()) {
             ChucVu cv = getModelChucVu();
             try {
                 cvdao.insert(cv);
@@ -294,7 +324,7 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void updateCV() {
-        if (checkContent()) {
+        if (checknullCV() && checkContentChucVu()) {
             ChucVu cv = getModelChucVu();
             try {
                 cvdao.update(cv);
@@ -327,8 +357,6 @@ public class ToChucController implements Initializable {
     private ChucVuDAO cvdao;
     private TablePhongBanDAO tbl_PBdao;
     private TableChucVuDAO tbl_CVdao;
-    private Boolean insertablePB;
-    private Boolean insertableCV;
 
     //Khai báo  các cột cho bảng Phòng ban
     private TableColumn<TablePhongBan, Button> deleteColumn_PB;
