@@ -62,8 +62,6 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -80,8 +78,6 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -98,8 +94,6 @@ public class TaiKhoanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }

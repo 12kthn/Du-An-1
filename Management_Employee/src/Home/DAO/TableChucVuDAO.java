@@ -43,8 +43,6 @@ public class TableChucVuDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }

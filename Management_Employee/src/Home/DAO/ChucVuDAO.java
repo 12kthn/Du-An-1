@@ -21,8 +21,6 @@ public class ChucVuDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -39,8 +37,6 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -57,8 +53,6 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -75,8 +69,6 @@ public class ChucVuDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }

@@ -30,8 +30,6 @@ public class TableChamCongDAO {
                 data.add(tableChamCong);
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            } finally {
-                JDBC.closeConnection();
             }
         }
 

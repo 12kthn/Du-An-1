@@ -21,8 +21,6 @@ public class NhanThanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -40,8 +38,6 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "insert");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -59,8 +55,6 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "update");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -78,8 +72,6 @@ public class NhanThanDAO {
                     NT.getGiamTruPhuThuoc(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }

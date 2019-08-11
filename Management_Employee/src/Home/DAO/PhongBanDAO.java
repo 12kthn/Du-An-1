@@ -21,8 +21,6 @@ public class PhongBanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -38,8 +36,6 @@ public class PhongBanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -55,8 +51,6 @@ public class PhongBanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -72,8 +66,6 @@ public class PhongBanDAO {
             );
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }

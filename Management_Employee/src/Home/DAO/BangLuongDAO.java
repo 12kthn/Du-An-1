@@ -24,8 +24,6 @@ public class BangLuongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -57,8 +55,6 @@ public class BangLuongDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }
@@ -82,8 +78,6 @@ public class BangLuongDAO {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }
@@ -98,8 +92,6 @@ public class BangLuongDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -111,8 +103,6 @@ public class BangLuongDAO {
             result = JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -124,8 +114,6 @@ public class BangLuongDAO {
             result = JDBC.executeUpdate(sql, bl.getMaNV(), XDate.toSqlDate(bl.getNgayNhanLuong()), bl.getTrangThai());
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }

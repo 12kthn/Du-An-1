@@ -21,8 +21,6 @@ public class TableThanNhanDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
 
         return DATA;

@@ -44,8 +44,6 @@ public class TablePhongBanDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }

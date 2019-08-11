@@ -28,8 +28,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -44,8 +42,6 @@ public class NhanVienDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -60,8 +56,6 @@ public class NhanVienDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return nhanVien;
     }
@@ -80,8 +74,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -100,8 +92,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -116,8 +106,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return SLNhanVien;
     }
@@ -163,8 +151,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
 
         return result;
@@ -184,8 +170,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return list;
     }
@@ -217,8 +201,6 @@ public class NhanVienDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }
@@ -239,8 +221,6 @@ public class NhanVienDAO {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return data;
     }
@@ -255,8 +235,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return maNV;
     }
@@ -273,8 +251,6 @@ public class NhanVienDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return maHD;
     }
@@ -303,8 +279,6 @@ public class NhanVienDAO {
                     nv.getTrangThai(), "insert");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -334,8 +308,6 @@ public class NhanVienDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
@@ -364,8 +336,6 @@ public class NhanVienDAO {
                     nv.getTrangThai(), "delete");
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JDBC.closeConnection();
         }
         return result;
     }
