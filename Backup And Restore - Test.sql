@@ -63,7 +63,7 @@ GO
 
 DECLARE @output bit
 EXEC SP_RESTOREDB 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak',
-				'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVTuesdayDiffBackup.bak',  @output output
+				'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVMondayDiffBackup.bak',  @output output
 print @output
 
 --Tao Stored Procedure phục hồi CSDL chỉ với file Full Backup

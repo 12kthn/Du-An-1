@@ -9,7 +9,6 @@ public class KhoiPhucDAO {
     public boolean restoreDBWithDifferential(String fullPath, String diffPath) {
         boolean success = true;
         try {
-            JDBC.closeConnection();
             String sql = "{Call SP_RESTOREDB(?,?,?)}";
             CallableStatement cstm = JDBCMaster.callableStatement(sql, fullPath, diffPath);
             cstm.registerOutParameter(3, java.sql.Types.BIT);
@@ -27,7 +26,6 @@ public class KhoiPhucDAO {
     public boolean restoreDBOnlyFullBackup(String fullPath) {
         boolean success = true;
         try {
-            JDBC.closeConnection();
             String sql = "{Call SP_RESTOREQLNSOnlyFullBackup(?,?)}";
             CallableStatement cstm = JDBCMaster.callableStatement(sql, fullPath);
             cstm.registerOutParameter(2, java.sql.Types.BIT);
