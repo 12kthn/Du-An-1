@@ -1,6 +1,6 @@
 ﻿USE  master
 GO
-
+/*
 BACKUP DATABASE QuanLyNhanSu  
 TO DISK = 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak'
 WITH INIT
@@ -13,6 +13,7 @@ BACKUP DATABASE QuanLyNhanSu
 TO DISK = @path
 WITH DIFFERENTIAL, INIT
 GO
+*/
 
 --Tao Stored Procedure phục hồi CSDL với file Full Backup và Differential Backup
 IF (OBJECT_ID('SP_RESTOREDB') IS NOT NULL)
@@ -60,11 +61,12 @@ AS
 		END
 	END CATCH
 GO
-
+/*
 DECLARE @output bit
 EXEC SP_RESTOREDB 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak',
 				'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVMondayDiffBackup.bak',  @output output
 print @output
+*/
 
 --Tao Stored Procedure phục hồi CSDL chỉ với file Full Backup
 IF (OBJECT_ID('SP_RESTOREQLNSOnlyFullBackup') IS NOT NULL)
@@ -98,11 +100,11 @@ AS
 		SET MULTI_USER;
 	END CATCH	
 GO 
-
+/*
 DECLARE @output bit
 EXEC SP_RESTOREQLNSOnlyFullBackup 'D:\work\fullQLNS.bak', @output output
 print @output
-
+*/
 
 
 
