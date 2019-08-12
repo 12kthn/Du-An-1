@@ -18,7 +18,18 @@ AS
 		END
 GO
 
-
+--tao Stored procedire tim kiem nhan vien
+if(OBJECT_ID('SP_FindNV') is not null)
+DROP PROCEDURE SP_FindNV
+go 
+CREATE PROCEDURE  SP_FindNV
+(
+@MaNV varchar(10)
+)
+AS
+IF @MaNV IS NOT NULL
+BEGIN 
+SELECT * FROM NhanVien WHERE MaNV  LIKE'%'
 --tao Stored procedure check trung lap so chung minh nhan dan 
 If (OBJECT_ID('SP_FindNVByCMND') is not null)
    Drop PROCEDURE SP_FindNVByCMND
