@@ -4,6 +4,8 @@ import Home.DAO.ChamCongDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.TableChamCongDAO;
 import Home.helper.CustomDialog;
+import Home.helper.Share;
+import Home.helper.TransitionHelper;
 import Home.helper.XDate;
 import Home.model.ChamCong;
 import Home.model.NhanVien;
@@ -28,6 +30,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class ChamCongController implements Initializable {
@@ -35,10 +38,13 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            TransitionHelper.createTransition(1000, 2200, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
             nvdao = new NhanVienDAO();
             listUpdate = new ArrayList<>();
+            customDialog = new CustomDialog();
 
             //load Tabpane1
             loadCboNam1();
@@ -603,12 +609,13 @@ public class ChamCongController implements Initializable {
         }
         loadTable();
         listUpdate.clear();
-        CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Cập nhật thành công");
+        customDialog.showDialog(Share.stackPane, true, "Cập nhật thành công");
     }
 
     private TableChamCongDAO tbl_ccdao;
     private ChamCongDAO ccdao;
     private NhanVienDAO nvdao;
+    private CustomDialog customDialog;
 
     private int year1;//bien cua tab1
     private int month1;
@@ -653,6 +660,9 @@ public class ChamCongController implements Initializable {
     private TableColumn<TableChamCong, Boolean> col31;
     private TableColumn<TableChamCong, String> col32;
 
+    @FXML
+    private AnchorPane anchorPane;
+    
     @FXML
     private JFXComboBox<Integer> cboNam1;
 

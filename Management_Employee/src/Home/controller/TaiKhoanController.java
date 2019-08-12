@@ -4,8 +4,9 @@ import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
 import Home.DAO.TableTaiKhoanDAO;
 import Home.DAO.TaiKhoanDAO;
-import Home.helper.Share;
 import Home.helper.CustomDialog;
+import Home.helper.Share;
+import Home.helper.TransitionHelper;
 import Home.helper.Validate;
 import Home.model.NhanVien;
 import Home.model.PhongBan;
@@ -26,16 +27,21 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import Home.helper.IConfirmationDialog;
 
 public class TaiKhoanController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            TransitionHelper.createTransition(0, 1200, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            
             tbl_tkDAO = new TableTaiKhoanDAO();
             tkDAO = new TaiKhoanDAO();
             pbDAO = new PhongBanDAO();
             nvDAO = new NhanVienDAO();
+            customDialog = new CustomDialog();
 
             setTableColumn();
             loadCboPhongBan();
@@ -171,7 +177,7 @@ public class TaiKhoanController implements Initializable {
             return false;
         }
         if (!txtMatKhau.getText().equals(txtXacNhanMatKhau.getText())) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xác nhận mật khẩu không chính xác");
+            customDialog.showDialog(Share.stackPane, false, "Xác nhận mật khẩu không chính xác");
             return false;
         }
         return true;
@@ -179,7 +185,7 @@ public class TaiKhoanController implements Initializable {
 
     private boolean checkDuplication() {
         if (tkDAO.findByCode(txtTaikhoan.getText().trim()) != null) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Tài khoản đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Tài khoản đã tồn tại");
             txtTaikhoan.requestFocus();
             return false;
         }
@@ -195,11 +201,16 @@ public class TaiKhoanController implements Initializable {
     private TaiKhoanDAO tkDAO;
     private PhongBanDAO pbDAO;
     private NhanVienDAO nvDAO;
-
+    private CustomDialog customDialog;
+    private TaiKhoan tk;
+    
     private TableColumn<TableTaiKhoan, String> taiKhoanCol;
     private TableColumn<TableTaiKhoan, NhanVien> nhanVienCol;
     private TableColumn<TableTaiKhoan, PhongBan> phongBanCol;
 
+    @FXML
+    private AnchorPane anchorPane;
+    
     @FXML
     private JFXTextField txtTaikhoan;
 
@@ -234,12 +245,12 @@ public class TaiKhoanController implements Initializable {
             try {
                 if (tkDAO.insert(tk) > 0) {
                     loadDataToTable();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Thêm mới thành công ");
+                    customDialog.showDialog(Share.stackPane, true, "Thêm mới thành công ");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, "Thêm mới thất bại ");
+                customDialog.showDialog(Share.stackPane, false, "Thêm mới thất bại ");
                 e.printStackTrace();
             }
         }
@@ -253,12 +264,12 @@ public class TaiKhoanController implements Initializable {
             try {
                 if (tkDAO.update(tk) > 0) {
                     loadDataToTable();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Cập nhật tài khoản thành công ");
+                    customDialog.showDialog(Share.stackPane, true, "Cập nhật tài khoản thành công ");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, "Cập nhật tài khoản thất bại ");
+                customDialog.showDialog(Share.stackPane, false, "Cập nhật tài khoản thất bại ");
                 e.printStackTrace();
             }
         }
@@ -266,20 +277,9 @@ public class TaiKhoanController implements Initializable {
 
     @FXML
     private void DeleteTK(ActionEvent event) {
-        TaiKhoan tk = getModel();
-        if (CustomDialog.confirm("Bạn chắc chắn muốn xóa tài khoản " + tk.getTaiKhoan())) {
-            try {
-                if (tkDAO.delete(tk) > 0) {
-                    loadDataToTable();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa tài khoản thành công ");
-                } else {
-                    throw new Exception();
-                }
-            } catch (Exception ex) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa tài khoản thất bại ");
-                ex.printStackTrace();
-            }
-        }
+        tk = getModel();
+        customDialog.confirmDialog("Bạn chắc chắn muốn xóa tài khoản " + tk.getTaiKhoan(), 
+                new DeleteTKHandler());
     }
 
     @FXML
@@ -287,5 +287,28 @@ public class TaiKhoanController implements Initializable {
         setModel(new TaiKhoan());
         setStatus(true);
     }
+    
+    class DeleteTKHandler implements IConfirmationDialog{
 
+        @Override
+        public void onConfirm() {
+            try {
+                if (tkDAO.delete(tk) > 0) {
+                    loadDataToTable();
+                    customDialog.showDialog(Share.stackPane, true, "Xóa tài khoản thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception ex) {
+                customDialog.showDialog(Share.stackPane, false, "Xóa tài khoản thất bại ");
+                ex.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
 }

@@ -29,9 +29,7 @@ public class TablePhongBanDAO {
                 tblpb.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (CustomDialog.confirm("Bạn chắc chắn muốn xóa Phòng ban " + tblpb.getTenPB())) {
-                            Share.tcController.deletePB(pbdao.findByCode(tblpb.getMaPB()).get(0));
-                        }
+                        Share.tcController.deletePB(pbdao.findByCode(tblpb.getMaPB()).get(0));
                     }
                 });
                 tblpb.getUpdate().setOnAction(new EventHandler<ActionEvent>() {

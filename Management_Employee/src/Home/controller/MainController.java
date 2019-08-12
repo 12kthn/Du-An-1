@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,6 +21,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Share.mainPane = borderPane;
+        Share.stackPane = stackPane;
         setGUIHome();
     }
 
@@ -35,7 +37,9 @@ public class MainController implements Initializable {
     @FXML
     public void setGUINhanVien() {
         try {
+            
             Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -154,6 +158,9 @@ public class MainController implements Initializable {
     double xMouse;
     double yMouse;
 
+    @FXML
+    private StackPane stackPane;
+    
     @FXML
     private BorderPane borderPane;
 

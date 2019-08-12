@@ -5,12 +5,14 @@ import Home.controller.NhanVienController;
 import Home.controller.ToChucController;
 import Home.model.TaiKhoan;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Share {
     
     public static Stage mainStage = null;
     public static Stage secondStage = null;
+    public static StackPane stackPane;
     public static BorderPane mainPane;
     public static NhanVienController nvController;
     public static ToChucController tcController;

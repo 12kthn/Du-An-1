@@ -16,6 +16,10 @@ public class BangLuong {
     private int TNCN;
     private int ThucLanh;
     private boolean TrangThai;
+
+    public BangLuong() {
+        
+    }  
     
     public BangLuong(String MaNV,Date NgayNhanLuong, boolean TrangThai){
         this.MaNV = MaNV;

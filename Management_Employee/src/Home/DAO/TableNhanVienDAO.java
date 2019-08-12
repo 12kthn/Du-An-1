@@ -15,7 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 
 public class TableNhanVienDAO {
-
+    
     public ObservableList<TableNhanVien> getData() {
         ObservableList<TableNhanVien> data = FXCollections.observableArrayList();
         try {
@@ -31,16 +31,7 @@ public class TableNhanVienDAO {
                 tblnv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + tblnv.getHoTen())) {
-                            return;
-                        }
-                        if (new NhanVienDAO().delete(new NhanVien(tblnv.getMaNV())) > 0) {
-                            Share.nvController.loadDataToTableNV();
-                            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân viên thành công ");
-                            Share.nvController.newNV();
-                        } else {
-                            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
-                        }
+                        Share.nvController.nv = new NhanVien(tblnv.getMaNV());
 
                     }
                 });
@@ -57,4 +48,6 @@ public class TableNhanVienDAO {
         }
         return data;
     }
+    
+    CustomDialog customDialog = new CustomDialog();
 }

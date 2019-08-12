@@ -7,6 +7,7 @@ import Home.DAO.TablePhongBanDAO;
 import Home.helper.Share;
 import Home.helper.FormatNumber;
 import Home.helper.CustomDialog;
+import Home.helper.TransitionHelper;
 import Home.helper.Validate;
 import Home.model.ChucVu;
 import Home.model.PhongBan;
@@ -24,12 +25,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import Home.helper.IConfirmationDialog;
 
 public class ToChucController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            TransitionHelper.createTransition(0, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+
             Share.tcController = this;
 
             //tạo các đối tượng DAO
@@ -37,6 +42,10 @@ public class ToChucController implements Initializable {
             cvdao = new ChucVuDAO();
             tbl_PBdao = new TablePhongBanDAO();
             tbl_CVdao = new TableChucVuDAO();
+            customDialog = new CustomDialog();
+            
+            pb = new PhongBan();
+            cv = new ChucVu();
 
             //chạy các phương thức khi khởi tạo
             setTableColumn_PB();
@@ -152,7 +161,7 @@ public class ToChucController implements Initializable {
 
     private boolean checkDuplicationPhongBan() {
         if (pbdao.findByCode(txtMaPB.getText().trim()).size() > 0) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã phòng ban đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Mã phòng ban đã tồn tại");
             txtMaPB.requestFocus();
             return false;
         }
@@ -161,7 +170,7 @@ public class ToChucController implements Initializable {
 
     private boolean checkDuplicationChucVu() {
         if (cvdao.findByCode(txtMaCV.getText().trim()).size() > 0) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã chức vụ đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Mã chức vụ đã tồn tại");
             txtMaCV.requestFocus();
             return false;
         }
@@ -231,7 +240,7 @@ public class ToChucController implements Initializable {
     private void selectPhongBan(MouseEvent event) {
         TablePhongBan tableModel = tblPhongBan.getSelectionModel().getSelectedItem();
         if (tableModel != null) {
-            PhongBan pb = pbdao.findByCode(tableModel.getMaPB()).get(0);
+            pb = pbdao.findByCode(tableModel.getMaPB()).get(0);
             setModel(pb);
             setStatusPB(false);
         }
@@ -250,6 +259,7 @@ public class ToChucController implements Initializable {
 
     @FXML
     private void newPB() {
+        pb = null;
         setModel(new PhongBan());
         setStatusPB(true);
     }
@@ -257,14 +267,14 @@ public class ToChucController implements Initializable {
     @FXML
     private void insertPB() {
         if (checknullPB() && checkDuplicationPhongBan() && checkContentPhongBan()) {
-            PhongBan pb = getModelPhongBan();
+            pb = getModelPhongBan();
             try {
                 pbdao.insert(pb);
                 loadDataToTblPhongBan();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm mới phòng ban thành công ");
+                customDialog.showDialog(Share.stackPane, true, "Thêm mới phòng ban thành công ");
                 newPB();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -273,30 +283,21 @@ public class ToChucController implements Initializable {
     @FXML
     private void updatePB() {
         if (checknullPB() && checkContentPhongBan()) {
-            PhongBan pb = getModelPhongBan();
+            pb = getModelPhongBan();
             try {
                 pbdao.update(pb);
                 loadDataToTblPhongBan();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thành công ");
-
+                customDialog.showDialog(Share.stackPane, true, "Cập nhật phòng ban thành công ");
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
     }
 
     public void deletePB(PhongBan pb) {
-        try {
-            if (pbdao.delete(pb) > 0) {
-                loadDataToTblPhongBan();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, "Xóa phòng ban thành công ");
-                newPB();
-            }
-        } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xóa phòng ban thất bại ! vui lòng kiểm tra lại  ");
-            ex.printStackTrace();
-        }
+        this.pb = pb;
+        customDialog.confirmDialog("Bạn chắc chắn muốn xóa Phòng ban " + pb.getTenPB(), new deletePBHandler());
     }
 
     @FXML
@@ -312,10 +313,10 @@ public class ToChucController implements Initializable {
             try {
                 cvdao.insert(cv);
                 loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm mới chức vụ thành công ");
+                customDialog.showDialog(Share.stackPane, true, "Thêm mới chức vụ thành công ");
                 newCV();
             } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
                 e.printStackTrace();
             }
         }
@@ -326,30 +327,24 @@ public class ToChucController implements Initializable {
     private void updateCV() {
         if (checknullCV() && checkContentChucVu()) {
             ChucVu cv = getModelChucVu();
-            try {
-                cvdao.update(cv);
-                loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật chức vụ thành công ");
-
-            } catch (Exception e) {
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Managemnet System", "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
-                e.printStackTrace();
+            if (false) {
+                try {
+                    cvdao.update(cv);
+                    loadDataToTblChucVu();
+                    customDialog.showDialog(Share.stackPane, true, "Cập nhật chức vụ thành công ");
+                } catch (Exception e) {
+                    customDialog.showDialog(Share.stackPane, false, "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
+                    e.printStackTrace();
+                }
             }
+
         }
 
     }
 
     public void deleteCV(ChucVu cv) {
-        try {
-            if (cvdao.delete(cv) > 0) {
-                loadDataToTblChucVu();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Management System", "Xóa chức vụ thành công ");
-                newCV();
-            }
-        } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa chức vụ thất bại! vui lòng kiểm tra lại ");
-            ex.printStackTrace();
-        }
+        this.cv = cv;
+        customDialog.confirmDialog("Bạn chắc chắn muốn xóa Chức vụ " + cv.getTenCV(), new deleteCVHandler());
     }
 
     //Khai báo các lớp DAO
@@ -357,6 +352,10 @@ public class ToChucController implements Initializable {
     private ChucVuDAO cvdao;
     private TablePhongBanDAO tbl_PBdao;
     private TableChucVuDAO tbl_CVdao;
+    private CustomDialog customDialog;
+    
+    private PhongBan pb;
+    private ChucVu cv;
 
     //Khai báo  các cột cho bảng Phòng ban
     private TableColumn<TablePhongBan, Button> deleteColumn_PB;
@@ -371,6 +370,8 @@ public class ToChucController implements Initializable {
     private TableColumn<TableChucVu, String> col2_CV;
     private TableColumn<TableChucVu, String> col3_CV;
 
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     private JFXButton btnInsertPB;
     @FXML
@@ -397,4 +398,50 @@ public class ToChucController implements Initializable {
     private TableView<TablePhongBan> tblPhongBan;
     @FXML
     private TableView<TableChucVu> tblChucVu;
+    
+    class deletePBHandler implements IConfirmationDialog{
+
+        @Override
+        public void onConfirm() {
+            try {
+                if (pbdao.delete(pb) > 0) {
+                    loadDataToTblPhongBan();
+                    customDialog.showDialog(Share.stackPane, true, "Xóa phòng ban thành công ");
+                    newPB();
+                }
+            } catch (Exception ex) {
+                customDialog.showDialog(Share.stackPane, false, "Xóa phòng ban thất bại! \nVui lòng kiểm tra lại");
+                ex.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
+    
+    class deleteCVHandler implements IConfirmationDialog{
+
+        @Override
+        public void onConfirm() {
+            try {
+                if (cvdao.delete(cv) > 0) {
+                    loadDataToTblChucVu();
+                    customDialog.showDialog(Share.stackPane, true, "Xóa chức vụ thành công ");
+                    newPB();
+                }
+            } catch (Exception ex) {
+                customDialog.showDialog(Share.stackPane, false, "Xóa chức vụ thất bại! \nVui lòng kiểm tra lại");
+                ex.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
 }

@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
+import Home.helper.IConfirmationDialog;
 
 public class LoginController implements Initializable {
 
@@ -26,6 +28,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tkdao = new TaiKhoanDAO();
+            customDialog = new CustomDialog();
             validatorInit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -60,23 +63,23 @@ public class LoginController implements Initializable {
     @FXML
     void login() {
         if (!txtTaiKhoan.validate() || !txtMatKhau.validate()) {
-            CustomDialog.showAlert(AlertType.ERROR, "Vui lòng nhập đầy đủ");
+            customDialog.showDialog(stackPane, false, "Vui lòng nhập đầy đủ");
             return;
         }
         int kq = tkdao.checkAccount(txtTaiKhoan.getText(), txtMatKhau.getText());//Biến lưu kết quả trả về
         switch (kq) {
             case 0:
-                CustomDialog.showAlert(AlertType.ERROR, "Sai tên đăng nhập");
+                customDialog.showDialog(stackPane, false, "Sai tên đăng nhập");
                 break;
             case 1:
-                CustomDialog.showAlert(AlertType.ERROR, "Sai mật khẩu");
+                customDialog.showDialog(stackPane, false, "Sai mật khẩu");
                 break;
             case 2:
-                CustomDialog.showAlert(AlertType.INFORMATION, "Đăng nhập thành công");
+                customDialog.showDialog(stackPane, true, "Đăng nhập thành công");
                 openMain();
                 break;
             default:
-                CustomDialog.showAlert(AlertType.ERROR, "Có lỗi xảy ra, không thể đăng nhập");
+                customDialog.showDialog(stackPane, false, "Có lỗi xảy ra, không thể đăng nhập");
                 break;
         }
     }
@@ -90,9 +93,7 @@ public class LoginController implements Initializable {
     
     @FXML
     void exit() {
-        if (CustomDialog.confirm("Bạn có muốn thoát chương trình")){
-            Share.mainStage.close();
-        }        
+        customDialog.confirmDialog("Bạn có muốn thoát chương trình", new exitHandler());
     }
     
     public void openMain() {
@@ -107,7 +108,11 @@ public class LoginController implements Initializable {
     }
 
     private TaiKhoanDAO tkdao;
+    CustomDialog customDialog;
 
+    @FXML
+    private StackPane stackPane;
+    
     @FXML
     private JFXTextField txtTaiKhoan;
 
@@ -116,4 +121,18 @@ public class LoginController implements Initializable {
   
     @FXML
     private JFXButton btnLogin;
+    
+    class exitHandler implements IConfirmationDialog{
+
+        @Override
+        public void onConfirm() {
+            Share.mainStage.close();
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
 }
