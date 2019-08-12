@@ -64,7 +64,7 @@ public class KhoiPhucController implements Initializable {
     @FXML
     private void deleteFullBackupFile(ActionEvent event) {
         if (fullBackupFile != null) {
-            customDialog.confirmDialog("Bạn chắc chắn muốn bỏ chọn File Differential Backup này", 
+            customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn bỏ chọn File Differential Backup này", 
                     new deleteFullBackupFileHandler());
         }
     }
@@ -72,7 +72,7 @@ public class KhoiPhucController implements Initializable {
     @FXML
     private void deleteDiffBackupFile(ActionEvent event) {
         if (diffBackupFile != null) {
-            customDialog.confirmDialog("Bạn chắc chắn muốn bỏ chọn File Differential Backup này", 
+            customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn bỏ chọn File Differential Backup này", 
                     new deleteDiffBackupFileHandler());
         }
 
@@ -90,7 +90,7 @@ public class KhoiPhucController implements Initializable {
     @FXML
     private void restore(ActionEvent event) {
         if (fullBackupFile == null) {
-            new CustomDialog().showDialog(Share.stackPane, false, "Bạn chưa chọn file backup nào");
+            new CustomDialog().showDialog(Share.mainPane, Share.blurPane, false, "Bạn chưa chọn file backup nào");
             return;
         }
 
@@ -104,12 +104,12 @@ public class KhoiPhucController implements Initializable {
     }
 
     private void restoreDBOnlyFullBackup() {
-        customDialog.confirmDialog("Bạn chắc chắn muốn khôi phục Cơ sở dữ liệu chỉ với file Full backup", 
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn khôi phục Cơ sở dữ liệu chỉ với file Full backup", 
                 new restoreDBOnlyFullBackupHandler());
     }
 
     private void restoreDBWithDifferential() {
-        customDialog.confirmDialog("Bạn chắc chắn muốn khôi phục Cơ sở dữ liệu với file Differential backup", 
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn khôi phục Cơ sở dữ liệu với file Differential backup", 
                 new restoreDBWithDifferentialHandler());
     }
 
@@ -165,12 +165,12 @@ public class KhoiPhucController implements Initializable {
         public void onConfirm() {
             try {
                 if (kpdao.restoreDBOnlyFullBackup(txtFullBackup.getText())) {
-                    customDialog.showDialog(Share.stackPane, true, "Khôi phục thành công");
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Khôi phục thành công");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
-                customDialog.showDialog(Share.stackPane, false, "Khôi phục thất bại. Vui lòng kiểm tra lại");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Khôi phục thất bại. Vui lòng kiểm tra lại");
                 ex.printStackTrace();
             }
         }
@@ -188,12 +188,12 @@ public class KhoiPhucController implements Initializable {
         public void onConfirm() {
             try {
                 if (kpdao.restoreDBWithDifferential(txtFullBackup.getText(), txtDiffBackup.getText())) {
-                    customDialog.showDialog(Share.stackPane, true, "Khôi phục thành công");
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Khôi phục thành công");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
-                customDialog.showDialog(Share.stackPane, false, "Khôi phục thất bại. Vui lòng kiểm tra lại");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Khôi phục thất bại. Vui lòng kiểm tra lại");
                 ex.printStackTrace();
             }
         }

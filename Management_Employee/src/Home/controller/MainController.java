@@ -7,12 +7,16 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,74 +24,50 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Share.mainPane = borderPane;
-        Share.stackPane = stackPane;
+        Share.mainPane = mainPane;
+        Share.blurPane = blurPane;
+        clipChildren(contentPane);
         setGUIHome();
     }
 
     @FXML
     public void setGUIHome() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/Home.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/Home.fxml", lblHome);
     }
 
     @FXML
     public void setGUINhanVien() {
-        try {
-            
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/NhanVien.fxml")));
-            
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/NhanVien.fxml", lblNhanVien);
     }
 
     @FXML
     public void setGUIToChuc() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ToChuc.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/ToChuc.fxml", lblToChuc);
     }
 
     @FXML
     public void setGUIChamCong() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/ChamCong.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/ChamCong.fxml", lblChamCong);
     }
 
     @FXML
     public void setGUIBangLuong() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/BangLuong.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/BangLuong.fxml", lblBangLuong);
     }
 
     @FXML
     public void setGUIKhoiPhuc() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/KhoiPhuc.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/KhoiPhuc.fxml", lblKhoiPhuc);
     }
 
     @FXML
     public void setGUITaikhoan() {
-        try {
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/TaiKhoan.fxml")));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        setChildForContentPane("/Home/gui/TaiKhoan.fxml", lblTaiKhoan);
+    }
+
+    @FXML
+    public void setGUIGioithieu() {
+        setChildForContentPane("/Home/gui/GioiThieu.fxml", lblGioiThieu);
     }
 
     @FXML
@@ -134,12 +114,37 @@ public class MainController implements Initializable {
         }
     }
 
-    @FXML
-    public void setGUIGioithieu() {
+    private void clipChildren(Pane pane) {
+        final Rectangle outputClip = new Rectangle(0, 0, pane.getWidth(), pane.getHeight());
+        pane.setClip(outputClip);
+        pane.layoutBoundsProperty().addListener((ov, oldValue, newValue) -> {
+            outputClip.setWidth(newValue.getWidth());
+            outputClip.setHeight(newValue.getHeight());
+        });
+    }
+
+    private void setChildForContentPane(String fxmlPath, Label label) {
         try {
-            Share.logOut();
-            Share.mainPane.setCenter(FXMLLoader.load(getClass().getResource("/Home/gui/GioiThieu.fxml")));
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(FXMLLoader.load(getClass().getResource(fxmlPath)));
+            removeAllStyleClass(leftPane, "hover_menuActive");
+            label.getStyleClass().add("hover_menuActive");
         } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void removeAllStyleClass(Pane pane, String className) {
+        try {
+            for (Node node : pane.getChildren()) {
+                if (node instanceof Label) {
+                    ((Label) node).getStyleClass().remove(className);
+                }
+                if (node instanceof Pane) {
+                    removeAllStyleClass((Pane) node, className);
+                }
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -159,13 +164,43 @@ public class MainController implements Initializable {
     double yMouse;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane mainPane;
+
+    @FXML
+    private BorderPane blurPane;
     
     @FXML
-    private BorderPane borderPane;
+    private StackPane contentPane;
+
+    @FXML
+    private VBox leftPane;
 
     @FXML
     HBox AccountBox;
+
+    @FXML
+    Label lblHome;
+
+    @FXML
+    private Label lblNhanVien;
+
+    @FXML
+    private Label lblToChuc;
+
+    @FXML
+    private Label lblBangLuong;
+
+    @FXML
+    private Label lblChamCong;
+
+    @FXML
+    private Label lblTaiKhoan;
+
+    @FXML
+    private Label lblKhoiPhuc;
+
+    @FXML
+    private Label lblGioiThieu;
 
     @FXML
     Label lblDoiMatKhau;

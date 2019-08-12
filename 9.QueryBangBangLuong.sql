@@ -1,24 +1,6 @@
 ﻿USE QuanLyNhanSu
 GO
 
---Tao Stored Procedure kiem tra co ton tai ban ghi nào trong tháng không
-IF (OBJECT_ID('SP_BanGhiTrongThang') IS NOT NULL)
-  DROP PROCEDURE SP_BanGhiTrongThang
-GO
-CREATE PROCEDURE SP_BanGhiTrongThang
-(
-	@Nam char(4),
-	@Thang varchar(2)
-)
-AS
-	SET @Thang = @Thang + 1
-	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-	SELECT * FROM BangLuong WHERE NgayPhatLuong BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang)
-GO
-
-EXEC SP_BanGhiTrongThang '2019', '7'
-GO
-
 --Tao Stored Procedure tinh tong thu nhap trong nam
 IF (OBJECT_ID('SP_TongTienLuongTrongNam') IS NOT NULL)
   DROP PROCEDURE SP_TongTienLuongTrongNam
@@ -30,7 +12,8 @@ CREATE PROCEDURE SP_TongTienLuongTrongNam
 AS
 	IF @Nam is not null
 		BEGIN
-			SELECT SUM(CAST(ThuNhap AS bigint)) FROM BangLuong WHERE YEAR(NgayPhatLuong) = @Nam
+			SELECT SUM(CAST(ThuNhap AS bigint)) FROM BangLuong 
+			WHERE (YEAR(NgayPhatLuong) = @Nam AND MONTH(NgayPhatLuong) > 1) OR (YEAR(NgayPhatLuong) = @Nam + 1 AND MONTH(NgayPhatLuong) = 1)
 		END
 	ELSE
 		BEGIN
@@ -39,6 +22,10 @@ AS
 GO		
 EXEC SP_TongTienLuongTrongNam 2019
 EXEC SP_TongTienLuongTrongNam null
+DECLARE @NAM int
+SET @NAM = 2019
+SELECT * FROM BangLuong WHERE (YEAR(NgayPhatLuong) = @Nam AND MONTH(NgayPhatLuong) > 1) 
+OR (YEAR(NgayPhatLuong) = @Nam + 1 AND MONTH(NgayPhatLuong) = 1)
 GO
 
 --Tao Stored Procedure hien thi tien lương cao nhat, thap nhat, trung binh theo tháng năm
@@ -52,22 +39,32 @@ CREATE PROCEDURE SP_PhanHoaTienLuong
 	@Thang varchar(2)
 )
 AS
-	SET @Thang = @Thang + 1
+	IF @Thang = 12
+		BEGIN
+			SET @Thang = 1
+			SET @Nam = @Nam + 1
+		END
+	ELSE
+		SET @Thang = @Thang + 1
 	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
 	IF @MaPB is not null
 		BEGIN
-			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong 
-			WHERE SUBSTRING(MaNV, 1, 2) = @MaPB AND NgayPhatLuong BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang)
+			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' 
+			FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV
+			WHERE MaPB = @MaPB AND NgayVaoLam NOT BETWEEN DATEADD(DAY,1,EOMONTH(@NgayDauThang, -2)) AND EOMONTH(@NgayDauThang, -1)
+								AND NgayPhatLuong BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang)
 		END
 	ELSE
 		BEGIN
-			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' FROM BangLuong
-			WHERE NgayPhatLuong BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang)
+			SELECT MAX(ThucLanh) AS 'LuongCaoNhat', MIN(ThucLanh) AS 'LuongThapNhat', AVG(ThucLanh) AS 'TrungBinh' 
+			FROM BangLuong JOIN NhanVien ON BangLuong.MaNV = NhanVien.MaNV
+			WHERE NgayVaoLam NOT BETWEEN DATEADD(DAY,1,EOMONTH(@NgayDauThang, -2)) AND EOMONTH(@NgayDauThang, -1)
+				AND NgayPhatLuong BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang)
 		END
 GO
-EXEC SP_PhanHoaTienLuong null, 2019, 4
-GO
+EXEC SP_PhanHoaTienLuong null, 2019, 1
 
+GO
 --Tao Stored Procedure hien thi tong tien lương va ten phong ban theo thang
 IF (OBJECT_ID('SP_TongTienLuongVaPBTheoThang') IS NOT NULL)
   DROP PROCEDURE SP_TongTienLuongVaPBTheoThang
@@ -78,7 +75,13 @@ CREATE PROCEDURE SP_TongTienLuongVaPBTheoThang
 	@Thang varchar(2)
 )
 AS
-	SET @Thang = @Thang + 1
+	IF @Thang = 12
+		BEGIN
+			SET @Thang = 1
+			SET @Nam = @Nam + 1
+		END
+	ELSE
+		SET @Thang = @Thang + 1
 	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
 	SELECT PhongBan.TenPB, SUM(ThucLanh)  
 	FROM NhanVien JOIN BangLuong ON NhanVien.MaNV = BangLuong.MaNV JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
@@ -87,7 +90,7 @@ AS
 	ORDER BY SUM(ThucLanh)
 GO
 
-EXEC SP_TongTienLuongVaPBTheoThang 2019, 5
+EXEC SP_TongTienLuongVaPBTheoThang 2018, 12
 
 --Tao Stored Procedure lay danh sách năm có trong BangLuong
 IF (OBJECT_ID('SP_ListYearBL') IS NOT NULL)

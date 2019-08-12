@@ -355,7 +355,13 @@ AS
 			@ThueTNCN int,			
 			@ThucLanh int		
 	SET @Nam = YEAR(@NgayPhatLuong)
-	SET @Thang = MONTH(@NgayPhatLuong) - 1
+	IF MONTH(@NgayPhatLuong) = 1
+		BEGIN
+			SET @Thang = 12
+			SET @Nam = @Nam - 1
+		END
+	ELSE
+		SET @Thang = MONTH(@NgayPhatLuong)
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
 	SET @NgayDauThang = CAST(@Nam + '-' + @Thang + '-' + '1' AS datetime)
 	SET @NgayCong = [dbo].[FN_SoNgayCong](@MaNV, @NgayDauThang)

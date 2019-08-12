@@ -4,6 +4,8 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class Validate {
 
@@ -19,10 +21,24 @@ public class Validate {
     public static boolean isNull(TextField txt, String errMessage) {
         try {
             if (txt.getText().trim().equals("")) {
+                textField = txt;
                 throw new Exception();
             }
         } catch (Exception e) {
-            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
+            new CustomDialog().showAndWaitDialog(Share.mainPane, Share.blurPane, false, errMessage, new textfieldFocusHandler());
+            return true;
+        }
+        return false;
+    }
+    
+     public static boolean isNull(TextField txt, String errMessage, StackPane stackPane, Pane blurPane) {
+        try {
+            if (txt.getText().trim().equals("")) {
+                textField = txt;
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            new CustomDialog().showAndWaitDialog(stackPane, blurPane, false, errMessage, new textfieldFocusHandler());
             return true;
         }
         return false;
@@ -32,10 +48,11 @@ public class Validate {
     public static boolean isNull(PasswordField txt, String errMessage) {
         try {
             if (txt.getText().trim().equals("")) {
+                textField = txt;
                 throw new Exception();
             }
         } catch (Exception e) {
-            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
+            new CustomDialog().showAndWaitDialog(Share.mainPane, Share.blurPane, false, errMessage, new textfieldFocusHandler());
             return true;
         }
         return false;
@@ -48,7 +65,7 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
+            new CustomDialog().showDialog(Share.mainPane, Share.blurPane, false, errMessage);
             return true;
         }
 
@@ -59,28 +76,31 @@ public class Validate {
     public static boolean isNotMatches(TextField txt, String regex, String errMessage) {
         try {
             if (!txt.getText().matches(regex)) {
+                textField = txt;
                 throw new Exception();
             }
         } catch (Exception e) {
-            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
+            new CustomDialog().showAndWaitDialog(Share.mainPane, Share.blurPane, false, errMessage, new textfieldFocusHandler());
             return true;
         }
 
         return false;
     }
     
-    //Kiểm lỗi xác nhận Password không giống với password
-    public static boolean isNotMatches(PasswordField pass, PasswordField pass2, String errMessage) {
-        try {
-            if (!pass2.getText().matches(pass.getText())) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
-            return true;
+    private static TextField textField;
+
+    static class textfieldFocusHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            textField.requestFocus();
         }
 
-        return false;
+        @Override
+        public void onCancel() {
+            
+        }
+        
     }
 
 }

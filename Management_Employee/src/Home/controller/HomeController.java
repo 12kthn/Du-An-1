@@ -4,6 +4,7 @@ import Home.DAO.BangLuongDAO;
 import Home.DAO.ChamCongDAO;
 import Home.DAO.NhanVienDAO;
 import Home.helper.FormatNumber;
+import Home.helper.TransitionHelper;
 import com.jfoenix.controls.JFXComboBox;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,12 +16,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 public class HomeController implements Initializable, Runnable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            TransitionHelper.createTransition(200, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+            
             nvdao = new NhanVienDAO();
             ccdao = new ChamCongDAO();
             bldao = new BangLuongDAO();
@@ -97,6 +101,9 @@ public class HomeController implements Initializable, Runnable {
     private int yearStatistic;
 
     @FXML
+    private AnchorPane anchorPane;
+    
+    @FXML
     private Label lblThuNhap;
 
     @FXML
@@ -115,7 +122,7 @@ public class HomeController implements Initializable, Runnable {
     @Override
     public void run() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
             double plusNum1 = nvdao.getSLNVTheoPBVaNam(yearStatistic)/ 20.0;
             double plusNum2 = bldao.getTongTienLuongTrongNam(yearStatistic) / 20.0;
             double plusNum3 = ccdao.getSoGioLamViecTheoNam(yearStatistic) / 20.0;

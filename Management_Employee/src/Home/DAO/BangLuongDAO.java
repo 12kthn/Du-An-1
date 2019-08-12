@@ -13,21 +13,6 @@ import javafx.scene.chart.XYChart;
 
 public class BangLuongDAO {
     
-    //Kiểm tra có tồn tại bản ghi nào trong tháng hay không
-    public boolean banGhiTrongThang(int year, int month){
-        boolean result = false;
-        try {
-            String sql = "{call SP_BanGhiTrongThang(?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, year, month);
-            while (rs.next()) {
-                result = true;
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return result;
-    }
-    
     public double getTongTienLuongTrongNam(int year) {
         double TongTienLuong = 0;
         try {

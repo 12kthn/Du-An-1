@@ -16,11 +16,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import Home.helper.IConfirmationDialog;
+import javafx.scene.layout.AnchorPane;
 
 public class LoginController implements Initializable {
 
@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
             }
 
         });
-        
+
         txtMatKhau.getValidators().add(Validate.createValidatorJFX("Vui lòng nhập mật khẩu"));
         txtMatKhau.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -60,27 +60,34 @@ public class LoginController implements Initializable {
         });
     }
 
+    private boolean checkNull() {
+        if (Validate.isNull(txtTaiKhoan, "Vui lòng nhập tài khoản", stackPane, mainPane)) {
+            return false;
+        }
+        if (Validate.isNull(txtMatKhau, "Vui lòng nhập mật khẩu", stackPane, mainPane)) {
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     void login() {
-        if (!txtTaiKhoan.validate() || !txtMatKhau.validate()) {
-            customDialog.showDialog(stackPane, false, "Vui lòng nhập đầy đủ");
-            return;
-        }
-        int kq = tkdao.checkAccount(txtTaiKhoan.getText(), txtMatKhau.getText());//Biến lưu kết quả trả về
-        switch (kq) {
-            case 0:
-                customDialog.showDialog(stackPane, false, "Sai tên đăng nhập");
-                break;
-            case 1:
-                customDialog.showDialog(stackPane, false, "Sai mật khẩu");
-                break;
-            case 2:
-                customDialog.showDialog(stackPane, true, "Đăng nhập thành công");
-                openMain();
-                break;
-            default:
-                customDialog.showDialog(stackPane, false, "Có lỗi xảy ra, không thể đăng nhập");
-                break;
+        if (checkNull()) {
+            int result = tkdao.checkAccount(txtTaiKhoan.getText(), txtMatKhau.getText());
+            switch (result) {
+                case 0:
+                    customDialog.showDialog(stackPane, mainPane, false, "Sai tên đăng nhập");
+                    break;
+                case 1:
+                    customDialog.showDialog(stackPane, mainPane, false, "Sai mật khẩu");
+                    break;
+                case 2:
+                    customDialog.showAndWaitDialog(stackPane, mainPane, true, "Đăng nhập thành công", new openMainHandler());
+                    break;
+                default:
+                    customDialog.showDialog(stackPane, mainPane, false, "Có lỗi xảy ra, không thể đăng nhập");
+                    break;
+            }
         }
     }
 
@@ -90,12 +97,12 @@ public class LoginController implements Initializable {
             btnLogin.fire();
         }
     }
-    
+
     @FXML
     void exit() {
-        customDialog.confirmDialog("Bạn có muốn thoát chương trình", new exitHandler());
+        customDialog.confirmDialog(stackPane, mainPane, "Bạn có muốn thoát chương trình", new exitHandler());
     }
-    
+
     public void openMain() {
         try {
             Share.mainStage.close();
@@ -112,17 +119,34 @@ public class LoginController implements Initializable {
 
     @FXML
     private StackPane stackPane;
-    
+
+    @FXML
+    private AnchorPane mainPane;
+
     @FXML
     private JFXTextField txtTaiKhoan;
 
     @FXML
     private JFXPasswordField txtMatKhau;
-  
+
     @FXML
     private JFXButton btnLogin;
-    
-    class exitHandler implements IConfirmationDialog{
+
+    class openMainHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            openMain();
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
+
+    class exitHandler implements IConfirmationDialog {
 
         @Override
         public void onConfirm() {
@@ -131,8 +155,8 @@ public class LoginController implements Initializable {
 
         @Override
         public void onCancel() {
-            
+
         }
-     
+
     }
 }

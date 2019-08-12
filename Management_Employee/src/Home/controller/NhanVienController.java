@@ -56,7 +56,7 @@ public class NhanVienController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            TransitionHelper.createTransition(200, 2000, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(200, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
 
             Share.nvController = this;
             nvdao = new NhanVienDAO();
@@ -299,11 +299,11 @@ public class NhanVienController implements Initializable {
                 try {
                     nvdao.insert(nv);
                     loadDataToTableNV();
-                    customDialog.showDialog(Share.stackPane, true, "Thêm nhân viên thành công ");
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm nhân viên thành công ");
                     setStatusNV(false);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    customDialog.showDialog(Share.stackPane, false, "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
                 }
             }
         }
@@ -316,32 +316,32 @@ public class NhanVienController implements Initializable {
             try {
                 if (nvdao.update(nv) > 0) {
                     loadDataToTableNV();
-                    customDialog.showDialog(Share.stackPane, true, "Cập nhật thông tin nhân viên thành công ");
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thông tin nhân viên thành công ");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-                customDialog.showDialog(Share.stackPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
             }
         }
     }
 
     @FXML
     public void deleteNV() {
-        customDialog.confirmDialog("Bạn chắc chắn muốn xóa nhân viên này", new deleteNhanVienHandler());
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa nhân viên này", new deleteNhanVienHandler());
     }
     
     private void deleteNV(NhanVien nv){
         try {
             nvdao.delete(nv);
             loadDataToTableNV();
-            customDialog.showDialog(Share.stackPane, true, "Xóa nhân viên thành công");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa nhân viên thành công");
             newNV();
             tblNhanVien.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            customDialog.showDialog(Share.stackPane, false, "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
 
@@ -448,7 +448,7 @@ public class NhanVienController implements Initializable {
             return false;
         }
         if (DPickerNgaySinh.getValue() == null) {
-            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày sinh ");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Vui lòng chọn ngày sinh ");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -483,12 +483,12 @@ public class NhanVienController implements Initializable {
             return false;
         }
         if (DPickerNgayBatDau.getValue() == null) {
-            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày bắt đầu ");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Vui lòng chọn ngày bắt đầu ");
             DPickerNgaySinh.requestFocus();
             return false;
         }
         if (DPickerNgayKetThuc.getValue() == null) {
-            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày kết thúc");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Vui lòng chọn ngày kết thúc");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -511,7 +511,7 @@ public class NhanVienController implements Initializable {
 
         //Kiểm tra ngày sinh
         if (ChronoUnit.YEARS.between(DPickerNgaySinh.getValue(), LocalDate.now()) < 18) {
-            customDialog.showDialog(Share.stackPane, false, "Nhân viên phải lớn hơn 18 tuổi");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Nhân viên phải lớn hơn 18 tuổi");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -533,7 +533,7 @@ public class NhanVienController implements Initializable {
 
         //Kiểm tra ngày kết thúc hợp đồng lao động
         if (DPickerNgayKetThuc.getValue().isBefore(DPickerNgayBatDau.getValue())) {
-            customDialog.showDialog(Share.stackPane, false, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
@@ -543,18 +543,18 @@ public class NhanVienController implements Initializable {
     private boolean checkDuplicationFormNhanvien(NhanVien nv) {
 
         if (insertableNV && nvdao.findByCode(txtMaNV.getText().trim()) != null) {
-            customDialog.showDialog(Share.stackPane, false, "Mã nhân viên đã tồn tại");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Mã nhân viên đã tồn tại");
             txtMaNV.requestFocus();
             return false;
         }
 
         if (nvdao.findbyCMND(txtSoCM.getText().trim()) != null && !nv.getSoCM().equals(txtSoCM.getText().trim())) {
-            customDialog.showDialog(Share.stackPane, false, "Số  CMND đã tồn tại");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Số  CMND đã tồn tại");
             txtSoCM.requestFocus();
             return false;
         }
         if (nvdao.findbyMaHD(txtMaHD.getText().trim()) != null && !nv.getMaHD().equals(txtMaHD.getText().trim())) {
-            customDialog.showDialog(Share.stackPane, false, "Mã hợp đồng đã tồn tại");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Mã hợp đồng đã tồn tại");
             txtMaHD.requestFocus();
             return false;
         }
@@ -580,7 +580,7 @@ public class NhanVienController implements Initializable {
                 imgHinh.setImage(new Image(imageFile.toURI().toURL().toExternalForm()));
             } catch (MalformedURLException ex) {
                 ex.printStackTrace();
-                customDialog.showDialog(Share.stackPane, false, "File ảnh không hợp lệ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "File ảnh không hợp lệ");
             }
         }
     }
@@ -590,7 +590,7 @@ public class NhanVienController implements Initializable {
         try {
             imgHinh.setImage(Picture.readAvatar(imageName));
         } catch (Exception ex) {
-            customDialog.showDialog(Share.stackPane, false, "Lỗi hiển thị ảnh");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Lỗi hiển thị ảnh");
         }
     }
 
@@ -601,7 +601,7 @@ public class NhanVienController implements Initializable {
             }
             return true;
         } catch (Exception e) {
-            customDialog.showDialog(Share.stackPane, false, "Lỗi khi copy file ảnh");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Lỗi khi copy file ảnh");
             return false;
         }
     }
@@ -630,11 +630,11 @@ public class NhanVienController implements Initializable {
             try {
                 ntdao.insert(nt);
                 loadDataToTableNT();
-                customDialog.showDialog(Share.stackPane, true, "Thêm thông tin nhân thân thành công ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm thông tin nhân thân thành công ");
                 newNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                customDialog.showDialog(Share.stackPane, false, "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
             }
         }
 
@@ -646,30 +646,30 @@ public class NhanVienController implements Initializable {
         if (checkNullFormNhanThan() && checkContentFormNhanThan()) {
             try {
                 ntdao.update(nt);
-                customDialog.showDialog(Share.stackPane, true, "Cập nhật thông tin nhân thân thành công ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thông tin nhân thân thành công ");
                 loadDataToTableNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                customDialog.showDialog(Share.stackPane, false, "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
             }
         }
     }
 
     @FXML
     public void deleteNT(){
-        customDialog.confirmDialog("Bạn chắc chắn muốn xóa thân nhân " + tn.getHoTen(), new deleteThanNhanHandler());
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa thân nhân " + tn.getHoTen(), new deleteThanNhanHandler());
     }
     
     private void deleteNT(ThanNhan tn) {
         try {
             ntdao.delete(tn);
             loadDataToTableNT();
-            customDialog.showDialog(Share.stackPane, true, "Xóa nhân thân thành công");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa nhân thân thành công");
             newNT();
             tblNhanThan.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            customDialog.showDialog(Share.stackPane, false, "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
         }
     }
 

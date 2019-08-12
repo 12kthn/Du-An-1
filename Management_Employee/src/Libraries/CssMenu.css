@@ -6,7 +6,6 @@
     -fx-border-color:   #196bac;
     -fx-border-width: 0px 0px 0px 10px ;
     -fx-background-color: #03a9f4;
-
 }
 .hover_buttonclose:hover{
     -fx-background-color: #e81123;
@@ -14,6 +13,12 @@
 .hover_buttonminize:hover{
     -fx-background-color:#696969;
 }
+.hover_menuActive{
+    -fx-border-color:   #196bac;
+    -fx-border-width: 0px 0px 0px 10px ;
+    -fx-background-color: #03a9f4;
+}
+
 
 /*button style*/
 .btn{

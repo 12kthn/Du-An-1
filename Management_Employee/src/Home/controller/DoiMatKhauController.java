@@ -14,9 +14,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 public class DoiMatKhauController implements Initializable {
 
@@ -70,7 +71,7 @@ public class DoiMatKhauController implements Initializable {
     private boolean checkContent() {
         String regexEnglish = "[\\p{L}0-9 ]+";
         if (!txtMatKhauCu.getText().equals(Share.USER.getMatKhau())) {
-            customDialog.showDialog(Share.stackPane, false, "Mật khẩu cũ không chính xác");
+            customDialog.showDialog(stackPane, mainPane, false, "Mật khẩu cũ không chính xác");
             txtXacNhanMatKhau.requestFocus();
             return false;
         }
@@ -79,7 +80,7 @@ public class DoiMatKhauController implements Initializable {
             return false;
         }
         if (!txtMatKhauMoi.getText().equals(txtXacNhanMatKhau.getText())) {
-            customDialog.showDialog(Share.stackPane, false, "Xác nhận mật khẩu không chính xác");
+            customDialog.showDialog(stackPane, mainPane, false, "Xác nhận mật khẩu không chính xác");
             return false;
         }
         return true;
@@ -88,7 +89,7 @@ public class DoiMatKhauController implements Initializable {
     @FXML
     void changePassword() {
         if (!txtMatKhauCu.validate() || !txtMatKhauMoi.validate() || !txtXacNhanMatKhau.validate()) {
-            customDialog.showDialog(Share.stackPane, false, "Vui lòng nhập đầy đủ");
+            customDialog.showDialog(stackPane, mainPane, false, "Vui lòng nhập đầy đủ");
             return;
         }
         if (checkContent()) {
@@ -98,9 +99,9 @@ public class DoiMatKhauController implements Initializable {
             tk.setMatKhau(txtMatKhauMoi.getText());
             int kq = tkdao.update(tk);
             if (kq == 0) {
-                customDialog.showDialog(Share.stackPane, false, "Có lỗi xảy ra, không thể đổi mật khẩu");
+                customDialog.showDialog(stackPane, mainPane, false, "Có lỗi xảy ra, không thể đổi mật khẩu");
             } else {
-                customDialog.showDialog(Share.stackPane, true, "Đổi mật khẩu thành công");
+                customDialog.showDialog(stackPane, mainPane, true, "Đổi mật khẩu thành công");
                 Share.USER = tk;
             }
         }
@@ -120,6 +121,12 @@ public class DoiMatKhauController implements Initializable {
 
     private TaiKhoanDAO tkdao;
     private CustomDialog customDialog;
+    
+    @FXML
+    private StackPane stackPane;
+    
+    @FXML
+    private AnchorPane mainPane;
 
     @FXML
     private JFXButton btnLogin;

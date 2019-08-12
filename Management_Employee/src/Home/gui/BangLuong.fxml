@@ -39,7 +39,7 @@
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboThang1" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="90.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboThang1" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="80.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                         <Label prefHeight="47.0" prefWidth="66.0" text="năm" textFill="#007fff">
                                             <font>
                                                 <Font name="System Bold" size="32.0" />
@@ -92,7 +92,7 @@
                                                 <Font name="System Bold" size="32.0" />
                                             </font>
                                         </Label>
-                                        <JFXComboBox fx:id="cboThang2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="90.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
+                                        <JFXComboBox fx:id="cboThang2" focusColor="#f3f3f3" prefHeight="78.0" prefWidth="80.0" styleClass="comboxTitle" unFocusColor="#f3f3f3" />
                                         <Label prefHeight="47.0" prefWidth="66.0" text="năm" textFill="#007fff">
                                             <font>
                                                 <Font name="System Bold" size="32.0" />

@@ -23,7 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -38,7 +37,7 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(1000, 2200, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(1400, 1200, -1*anchorPane.getPrefHeight(), anchorPane).play();
             
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
@@ -50,14 +49,14 @@ public class ChamCongController implements Initializable {
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
             loadCboThang1();
-            month1 = cboThang1.getSelectionModel().getSelectedItem();
+            month1 = Integer.valueOf(cboThang1.getSelectionModel().getSelectedItem());
             loadChart();
 
             //Loadtabpanel2
             loadCboNam2();
             year2 = cboNam2.getSelectionModel().getSelectedItem();
             loadCboThang2();
-            month2 = cboThang2.getSelectionModel().getSelectedItem();
+            month2 = Integer.valueOf(cboThang2.getSelectionModel().getSelectedItem());
             setColumnModel();
             loadTable();
 
@@ -79,7 +78,7 @@ public class ChamCongController implements Initializable {
     private void loadCboThang1() {
         cboThang1.getItems().clear();
         for (int i = 1; i <= XDate.monthOfYear(year1); i++) {
-            cboThang1.getItems().add(i);
+            cboThang1.getItems().add(String.format("%02d", i));
         }
         //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
@@ -101,7 +100,7 @@ public class ChamCongController implements Initializable {
     private void loadCboThang2() {
         cboThang2.getItems().clear();
         for (int i = 1; i <= XDate.monthOfYear(year2); i++) {
-            cboThang2.getItems().add(i);
+            cboThang2.getItems().add(String.format("%02d", i));
         }
         //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
@@ -123,11 +122,11 @@ public class ChamCongController implements Initializable {
             }
         });
         //load lại chart khi thay đổi cboThang1
-        cboThang1.valueProperty().addListener(new ChangeListener<Integer>() {
+        cboThang1.valueProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
                 try {
-                    month1 = newValue;
+                    month1 = Integer.parseInt(newValue);
                 } catch (Exception e) {
                 }
                 loadChart();
@@ -142,11 +141,11 @@ public class ChamCongController implements Initializable {
             }
         });
         //load lại table khi thay đổi cboThang1
-        cboThang2.valueProperty().addListener(new ChangeListener<Integer>() {
+        cboThang2.valueProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
                 try {
-                    month2 = newValue;
+                    month2 = Integer.parseInt(newValue);
                 } catch (Exception e) {
                 }
                 loadTable();
@@ -609,7 +608,7 @@ public class ChamCongController implements Initializable {
         }
         loadTable();
         listUpdate.clear();
-        customDialog.showDialog(Share.stackPane, true, "Cập nhật thành công");
+        customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thành công");
     }
 
     private TableChamCongDAO tbl_ccdao;
@@ -667,13 +666,13 @@ public class ChamCongController implements Initializable {
     private JFXComboBox<Integer> cboNam1;
 
     @FXML
-    private JFXComboBox<Integer> cboThang1;
+    private JFXComboBox<String> cboThang1;
 
     @FXML
     private JFXComboBox<Integer> cboNam2;
 
     @FXML
-    private JFXComboBox<Integer> cboThang2;
+    private JFXComboBox<String> cboThang2;
 
     @FXML
     private TableView<TableChamCong> tblChamCong;

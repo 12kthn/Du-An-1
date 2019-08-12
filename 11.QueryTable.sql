@@ -46,7 +46,13 @@ CREATE PROCEDURE SP_TBLBangLuong
 	@Thang varchar(2)
 )
 AS
-	SET @Thang = @Thang + 1
+	IF @Thang = 12
+		BEGIN
+			SET @Thang = 1
+			SET @Nam = @Nam + 1
+		END
+	ELSE
+		SET @Thang = @Thang + 1
 	DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
 	IF @MaPB is not null
 		BEGIN
@@ -64,7 +70,7 @@ AS
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
 		END
 GO
-
+exec SP_TBLBangLuong null, '2018', '12'
 --Tao Stored Procedure hien thi du lieu cho Table Tai khoan
 IF(OBJECT_ID('SP_TBLTaiKhoan') IS NOT NULL)
        DROP PROCEDURE SP_TBLTaiKhoan

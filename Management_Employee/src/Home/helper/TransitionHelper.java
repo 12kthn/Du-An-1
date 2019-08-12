@@ -8,10 +8,10 @@ import javafx.util.Duration;
 
 public class TransitionHelper {
 
-    public static ParallelTransition createTransition(long delay, long duration, double transalteY, Node node) {
+    public static ParallelTransition createTransition(long delay, long duration, double transalteX, Node node) {
         TranslateTransition translate = new TranslateTransition(Duration.millis(duration));
-        translate.setFromY(transalteY);
-        translate.setToY(0);
+        translate.setFromX(transalteX);
+        translate.setToX(0);
 
         FadeTransition fade = new FadeTransition(Duration.millis(duration));
         fade.setFromValue(0);

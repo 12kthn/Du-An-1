@@ -12,8 +12,8 @@ public class Share {
     
     public static Stage mainStage = null;
     public static Stage secondStage = null;
-    public static StackPane stackPane;
-    public static BorderPane mainPane;
+    public static StackPane mainPane;
+    public static BorderPane blurPane;
     public static NhanVienController nvController;
     public static ToChucController tcController;
     

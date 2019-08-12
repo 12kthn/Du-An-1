@@ -24,7 +24,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -39,8 +38,8 @@ public class BangLuongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(100, 1700, -1*anchorPane.getPrefHeight(), anchorPane).play();
-            
+            TransitionHelper.createTransition(300, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
             listUpdate = new ArrayList<>();
@@ -50,7 +49,7 @@ public class BangLuongController implements Initializable {
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
             loadCboThang1();
-            month1 = cboThang1.getSelectionModel().getSelectedItem();
+            month1 = Integer.valueOf(cboThang1.getSelectionModel().getSelectedItem());
 
             loadChart();
 
@@ -58,13 +57,14 @@ public class BangLuongController implements Initializable {
             loadCboNam2();
             year2 = cboNam2.getSelectionModel().getSelectedItem();
             loadCboThang2();
-            month2 = cboThang2.getSelectionModel().getSelectedItem();
+            month2 = Integer.valueOf(cboThang2.getSelectionModel().getSelectedItem());
             setColumnModel();
             loadTable(year2, month2);
             setBtnNewStatus();
 
             //Them su kien
             addListener();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -80,16 +80,17 @@ public class BangLuongController implements Initializable {
     private void loadCboThang1() {
         cboThang1.getItems().clear();
         int monthOfYear = XDate.monthOfYear(year1);
-        if (LocalDate.now().getDayOfMonth() < 5) {
-            monthOfYear = monthOfYear - 2;
-        } else {
-            monthOfYear = monthOfYear - 1;
+        if (year1 == LocalDate.now().getYear()) {
+            if (LocalDate.now().getDayOfMonth() < 5) {
+                monthOfYear = monthOfYear - 2;
+            } else {
+                monthOfYear = monthOfYear - 1;
+            }
+        }
+        for (int i = 1; i <= monthOfYear; i++) {
+            cboThang1.getItems().add(String.format("%02d", i));
         }
 
-        for (int i = 1; i <= monthOfYear; i++) {
-            cboThang1.getItems().add(i);
-        }
-        
         //mặc định cboThang1 chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
         if (year1 == LocalDate.now().getYear()) {
@@ -109,13 +110,15 @@ public class BangLuongController implements Initializable {
     private void loadCboThang2() {
         cboThang2.getItems().clear();
         int monthOfYear = XDate.monthOfYear(year2);
-        if (LocalDate.now().getDayOfMonth() < 5) {
-            monthOfYear = monthOfYear - 2;
-        } else {
-            monthOfYear = monthOfYear - 1;
+        if (year2 == LocalDate.now().getYear()) {
+            if (LocalDate.now().getDayOfMonth() < 5) {
+                monthOfYear = monthOfYear - 2;
+            } else {
+                monthOfYear = monthOfYear - 1;
+            }
         }
         for (int i = 1; i <= monthOfYear; i++) {
-            cboThang2.getItems().add(i);
+            cboThang2.getItems().add(String.format("%02d", i));
         }
         //mặc định cboThang chọn tháng hiện tại nếu năm đang chọn là năm hiện tại
         //nếu không chọn tháng 1
@@ -136,11 +139,11 @@ public class BangLuongController implements Initializable {
             }
         });
 
-        cboThang1.valueProperty().addListener(new ChangeListener<Integer>() {
+        cboThang1.valueProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
                 try {
-                    month1 = newValue;
+                    month1 = Integer.parseInt(newValue);
                 } catch (Exception e) {
                 }
                 loadChart();
@@ -155,11 +158,11 @@ public class BangLuongController implements Initializable {
             }
         });
 
-        cboThang2.valueProperty().addListener(new ChangeListener<Integer>() {
+        cboThang2.valueProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue ov, Integer oldValue, Integer newValue) {
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
                 try {
-                    month2 = newValue;
+                    month2 = Integer.parseInt(newValue);
                 } catch (Exception e) {
                 }
 
@@ -236,7 +239,7 @@ public class BangLuongController implements Initializable {
             }
         });
         col16.setStyle("-fx-alignment: CENTER;");
-        
+
         tblBangLuong.getColumns().addAll(col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13,
                 col14, col15, col16);
     }
@@ -257,18 +260,24 @@ public class BangLuongController implements Initializable {
     private void insert() {
         ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2);
         try {
+            Date ngayNhanLuong;
+            if (month2 == 12) {
+                ngayNhanLuong = XDate.toDate("5/1/" + (year2 + 1));
+            } else {
+                ngayNhanLuong = XDate.toDate("5/" + (month2 + 1) + "/" + year2);
+            }  
             for (NhanVien nv : data) {
-                BangLuong bl = new BangLuong(nv.getMaNV(), XDate.toDate("5/" + (month2 + 1) + "/" + year2), true);
+                BangLuong bl = new BangLuong(nv.getMaNV(), ngayNhanLuong, true);
                 if (bldao.insert(bl) == 0) {
                     throw new Exception();
                 }
             }
             loadTable(year2, month2);
             setBtnNewStatus();
-            customDialog.showDialog(Share.stackPane, true, "Tạo mới thành công");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Tạo mới thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
-            customDialog.showDialog(Share.stackPane, false, "Tạo mới thất bại");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Tạo mới thất bại");
         }
     }
 
@@ -280,16 +289,16 @@ public class BangLuongController implements Initializable {
                     throw new Exception();
                 }
             }
-            customDialog.showDialog(Share.stackPane, true, "Cập nhật thành công");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
-            customDialog.showDialog(Share.stackPane, false, "Cập nhật thất bại");
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thất bại");
         }
     }
-    
+
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
-    
+
     private CustomDialog customDialog;
     private int year1;
     private int month1;
@@ -316,18 +325,18 @@ public class BangLuongController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
-    
+
     @FXML
     private JFXComboBox<Integer> cboNam1;
 
     @FXML
-    private JFXComboBox<Integer> cboThang1;
+    private JFXComboBox<String> cboThang1;
 
     @FXML
     private JFXComboBox<Integer> cboNam2;
 
     @FXML
-    private JFXComboBox<Integer> cboThang2;
+    private JFXComboBox<String> cboThang2;
 
     @FXML
     private BarChart<?, ?> chartPhanHoaTienLuong;
