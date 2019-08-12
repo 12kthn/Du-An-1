@@ -11,6 +11,7 @@ import Home.DAO.TableNhanVienDAO;
 import Home.helper.Share;
 import Home.helper.FormatNumber;
 import Home.helper.Picture;
+import Home.helper.TransitionHelper;
 import Home.helper.Validate;
 import Home.helper.XDate;
 import Home.model.ChucVu;
@@ -37,7 +38,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -47,13 +47,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import Home.helper.IConfirmationDialog;
 
 public class NhanVienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            TransitionHelper.createTransition(200, 2000, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+
             Share.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
@@ -61,6 +65,7 @@ public class NhanVienController implements Initializable {
             tbl_nvdao = new TableNhanVienDAO();
             tbl_ntdao = new TableThanNhanDAO();
             ntdao = new NhanThanDAO();
+            customDialog = new CustomDialog();
 
             //tab 1
             loadCharts();
@@ -95,60 +100,60 @@ public class NhanVienController implements Initializable {
         //Khai bao cot
         deleteColumn = new TableColumn<>("");
         deleteColumn.setCellValueFactory(new PropertyValueFactory<>("Delete"));
-        deleteColumn.setStyle( "-fx-alignment: CENTER-RIGHT; "
-                                + "-fx-border-width: 1 0 1 1; "
-                                + "-fx-border-color: transparent");
-        
+        deleteColumn.setStyle("-fx-alignment: CENTER-RIGHT; "
+                + "-fx-border-width: 1 0 1 1; "
+                + "-fx-border-color: transparent");
+
         updateColumn = new TableColumn<>("");
         updateColumn.setCellValueFactory(new PropertyValueFactory<>("Update"));
         updateColumn.setStyle("-fx-alignment: CENTER-LEFT;"
-                            + "-fx-border-color: transparent");
-        
+                + "-fx-border-color: transparent");
+
         col1 = new TableColumn<>("Mã nhân viên");
         col1.setCellValueFactory(new PropertyValueFactory<>("MaNV"));
-        
+
         col2 = new TableColumn<>("Họ tên");
         col2.setCellValueFactory(new PropertyValueFactory<>("HoTen"));
-        
+
         col3 = new TableColumn<>("Giới tính");
         col3.setCellValueFactory(new PropertyValueFactory<>("GioiTinh"));
-        
+
         col4 = new TableColumn<>("Ngày sinh");
         col4.setCellValueFactory(new PropertyValueFactory<>("NgaySinh"));
-        
+
         col5 = new TableColumn<>("Số CMND");
         col5.setCellValueFactory(new PropertyValueFactory<>("SoCM"));
-        
+
         col6 = new TableColumn<>("Điện thoại");
         col6.setCellValueFactory(new PropertyValueFactory<>("DienThoai"));
-        
+
         col7 = new TableColumn<>("Email");
         col7.setCellValueFactory(new PropertyValueFactory<>("Email"));
-        
+
         col8 = new TableColumn<>("Địa chỉ");
         col8.setCellValueFactory(new PropertyValueFactory<>("DiaChi"));
-        
+
         col9 = new TableColumn<>("Trình độ học vấn");
         col9.setCellValueFactory(new PropertyValueFactory<>("TrinhDoHV"));
-        
+
         col10 = new TableColumn<>("Mã hợp đồng");
         col10.setCellValueFactory(new PropertyValueFactory<>("MaHD"));
-        
+
         col11 = new TableColumn<>("Phòng ban");
         col11.setCellValueFactory(new PropertyValueFactory<>("PhongBan"));
-        
+
         col12 = new TableColumn<>("Chức vụ");
         col12.setCellValueFactory(new PropertyValueFactory<>("ChucVu"));
-        
+
         col13 = new TableColumn<>("Ngày vào làm");
         col13.setCellValueFactory(new PropertyValueFactory<>("NgayVaoLam"));
-        
+
         col14 = new TableColumn<>("Ngày kết thúc");
         col14.setCellValueFactory(new PropertyValueFactory<>("NgayKetThuc"));
-        
+
         col15 = new TableColumn<>("Hệ số lương");
         col15.setCellValueFactory(new PropertyValueFactory<>("HeSoLuong"));
-        
+
         col16 = new TableColumn<>("Trạng thái");
         col16.setCellValueFactory(new PropertyValueFactory<>("TrangThai"));
 
@@ -202,7 +207,7 @@ public class NhanVienController implements Initializable {
         txtMaHD.setDisable(true);
         txtEmail.setDisable(true);
     }
-    
+
     private void setDefaultValueForDisableTextFields() {
         txtMaNV.setText("Tự động tạo khi chọn phòng ban");
         txtMaHD.setText(createNewMaHD(LocalDate.now().getYear()));
@@ -234,7 +239,7 @@ public class NhanVienController implements Initializable {
             public void changed(ObservableValue<? extends PhongBan> observable, PhongBan oldValue, PhongBan newValue) {
                 if (newValue != null) {
                     txtMaNV.setText(createNewMaNV(newValue));
-                }   
+                }
             }
 
         });
@@ -288,16 +293,18 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void insertNV() {
-        NhanVien nv = getModelNhanVien();
-        if (checkNullFormNhanVien() && checkContentFormNhanvien() && checkDuplicationFormNhanvien(nv) && copyImageToAvatarFolder()) {
-            try {
-                nvdao.insert(nv);
-                loadDataToTableNV();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm nhân viên thành công ");
-                setStatusNV(false);
-            } catch (Exception e) {
-                e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+        if (checkNullFormNhanVien() && checkContentFormNhanvien()) {
+            NhanVien nv = getModelNhanVien();
+            if (checkDuplicationFormNhanvien(nv) && copyImageToAvatarFolder()) {
+                try {
+                    nvdao.insert(nv);
+                    loadDataToTableNV();
+                    customDialog.showDialog(Share.stackPane, true, "Thêm nhân viên thành công ");
+                    setStatusNV(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    customDialog.showDialog(Share.stackPane, false, "Thêm nhân viên thất bại! vui lòng kiểm tra lại ");
+                }
             }
         }
     }
@@ -309,32 +316,32 @@ public class NhanVienController implements Initializable {
             try {
                 if (nvdao.update(nv) > 0) {
                     loadDataToTableNV();
-                    CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật thông tin nhân viên thành công ");
+                    customDialog.showDialog(Share.stackPane, true, "Cập nhật thông tin nhân viên thành công ");
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
             }
         }
     }
 
     @FXML
     public void deleteNV() {
-        NhanVien nv = getModelNhanVien();
-        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen())) {
-            return;
-        }
+        customDialog.confirmDialog("Bạn chắc chắn muốn xóa nhân viên này", new deleteNhanVienHandler());
+    }
+    
+    private void deleteNV(NhanVien nv){
         try {
             nvdao.delete(nv);
             loadDataToTableNV();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân viên thành công");
+            customDialog.showDialog(Share.stackPane, true, "Xóa nhân viên thành công");
             newNV();
             tblNhanVien.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
+            customDialog.showDialog(Share.stackPane, false, "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
 
@@ -441,7 +448,7 @@ public class NhanVienController implements Initializable {
             return false;
         }
         if (DPickerNgaySinh.getValue() == null) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày sinh ");
+            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày sinh ");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -476,12 +483,12 @@ public class NhanVienController implements Initializable {
             return false;
         }
         if (DPickerNgayBatDau.getValue() == null) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày bắt đầu ");
+            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày bắt đầu ");
             DPickerNgaySinh.requestFocus();
             return false;
         }
         if (DPickerNgayKetThuc.getValue() == null) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Vui lòng chọn ngày kết thúc");
+            customDialog.showDialog(Share.stackPane, false, "Vui lòng chọn ngày kết thúc");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -504,7 +511,7 @@ public class NhanVienController implements Initializable {
 
         //Kiểm tra ngày sinh
         if (ChronoUnit.YEARS.between(DPickerNgaySinh.getValue(), LocalDate.now()) < 18) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Nhân viên phải lớn hơn 18 tuổi");
+            customDialog.showDialog(Share.stackPane, false, "Nhân viên phải lớn hơn 18 tuổi");
             DPickerNgaySinh.requestFocus();
             return false;
         }
@@ -526,7 +533,7 @@ public class NhanVienController implements Initializable {
 
         //Kiểm tra ngày kết thúc hợp đồng lao động
         if (DPickerNgayKetThuc.getValue().isBefore(DPickerNgayBatDau.getValue())) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
+            customDialog.showDialog(Share.stackPane, false, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
@@ -536,18 +543,18 @@ public class NhanVienController implements Initializable {
     private boolean checkDuplicationFormNhanvien(NhanVien nv) {
 
         if (insertableNV && nvdao.findByCode(txtMaNV.getText().trim()) != null) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã nhân viên đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Mã nhân viên đã tồn tại");
             txtMaNV.requestFocus();
             return false;
         }
 
         if (nvdao.findbyCMND(txtSoCM.getText().trim()) != null && !nv.getSoCM().equals(txtSoCM.getText().trim())) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Số  CMND đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Số  CMND đã tồn tại");
             txtSoCM.requestFocus();
             return false;
         }
         if (nvdao.findbyMaHD(txtMaHD.getText().trim()) != null && !nv.getMaHD().equals(txtMaHD.getText().trim())) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, "Mã hợp đồng đã tồn tại");
+            customDialog.showDialog(Share.stackPane, false, "Mã hợp đồng đã tồn tại");
             txtMaHD.requestFocus();
             return false;
         }
@@ -573,7 +580,7 @@ public class NhanVienController implements Initializable {
                 imgHinh.setImage(new Image(imageFile.toURI().toURL().toExternalForm()));
             } catch (MalformedURLException ex) {
                 ex.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, "File ảnh không hợp lệ");
+                customDialog.showDialog(Share.stackPane, false, "File ảnh không hợp lệ");
             }
         }
     }
@@ -583,7 +590,7 @@ public class NhanVienController implements Initializable {
         try {
             imgHinh.setImage(Picture.readAvatar(imageName));
         } catch (Exception ex) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Lỗi hiển thị ảnh");
+            customDialog.showDialog(Share.stackPane, false, "Lỗi hiển thị ảnh");
         }
     }
 
@@ -594,7 +601,7 @@ public class NhanVienController implements Initializable {
             }
             return true;
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Lỗi khi copy file ảnh");
+            customDialog.showDialog(Share.stackPane, false, "Lỗi khi copy file ảnh");
             return false;
         }
     }
@@ -623,11 +630,11 @@ public class NhanVienController implements Initializable {
             try {
                 ntdao.insert(nt);
                 loadDataToTableNT();
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Thêm thông tin nhân thân thành công ");
+                customDialog.showDialog(Share.stackPane, true, "Thêm thông tin nhân thân thành công ");
                 newNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Thêm thông tin nhân thân thất bại! vui lòng kiểm tra lại ");
             }
         }
 
@@ -639,30 +646,30 @@ public class NhanVienController implements Initializable {
         if (checkNullFormNhanThan() && checkContentFormNhanThan()) {
             try {
                 ntdao.update(nt);
-                CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Cập nhật thông tin nhân thân thành công ");
+                customDialog.showDialog(Share.stackPane, true, "Cập nhật thông tin nhân thân thành công ");
                 loadDataToTableNT();
             } catch (Exception e) {
                 e.printStackTrace();
-                CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
+                customDialog.showDialog(Share.stackPane, false, "Cập nhật thông tin nhân thân thất bại! Vui lòng kiểm tra lại ");
             }
         }
     }
 
     @FXML
-    public void deleteNT() {
-        ThanNhan nt = getModelThanThan();
-        if (!CustomDialog.confirm("Bạn chắc chắn muốn xóa nhân thân " + nt.getHoTen())) {
-            return;
-        }
+    public void deleteNT(){
+        customDialog.confirmDialog("Bạn chắc chắn muốn xóa thân nhân " + tn.getHoTen(), new deleteThanNhanHandler());
+    }
+    
+    private void deleteNT(ThanNhan tn) {
         try {
-            ntdao.delete(nt);
+            ntdao.delete(tn);
             loadDataToTableNT();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "Managemnet System", "Xóa nhân thân thành công");
+            customDialog.showDialog(Share.stackPane, true, "Xóa nhân thân thành công");
             newNT();
             tblNhanThan.getSelectionModel().clearSelection();
         } catch (Exception e) {
             e.printStackTrace();
-            CustomDialog.showAlert(Alert.AlertType.ERROR, Share.mainStage, "Management System", "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
+            customDialog.showDialog(Share.stackPane, false, "Xóa nhân thân thất bại! Vui lòng kiểm tra lại ");
         }
     }
 
@@ -737,6 +744,8 @@ public class NhanVienController implements Initializable {
     private TableThanNhanDAO tbl_ntdao;
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
+    private CustomDialog customDialog;
+    
     private ObservableList listGiamTruPhuThuoc;
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
@@ -746,6 +755,8 @@ public class NhanVienController implements Initializable {
     private Boolean insertableNT;
     private String imageName;
     private File imageFile;
+    public NhanVien nv;
+    public ThanNhan tn;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
@@ -770,6 +781,9 @@ public class NhanVienController implements Initializable {
     private TableColumn<TableNhanThan, String> NgheNghiep;
     private TableColumn<TableNhanThan, String> Moiquanhe;
     private TableColumn<TableNhanThan, String> giamtruphuthuoc;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private JFXTabPane tabPane;
@@ -879,4 +893,33 @@ public class NhanVienController implements Initializable {
     @FXML
     private JFXButton btnTaoMoiNT;
 
+    class deleteNhanVienHandler implements IConfirmationDialog{
+
+        @Override
+        public void onConfirm() {
+            nv = getModelNhanVien();
+            deleteNV(nv);
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
+    
+    class deleteThanNhanHandler implements IConfirmationDialog{
+
+        @Override
+        public void onConfirm() {
+            tn = getModelThanThan();
+            deleteNT(tn);
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+     
+    }
 }

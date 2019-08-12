@@ -5,6 +5,7 @@ import Home.DAO.NhanVienDAO;
 import Home.DAO.TableBangLuongDAO;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
+import Home.helper.TransitionHelper;
 import Home.helper.XDate;
 import Home.model.BangLuong;
 import Home.model.NhanVien;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class BangLuongController implements Initializable {
@@ -37,9 +39,12 @@ public class BangLuongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            TransitionHelper.createTransition(100, 1700, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
             listUpdate = new ArrayList<>();
+            customDialog = new CustomDialog();
 
             //TabPane1
             loadCboNam1();
@@ -260,9 +265,10 @@ public class BangLuongController implements Initializable {
             }
             loadTable(year2, month2);
             setBtnNewStatus();
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "", "Tạo mới thành công");
+            customDialog.showDialog(Share.stackPane, true, "Tạo mới thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
+            customDialog.showDialog(Share.stackPane, false, "Tạo mới thất bại");
         }
     }
 
@@ -274,14 +280,17 @@ public class BangLuongController implements Initializable {
                     throw new Exception();
                 }
             }
-            CustomDialog.showAlert(Alert.AlertType.INFORMATION, Share.mainStage, "", "Cập nhật thành công");
+            customDialog.showDialog(Share.stackPane, true, "Cập nhật thành công");
         } catch (Exception ex) {
             ex.printStackTrace();
+            customDialog.showDialog(Share.stackPane, false, "Cập nhật thất bại");
         }
     }
     
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
+    
+    private CustomDialog customDialog;
     private int year1;
     private int month1;
     private int year2;
@@ -305,6 +314,9 @@ public class BangLuongController implements Initializable {
     private TableColumn<TableBangLuong, Integer> col15;
     private TableColumn<TableBangLuong, Boolean> col16;
 
+    @FXML
+    private AnchorPane anchorPane;
+    
     @FXML
     private JFXComboBox<Integer> cboNam1;
 

@@ -28,9 +28,7 @@ public class TableChucVuDAO {
                 tblcv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        if (CustomDialog.confirm("Bạn chắc chắn muốn xóa Chức vụ " + tblcv.getTenCV())) {
-                            Share.tcController.deleteCV(cvdao.findByCode(tblcv.getMaCV()).get(0));
-                        }
+                        Share.tcController.deleteCV(cvdao.findByCode(tblcv.getMaCV()).get(0));
                     }
                 });
                 tblcv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
@@ -46,4 +44,6 @@ public class TableChucVuDAO {
         }
         return data;
     }
+
+    private CustomDialog customDialog = new CustomDialog();
 }

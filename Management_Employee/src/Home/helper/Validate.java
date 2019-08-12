@@ -1,7 +1,6 @@
 package Home.helper;
 
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -23,8 +22,7 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
-            txt.requestFocus();
+            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
             return true;
         }
         return false;
@@ -37,8 +35,7 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
-            txt.requestFocus();
+            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
             return true;
         }
         return false;
@@ -51,7 +48,7 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
+            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
             return true;
         }
 
@@ -65,8 +62,7 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
-            txt.requestFocus();
+            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
             return true;
         }
 
@@ -80,11 +76,11 @@ public class Validate {
                 throw new Exception();
             }
         } catch (Exception e) {
-            CustomDialog.showAlert(Alert.AlertType.WARNING, errMessage);
-            pass2.requestFocus();
+            new CustomDialog().showDialog(Share.stackPane, false, errMessage);
             return true;
         }
 
         return false;
     }
+
 }

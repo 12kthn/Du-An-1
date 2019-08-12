@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -25,6 +24,7 @@ public class DoiMatKhauController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             tkdao = new TaiKhoanDAO();
+            customDialog = new CustomDialog();
             validatorInit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -70,7 +70,7 @@ public class DoiMatKhauController implements Initializable {
     private boolean checkContent() {
         String regexEnglish = "[\\p{L}0-9 ]+";
         if (!txtMatKhauCu.getText().equals(Share.USER.getMatKhau())) {
-            CustomDialog.showAlert(AlertType.ERROR, Share.secondStage, "Mật khẩu cũ không chính xác");
+            customDialog.showDialog(Share.stackPane, false, "Mật khẩu cũ không chính xác");
             txtXacNhanMatKhau.requestFocus();
             return false;
         }
@@ -79,7 +79,7 @@ public class DoiMatKhauController implements Initializable {
             return false;
         }
         if (!txtMatKhauMoi.getText().equals(txtXacNhanMatKhau.getText())) {
-            CustomDialog.showAlert(Alert.AlertType.ERROR, "Xác nhận mật khẩu không chính xác");
+            customDialog.showDialog(Share.stackPane, false, "Xác nhận mật khẩu không chính xác");
             return false;
         }
         return true;
@@ -88,7 +88,7 @@ public class DoiMatKhauController implements Initializable {
     @FXML
     void changePassword() {
         if (!txtMatKhauCu.validate() || !txtMatKhauMoi.validate() || !txtXacNhanMatKhau.validate()) {
-            CustomDialog.showAlert(AlertType.ERROR, Share.secondStage, "Vui lòng nhập đầy đủ");
+            customDialog.showDialog(Share.stackPane, false, "Vui lòng nhập đầy đủ");
             return;
         }
         if (checkContent()) {
@@ -98,9 +98,9 @@ public class DoiMatKhauController implements Initializable {
             tk.setMatKhau(txtMatKhauMoi.getText());
             int kq = tkdao.update(tk);
             if (kq == 0) {
-                CustomDialog.showAlert(AlertType.ERROR, Share.secondStage, "Có lỗi xảy ra, không thể đổi mật khẩu");
+                customDialog.showDialog(Share.stackPane, false, "Có lỗi xảy ra, không thể đổi mật khẩu");
             } else {
-                CustomDialog.showAlert(AlertType.INFORMATION, Share.secondStage, "Đổi mật khẩu thành công");
+                customDialog.showDialog(Share.stackPane, true, "Đổi mật khẩu thành công");
                 Share.USER = tk;
             }
         }
@@ -119,6 +119,7 @@ public class DoiMatKhauController implements Initializable {
     }
 
     private TaiKhoanDAO tkdao;
+    private CustomDialog customDialog;
 
     @FXML
     private JFXButton btnLogin;
