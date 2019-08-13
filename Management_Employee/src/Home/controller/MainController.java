@@ -31,6 +31,8 @@ public class MainController implements Initializable {
         clipChildren(contentPane);
         setGUIHome();
     }
+    
+    
 
     @FXML
     public void setGUIHome() {
