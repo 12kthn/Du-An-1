@@ -41,7 +41,7 @@ public class ToChucController implements Initializable {
             tbl_PBdao = new TablePhongBanDAO();
             tbl_CVdao = new TableChucVuDAO();
             customDialog = new CustomDialog();
-            
+
             pb = new PhongBan();
             cv = new ChucVu();
 
@@ -248,7 +248,7 @@ public class ToChucController implements Initializable {
     private void selectChucVu(MouseEvent event) {
         TableChucVu tableModel = tblChucVu.getSelectionModel().getSelectedItem();
         if (tableModel != null) {
-            ChucVu cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
+            cv = cvdao.findByCode(tableModel.getMaCV()).get(0);
             setModel(cv);
             setStatusCV(false);
         }
@@ -267,10 +267,13 @@ public class ToChucController implements Initializable {
         if (checknullPB() && checkDuplicationPhongBan() && checkContentPhongBan()) {
             pb = getModelPhongBan();
             try {
-                pbdao.insert(pb);
-                loadDataToTblPhongBan();
-                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới phòng ban thành công ");
-                newPB();
+                if (pbdao.insert(pb) > 0) {
+                    loadDataToTblPhongBan();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới phòng ban thành công ");
+                    newPB();
+                } else {
+                    throw new Exception();
+                }
             } catch (Exception e) {
                 customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm mới phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
@@ -283,9 +286,12 @@ public class ToChucController implements Initializable {
         if (checknullPB() && checkContentPhongBan()) {
             pb = getModelPhongBan();
             try {
-                pbdao.update(pb);
-                loadDataToTblPhongBan();
-                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật phòng ban thành công ");
+                if (pbdao.update(pb) > 0) {
+                    loadDataToTblPhongBan();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật phòng ban thành công ");
+                } else {
+                    throw new Exception();
+                }
             } catch (Exception e) {
                 customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật phòng ban thất bại! vui lòng kiểm tra lại ");
                 e.printStackTrace();
@@ -307,12 +313,15 @@ public class ToChucController implements Initializable {
     @FXML
     private void insertCV() {
         if (checknullCV() && checkDuplicationChucVu() && checkContentChucVu()) {
-            ChucVu cv = getModelChucVu();
+            cv = getModelChucVu();
             try {
-                cvdao.insert(cv);
-                loadDataToTblChucVu();
-                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới chức vụ thành công ");
-                newCV();
+                if (cvdao.insert(cv) > 0) {
+                    loadDataToTblChucVu();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới chức vụ thành công ");
+                    newCV();
+                } else {
+                    throw new Exception();
+                }
             } catch (Exception e) {
                 customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm mới chức vụ thất bại ! vui lòng kiểm tra lại ");
                 e.printStackTrace();
@@ -324,20 +333,19 @@ public class ToChucController implements Initializable {
     @FXML
     private void updateCV() {
         if (checknullCV() && checkContentChucVu()) {
-            ChucVu cv = getModelChucVu();
-            if (false) {
-                try {
-                    cvdao.update(cv);
+            cv = getModelChucVu();
+            try {
+                if (cvdao.update(cv) > 0) {
                     loadDataToTblChucVu();
                     customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật chức vụ thành công ");
-                } catch (Exception e) {
-                    customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
-                    e.printStackTrace();
+                } else {
+                    throw new Exception();
                 }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật chức vụ thất bại ! vui lòng kiểm tra lại");
+                e.printStackTrace();
             }
-
         }
-
     }
 
     public void deleteCV(ChucVu cv) {
@@ -351,7 +359,7 @@ public class ToChucController implements Initializable {
     private TablePhongBanDAO tbl_PBdao;
     private TableChucVuDAO tbl_CVdao;
     private CustomDialog customDialog;
-    
+
     private PhongBan pb;
     private ChucVu cv;
 
@@ -396,8 +404,8 @@ public class ToChucController implements Initializable {
     private TableView<TablePhongBan> tblPhongBan;
     @FXML
     private TableView<TableChucVu> tblChucVu;
-    
-    class deletePBHandler implements IConfirmationDialog{
+
+    class deletePBHandler implements IConfirmationDialog {
 
         @Override
         public void onConfirm() {
@@ -415,12 +423,12 @@ public class ToChucController implements Initializable {
 
         @Override
         public void onCancel() {
-            
+
         }
-     
+
     }
-    
-    class deleteCVHandler implements IConfirmationDialog{
+
+    class deleteCVHandler implements IConfirmationDialog {
 
         @Override
         public void onConfirm() {
@@ -438,8 +446,8 @@ public class ToChucController implements Initializable {
 
         @Override
         public void onCancel() {
-            
+
         }
-     
+
     }
 }

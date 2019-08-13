@@ -32,7 +32,9 @@ public class MainController implements Initializable {
         setGUIHome();
     }
     
-    
+    private void accessPermission(){
+        
+    }
 
     @FXML
     public void setGUIHome() {
