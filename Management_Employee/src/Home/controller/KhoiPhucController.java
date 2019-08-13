@@ -90,7 +90,7 @@ public class KhoiPhucController implements Initializable {
     @FXML
     private void restore(ActionEvent event) {
         if (fullBackupFile == null) {
-            new CustomDialog().showDialog(Share.mainPane, Share.blurPane, false, "Bạn chưa chọn file backup nào");
+            new CustomDialog().showDialog(Share.mainPane, Share.blurPane, false, "Vui lòng chọn file full backup");
             return;
         }
 

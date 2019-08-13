@@ -19,9 +19,9 @@ public class Validate {
 
     //Kiểm lỗi TextField not null
     public static boolean isNull(TextField txt, String errMessage) {
+        textField = txt;
         try {
-            if (txt.getText().trim().equals("")) {
-                textField = txt;
+            if (textField.getText().trim().equals("")) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -32,27 +32,13 @@ public class Validate {
     }
     
      public static boolean isNull(TextField txt, String errMessage, StackPane stackPane, Pane blurPane) {
+        textField = txt;
         try {
-            if (txt.getText().trim().equals("")) {
-                textField = txt;
+            if (textField.getText().trim().equals("")) {
                 throw new Exception();
             }
         } catch (Exception e) {
             new CustomDialog().showAndWaitDialog(stackPane, blurPane, false, errMessage, new textfieldFocusHandler());
-            return true;
-        }
-        return false;
-    }
-
-    //Kiểm lỗi PasswordField not null
-    public static boolean isNull(PasswordField txt, String errMessage) {
-        try {
-            if (txt.getText().trim().equals("")) {
-                textField = txt;
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            new CustomDialog().showAndWaitDialog(Share.mainPane, Share.blurPane, false, errMessage, new textfieldFocusHandler());
             return true;
         }
         return false;
@@ -74,9 +60,9 @@ public class Validate {
 
     //Kiểm lỗi TextField không đúng với mẫu
     public static boolean isNotMatches(TextField txt, String regex, String errMessage) {
+        textField = txt;
         try {
-            if (!txt.getText().matches(regex)) {
-                textField = txt;
+            if (!textField.getText().matches(regex)) {
                 throw new Exception();
             }
         } catch (Exception e) {

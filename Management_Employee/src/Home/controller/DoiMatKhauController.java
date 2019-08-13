@@ -133,7 +133,7 @@ public class DoiMatKhauController implements Initializable {
     @FXML
     void enterToChange(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            btnLogin.fire();
+            btnConfirm.fire();
         }
     }
 
@@ -166,7 +166,7 @@ public class DoiMatKhauController implements Initializable {
     private AnchorPane mainPane;
 
     @FXML
-    private JFXButton btnLogin;
+    private JFXButton btnConfirm;
 
     @FXML
     private JFXPasswordField txtMatKhauCu;

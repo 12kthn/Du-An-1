@@ -1,8 +1,10 @@
 package Home.DAO;
 
+import Home.controller.NhanVienController;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
 import Home.helper.FormatNumber;
+import Home.helper.IConfirmationDialog;
 import Home.helper.JDBC;
 import Home.model.NhanVien;
 import Home.model.table.TableNhanVien;
@@ -12,7 +14,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 
 public class TableNhanVienDAO {
     

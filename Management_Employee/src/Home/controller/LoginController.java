@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import Home.helper.IConfirmationDialog;
 import Home.helper.TransitionHelper;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -78,10 +79,12 @@ public class LoginController implements Initializable {
             int result = tkdao.checkAccount(txtTaiKhoan.getText(), txtMatKhau.getText());
             switch (result) {
                 case 0:
-                    customDialog.showDialog(stackPane, mainPane, false, "Sai tên đăng nhập");
+                    textField = txtTaiKhoan;
+                    customDialog.showAndWaitDialog(stackPane, mainPane, false, "Sai tên đăng nhập", new requestFocusHandler());
                     break;
                 case 1:
-                    customDialog.showDialog(stackPane, mainPane, false, "Sai mật khẩu");
+                    textField = txtMatKhau;
+                    customDialog.showAndWaitDialog(stackPane, mainPane, false, "Sai mật khẩu", new requestFocusHandler());
                     break;
                 case 2:
                     customDialog.showAndWaitDialog(stackPane, mainPane, true, "Đăng nhập thành công", new openMainHandler());
@@ -132,7 +135,8 @@ public class LoginController implements Initializable {
     }
 
     private TaiKhoanDAO tkdao;
-    CustomDialog customDialog;
+    private CustomDialog customDialog;
+    private TextField textField;
     //tọa độ con trỏ chuột
     double xMouse;
     double yMouse;
@@ -178,5 +182,19 @@ public class LoginController implements Initializable {
 
         }
 
+    }
+    
+    class requestFocusHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            textField.requestFocus();
+        }
+
+        @Override
+        public void onCancel() {
+            
+        }
+        
     }
 }

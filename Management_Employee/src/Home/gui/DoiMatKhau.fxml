@@ -53,7 +53,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </JFXPasswordField>
-                              <JFXButton fx:id="btnLogin" layoutX="121.0" layoutY="281.0" onAction="#changePassword" prefHeight="34.0" prefWidth="126.0" text="Xác nhận" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
+                              <JFXButton fx:id="btnConfirm" layoutX="121.0" layoutY="281.0" onAction="#changePassword" prefHeight="34.0" prefWidth="126.0" text="Xác nhận" textFill="WHITE" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="95.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

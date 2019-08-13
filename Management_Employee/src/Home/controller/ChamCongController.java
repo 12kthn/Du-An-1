@@ -2,6 +2,7 @@ package Home.controller;
 
 import Home.DAO.ChamCongDAO;
 import Home.DAO.NhanVienDAO;
+import Home.DAO.PhongBanDAO;
 import Home.DAO.TableChamCongDAO;
 import Home.helper.CustomDialog;
 import Home.helper.Share;
@@ -37,14 +38,14 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(1600, 1000, -1*anchorPane.getPrefWidth(), anchorPane).play();
+            TransitionHelper.createTransition(1600, 1000, -1*anchorPane.getPrefWidth()/2, anchorPane).play();
             
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
             nvdao = new NhanVienDAO();
             listUpdate = new ArrayList<>();
             customDialog = new CustomDialog();
-
+            
             //load Tabpane1
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
@@ -62,8 +63,17 @@ public class ChamCongController implements Initializable {
 
             //load sự kiện
             addListener();
+            
+            accessPermission();
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+    
+    private void accessPermission() {
+        if (Share.MAPB != null) {
+            chuyenCanChart.setTitle(chuyenCanChart.getTitle() + "\nphòng " + 
+                    new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
         }
     }
 
@@ -153,7 +163,7 @@ public class ChamCongController implements Initializable {
         });
     }
 
-    private void loadChart() {
+    private void loadChart() {      
         chuyenCanChart.setData(ccdao.getDataForChuyenCanChart(year1, month1));
         soNgayLamViecChart.setData(ccdao.getDataForSoNgayLamViecChart(year1, month1));
     }

@@ -50,6 +50,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import Home.helper.IConfirmationDialog;
+import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class NhanVienController implements Initializable {
 
@@ -57,7 +61,7 @@ public class NhanVienController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
-
+            
             Share.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
@@ -86,11 +90,83 @@ public class NhanVienController implements Initializable {
             setDisableTextFields();
             setDefaultValueForDisableTextFields();
             addListener();
+
+            accessPermission();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    private void accessPermission() {
+        if (!Share.MAPB.equals("NS") && Share.MAPB != null) {
+            paneBottomNV.setDisable(true);
+            paneBottomNT.setDisable(true);
+            for (Node node : infoPaneNV1.getChildren()) {
+                if (node instanceof TextField) {
+                    ((TextField) node).setEditable(false);
+                }
+                if (node instanceof ComboBox) {
+                    ((ComboBox)node).setOnMouseClicked(e -> {
+                        ((ComboBox)node).hide();
+                    });
+                }
+                if (node instanceof DatePicker) {
+                    ((DatePicker) node).setOnMouseClicked(e -> {
+                        ((DatePicker) node).hide();
+                    });
+                }
+            }
+            for (Node node : infoPaneNV2.getChildren()) {
+                if (node instanceof TextField) {
+                    ((TextField) node).setEditable(false);
+                }
+                if (node instanceof ComboBox) {
+                    ((ComboBox)node).setOnMouseClicked(e -> {
+                        ((ComboBox)node).hide();
+                    });
+                }
+                if (node instanceof DatePicker) {
+                    ((DatePicker) node).setOnMouseClicked(e -> {
+                        ((DatePicker) node).hide();
+                    });
+                }
+            }
+            for (Node node : infoPaneNV3.getChildren()) {
+                if (node instanceof TextField) {
+                    ((TextField) node).setEditable(false);
+                }
+                if (node instanceof ComboBox) {
+                    ((ComboBox)node).setOnMouseClicked(e -> {
+                        ((ComboBox)node).hide();
+                    });
+                }
+                if (node instanceof DatePicker) {
+                    ((DatePicker) node).setOnMouseClicked(e -> {
+                        ((DatePicker) node).hide();
+                    });
+                }
+            }
+            for (Node node : infoPaneNT.getChildren()) {
+                if (node instanceof TextField) {
+                    ((TextField) node).setEditable(false);
+                }
+                if (node instanceof ComboBox) {
+                    ((ComboBox)node).setOnMouseClicked(e -> {
+                        ((ComboBox)node).hide();
+                    });
+                }
+                if (node instanceof DatePicker) {
+                    ((DatePicker) node).setOnMouseClicked(e -> {
+                        ((DatePicker) node).hide();
+                    });
+                }
+            }
+            for (int i = 0; i < tblNhanVien.getItems().size(); i++) {
+                deleteColumn.getCellData(i).setDisable(true);
+            }
+        }
+    }
+    
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
@@ -177,7 +253,7 @@ public class NhanVienController implements Initializable {
         tblNhanThan.getColumns().addAll(HotenNT, NgheNghiep, Moiquanhe, giamtruphuthuoc);
     }
 
-    public void loadDataToTableNV() {
+    private void loadDataToTableNV() {
         tblNhanVien.setItems(tbl_nvdao.getData());
     }
 
@@ -255,6 +331,9 @@ public class NhanVienController implements Initializable {
     }
 
     private String createNewMaNV(PhongBan pb) {
+        if (nv != null && pb.getMaPB().equals(nv.getMaPB())) {
+            return nv.getMaNV();
+        }
         String maxMaNV = nvdao.getMaxNaNVByPhongBan(pb.getMaPB());
         String suffix = maxMaNV.substring(2, 5);
         //Thêm số không vào trước suffix và tổng cộng chỉ có 3 chữ số
@@ -269,7 +348,7 @@ public class NhanVienController implements Initializable {
         try {
             TableNhanVien tableNhanVien = tblNhanVien.getSelectionModel().getSelectedItem();
             if (tableNhanVien != null) {
-                NhanVien nv = nvdao.findByCode(tableNhanVien.getMaNV());
+                nv = nvdao.findByCode(tableNhanVien.getMaNV());
                 setModelNhanVien(nv);
                 loadDataToTableNT();
                 setStatusNV(false);
@@ -283,7 +362,7 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    public void newNV() {
+    private void newNV() {
         setModelNhanVien(new NhanVien());
         setStatusNV(true);
         tblNhanVien.getSelectionModel().clearSelection();
@@ -328,11 +407,11 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    public void deleteNV() {
+    private void deleteNV() {
         customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa nhân viên này", new deleteNhanVienHandler());
     }
-    
-    private void deleteNV(NhanVien nv){
+
+    protected void deleteNV(NhanVien nv) {
         try {
             nvdao.delete(nv);
             loadDataToTableNV();
@@ -532,8 +611,8 @@ public class NhanVienController implements Initializable {
         }
 
         //Kiểm tra ngày kết thúc hợp đồng lao động
-        if (DPickerNgayKetThuc.getValue().isBefore(DPickerNgayBatDau.getValue())) {
-            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Ngày kết thúc hợp đồng không được sớm hơn ngày bắt đầu hợp đồng");
+        if (ChronoUnit.MONTHS.between(DPickerNgayBatDau.getValue(), DPickerNgayKetThuc.getValue()) < 3) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Hợp đồng lao động phải kéo dài ít nhất 3 tháng");
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
@@ -618,7 +697,7 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    public void newNT() {
+    private void newNT() {
         setModelThanNhan(new ThanNhan());
         setStatusNT(true);
     }
@@ -656,10 +735,10 @@ public class NhanVienController implements Initializable {
     }
 
     @FXML
-    public void deleteNT(){
+    private void deleteNT() {
         customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa thân nhân " + tn.getHoTen(), new deleteThanNhanHandler());
     }
-    
+
     private void deleteNT(ThanNhan tn) {
         try {
             ntdao.delete(tn);
@@ -696,8 +775,7 @@ public class NhanVienController implements Initializable {
         }
     }
 
-    public void setStatusNT(boolean insertableNT) {
-        this.insertableNT = insertableNT;
+    private void setStatusNT(boolean insertableNT) {
         btnCapNhatNT.setDisable(insertableNT);
         btnXoaNT.setDisable(insertableNT);
         btnTaoMoiNT.setDisable(insertableNT);
@@ -745,18 +823,17 @@ public class NhanVienController implements Initializable {
     private TableNhanVienDAO tbl_nvdao;
     private ChucVuDAO cvdao;
     private CustomDialog customDialog;
-    
+
     private ObservableList listGiamTruPhuThuoc;
     private ObservableList listGioiTinh;
     private ObservableList listTrangThai;
     private ObservableList<PhongBan> listPhongBan;
     private ObservableList<ChucVu> listChucVu;
     private Boolean insertableNV;
-    private Boolean insertableNT;
     private String imageName;
     private File imageFile;
     public NhanVien nv;
-    public ThanNhan tn;
+    protected ThanNhan tn;
 
     private TableColumn<TableNhanVien, Button> deleteColumn;
     private TableColumn<TableNhanVien, Button> updateColumn;
@@ -787,6 +864,24 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private JFXTabPane tabPane;
+
+    @FXML
+    private HBox paneBottomNV;
+
+    @FXML
+    private HBox paneBottomNT;
+
+    @FXML
+    private VBox infoPaneNV1;
+
+    @FXML
+    private VBox infoPaneNV2;
+
+    @FXML
+    private VBox infoPaneNV3;
+
+    @FXML
+    private VBox infoPaneNT;
 
     @FXML
     private PieChart chartTyLeNamNu;
@@ -893,7 +988,7 @@ public class NhanVienController implements Initializable {
     @FXML
     private JFXButton btnTaoMoiNT;
 
-    class deleteNhanVienHandler implements IConfirmationDialog{
+    private class deleteNhanVienHandler implements IConfirmationDialog {
 
         @Override
         public void onConfirm() {
@@ -903,12 +998,12 @@ public class NhanVienController implements Initializable {
 
         @Override
         public void onCancel() {
-            
+
         }
-     
+
     }
-    
-    class deleteThanNhanHandler implements IConfirmationDialog{
+
+    class deleteThanNhanHandler implements IConfirmationDialog {
 
         @Override
         public void onConfirm() {
@@ -918,8 +1013,8 @@ public class NhanVienController implements Initializable {
 
         @Override
         public void onCancel() {
-            
+
         }
-     
+
     }
 }

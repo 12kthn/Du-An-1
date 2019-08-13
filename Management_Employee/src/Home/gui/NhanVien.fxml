@@ -35,7 +35,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="640.0" prefWidth="1166.0" style="-fx-background-color: #F0F0F0;" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
+<AnchorPane fx:id="anchorPane" prefHeight="640.0" prefWidth="1166.0" stylesheets="@../../Libraries/CssMenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Home.controller.NhanVienController">
     <children>
         <JFXTabPane fx:id="tabPane" stylesheets="@../../Libraries/CssMenu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -111,7 +111,7 @@
                                         <Font name="System Bold" size="32.0" />
                                     </font>
                                 </Label>
-                                <VBox layoutX="271.0" layoutY="82.0" prefHeight="390.0" prefWidth="260.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="90.0">
+                                <VBox fx:id="infoPaneNV1" layoutX="271.0" layoutY="82.0" prefHeight="390.0" prefWidth="260.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="90.0">
                                     <children>
                                         <JFXTextField fx:id="txtMaNV" labelFloat="true" prefHeight="30.0" promptText="Mã nhân viên">
                                             <VBox.margin>
@@ -142,7 +142,7 @@
                                                 <Insets bottom="1.0" top="12.0" />
                                             </VBox.margin>
                                         </Label>
-                                        <DatePicker fx:id="DPickerNgaySinh" prefWidth="450.0" />
+                                        <DatePicker fx:id="DPickerNgaySinh" editable="false" prefWidth="450.0" />
                                         <JFXTextField fx:id="txtSoCM" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Số CMND">
                                             <font>
                                                 <Font size="16.0" />
@@ -153,7 +153,7 @@
                                         </JFXTextField>
                                     </children>
                                 </VBox>
-                                <VBox layoutX="721.0" layoutY="95.0" prefHeight="385.0" prefWidth="260.0" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="90.0">
+                                <VBox fx:id="infoPaneNV2" layoutX="721.0" layoutY="95.0" prefHeight="385.0" prefWidth="260.0" AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="90.0">
                                     <children>
                                         <JFXTextField fx:id="txtDienThoai" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Số điện thoại">
                                             <font>
@@ -194,7 +194,7 @@
                                         </JFXComboBox>
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="317.0" prefWidth="260.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="90.0">
+                                <VBox fx:id="infoPaneNV3" prefHeight="317.0" prefWidth="260.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="90.0">
                                     <children>
                                         <JFXTextField fx:id="txtMaHD" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Mã hợp đồng">
                                             <font>
@@ -230,7 +230,7 @@
                                     <Insets bottom="1.0" top="22.0" />
                                  </VBox.margin>
                                         </Label>
-                                        <DatePicker fx:id="DPickerNgayBatDau" prefWidth="450.0" />
+                                        <DatePicker fx:id="DPickerNgayBatDau" editable="false" prefWidth="450.0" />
                                         <Label prefHeight="26.0" prefWidth="140.0" text="Ngày kết thúc">
                                             <font>
                                                 <Font size="14.0" />
@@ -239,10 +239,10 @@
                                     <Insets bottom="1.0" top="12.0" />
                                  </VBox.margin>
                                         </Label>
-                                        <DatePicker fx:id="DPickerNgayKetThuc" prefWidth="450.0" />
+                                        <DatePicker fx:id="DPickerNgayKetThuc" editable="false" prefWidth="450.0" />
                                     </children>
                                 </VBox>
-                                <HBox alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
+                                <HBox fx:id="paneBottomNV" alignment="CENTER" layoutX="520.0" layoutY="486.0" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
                                         <JFXButton fx:id="btnThemNV" onAction="#insertNV" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>
@@ -335,7 +335,7 @@
                                         <Font name="System Bold" size="32.0" />
                                     </font>
                                 </Label>
-                                <VBox prefHeight="295.0" prefWidth="400.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="110.0">
+                                <VBox fx:id="infoPaneNT" prefHeight="295.0" prefWidth="400.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="110.0">
                                     <children>
                               <JFXTextField fx:id="txtMaNT" editable="false" focusTraversable="false" labelFloat="true" prefHeight="0.0" prefWidth="400.0" visible="false">
                                  <font>
@@ -374,7 +374,7 @@
                                     </children>
                                 </VBox>
                                 <TableView fx:id="tblNhanThan" layoutX="485.0" layoutY="77.0" onMouseClicked="#selectNhanThan" prefHeight="270.0" prefWidth="620.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="110.0" />
-                                <HBox alignment="CENTER" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
+                                <HBox fx:id="paneBottomNT" alignment="CENTER" prefHeight="74.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                                     <children>
                                         <JFXButton fx:id="btnThemNT" onAction="#insertNT" prefWidth="124.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
                                             <font>

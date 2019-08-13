@@ -30,10 +30,15 @@ public class MainController implements Initializable {
         Share.blurPane = blurPane;
         clipChildren(contentPane);
         setGUIHome();
+        accessPermission();
     }
     
     private void accessPermission(){
-        
+        if (Share.MAPB != null) {
+            lblToChuc.setDisable(true);
+            lblTaiKhoan.setDisable(true);
+            lblKhoiPhuc.setDisable(true);
+        }
     }
 
     @FXML

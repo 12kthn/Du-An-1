@@ -127,7 +127,7 @@ public class ToChucController implements Initializable {
         btnNewPB.setDisable(insertablePB);
     }
 
-    public void setStatusCV(boolean insertableCV) {
+    protected void setStatusCV(boolean insertableCV) {
         txtMaCV.setDisable(!insertableCV);
         btnInsertCV.setDisable(!insertableCV);
         btnUpdateCV.setDisable(insertableCV);
@@ -225,7 +225,7 @@ public class ToChucController implements Initializable {
 
     }
 
-    public ChucVu getModelChucVu() {
+    protected ChucVu getModelChucVu() {
         ChucVu cv = new ChucVu();
         cv.setMaCV(txtMaCV.getText());
         cv.setTenCV(txtMaCV.getText());

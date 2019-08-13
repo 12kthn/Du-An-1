@@ -1,9 +1,8 @@
 package Home.DAO;
 
-import Home.helper.Share;
-import Home.helper.CustomDialog;
 import Home.helper.FormatNumber;
 import Home.helper.JDBC;
+import Home.helper.Share;
 import Home.model.table.TableChucVu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,6 +43,4 @@ public class TableChucVuDAO {
         }
         return data;
     }
-
-    private CustomDialog customDialog = new CustomDialog();
 }

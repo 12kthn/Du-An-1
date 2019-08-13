@@ -2,6 +2,7 @@ package Home.controller;
 
 import Home.DAO.BangLuongDAO;
 import Home.DAO.NhanVienDAO;
+import Home.DAO.PhongBanDAO;
 import Home.DAO.TableBangLuongDAO;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
@@ -38,13 +39,13 @@ public class BangLuongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
+            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth()/2, anchorPane).play();
 
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
             listUpdate = new ArrayList<>();
             customDialog = new CustomDialog();
-
+                  
             //TabPane1
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
@@ -65,11 +66,22 @@ public class BangLuongController implements Initializable {
             //Them su kien
             addListener();
 
+            accessPermission();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
+    private void accessPermission() {
+        if (Share.MAPB != null) {
+            chartPhanHoaTienLuong.setTitle(chartPhanHoaTienLuong.getTitle() + "\nphòng " + 
+                    new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
+        }
+        if (!Share.MAPB.equals("KT") || Share.MAPB != null) {
+            btnNew.setDisable(true);
+        }
+    }
+    
     private void loadCboNam1() {
         cboNam1.getItems().clear();
 
