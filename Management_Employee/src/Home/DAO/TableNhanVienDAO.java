@@ -21,7 +21,12 @@ public class TableNhanVienDAO {
         ObservableList<TableNhanVien> data = FXCollections.observableArrayList();
         try {
             String sql = "{Call SP_TBLNhanVien(?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB);
+            ResultSet rs = null;
+            if (Share.MAPB != null && Share.MAPB.equals("NS")) {
+                rs = JDBC.executeQuery(sql, (Object) null);
+            } else {
+                rs = JDBC.executeQuery(sql, Share.MAPB);
+            }
             while (rs.next()) {
                 TableNhanVien tblnv = new TableNhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3) ? "Nam" : "Nữ", rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
@@ -32,13 +37,15 @@ public class TableNhanVienDAO {
                 tblnv.getDelete().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Share.nvController.nv = new NhanVien(tblnv.getMaNV());
-
+                        tempNV = new NhanVienDAO().findByCode(tblnv.getMaNV());
+                        customDialog.confirmDialog(Share.mainPane, Share.blurPane, 
+                                "Bạn chắc chắn muốn xóa nhân viên " + tempNV.getHoTen(), new deleteNhanVienHandler());
+   
                     }
                 });
                 tblnv.getUpdate().setOnAction((ActionEvent event) -> {
-                    NhanVien nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                    Share.nvController.setModelNhanVien(nv);
+                    Share.nvController.nv = new NhanVienDAO().findByCode(tblnv.getMaNV());
+                    Share.nvController.setModelNhanVien(Share.nvController.nv);
                     Share.nvController.changeTabPane(2);
                     Share.nvController.loadDataToTableNT();
                     Share.nvController.setStatusNV(false);
@@ -51,4 +58,19 @@ public class TableNhanVienDAO {
     }
     
     CustomDialog customDialog = new CustomDialog();
+    NhanVien tempNV;
+    
+    private class deleteNhanVienHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            Share.nvController.deleteNV(tempNV);
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
 }

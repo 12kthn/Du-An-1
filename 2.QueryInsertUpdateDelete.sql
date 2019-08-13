@@ -63,6 +63,7 @@ GO
 
 CREATE PROCEDURE SP_NhanVien
 (
+	@MaNVCu varchar(10),
 	@MaNV varchar(10),
 	@HoTen nvarchar(50),
 	@GioiTinh bit,
@@ -91,12 +92,14 @@ AS
 		END
 	IF @StatementType = 'Update'
 		BEGIN
-			UPDATE NhanVien 
-			SET HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
+			IF @MaNVCu is null
+				SET @MaNVCu = @MaNV
+			UPDATE NhanVien
+			SET MaNV = @MaNV, HoTen = @HoTen, GioiTinh = @GioiTinh, NgaySinh = @NgaySinh, SoCM = @SoCM,
 				DienThoai = @DienThoai, Email = @Email, DiaChi = @DiaChi, Hinh = @Hinh, TrinhDoHV = @TrinhDoHV,
 				MaHD = @MaHD, MaCV = @MaCV, MaPB = @MaPB, NgayVaoLam = @NgayVaoLam, 
 				NgayKetThuc = @NgayKetThuc, HeSoLuong = @HeSoLuong, TrangThai = @TrangThai
-			WHERE MaNV = @MaNV
+			WHERE MaNV = @MaNVCu
 		END
 	IF @StatementType = 'Delete'
 		BEGIN

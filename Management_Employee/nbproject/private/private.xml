@@ -5,12 +5,13 @@
         <group>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/helper/Share.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/NhanVienController.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/helper/Validate.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/LoginController.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/MainController.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/BangLuongController.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/controller/ToChucController.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/TableNhanVienDAO.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/TablePhongBanDAO.java</file>
             <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/Main.java</file>
-            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/helper/CustomDialog.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/TableChucVuDAO.java</file>
+            <file>file:/C:/Users/nucle/Documents/GitHub/Du-An-1/Management_Employee/src/Home/DAO/NhanVienDAO.java</file>
         </group>
     </open-files>
 </project-private>

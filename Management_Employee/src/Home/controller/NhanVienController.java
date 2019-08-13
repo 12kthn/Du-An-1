@@ -61,7 +61,7 @@ public class NhanVienController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
-            
+
             Share.nvController = this;
             nvdao = new NhanVienDAO();
             pbdao = new PhongBanDAO();
@@ -98,7 +98,7 @@ public class NhanVienController implements Initializable {
     }
 
     private void accessPermission() {
-        if (!Share.MAPB.equals("NS") && Share.MAPB != null) {
+        if (Share.MAPB != null && !Share.MAPB.equals("NS")) {
             paneBottomNV.setDisable(true);
             paneBottomNT.setDisable(true);
             for (Node node : infoPaneNV1.getChildren()) {
@@ -106,8 +106,8 @@ public class NhanVienController implements Initializable {
                     ((TextField) node).setEditable(false);
                 }
                 if (node instanceof ComboBox) {
-                    ((ComboBox)node).setOnMouseClicked(e -> {
-                        ((ComboBox)node).hide();
+                    ((ComboBox) node).setOnMouseClicked(e -> {
+                        ((ComboBox) node).hide();
                     });
                 }
                 if (node instanceof DatePicker) {
@@ -121,8 +121,8 @@ public class NhanVienController implements Initializable {
                     ((TextField) node).setEditable(false);
                 }
                 if (node instanceof ComboBox) {
-                    ((ComboBox)node).setOnMouseClicked(e -> {
-                        ((ComboBox)node).hide();
+                    ((ComboBox) node).setOnMouseClicked(e -> {
+                        ((ComboBox) node).hide();
                     });
                 }
                 if (node instanceof DatePicker) {
@@ -136,8 +136,8 @@ public class NhanVienController implements Initializable {
                     ((TextField) node).setEditable(false);
                 }
                 if (node instanceof ComboBox) {
-                    ((ComboBox)node).setOnMouseClicked(e -> {
-                        ((ComboBox)node).hide();
+                    ((ComboBox) node).setOnMouseClicked(e -> {
+                        ((ComboBox) node).hide();
                     });
                 }
                 if (node instanceof DatePicker) {
@@ -151,8 +151,8 @@ public class NhanVienController implements Initializable {
                     ((TextField) node).setEditable(false);
                 }
                 if (node instanceof ComboBox) {
-                    ((ComboBox)node).setOnMouseClicked(e -> {
-                        ((ComboBox)node).hide();
+                    ((ComboBox) node).setOnMouseClicked(e -> {
+                        ((ComboBox) node).hide();
                     });
                 }
                 if (node instanceof DatePicker) {
@@ -166,7 +166,7 @@ public class NhanVienController implements Initializable {
             }
         }
     }
-    
+
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
@@ -373,7 +373,7 @@ public class NhanVienController implements Initializable {
     @FXML
     private void insertNV() {
         if (checkNullFormNhanVien() && checkContentFormNhanvien()) {
-            NhanVien nv = getModelNhanVien();
+            nv = getModelNhanVien();
             if (checkDuplicationFormNhanvien(nv) && copyImageToAvatarFolder()) {
                 try {
                     nvdao.insert(nv);
@@ -390,28 +390,53 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void updateNV() {
-        NhanVien nv = getModelNhanVien();
-        if (checkNullFormNhanVien() && checkContentFormNhanvien() && checkDuplicationFormNhanvien(nv) && copyImageToAvatarFolder()) {
-            try {
-                if (nvdao.update(nv) > 0) {
-                    loadDataToTableNV();
-                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thông tin nhân viên thành công ");
+        if (checkNullFormNhanVien() && checkContentFormNhanvien()) {
+            String maNVcu = nv.getMaNV();
+            nv = getModelNhanVien();
+            if (checkDuplicationFormNhanvien(nv) && copyImageToAvatarFolder()) {
+                if (maNVcu.equals(nv.getMaNV())) {
+                    updateNVWithoutChangingMaNV();
                 } else {
-                    throw new Exception();
+                    updateNVWithChangingMaNV(maNVcu);
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
             }
+        }
+    }
+
+    private void updateNVWithoutChangingMaNV() {
+        try {
+            if (nvdao.update(nv) > 0) {
+                loadDataToTableNV();
+                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thông tin nhân viên thành công ");
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
+        }
+    }
+
+    private void updateNVWithChangingMaNV(String maNVCu) {
+        try {
+            if (nvdao.update(nv, maNVCu) > 0) {
+                loadDataToTableNV();
+                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thông tin nhân viên thành công ");
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thông tin nhân viên thất bại! vui lòng kiểm tra lại ");
         }
     }
 
     @FXML
     private void deleteNV() {
-        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa nhân viên này", new deleteNhanVienHandler());
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen(), new deleteNhanVienHandler());
     }
 
-    protected void deleteNV(NhanVien nv) {
+    public void deleteNV(NhanVien nv) {
         try {
             nvdao.delete(nv);
             loadDataToTableNV();
@@ -992,7 +1017,6 @@ public class NhanVienController implements Initializable {
 
         @Override
         public void onConfirm() {
-            nv = getModelNhanVien();
             deleteNV(nv);
         }
 
@@ -1007,7 +1031,6 @@ public class NhanVienController implements Initializable {
 
         @Override
         public void onConfirm() {
-            tn = getModelThanThan();
             deleteNT(tn);
         }
 

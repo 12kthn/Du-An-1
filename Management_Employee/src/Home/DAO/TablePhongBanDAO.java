@@ -35,7 +35,8 @@ public class TablePhongBanDAO {
                 tblpb.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Share.tcController.setModel(pbdao.findByCode(tblpb.getMaPB()).get(0));
+                        Share.tcController.pb = pbdao.findByCode(tblpb.getMaPB()).get(0);
+                        Share.tcController.setModel(Share.tcController.pb);
                         Share.tcController.setStatusPB(false);
                     }
                 });

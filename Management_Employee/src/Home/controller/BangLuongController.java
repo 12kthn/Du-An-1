@@ -77,7 +77,7 @@ public class BangLuongController implements Initializable {
             chartPhanHoaTienLuong.setTitle(chartPhanHoaTienLuong.getTitle() + "\nphòng " + 
                     new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
         }
-        if (!Share.MAPB.equals("KT") || Share.MAPB != null) {
+        if (Share.MAPB != null && !Share.MAPB.equals("KT")) {
             btnNew.setDisable(true);
         }
     }

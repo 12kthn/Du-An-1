@@ -22,8 +22,8 @@ select * from chucvu
 
 --Insert into NhanVien
 --Insert vao phong NhanSu
-EXEC SP_NhanVien NS001, N'Phạm Duy Biên', 1, '1994/11/5',  '2413253164', '0921587694', 
-	null, N'Gò Vấp', null, N'Cao đẳng', 'HDLD150002', 'TP', 'NS', '2018/11/20', null, 3, 1, 'Insert'
+EXEC SP_NhanVien NS023, N'Phạm Duy Biên', 1, '1994/11/5',  '2412253154', '0921587694', 
+	null, N'Gò Vấp', null, N'Cao đẳng', 'HDLD150004', 'TP', 'NS', '2018/11/20', null, 3, 1, 'Insert'
 --------------------------------------------------------------------------------------
 EXEC SP_NhanVien NS002, N'Lê Văn Việt', 1, '1996/12/7',  '8793656767', '0937499390', 
 	null, N'Bình Dương', null, N'Đại Học', 'HDLD160004', 'NT', 'NS', '2018/10/20', null, 2.5, 1, 'Insert'

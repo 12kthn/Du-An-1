@@ -194,8 +194,8 @@ public class NhanVienDAO {
                 @Override
                 public void accept(PieChart.Data data) {
                     double soLuong = new NhanVienDAO().getSLNVTheoPhongBan(Share.MAPB);
-                    data.nameProperty().bind(Bindings.concat(data.getName(), ": ", 
-                        FormatNumber.formatDouble(data.getPieValue() / soLuong * 100), "%"));
+                    data.nameProperty().bind(Bindings.concat(data.getName(), ": ",
+                            FormatNumber.formatDouble(data.getPieValue() / soLuong * 100), "%"));
                 }
             });
 
@@ -258,8 +258,9 @@ public class NhanVienDAO {
     public int insert(NhanVien nv) {
         int result = 0;
         try {
-            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             result = JDBC.executeUpdate(sql,
+                    null,
                     nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),
@@ -283,11 +284,12 @@ public class NhanVienDAO {
         return result;
     }
 
-    public int update(NhanVien nv) {
+    public int update(NhanVien nv, String... maNVCu) {
         int result = 0;
         try {
-            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-            result = JDBC.executeUpdate(sql, nv.getMaNV(),
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            result = JDBC.executeUpdate(sql, (maNVCu.length > 0 ? maNVCu[0] : null),
+                    nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),
                     nv.getNgaySinh(),
@@ -305,7 +307,6 @@ public class NhanVienDAO {
                     nv.getHeSoLuong(),
                     nv.getTrangThai(),
                     "update");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -315,8 +316,9 @@ public class NhanVienDAO {
     public int delete(NhanVien nv) {
         int result = 0;
         try {
-            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call sp_nhanvien(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             result = JDBC.executeUpdate(sql,
+                    null,
                     nv.getMaNV(),
                     nv.getHoTen(),
                     nv.getGioiTinh(),

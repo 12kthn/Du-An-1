@@ -33,7 +33,8 @@ public class TableChucVuDAO {
                 tblcv.getUpdate().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Share.tcController.setModel(cvdao.findByCode(tblcv.getMaCV()).get(0));
+                        Share.tcController.cv = cvdao.findByCode(tblcv.getMaCV()).get(0);
+                        Share.tcController.setModel(Share.tcController.cv);
                         Share.tcController.setStatusPB(false);
                     }
                 });

@@ -360,8 +360,8 @@ public class ToChucController implements Initializable {
     private TableChucVuDAO tbl_CVdao;
     private CustomDialog customDialog;
 
-    private PhongBan pb;
-    private ChucVu cv;
+    public PhongBan pb;
+    public ChucVu cv;
 
     //Khai báo  các cột cho bảng Phòng ban
     private TableColumn<TablePhongBan, Button> deleteColumn_PB;
