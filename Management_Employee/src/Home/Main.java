@@ -13,12 +13,13 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Share.mainStage = stage;
+        Share.primaryStage = stage;
         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
+        stage.centerOnScreen();
     }
 
     public static void main(String[] args) {

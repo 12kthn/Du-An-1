@@ -33,10 +33,10 @@ public class FlashController implements Initializable, Runnable {
             @Override
             public void run() {
                 try {                   
-                    Share.mainStage.close();
+                    Share.primaryStage.close();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
-                    Share.mainStage.setScene(scene);
-                    Share.mainStage.show();
+                    Share.primaryStage.setScene(scene);
+                    Share.primaryStage.show();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

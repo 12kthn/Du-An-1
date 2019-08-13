@@ -20,6 +20,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import Home.helper.IConfirmationDialog;
+import Home.helper.TransitionHelper;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class LoginController implements Initializable {
@@ -97,6 +99,21 @@ public class LoginController implements Initializable {
             btnLogin.fire();
         }
     }
+    
+    @FXML
+    void getCoorMouse(MouseEvent event) {
+        xMouse = event.getSceneX();
+        yMouse = event.getSceneY();
+    }
+
+    @FXML
+    public void movePanel(MouseEvent event) {
+        double x = event.getScreenX();
+        double y = event.getScreenY();
+        //set tọa độ mới cho JDialog khi rê chuột
+        Share.primaryStage.setX(x - xMouse);
+        Share.primaryStage.setY(y - yMouse);
+    }
 
     @FXML
     void exit() {
@@ -105,10 +122,10 @@ public class LoginController implements Initializable {
 
     public void openMain() {
         try {
-            Share.mainStage.close();
+            Share.primaryStage.close();
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Main.fxml")));
-            Share.mainStage.setScene(scene);
-            Share.mainStage.show();
+            Share.primaryStage.setScene(scene);
+            Share.primaryStage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -116,7 +133,10 @@ public class LoginController implements Initializable {
 
     private TaiKhoanDAO tkdao;
     CustomDialog customDialog;
-
+    //tọa độ con trỏ chuột
+    double xMouse;
+    double yMouse;
+    
     @FXML
     private StackPane stackPane;
 
@@ -150,7 +170,7 @@ public class LoginController implements Initializable {
 
         @Override
         public void onConfirm() {
-            Share.mainStage.close();
+            TransitionHelper.fadeOutStage(600, Share.primaryStage);
         }
 
         @Override

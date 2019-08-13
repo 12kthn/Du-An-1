@@ -32,7 +32,7 @@ public class ToChucController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(0, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(0, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
             Share.tcController = this;
 
             //tạo các đối tượng DAO

@@ -19,7 +19,7 @@ public class CustomDialog {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         JFXButton button = new JFXButton("OK");
         JFXDialog dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.TOP, true);
-
+        
         dialog.getStylesheets().add(getClass().getResource("/Libraries/CssMenu.css").toExternalForm());
         button.getStyleClass().addAll("btn", "btn-primary");
         button.setPrefSize(80, 30);

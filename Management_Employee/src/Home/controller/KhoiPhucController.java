@@ -20,7 +20,7 @@ public class KhoiPhucController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(0, 1200, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(0, 1000, -1*anchorPane.getPrefWidth(), anchorPane).play();
             
             kpdao = new KhoiPhucDAO();
             customDialog = new CustomDialog();
@@ -84,7 +84,7 @@ public class KhoiPhucController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(imageFilter);
         fileChooser.setInitialDirectory(initialDirectory);
-        return fileChooser.showOpenDialog(Share.mainStage);
+        return fileChooser.showOpenDialog(Share.primaryStage);
     }
 
     @FXML

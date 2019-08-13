@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Share {
     
-    public static Stage mainStage = null;
+    public static Stage primaryStage = null;
     public static Stage secondStage = null;
     public static StackPane mainPane;
     public static BorderPane blurPane;

@@ -1,6 +1,7 @@
 package Home.controller;
 
 import Home.helper.Share;
+import Home.helper.TransitionHelper;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Share.primaryStage.centerOnScreen();
         Share.mainPane = mainPane;
         Share.blurPane = blurPane;
         clipChildren(contentPane);
@@ -72,18 +74,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void openGUIDoimatkhau() {
-        try {
-            Stage secondStage = new Stage();
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/DoiMatKhau.fxml")));
-            secondStage.setScene(scene);
-            secondStage.setResizable(false);
-            secondStage.initStyle(StageStyle.UNDECORATED);
-            secondStage.show();
-            Share.secondStage = secondStage;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
+        openSecondStage("/Home/gui/DoiMatKhau.fxml");
     }
 
     @FXML
@@ -97,18 +88,18 @@ public class MainController implements Initializable {
         double x = event.getScreenX();
         double y = event.getScreenY();
         //set tọa độ mới cho JDialog khi rê chuột
-        Share.mainStage.setX(x - xMouse);
-        Share.mainStage.setY(y - yMouse);
+        Share.primaryStage.setX(x - xMouse);
+        Share.primaryStage.setY(y - yMouse);
     }
 
     @FXML
     public void logOut() {
         try {
             Share.logOut();
-            Share.mainStage.close();
+            Share.primaryStage.close();
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
-            Share.mainStage.setScene(scene);
-            Share.mainStage.show();
+            Share.primaryStage.setScene(scene);
+            Share.primaryStage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -134,6 +125,28 @@ public class MainController implements Initializable {
         }
     }
 
+    private void openSecondStage(String fxmlPath){
+        try {
+            Stage secondStage = new Stage();
+            
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource(fxmlPath)));
+            
+            secondStage.setScene(scene);
+            secondStage.setResizable(false);
+            secondStage.initStyle(StageStyle.TRANSPARENT);
+            secondStage.setAlwaysOnTop(true);
+            secondStage.show();
+            
+            secondStage.getScene().getRoot().setOpacity(0);
+            TransitionHelper.fadeInStage(1000, secondStage);
+            
+            Share.secondStage = secondStage;
+            Share.mainPane.setDisable(true);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private void removeAllStyleClass(Pane pane, String className) {
         try {
             for (Node node : pane.getChildren()) {
@@ -151,12 +164,12 @@ public class MainController implements Initializable {
 
     @FXML
     public void closeWindow() {
-        Share.mainStage.close();
+        TransitionHelper.fadeOutStage(500, Share.primaryStage);
     }
 
     @FXML
     public void minimizeWindow() {
-        Share.mainStage.setIconified(true);
+        Share.primaryStage.setIconified(true);
     }
 
     //tọa độ con trỏ chuột
@@ -168,7 +181,7 @@ public class MainController implements Initializable {
 
     @FXML
     private BorderPane blurPane;
-    
+
     @FXML
     private StackPane contentPane;
 

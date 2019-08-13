@@ -56,7 +56,7 @@ public class NhanVienController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            TransitionHelper.createTransition(200, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
 
             Share.nvController = this;
             nvdao = new NhanVienDAO();
@@ -568,7 +568,7 @@ public class NhanVienController implements Initializable {
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files", "*.jpg", "*.jpeg", "*.png", "*.gif");
         FileChooser selectImage = new FileChooser();
         selectImage.getExtensionFilters().add(imageFilter);
-        imageFile = selectImage.showOpenDialog(Share.mainStage);
+        imageFile = selectImage.showOpenDialog(Share.primaryStage);
         displayAvatar(imageFile);
     }
 

@@ -34,7 +34,7 @@ public class TaiKhoanController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            TransitionHelper.createTransition(0, 1200, -1*anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(0, 1000, -1*anchorPane.getPrefWidth(), anchorPane).play();
             
             tbl_tkDAO = new TableTaiKhoanDAO();
             tkDAO = new TaiKhoanDAO();

@@ -9,21 +9,29 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class DoiMatKhauController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            BoxBlur blur = new BoxBlur(3, 3, 3);
+            Share.blurPane.setEffect(blur);
+            
             tkdao = new TaiKhoanDAO();
             customDialog = new CustomDialog();
             validatorInit();
@@ -32,6 +40,13 @@ public class DoiMatKhauController implements Initializable {
         }
     }
 
+    public void show(WindowEvent event) {
+        FadeTransition fadein = new FadeTransition(Duration.seconds(5), mainPane);
+        fadein.setFromValue(0);
+        fadein.setToValue(1);
+        fadein.play();
+    }
+    
     //Phương thức khởi tạo validatorJFX
     public void validatorInit() {
         txtMatKhauCu.getValidators().add(Validate.createValidatorJFX("Vui lòng nhập tài khoản"));
@@ -108,6 +123,14 @@ public class DoiMatKhauController implements Initializable {
     }
 
     @FXML
+    void cancel(ActionEvent event) {
+        Share.secondStage.close();
+        Share.secondStage = null;
+        Share.blurPane.setEffect(null);
+        Share.mainPane.setDisable(false);
+    }
+
+    @FXML
     void enterToChange(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             btnLogin.fire();
@@ -115,13 +138,27 @@ public class DoiMatKhauController implements Initializable {
     }
 
     @FXML
-    void cancel(ActionEvent event) {
-        Share.secondStage.close();
+    void getCoorMouse(MouseEvent event) {
+        xMouse = event.getSceneX();
+        yMouse = event.getSceneY();
     }
 
+    @FXML
+    public void movePanel(MouseEvent event) {
+        double x = event.getScreenX();
+        double y = event.getScreenY();
+        //set tọa độ mới cho JDialog khi rê chuột
+        Share.secondStage.setX(x - xMouse);
+        Share.secondStage.setY(y - yMouse);
+    }
+    
     private TaiKhoanDAO tkdao;
     private CustomDialog customDialog;
     
+    //tọa độ con trỏ chuột
+    double xMouse;
+    double yMouse;
+
     @FXML
     private StackPane stackPane;
     

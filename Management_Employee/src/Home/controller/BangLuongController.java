@@ -38,7 +38,7 @@ public class BangLuongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(300, 1200, -1 * anchorPane.getPrefHeight(), anchorPane).play();
+            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
 
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
