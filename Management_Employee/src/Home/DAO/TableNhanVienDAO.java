@@ -1,6 +1,5 @@
 package Home.DAO;
 
-import Home.controller.NhanVienController;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
 import Home.helper.FormatNumber;
@@ -17,15 +16,15 @@ import javafx.event.EventHandler;
 
 public class TableNhanVienDAO {
     
-    public ObservableList<TableNhanVien> getData() {
+    public ObservableList<TableNhanVien> getData(String timKiem) {
         ObservableList<TableNhanVien> data = FXCollections.observableArrayList();
         try {
-            String sql = "{Call SP_TBLNhanVien(?)}";
+            String sql = "{Call SP_TBLNhanVien(?,?)}";
             ResultSet rs = null;
             if (Share.MAPB != null && Share.MAPB.equals("NS")) {
-                rs = JDBC.executeQuery(sql, (Object) null);
+                rs = JDBC.executeQuery(sql, (Object) null, timKiem);
             } else {
-                rs = JDBC.executeQuery(sql, Share.MAPB);
+                rs = JDBC.executeQuery(sql, Share.MAPB, timKiem);
             }
             while (rs.next()) {
                 TableNhanVien tblnv = new TableNhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3) ? "Nam" : "Nữ", rs.getString(4),

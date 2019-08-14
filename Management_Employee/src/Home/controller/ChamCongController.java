@@ -28,6 +28,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -161,6 +162,14 @@ public class ChamCongController implements Initializable {
                 loadTable();
             }
         });
+        
+        txtTimKiem.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                loadTable();
+            }
+            
+        });
     }
 
     private void loadChart() {      
@@ -169,9 +178,8 @@ public class ChamCongController implements Initializable {
     }
 
     private void loadTable() {
-
         tblChamCong.getItems().clear();
-        tblChamCong.setItems(tbl_ccdao.getData(year2, month2));
+        tblChamCong.setItems(tbl_ccdao.getData(year2, month2, txtTimKiem.getText()));
         disableCells();
     }
 
@@ -693,4 +701,6 @@ public class ChamCongController implements Initializable {
     @FXML
     private PieChart chuyenCanChart;
 
+    @FXML
+    private TextField txtTimKiem;
 }

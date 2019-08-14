@@ -254,10 +254,12 @@ public class NhanVienController implements Initializable {
     }
 
     private void loadDataToTableNV() {
-        tblNhanVien.setItems(tbl_nvdao.getData());
+        tblNhanVien.getItems().clear();
+        tblNhanVien.setItems(tbl_nvdao.getData(txtTimKiem.getText()));
     }
 
     public void loadDataToTableNT() {
+        tblNhanThan.getItems().clear();
         tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
@@ -318,6 +320,14 @@ public class NhanVienController implements Initializable {
                 }
             }
 
+        });
+        
+        txtTimKiem.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                loadDataToTableNV();
+            }
+            
         });
     }
 

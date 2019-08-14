@@ -21,7 +21,7 @@ public class TableChucVuDAO {
             String sql = "{Call SP_FindChucVuByCode(?)}";
             ResultSet rs = JDBC.executeQuery(sql, (Object) null);
             while (rs.next()) {
-                TableChucVu tblcv = new TableChucVu(rs.getString(1), rs.getString(2), FormatNumber.formatDouble(rs.getDouble(3)) + "%");
+                TableChucVu tblcv = new TableChucVu(rs.getString(1), rs.getString(2), FormatNumber.formatDouble(rs.getDouble(3)*100) + "%");
 
                 data.add(tblcv);
                 tblcv.getDelete().setOnAction(new EventHandler<ActionEvent>() {

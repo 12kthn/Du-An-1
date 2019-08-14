@@ -11,9 +11,9 @@ import javafx.collections.ObservableList;
 
 public class TableChamCongDAO {
 
-    public ObservableList<TableChamCong> getData(int year, int month) {
+    public ObservableList<TableChamCong> getData(int year, int month, String timKiem) {
         ObservableList<TableChamCong> data = FXCollections.observableArrayList();
-        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findByMonth(year, month);
+        ObservableList<NhanVien> listNhanVien = new NhanVienDAO().findByMonth(year, month, timKiem);
 
         for (NhanVien nv : listNhanVien) {
             try {

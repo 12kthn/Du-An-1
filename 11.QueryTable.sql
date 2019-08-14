@@ -7,18 +7,20 @@ IF (OBJECT_ID('SP_TBLNhanVien') IS NOT NULL)
 GO
 CREATE PROCEDURE SP_TBLNhanVien
 (
-	@MaPB varchar(5)
+	@MaPB varchar(5),
+	@TimKiem nvarchar(50)
 )
 AS
 	IF @MaPB is not null
 		SELECT MaNV, HoTen, GioiTinh, FORMAT(NgaySinh, 'dd/MM/yyyy') AS NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
 			FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 		FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-		WHERE NhanVien.MaPB = @MaPB
+		WHERE NhanVien.MaPB = @MaPB AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 	ELSE
 		SELECT MaNV, HoTen, GioiTinh, FORMAT(NgaySinh, 'dd/MM/yyyy') AS NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
 			FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 		FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
+		WHERE NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 GO
 
 --Tao Stored Procedure hien thi du lieu cho Table than nhan
@@ -43,7 +45,8 @@ CREATE PROCEDURE SP_TBLBangLuong
 (
 	@MaPB varchar(5),
 	@Nam char(4),
-	@Thang varchar(2)
+	@Thang varchar(2),
+	@TimKiem nvarchar(50)
 )
 AS
 	IF @Thang = 12
@@ -61,6 +64,7 @@ AS
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
+				 AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 		END
 	ELSE
 		BEGIN
@@ -68,9 +72,10 @@ AS
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
+			 AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 		END
 GO
-exec SP_TBLBangLuong null, '2018', '12'
+
 --Tao Stored Procedure hien thi du lieu cho Table Tai khoan
 IF(OBJECT_ID('SP_TBLTaiKhoan') IS NOT NULL)
        DROP PROCEDURE SP_TBLTaiKhoan

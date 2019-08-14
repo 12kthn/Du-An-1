@@ -3,12 +3,12 @@ package Home.model;
 
 public class BacThueTNCN {
     private int Luong;
-    private float Thue;
+    private double Thue;
     
     public BacThueTNCN(){
     }
     
-    public BacThueTNCN(int Luong,float Thue){
+    public BacThueTNCN(int Luong,double Thue){
         this.Luong = Luong;
         this.Thue = Thue;
     }
@@ -17,7 +17,7 @@ public class BacThueTNCN {
         return Luong;
     }
 
-    public float getThue() {
+    public double getThue() {
         return Thue;
     }
 
@@ -25,7 +25,7 @@ public class BacThueTNCN {
         this.Luong = Luong;
     }
 
-    public void setThue(float Thue) {
+    public void setThue(double Thue) {
         this.Thue = Thue;
     } 
 }

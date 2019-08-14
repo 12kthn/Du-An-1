@@ -156,12 +156,12 @@ public class NhanVienDAO {
         return result;
     }
 
-    public ObservableList<NhanVien> findByMonth(int year, int month) {
+    public ObservableList<NhanVien> findByMonth(int year, int month, String timKiem) {
         ObservableList<NhanVien> list = FXCollections.observableArrayList();
 
         try {
-            String sql = "{Call SP_FindByMonth(?,?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month);
+            String sql = "{Call SP_FindNVByMonth(?,?,?,?)}";
+            ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month, timKiem);
             while (rs.next()) {
                 NhanVien nv = new NhanVien(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getDate(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11),

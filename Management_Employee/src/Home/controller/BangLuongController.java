@@ -1,18 +1,30 @@
 package Home.controller;
 
+import Home.DAO.BacThueTNCNDAO;
 import Home.DAO.BangLuongDAO;
+import Home.DAO.GiaTriTinhLuongDAO;
 import Home.DAO.NhanVienDAO;
 import Home.DAO.PhongBanDAO;
+import Home.DAO.TableBacThueTNCNDAO;
 import Home.DAO.TableBangLuongDAO;
+import Home.DAO.TableGiaTriTinhLuongDAO;
 import Home.helper.Share;
 import Home.helper.CustomDialog;
+import Home.helper.FormatNumber;
+import Home.helper.IConfirmationDialog;
 import Home.helper.TransitionHelper;
+import Home.helper.Validate;
 import Home.helper.XDate;
+import Home.model.BacThueTNCN;
 import Home.model.BangLuong;
+import Home.model.GiaTriTinhLuong;
 import Home.model.NhanVien;
+import Home.model.table.TableBacThueTNCN;
 import Home.model.table.TableBangLuong;
+import Home.model.table.TableGiaTriTinhLuong;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,12 +37,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
@@ -39,13 +55,18 @@ public class BangLuongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth()/2, anchorPane).play();
-
+            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
+            Share.blController = this;
+            
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
+            tbl_gttldao = new TableGiaTriTinhLuongDAO();
+            gttldao = new GiaTriTinhLuongDAO();
+            tbl_btTNCNdao = new TableBacThueTNCNDAO();
+            btTNCNdao = new BacThueTNCNDAO();
             listUpdate = new ArrayList<>();
             customDialog = new CustomDialog();
-                  
+
             //TabPane1
             loadCboNam1();
             year1 = cboNam1.getSelectionModel().getSelectedItem();
@@ -74,14 +95,26 @@ public class BangLuongController implements Initializable {
 
     private void accessPermission() {
         if (Share.MAPB != null) {
-            chartPhanHoaTienLuong.setTitle(chartPhanHoaTienLuong.getTitle() + "\nphòng " + 
-                    new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
+            chartPhanHoaTienLuong.setTitle(chartPhanHoaTienLuong.getTitle() + "\nphòng "
+                    + new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
         }
         if (Share.MAPB != null && !Share.MAPB.equals("KT")) {
             btnNew.setDisable(true);
+            btnUpdate.setDisable(true);
+            tab3.setDisable(true);
+        } else {
+            //TabPane 3
+            setColumnTableGTTL();
+            setColumnTableBTTNCN();
+            
+            loadTableGTTL();
+            loadTableBTTNCN();
+            
+            newGTTL();
+            newBTTNCN();
         }
     }
-    
+
     private void loadCboNam1() {
         cboNam1.getItems().clear();
 
@@ -182,6 +215,14 @@ public class BangLuongController implements Initializable {
                 setBtnNewStatus();
             }
         });
+        
+        txtTimKiem.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                loadTable(year2, month2);
+            }
+            
+        });
     }
 
     private void loadChart() {
@@ -256,8 +297,187 @@ public class BangLuongController implements Initializable {
                 col14, col15, col16);
     }
 
+    private void setColumnTableGTTL() {
+        //Tạo và định dạng cột
+        deleteColumn_GTTL = new TableColumn<>("");
+        deleteColumn_GTTL.setCellValueFactory(new PropertyValueFactory<>("Delete"));
+        deleteColumn_GTTL.setStyle("-fx-alignment: CENTER-RIGHT; "
+                + "-fx-border-width: 1 0 1 1; "
+                + "-fx-border-color: transparent");
+
+        updateColumn_GTTL = new TableColumn<>("");
+        updateColumn_GTTL.setCellValueFactory(new PropertyValueFactory<>("Update"));
+        updateColumn_GTTL.setStyle("-fx-alignment: CENTER-LEFT;");
+
+        col1_GTTL = new TableColumn<>("Tên giá trị");
+        col1_GTTL.setCellValueFactory(new PropertyValueFactory<>("TenGiaTri"));
+        col1_GTTL.setPrefWidth(190);
+
+        col2_GTTL = new TableColumn<>("Giá trị");
+        col2_GTTL.setCellValueFactory(new PropertyValueFactory<>("GiaTri"));
+        col2_GTTL.setPrefWidth(190);
+
+        //thêm các cột vào table
+        tblGTTL.getColumns().addAll(deleteColumn_GTTL, updateColumn_GTTL, col1_GTTL, col2_GTTL);
+    }
+
+    private void setColumnTableBTTNCN() {
+        //Tạo và định dạng cột
+        deleteColumn_BTTNCN = new TableColumn<>("");
+        deleteColumn_BTTNCN.setCellValueFactory(new PropertyValueFactory<>("Delete"));
+        deleteColumn_BTTNCN.setStyle("-fx-alignment: CENTER-RIGHT; "
+                + "-fx-border-width: 1 0 1 1; "
+                + "-fx-border-color: transparent");
+
+        updateColumn_BTTNCN = new TableColumn<>("");
+        updateColumn_BTTNCN.setCellValueFactory(new PropertyValueFactory<>("Update"));
+        updateColumn_BTTNCN.setStyle("-fx-alignment: CENTER-LEFT;");
+
+        col1_BTTNCN = new TableColumn<>("Thu nhập chịu thuế");
+        col1_BTTNCN.setCellValueFactory(new PropertyValueFactory<>("Luong"));
+        col1_BTTNCN.setPrefWidth(190);
+
+        col2_BTTNCN = new TableColumn<>("Thuế suất");
+        col2_BTTNCN.setCellValueFactory(new PropertyValueFactory<>("Thue"));
+        col2_BTTNCN.setPrefWidth(190);
+
+        //thêm các cột vào table
+        tblBTTNCN.getColumns().addAll(deleteColumn_BTTNCN, updateColumn_BTTNCN, col1_BTTNCN, col2_BTTNCN);
+    }
+
     private void loadTable(int year, int month) {
-        tblBangLuong.setItems(tbl_bldao.getData(year, month));
+        tblBangLuong.getItems().clear();
+        tblBangLuong.setItems(tbl_bldao.getData(year, month, txtTimKiem.getText()));
+    }
+
+    private void loadTableGTTL() {
+        tblGTTL.setItems(tbl_gttldao.getData());
+    }
+
+    private void loadTableBTTNCN() {
+        tblBTTNCN.setItems(tbl_btTNCNdao.getData());
+    }
+
+    @FXML
+    private void selectGTTL(MouseEvent event) {
+        TableGiaTriTinhLuong tableModel = tblGTTL.getSelectionModel().getSelectedItem();
+        if (tableModel != null) {
+            gttl = gttldao.findByCode(tableModel.getTenGiaTri()).get(0);
+            setModelGTTL(gttl);
+            setStatusGTTL(false);
+        }
+    }
+
+    @FXML
+    private void selectBTTNCN(MouseEvent event) {
+        TableBacThueTNCN tableModel = tblBTTNCN.getSelectionModel().getSelectedItem();
+        if (tableModel != null) {
+            btTNCN = btTNCNdao.findByCode(tableModel.getLuong()).get(0);
+            setModelBTTNCN(btTNCN);
+            setStatusBTTNCN(false);
+        }
+
+    }
+
+    public void setModelGTTL(GiaTriTinhLuong gttl) {
+        txtTenGiaTri.setText(gttl.getTenGiaTri());
+        txtGiaTri.setText(FormatNumber.formatDouble(gttl.getGiaTri(), "###,###.###"));
+    }
+
+    private GiaTriTinhLuong getModelGTTL() {
+        GiaTriTinhLuong gttl = new GiaTriTinhLuong();
+        gttl.setTenGiaTri(txtTenGiaTri.getText());
+        gttl.setGiaTri(Double.parseDouble(txtGiaTri.getText()));
+        return gttl;
+
+    }
+
+    public void setModelBTTNCN(BacThueTNCN btTNCN) {
+        txtThuNhapTinhThue.setText(btTNCN.getLuong() + "");
+        txtThueSuat.setText(FormatNumber.formatDouble(btTNCN.getThue(), "###,###.###"));
+    }
+
+    private BacThueTNCN getModelBTTNCN() {
+        BacThueTNCN btTNCN = new BacThueTNCN();
+        btTNCN.setLuong(Integer.parseInt(txtThuNhapTinhThue.getText()));
+        btTNCN.setThue(Double.parseDouble(txtThueSuat.getText()));
+        return btTNCN;
+
+    }
+
+    public void setStatusGTTL(boolean insertableGTTL) {
+        txtTenGiaTri.setDisable(!insertableGTTL);
+        btnInsertGTTL.setDisable(!insertableGTTL);
+        btnUpdateGTTL.setDisable(insertableGTTL);
+        btnNewGTTL.setDisable(insertableGTTL);
+    }
+
+    public void setStatusBTTNCN(boolean insertableBTTNCN) {
+        txtThuNhapTinhThue.setDisable(!insertableBTTNCN);
+        btnInsertBTTNCN.setDisable(!insertableBTTNCN);
+        btnUpdateBTTNCN.setDisable(insertableBTTNCN);
+        btnNewBTTNCN.setDisable(insertableBTTNCN);
+    }
+
+    private boolean checkNullGTTL() {
+        if (Validate.isNull(txtTenGiaTri, "Vui lòng nhập tên giá trị")) {
+            return false;
+        }
+        if (Validate.isNull(txtGiaTri, "Vui lòng nhập tên giá trị")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkNullBTTNCN() {
+        if (Validate.isNull(txtThuNhapTinhThue, "Vui lòng nhập thu nhập tính thuế")) {
+            return false;
+        }
+        if (Validate.isNull(txtThueSuat, "Vui lòng nhập tên thuế suất")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkDuplicationGTTL() {
+        if (gttldao.findByCode(txtTenGiaTri.getText().trim()).size() > 0) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Tên giá trị đã tồn tại");
+            txtTenGiaTri.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkDuplicationBTTNCN() {
+        if (btTNCNdao.findByCode(txtThuNhapTinhThue.getText().trim()).size() > 0) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thu nhập tính thuế đã tồn tại");
+            txtThuNhapTinhThue.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkContentGTTL() {
+        String regexVietnamese = "[\\p{L}\\p{M} ]+";
+        if (Validate.isNotMatches(txtTenGiaTri, regexVietnamese, "Tên giá trị không được chứa số và các ký tự đặc biệt")) {
+            return false;
+        }
+
+        if (Validate.isNotMatches(txtGiaTri, "[0-9]+(\\.[0-9]+)?", "Giá trị phải là số thực")) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkContentBTTNCN() {
+        if (Validate.isNotMatches(txtThuNhapTinhThue, "[0-9]+", "Thu nhập tính thuế phải là số nguyên")) {
+            return false;
+        }
+
+        if (Validate.isNotMatches(txtThueSuat, "[0-9]+(\\.[0-9]+)?", "Thuế suất phải là số thực")) {
+            return false;
+        }
+        return true;
     }
 
     private void setBtnNewStatus() {
@@ -270,14 +490,14 @@ public class BangLuongController implements Initializable {
 
     @FXML
     private void insert() {
-        ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2);
+        ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2, null);
         try {
             Date ngayNhanLuong;
             if (month2 == 12) {
                 ngayNhanLuong = XDate.toDate("5/1/" + (year2 + 1));
             } else {
                 ngayNhanLuong = XDate.toDate("5/" + (month2 + 1) + "/" + year2);
-            }  
+            }
             for (NhanVien nv : data) {
                 BangLuong bl = new BangLuong(nv.getMaNV(), ngayNhanLuong, true);
                 if (bldao.insert(bl) == 0) {
@@ -308,8 +528,115 @@ public class BangLuongController implements Initializable {
         }
     }
 
+    @FXML
+    private void newGTTL() {
+        gttl = null;
+        setModelGTTL(new GiaTriTinhLuong());
+        setStatusGTTL(true);
+    }
+
+    @FXML
+    private void newBTTNCN() {
+        btTNCN = null;
+        setModelBTTNCN(new BacThueTNCN());
+        setStatusBTTNCN(true);
+    }
+
+    @FXML
+    private void insertGTTL() {
+        if (checkNullGTTL() && checkDuplicationGTTL() && checkContentGTTL()) {
+            gttl = getModelGTTL();
+            try {
+                if (gttldao.insert(gttl) > 0) {
+                    loadTableGTTL();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới giá trị thành công ");
+                    newGTTL();
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm mới giá trị thất bại! vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void insertBTTNCN() {
+        if (checkNullBTTNCN() && checkDuplicationBTTNCN() && checkContentBTTNCN()) {
+            btTNCN = getModelBTTNCN();
+            try {
+                if (gttldao.insert(gttl) > 0) {
+                    loadTableBTTNCN();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Thêm mới thu nhập tính thuế thành công ");
+                    newBTTNCN();
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Thêm mới thu nhập tính thuế thất bại! vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void updateGTTL() {
+        if (checkNullGTTL() && checkDuplicationGTTL() && checkContentGTTL()) {
+            gttl = getModelGTTL();
+            try {
+                if (gttldao.update(gttl) > 0) {
+                    loadTableGTTL();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật giá trị thành công ");
+                    newGTTL();
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật giá trị thất bại! Vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void updateBTTNCN() {
+        if (checkNullBTTNCN() && checkDuplicationBTTNCN() && checkContentBTTNCN()) {
+            btTNCN = getModelBTTNCN();
+            try {
+                if (gttldao.update(gttl) > 0) {
+                    loadTableBTTNCN();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Cập nhật thu nhập tính thuế thành công ");
+                    newBTTNCN();
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Cập nhật thu nhập tính thuế thất bại! Vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void deleteGTTL(GiaTriTinhLuong gttl) {
+        this.gttl = gttl;
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa giá trị " + gttl.getTenGiaTri(), new deleteGTTLHandler());
+    }
+    
+    public void deleteBTTNCN(BacThueTNCN btTNCN) {
+        this.btTNCN = btTNCN;
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa thu nhập tính thuế " + btTNCN.getLuong(), new deleteGTTLHandler());
+    }
+    
+
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
+    private GiaTriTinhLuongDAO gttldao;
+    private BacThueTNCNDAO btTNCNdao;
+    private TableGiaTriTinhLuongDAO tbl_gttldao;
+    private TableBacThueTNCNDAO tbl_btTNCNdao;
+    public GiaTriTinhLuong gttl;
+    public BacThueTNCN btTNCN;
 
     private CustomDialog customDialog;
     private int year1;
@@ -335,9 +662,24 @@ public class BangLuongController implements Initializable {
     private TableColumn<TableBangLuong, Integer> col15;
     private TableColumn<TableBangLuong, Boolean> col16;
 
+    //Khai báo  các cột cho bảng Giá trị tính lương
+    private TableColumn<TableGiaTriTinhLuong, Button> deleteColumn_GTTL;
+    private TableColumn<TableGiaTriTinhLuong, Button> updateColumn_GTTL;
+    private TableColumn<TableGiaTriTinhLuong, String> col1_GTTL;
+    private TableColumn<TableGiaTriTinhLuong, String> col2_GTTL;
+
+    //Khai báo các cột cho bảng Bậc thuế TNCN
+    private TableColumn<TableBacThueTNCN, Button> deleteColumn_BTTNCN;
+    private TableColumn<TableBacThueTNCN, Button> updateColumn_BTTNCN;
+    private TableColumn<TableBacThueTNCN, String> col1_BTTNCN;
+    private TableColumn<TableBacThueTNCN, String> col2_BTTNCN;
+
     @FXML
     private AnchorPane anchorPane;
 
+    @FXML
+    private Tab tab3;
+    
     @FXML
     private JFXComboBox<Integer> cboNam1;
 
@@ -362,4 +704,94 @@ public class BangLuongController implements Initializable {
     @FXML
     private JFXButton btnNew;
 
+    @FXML
+    private JFXButton btnUpdate;
+
+    @FXML
+    private TextField txtTimKiem;
+    
+    @FXML
+    private JFXTextField txtTenGiaTri;
+
+    @FXML
+    private JFXTextField txtGiaTri;
+
+    @FXML
+    private JFXTextField txtThuNhapTinhThue;
+
+    @FXML
+    private JFXTextField txtThueSuat;
+
+    @FXML
+    private JFXButton btnInsertGTTL;
+
+    @FXML
+    private JFXButton btnUpdateGTTL;
+
+    @FXML
+    private JFXButton btnNewGTTL;
+
+    @FXML
+    private JFXButton btnInsertBTTNCN;
+
+    @FXML
+    private JFXButton btnUpdateBTTNCN;
+
+    @FXML
+    private JFXButton btnNewBTTNCN;
+
+    @FXML
+    private TableView<TableGiaTriTinhLuong> tblGTTL;
+
+    @FXML
+    private TableView<TableBacThueTNCN> tblBTTNCN;
+
+    class deleteGTTLHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            try {
+                if (gttldao.delete(gttl) > 0) {
+                    loadTableGTTL();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa giá trị thành công ");
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa giá trị thất bại! Vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
+
+    class deleteBTTNCNHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            try {
+                if (gttldao.delete(gttl) > 0) {
+                    loadTableBTTNCN();
+                    customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa thu nhập tính thuế thành công ");
+                    newBTTNCN();
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa thu nhập tính thuế thất bại! Vui lòng kiểm tra lại ");
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
 }

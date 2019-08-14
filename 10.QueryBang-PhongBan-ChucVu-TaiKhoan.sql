@@ -1,4 +1,4 @@
-USE QuanLyNhanSu
+﻿USE QuanLyNhanSu
 GO
 
 --Tao Stored Procedure tim kiem phong ban theo ma
@@ -58,3 +58,45 @@ AS
 GO
 
 EXEC SP_FindTaiKhoanByName 'admin'
+
+--Tao Stored Procedure tim kiem giá trị theo tên
+IF (OBJECT_ID('SP_FindGiaTriTinhLuongByName') IS NOT NULL)
+  DROP PROCEDURE SP_FindGiaTriTinhLuongByName
+GO
+CREATE PROCEDURE SP_FindGiaTriTinhLuongByName
+(
+	@TenGiaTri varchar(50)
+)
+AS
+	IF @TenGiaTri is not null
+		BEGIN
+			SELECT * FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM GiaTriTinhLuong
+		END
+GO
+
+EXEC SP_FindGiaTriTinhLuongByName 'BHXH'
+
+--Tao Stored Procedure tim kiem bậc thuế TNCN theo thu nhap
+IF (OBJECT_ID('SP_FindBacThueTNCNByThuNhap') IS NOT NULL)
+  DROP PROCEDURE SP_FindBacThueTNCNByThuNhap
+GO
+CREATE PROCEDURE SP_FindBacThueTNCNByThuNhap
+(
+	@Luong varchar(50)
+)
+AS
+	IF @Luong is not null
+		BEGIN
+			SELECT * FROM BacThueTNCN WHERE Luong = @Luong
+		END
+	ELSE
+		BEGIN
+			SELECT * FROM BacThueTNCN
+		END
+GO
+
+EXEC SP_FindBacThueTNCNByThuNhap null

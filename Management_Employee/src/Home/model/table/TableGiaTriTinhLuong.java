@@ -1,22 +1,21 @@
-
 package Home.model.table;
 
 import Home.helper.Picture;
 import javafx.scene.control.Button;
 
-public class TablePhongBan {
+public class TableGiaTriTinhLuong {
+
     private Button Delete;
     private Button Update;
-    private String MaPB;
-    private String TenPB;
-    
-    public TablePhongBan(){
-    
+    private String TenGiaTri;
+    private String GiaTri;
+
+    public TableGiaTriTinhLuong() {
     }
-    
-    public TablePhongBan(String MaPB,String TenPB){
-        this.MaPB = MaPB;
-        this.TenPB = TenPB;
+
+    public TableGiaTriTinhLuong(String TenGiaTri, String GiaTri) {
+        this.TenGiaTri = TenGiaTri;
+        this.GiaTri = GiaTri;
         
         Picture picture = new Picture();
         this.Delete = new Button("", picture.createImageView("delete.png"));
@@ -39,19 +38,20 @@ public class TablePhongBan {
         this.Update = Update;
     }
 
-    public String getMaPB() {
-        return MaPB;
+    public String getTenGiaTri() {
+        return TenGiaTri;
     }
 
-    public void setMaPB(String MaPB) {
-        this.MaPB = MaPB;
+    public String getGiaTri() {
+        return GiaTri;
     }
 
-    public String getTenPB() {
-        return TenPB;
+    public void setTenGiaTri(String TenGiaTri) {
+        this.TenGiaTri = TenGiaTri;
     }
 
-    public void setTenPB(String TenPB) {
-        this.TenPB = TenPB;
+    public void setGiaTri(String GiaTri) {
+        this.GiaTri = GiaTri;
     }
+
 }

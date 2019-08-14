@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.chart.*?>
@@ -84,7 +85,7 @@
                                         <Font name="Arial" size="13.0" />
                                     </font>
                                 </JFXButton>
-                                <TextField layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0" />
+                                <TextField fx:id="txtTimKiem" layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0" />
                                 <HBox alignment="CENTER" prefHeight="88.0" prefWidth="1166.0">
                                     <children>
                                         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="47.0" prefWidth="406.0" text="Thống kê tiền lương tháng" textFill="#007fff">
@@ -102,37 +103,224 @@
                                     </children>
                                 </HBox>
                                 <TableView fx:id="tblBangLuong" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="442.0" prefWidth="1146.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="143.0" />
-                        <JFXButton fx:id="btnNew" layoutX="388.0" layoutY="55.0" onAction="#insert" prefHeight="30.0" prefWidth="110.0" text="Tạo mới" textFill="#fffefe" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="100.0">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
-                                 <image>
-                                    <Image url="@../../Libraries/icon/taomoi.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-primary" />
-                           </styleClass>
-                        </JFXButton>
-                        <JFXButton layoutX="398.0" layoutY="65.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
-                           <font>
-                              <Font name="Arial" size="13.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
-                                 <image>
-                                    <Image url="@../../Libraries/icon/capnhat.png" />
-                                 </image></ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-success" />
-                           </styleClass>
-                        </JFXButton>
+                                <JFXButton fx:id="btnNew" layoutX="388.0" layoutY="55.0" onAction="#insert" prefHeight="30.0" prefWidth="110.0" text="Tạo mới" textFill="#fffefe" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="100.0">
+                                    <font>
+                                        <Font name="Arial" size="13.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                            <image>
+                                                <Image url="@../../Libraries/icon/taomoi.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-primary" />
+                                    </styleClass>
+                                </JFXButton>
+                                <JFXButton fx:id="btnUpdate" layoutX="398.0" layoutY="65.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+                                    <font>
+                                        <Font name="Arial" size="13.0" />
+                                    </font>
+                                    <graphic>
+                                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                            <image>
+                                                <Image url="@../../Libraries/icon/capnhat.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                    <styleClass>
+                                        <String fx:value="btn" />
+                                        <String fx:value="btn-success" />
+                                    </styleClass>
+                                </JFXButton>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tab3" text="Hằng số tính lương">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <children>
+                                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="583.0" text="Giá trị tính lương" textAlignment="CENTER" textFill="#007fff">
+                                            <font>
+                                                <Font name="System Bold" size="32.0" />
+                                            </font>
+                                        </Label>
+                                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="583.0" text="Bậc thuế TNCN" textFill="#007fff">
+                                            <font>
+                                                <Font name="System Bold" size="32.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                                <VBox layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="500.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="130.0">
+                                    <children>
+                                        <JFXTextField fx:id="txtTenGiaTri" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Tên giá trị">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </JFXTextField>
+                                        <JFXTextField fx:id="txtGiaTri" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Giá trị">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                            <VBox.margin>
+                                    <Insets top="40.0" />
+                                            </VBox.margin>
+                                        </JFXTextField>
+                                    </children>
+                                </VBox>
+                                <TableView fx:id="tblGTTL" layoutX="40.0" layoutY="404.0" onMouseClicked="#selectGTTL" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="40.0" />
+                                <VBox layoutX="20.0" layoutY="20.0" prefHeight="150.0" prefWidth="500.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="130.0">
+                                    <children>
+                                        <JFXTextField fx:id="txtThuNhapTinhThue" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Thu nhập tính thuế">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets />
+                                            </VBox.margin>
+                                        </JFXTextField>
+                                        <JFXTextField fx:id="txtThueSuat" focusTraversable="false" labelFloat="true" prefHeight="30.0" promptText="Thuế suất">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="40.0" />
+                                            </VBox.margin>
+                                        </JFXTextField>
+                                    </children>
+                                </VBox>
+                                <TableView fx:id="tblBTTNCN" layoutX="626.0" layoutY="404.0" onMouseClicked="#selectBTTNCN" prefHeight="237.0" prefWidth="500.0" AnchorPane.bottomAnchor="31.0" AnchorPane.rightAnchor="40.0" />
+                                <HBox alignment="CENTER_RIGHT" layoutX="93.0" layoutY="345.0" prefHeight="50.0" prefWidth="395.0" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="93.0">
+                                    <children>
+                                        <JFXButton fx:id="btnInsertGTTL" onAction="#insertGTTL" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-primary" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                        </JFXButton>
+                                        <JFXButton fx:id="btnUpdateGTTL" onAction="#updateGTTL" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-success" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="btnNewGTTL" onAction="#newGTTL" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-info" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi16x16.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" layoutX="679.0" layoutY="346.0" prefHeight="50.0" prefWidth="395.0" AnchorPane.bottomAnchor="276.0" AnchorPane.rightAnchor="92.0">
+                                    <children>
+                                        <JFXButton fx:id="btnInsertBTTNCN" onAction="#insertBTTNCN" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Thêm" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-primary" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="btnUpdateBTTNCN" onAction="#updateBTTNCN" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Cập nhật" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-success" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/capnhat.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="btnNewBTTNCN" onAction="#newBTTNCN" prefHeight="30.0" prefWidth="120.0" ripplerFill="WHITE" text="Tạo mới" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                            <styleClass>
+                                                <String fx:value="btn" />
+                                                <String fx:value="btn-info" />
+                                            </styleClass>
+                                            <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                            </HBox.margin>
+                                            <graphic>
+                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../Libraries/icon/taomoi16x16.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                    </children>
+                                </HBox>
                             </children>
                         </AnchorPane>
                     </content>

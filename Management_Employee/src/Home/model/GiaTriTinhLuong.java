@@ -3,12 +3,12 @@ package Home.model;
 public class GiaTriTinhLuong {
 
     private String TenGiaTri;
-    private float GiaTri;
+    private double GiaTri;
 
     public GiaTriTinhLuong() {
     }
 
-    public GiaTriTinhLuong(String TenGiaTri, float GiaTri) {
+    public GiaTriTinhLuong(String TenGiaTri, double GiaTri) {
         this.TenGiaTri = TenGiaTri;
         this.GiaTri = GiaTri;
 
@@ -18,7 +18,7 @@ public class GiaTriTinhLuong {
         return TenGiaTri;
     }
 
-    public float getGiaTri() {
+    public double getGiaTri() {
         return GiaTri;
     }
 
@@ -26,7 +26,7 @@ public class GiaTriTinhLuong {
         this.TenGiaTri = TenGiaTri;
     }
 
-    public void setGiaTri(float GiaTri) {
+    public void setGiaTri(double GiaTri) {
         this.GiaTri = GiaTri;
     }
 

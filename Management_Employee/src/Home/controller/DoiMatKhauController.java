@@ -83,6 +83,19 @@ public class DoiMatKhauController implements Initializable {
         });
     }
 
+    private boolean checkNull() {
+        if (Validate.isNull(txtMatKhauCu, "Vui lòng nhập mật khẩu cũ", stackPane, mainPane)) {
+            return false;
+        }
+        if (Validate.isNull(txtMatKhauMoi, "Vui lòng nhập mật khẩu mới", stackPane, mainPane)) {
+            return false;
+        }
+        if (Validate.isNull(txtXacNhanMatKhau, "Vui lòng nhập xác nhận mật khẩu", stackPane, mainPane)) {
+            return false;
+        }
+        return true;
+    }
+    
     private boolean checkContent() {
         String regexEnglish = "[\\p{L}0-9 ]+";
         if (!txtMatKhauCu.getText().equals(Share.USER.getMatKhau())) {
@@ -103,11 +116,7 @@ public class DoiMatKhauController implements Initializable {
 
     @FXML
     void changePassword() {
-        if (!txtMatKhauCu.validate() || !txtMatKhauMoi.validate() || !txtXacNhanMatKhau.validate()) {
-            customDialog.showDialog(stackPane, mainPane, false, "Vui lòng nhập đầy đủ");
-            return;
-        }
-        if (checkContent()) {
+        if (checkNull() && checkContent()) {
             TaiKhoan tk = new TaiKhoan();
             tk.setMaNV(Share.USER.getMaNV());
             tk.setTaiKhoan(Share.USER.getTaiKhoan());

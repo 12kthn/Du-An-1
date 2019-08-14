@@ -1,6 +1,7 @@
 
 package Home.helper;
 
+import Home.controller.BangLuongController;
 import Home.controller.NhanVienController;
 import Home.controller.ToChucController;
 import Home.model.TaiKhoan;
@@ -16,6 +17,7 @@ public class Share {
     public static BorderPane blurPane;
     public static NhanVienController nvController;
     public static ToChucController tcController;
+    public static BangLuongController blController;
     
     /**
      * Đối tượng này chứa thông tin người sử dụng sau khi đăng nhập

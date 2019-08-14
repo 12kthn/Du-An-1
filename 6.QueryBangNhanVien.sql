@@ -30,6 +30,7 @@ AS
 IF @MaNV IS NOT NULL
 BEGIN 
 SELECT * FROM NhanVien WHERE MaNV  LIKE'%'
+
 --tao Stored procedure check trung lap so chung minh nhan dan 
 If (OBJECT_ID('SP_FindNVByCMND') is not null)
    Drop PROCEDURE SP_FindNVByCMND
@@ -181,28 +182,30 @@ AS
 GO		
 
 --Tao Stored Procedure lấy danh sách nhân viên theo phòng ban có ngày vào làm trước hoặc trong tháng - năm
-IF (OBJECT_ID('SP_FindByMonth') IS NOT NULL)
-  DROP PROCEDURE SP_FindByMonth
+IF (OBJECT_ID('SP_FindNVByMonth') IS NOT NULL)
+  DROP PROCEDURE SP_FindNVByMonth
 GO
-CREATE PROCEDURE SP_FindByMonth
+CREATE PROCEDURE SP_FindNVByMonth
 (
 	@MaPB varchar(5),
 	@Nam char(4),
-	@Thang varchar(2)
-	
+	@Thang varchar(2),
+	@TimKiem nvarchar(50)
 )
 AS
 	IF @MaPB is not null
 		BEGIN
 			SELECT * FROM NhanVien WHERE MaPB = @MaPB AND NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
+														AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 		END
 	ELSE
 		BEGIN
 			SELECT * FROM NhanVien WHERE NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
+										AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
 		END
 	
 GO
-EXEC SP_FindByMonth null, '2019', '7'
+
 --Tao Stored Procedure lấy danh sách nhân viên theo phòng ban bắt đầu làm việc trong tháng - năm
 IF (OBJECT_ID('SP_FindNVStartWorkingInMonth') IS NOT NULL)
   DROP PROCEDURE SP_FindNVStartWorkingInMonth
