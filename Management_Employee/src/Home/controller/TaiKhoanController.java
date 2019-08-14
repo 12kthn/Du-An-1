@@ -277,6 +277,10 @@ public class TaiKhoanController implements Initializable {
     @FXML
     private void DeleteTK(ActionEvent event) {
         tk = getModel();
+        if (tk.getMaNV().equals(Share.USER.getMaNV())) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Không thể xóa chính mình");
+            return;
+        }
         customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa tài khoản " + tk.getTaiKhoan(), 
                 new DeleteTKHandler());
     }

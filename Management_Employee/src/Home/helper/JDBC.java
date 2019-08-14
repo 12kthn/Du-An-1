@@ -1,4 +1,3 @@
-
 package Home.helper;
 
 import java.sql.Connection;
@@ -8,11 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JDBC {
+
     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyNhanSu";
     private static String username = "sa";
     private static String password = "fpolyduan1";
     private static Connection connection;
+
     //Nạp driver
     static {
         try {
@@ -34,7 +35,7 @@ public class JDBC {
     public static PreparedStatement prepareStatement(String sql, Object... args) {
         PreparedStatement pstmt = null;
         try {
-            connection = DriverManager.getConnection(dburl, username, password);   
+            connection = DriverManager.getConnection(dburl, username, password);
             if (sql.trim().startsWith("{")) {
                 pstmt = connection.prepareCall(sql);
             } else {
@@ -56,21 +57,19 @@ public class JDBC {
      * @param sql là câu lệnh SQL chứa có thể chứa tham số. Nó có thể là một lời
      * gọi thủ tục lưu
      * @param args là danh sách các giá trị được cung cấp cho các tham số trong
-     * câu lệnh sql *
+     * câu lệnh sql
+     *
      * @return số dòng được thực thi
      */
-    public static int executeUpdate(String sql, Object... args) {
+    public static int executeUpdate(String sql, Object... args) throws RuntimeException {
+        int result = 0;
         try {
             PreparedStatement pstm = prepareStatement(sql, args);
-            try {
-                return pstm.executeUpdate();
-            } finally {
-                pstm.getConnection().close();
-            }
+            result = pstm.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            return 0;
+            result = 0;
         }
+        return result;
     }
 
     /**
@@ -92,11 +91,11 @@ public class JDBC {
         }
         return null;
     }
-    
+
     /**
      * Đóng kết nối
      */
-    public static void closeConnection(){
+    public static void closeConnection() {
         try {
             connection.close();
         } catch (SQLException ex) {

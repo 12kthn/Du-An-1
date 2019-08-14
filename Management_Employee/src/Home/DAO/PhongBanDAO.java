@@ -55,7 +55,7 @@ public class PhongBanDAO {
         return result;
     }
 
-    public int delete(PhongBan pb) {
+    public int delete(PhongBan pb) throws RuntimeException{
         int result = 0;
         try {
             String sql = "{call sp_phongban(?,?,?)}";
@@ -65,7 +65,7 @@ public class PhongBanDAO {
                     "delete"
             );
         } catch (Exception ex) {
-            ex.printStackTrace();
+            result = 0;
         }
         return result;
     }

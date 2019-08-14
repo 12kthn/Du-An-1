@@ -408,16 +408,17 @@ public class ToChucController implements Initializable {
     class deletePBHandler implements IConfirmationDialog {
 
         @Override
-        public void onConfirm() {
+        public void onConfirm(){
             try {
                 if (pbdao.delete(pb) > 0) {
                     loadDataToTblPhongBan();
                     customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa phòng ban thành công ");
                     newPB();
+                } else {
+                    throw new Exception();
                 }
             } catch (Exception ex) {
                 customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa phòng ban thất bại! \nVui lòng kiểm tra lại");
-                ex.printStackTrace();
             }
         }
 
@@ -437,6 +438,8 @@ public class ToChucController implements Initializable {
                     loadDataToTblChucVu();
                     customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa chức vụ thành công ");
                     newPB();
+                } else {
+                    throw new Exception();
                 }
             } catch (Exception ex) {
                 customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa chức vụ thất bại! \nVui lòng kiểm tra lại");

@@ -15,7 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class TableNhanVienDAO {
-    
+
     public ObservableList<TableNhanVien> getData(String timKiem) {
         ObservableList<TableNhanVien> data = FXCollections.observableArrayList();
         try {
@@ -37,9 +37,13 @@ public class TableNhanVienDAO {
                     @Override
                     public void handle(ActionEvent event) {
                         tempNV = new NhanVienDAO().findByCode(tblnv.getMaNV());
-                        customDialog.confirmDialog(Share.mainPane, Share.blurPane, 
+                        if (tempNV.getMaNV().equals(Share.USER.getMaNV())) {
+                            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Không thể xóa chính mình");
+                            return;
+                        }
+                        customDialog.confirmDialog(Share.mainPane, Share.blurPane,
                                 "Bạn chắc chắn muốn xóa nhân viên " + tempNV.getHoTen(), new deleteNhanVienHandler());
-   
+
                     }
                 });
                 tblnv.getUpdate().setOnAction((ActionEvent event) -> {
@@ -55,10 +59,10 @@ public class TableNhanVienDAO {
         }
         return data;
     }
-    
+
     CustomDialog customDialog = new CustomDialog();
     NhanVien tempNV;
-    
+
     private class deleteNhanVienHandler implements IConfirmationDialog {
 
         @Override

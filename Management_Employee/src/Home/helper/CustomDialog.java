@@ -32,9 +32,10 @@ public class CustomDialog {
         Text text = new Text(message);
         text.setWrappingWidth(380);
         
-        text.setStyle("-fx-font-size: 12pt;");
+        text.setStyle("-fx-font: 12px System;");
+        text.setStyle("-fx-font-weight: Bold;");
         if (!successMessage) {
-            text.setStyle("-fx-text-fill: #dc3545");
+            text.setStyle("-fx-fill: #dc3545");
         }
         dialogLayout.setHeading(text);
         dialogLayout.setActions(button);
@@ -67,9 +68,10 @@ public class CustomDialog {
         Text text = new Text(message);
         text.setWrappingWidth(380);
         
-        text.setStyle("-fx-font-size: 12pt;");
+        text.setStyle("-fx-font: 12px System;");
+        text.setStyle("-fx-font-weight: Bold;");
         if (!successMessage) {
-            text.setStyle("-fx-text-fill: #dc3545");
+            text.setStyle("-fx-fill: #dc3545");
         }
         dialogLayout.setHeading(text);
         dialogLayout.setActions(button);
@@ -116,8 +118,8 @@ public class CustomDialog {
         dialogLayout.setPrefSize(400, 80);
         Text text = new Text(message);
         text.setWrappingWidth(380);      
-        text.setStyle("-fx-font-size: 12pt;");
-        
+        text.setStyle("-fx-font: 12px System;");
+        text.setStyle("-fx-font-weight: Bold;");
         dialogLayout.setHeading(text);
         dialogLayout.setActions(yesButton, cancelButton);
 

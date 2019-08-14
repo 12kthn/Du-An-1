@@ -259,7 +259,9 @@ public class NhanVienController implements Initializable {
     }
 
     public void loadDataToTableNT() {
-        tblNhanThan.getItems().clear();
+        if (tblNhanThan.getItems() != null) {
+            tblNhanThan.getItems().clear();
+        }     
         tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
@@ -321,13 +323,13 @@ public class NhanVienController implements Initializable {
             }
 
         });
-        
-        txtTimKiem.textProperty().addListener(new ChangeListener<String>(){
+
+        txtTimKiem.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 loadDataToTableNV();
             }
-            
+
         });
     }
 
@@ -443,16 +445,23 @@ public class NhanVienController implements Initializable {
 
     @FXML
     private void deleteNV() {
+        if (nv.getMaNV().equals(Share.USER.getMaNV())) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Không thể xóa chính mình");
+            return;
+        }
         customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn chắc chắn muốn xóa nhân viên " + nv.getHoTen(), new deleteNhanVienHandler());
     }
 
     public void deleteNV(NhanVien nv) {
         try {
-            nvdao.delete(nv);
-            loadDataToTableNV();
-            customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa nhân viên thành công");
-            newNV();
-            tblNhanVien.getSelectionModel().clearSelection();
+            if (nvdao.delete(nv) > 0) {
+                loadDataToTableNV();
+                customDialog.showDialog(Share.mainPane, Share.blurPane, true, "Xóa nhân viên thành công");
+                newNV();
+                tblNhanVien.getSelectionModel().clearSelection();
+            } else {
+                throw new Exception();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Xóa nhân viên thất bại! vui lòng kiểm tra lại ");
