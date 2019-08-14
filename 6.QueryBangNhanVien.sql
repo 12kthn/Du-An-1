@@ -196,12 +196,12 @@ AS
 	IF @MaPB is not null
 		BEGIN
 			SELECT * FROM NhanVien WHERE MaPB = @MaPB AND NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
-														AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+														AND (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 		END
 	ELSE
 		BEGIN
 			SELECT * FROM NhanVien WHERE NgayVaoLam <= EOMONTH(CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME))
-										AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+										AND (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 		END
 	
 GO

@@ -15,12 +15,12 @@ AS
 		SELECT MaNV, HoTen, GioiTinh, FORMAT(NgaySinh, 'dd/MM/yyyy') AS NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
 			FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 		FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-		WHERE NhanVien.MaPB = @MaPB AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+		WHERE NhanVien.MaPB = @MaPB AND (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 	ELSE
 		SELECT MaNV, HoTen, GioiTinh, FORMAT(NgaySinh, 'dd/MM/yyyy') AS NgaySinh, SoCM, DienThoai, Email, DiaChi, TrinhDoHV, MaHD, PhongBan.TenPB, ChucVu.TenCV, 
 			FORMAT(NgayVaoLam, 'dd/MM/yyyy') AS NgayVaoLam, FORMAT(NgayKetThuc, 'dd/MM/yyyy') AS NgayKetThuc, HeSoLuong, TrangThai
 		FROM NhanVien JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
-		WHERE NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+		WHERE (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 GO
 
 --Tao Stored Procedure hien thi du lieu cho Table than nhan
@@ -64,7 +64,7 @@ AS
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay) AND SUBSTRING(NhanVien.MaNV, 1, 2) = @MaPB
-				 AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+				 AND (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 		END
 	ELSE
 		BEGIN
@@ -72,10 +72,11 @@ AS
 																			JOIN PhongBan ON NhanVien.MaPB = PhongBan.MaPB
 																			JOIN ChucVu ON NhanVien.MaCV = ChucVu.MaCV
 			WHERE NgayPhatLuong BETWEEN @Ngay AND EOMONTH(@ngay)
-			 AND NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%'
+			 AND (NhanVien.HoTen like '%' + @TimKiem + '%' OR NhanVien.MaNV like '%' + @TimKiem + '%')
 		END
 GO
 
+exec SP_TBLBangLuong null, '2019', '5', 'it'
 --Tao Stored Procedure hien thi du lieu cho Table Tai khoan
 IF(OBJECT_ID('SP_TBLTaiKhoan') IS NOT NULL)
        DROP PROCEDURE SP_TBLTaiKhoan
