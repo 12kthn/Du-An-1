@@ -86,3 +86,18 @@ AS
        SELECT TaiKhoan, MatKhau, NhanVien.MaNV, NhanVien.MaPB
        FROM TaiKhoan JOIN NhanVien ON TaiKhoan.MaNV = NhanVien.MaNV
 Go
+
+--Tao Stored Procedure hien thi du lieu cho Table cham cong
+IF(OBJECT_ID('SP_TBLChamCong') IS NOT NULL)
+       DROP PROCEDURE SP_TBLChamCong
+GO
+CREATE PROCEDURE SP_TBLChamCong
+(
+	@NgayDauThang date,
+	@TimKiem varchar(50)
+)
+AS 
+	SELECT NhanVien.MaNV, NhanVien.HoTen, PhongBan.TenPB, ChamCong.* FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV
+							JOIN PhongBan ON PhongBan.MaPB = NhanVien.MaPB
+	WHERE NgayDauThang = @NgayDauThang AND (NhanVien.MaNV like '%' + @TimKiem + '%' OR NhanVien.HoTen like '%' + @TimKiem + '%')
+Go

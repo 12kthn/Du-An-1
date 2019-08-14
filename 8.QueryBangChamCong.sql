@@ -1,69 +1,32 @@
 ﻿USE QuanLyNhanSu
 GO
 
---Tao Stored Procedure tim kiem bản lưu Cham cong cua NhanVien theo ngay
-IF (OBJECT_ID('SP_FindCCByPrimaryKey') IS NOT NULL)
-  DROP PROCEDURE SP_FindCCByPrimaryKey
+--Tao Stored Procedure tinh so gio lam viec trong nam
+IF (OBJECT_ID('SP_SoGioLamViecTrongNam') IS NOT NULL)
+  DROP PROCEDURE SP_SoGioLamViecTrongNam
 GO
-CREATE PROCEDURE SP_FindCCByPrimaryKey
-(
-	@MaNV varchar(10),
-	@Ngay datetime
-)
-AS
-	
-	IF @MaNV is not null
-		BEGIN 
-			SELECT * FROM ChamCong WHERE MaNV = @MaNV AND Ngay = @Ngay
-		END
-	ELSE
-	--@MaNV bang null thi lay hêt bản lưu theo ngày
-		BEGIN
-			SELECT * FROM ChamCong WHERE Ngay = @Ngay
-		END
-GO
-
-EXEC SP_FindCCByPrimaryKey 'it001', '2019/5/1'
-GO
---Tao Stored Procedure hien thi bang cham cong cua nhan vien theo thang nam
-IF (OBJECT_ID('SP_ChamCongTheoThang') IS NOT NULL)
-  DROP PROCEDURE SP_ChamCongTheoThang
-GO
-CREATE PROCEDURE SP_ChamCongTheoThang
-(
-	@MaNV varchar(10),
-	@Nam char(4),
-	@Thang varchar(2)
-)
-AS
-	BEGIN
-		DECLARE @Ngay DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-		SELECT Ngay, TinhTrang FROM ChamCong WHERE MaNV = @MaNV AND Ngay BETWEEN @Ngay AND EOMONTH(@ngay)
-	END
-GO
-
-EXEC SP_ChamCongTheoThang 'IT001', '2019', '8'
-
---Tao Stored Procedure tinh so gio lam viec theo nam
-IF (OBJECT_ID('SP_SoGioLamViecTheoNam') IS NOT NULL)
-  DROP PROCEDURE SP_SoGioLamViecTheoNam
-GO
-CREATE PROCEDURE SP_SoGioLamViecTheoNam
+CREATE PROCEDURE SP_SoGioLamViecTrongNam
 (
 	@Nam int
 )
 AS
 	IF @Nam is not null
 		BEGIN
-			SELECT COUNT(*)*8 FROM ChamCong WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam
+			SELECT 8*SUM(1*Ngay1 + 1*Ngay2 + 1*Ngay3 + 1*Ngay4 + 1*Ngay5 + 1*Ngay6 + 1*Ngay7 + 1*Ngay8 + 1*Ngay9 + 1*Ngay10 + 1*Ngay11
+					+ 1*Ngay12 + 1*Ngay13 + 1*Ngay14 + 1*Ngay15 + 1*Ngay16 + 1*Ngay17 + 1*Ngay18 + 1*Ngay19 + 1*Ngay20 + 1*Ngay21
+					+ 1*Ngay22 + 1*Ngay23 + 1*Ngay24 + 1*Ngay25 + 1*Ngay26 + 1*Ngay27 + 1*Ngay28 + 1*Ngay29 + 1*Ngay30 + 1*Ngay31)
+			FROM ChamCong WHERE YEAR(NgayDauThang) = @Nam
 		END
 	ELSE
 		BEGIN
-			SELECT COUNT(*)*8 FROM ChamCong WHERE TinhTrang = 1
+			SELECT 8*SUM(1*Ngay1 + 1*Ngay2 + 1*Ngay3 + 1*Ngay4 + 1*Ngay5 + 1*Ngay6 + 1*Ngay7 + 1*Ngay8 + 1*Ngay9 + 1*Ngay10 + 1*Ngay11
+					+ 1*Ngay12 + 1*Ngay13 + 1*Ngay14 + 1*Ngay15 + 1*Ngay16 + 1*Ngay17 + 1*Ngay18 + 1*Ngay19 + 1*Ngay20 + 1*Ngay21
+					+ 1*Ngay22 + 1*Ngay23 + 1*Ngay24 + 1*Ngay25 + 1*Ngay26 + 1*Ngay27 + 1*Ngay28 + 1*Ngay29 + 1*Ngay30 + 1*Ngay31)
+			FROM ChamCong
 		END
 GO		
-EXEC SP_SoGioLamViecTheoNam 2019
-EXEC SP_SoGioLamViecTheoNam null
+EXEC SP_SoGioLamViecTrongNam 2019
+EXEC SP_SoGioLamViecTrongNam null
 
 --Tao Stored Procedure tinh so luong nhan vien di lam đầy đủ trong tháng theo phòng ban
 IF (OBJECT_ID('SP_ChuyenCanTheoThang') IS NOT NULL)
@@ -78,21 +41,28 @@ CREATE PROCEDURE SP_ChuyenCanTheoThang
 )
 AS
 	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-	DECLARE @NgayCuoiThang DATETIME = EOMONTH(@NgayDauThang)
 	IF @MaPB is not null
 		BEGIN
-			SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
-				SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
-				WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >= @SoNgayLamViecThapNhat) AND NhanVien.MaPB = @MaPB
-
+			SELECT COUNT(*)
+			FROM ChamCong JOIN NhanVien ON NhanVien.MaNV = ChamCong.MaNV
+			WHERE NhanVien.MaPB = @MaPB AND NgayDauThang = @NgayDauThang
+			AND (1*Ngay1 + 1*Ngay2 + 1*Ngay3 + 1*Ngay4 + 1*Ngay5 + 1*Ngay6 + 1*Ngay7 + 1*Ngay8 + 1*Ngay9 + 1*Ngay10 + 1*Ngay11
+					+ 1*Ngay12 + 1*Ngay13 + 1*Ngay14 + 1*Ngay15 + 1*Ngay16 + 1*Ngay17 + 1*Ngay18 + 1*Ngay19 + 1*Ngay20 + 1*Ngay21
+					+ 1*Ngay22 + 1*Ngay23 + 1*Ngay24 + 1*Ngay25 + 1*Ngay26 + 1*Ngay27 + 1*Ngay28 + 1*Ngay29 + 1*Ngay30 + 1*Ngay31)
+					>= @SoNgayLamViecThapNhat
 		END
 	ELSE
 		BEGIN
-		SELECT COUNT(*) FROM NhanVien WHERE MaNV IN (
-			SELECT NhanVien.MaNV FROM ChamCong JOIN NhanVien ON ChamCong.MaNV = NhanVien.MaNV 
-			WHERE TinhTrang = 1 AND YEAR(Ngay) = @Nam AND MONTH(Ngay) = @Thang GROUP BY NhanVien.MaNV HAVING COUNT(*) >= @SoNgayLamViecThapNhat)
+			SELECT COUNT(*)
+			FROM ChamCong JOIN NhanVien ON NhanVien.MaNV = ChamCong.MaNV
+			WHERE NgayDauThang = @NgayDauThang
+			AND (1*Ngay1 + 1*Ngay2 + 1*Ngay3 + 1*Ngay4 + 1*Ngay5 + 1*Ngay6 + 1*Ngay7 + 1*Ngay8 + 1*Ngay9 + 1*Ngay10 + 1*Ngay11
+					+ 1*Ngay12 + 1*Ngay13 + 1*Ngay14 + 1*Ngay15 + 1*Ngay16 + 1*Ngay17 + 1*Ngay18 + 1*Ngay19 + 1*Ngay20 + 1*Ngay21
+					+ 1*Ngay22 + 1*Ngay23 + 1*Ngay24 + 1*Ngay25 + 1*Ngay26 + 1*Ngay27 + 1*Ngay28 + 1*Ngay29 + 1*Ngay30 + 1*Ngay31)
+					>= @SoNgayLamViecThapNhat
 		END
 GO
+EXEC SP_ChuyenCanTheoThang 'IT', '2018', '8', 24
 
 --Tao Stored Procedure lay danh sách năm đã chấm công
 IF (OBJECT_ID('SP_ListYearCC') IS NOT NULL)
@@ -100,7 +70,7 @@ IF (OBJECT_ID('SP_ListYearCC') IS NOT NULL)
 GO
 CREATE PROCEDURE SP_ListYearCC
 AS
-	SELECT DISTINCT YEAR(Ngay) FROM ChamCong
+	SELECT DISTINCT YEAR(NgayDauThang) FROM ChamCong
 	ORDER BY 1 DESC
 GO
 	
@@ -115,8 +85,5 @@ CREATE PROCEDURE SP_FindCCByMonth
 )
 AS
 	DECLARE @NgayDauThang DATETIME = CAST(@Nam + '-' + @Thang + '-' + '1' AS DATETIME)
-	DECLARE @NgayCuoiThang DATETIME = EOMONTH(@NgayDauThang)
-	SELECT * FROM ChamCong WHERE Ngay BETWEEN @NgayDauThang AND @NgayCuoiThang
+	SELECT * FROM ChamCong WHERE NgayDauThang = @NgayDauThang
 GO
-
-delete from ChamCong where month(ngay) = 8

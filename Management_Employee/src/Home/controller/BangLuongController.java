@@ -490,7 +490,7 @@ public class BangLuongController implements Initializable {
 
     @FXML
     private void insert() {
-        ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2, null);
+        ObservableList<NhanVien> data = new NhanVienDAO().findByMonth(year2, month2, "");
         try {
             Date ngayNhanLuong;
             if (month2 == 12) {

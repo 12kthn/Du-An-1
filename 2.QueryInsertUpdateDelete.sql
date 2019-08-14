@@ -177,28 +177,33 @@ GO
 CREATE PROCEDURE SP_ChamCong
 (
 	@MaNV varchar(10),
-	@Ngay date,
-	@TinhTrang bit,
+	@NgayDauThang date,
+	@Ngay1 bit, @Ngay2 bit, @Ngay3 bit, @Ngay4 bit, @Ngay5 bit, @Ngay6 bit, @Ngay7 bit, @Ngay8 bit, @Ngay9 bit, @Ngay10 bit, 
+	@Ngay11 bit, @Ngay12 bit, @Ngay13 bit, @Ngay14 bit, @Ngay15 bit, @Ngay16 bit, @Ngay17 bit, @Ngay18 bit, @Ngay19 bit, @Ngay20 bit,
+	@Ngay21 bit, @Ngay22 bit, @Ngay23 bit, @Ngay24 bit, @Ngay25 bit, @Ngay26 bit, @Ngay27 bit, @Ngay28 bit, @Ngay29 bit, @Ngay30 bit, @Ngay31 bit,
 	@StatementType char(6)
 )
 AS
 	IF @StatementType = 'Insert'
 		BEGIN
-			IF @Ngay is null
-				BEGIN
-					SET @Ngay = (SELECT CAST(getdate() AS date))
-				END
-			INSERT INTO ChamCong VALUES(@MaNV, @Ngay, @TinhTrang)
+			INSERT INTO ChamCong VALUES(@MaNV, @NgayDauThang, 
+				@Ngay1, @Ngay2, @Ngay3, @Ngay4, @Ngay5, @Ngay6, @Ngay7, @Ngay8, @Ngay9, @Ngay10, 
+				@Ngay11, @Ngay12, @Ngay13, @Ngay14, @Ngay15, @Ngay16, @Ngay17, @Ngay18, @Ngay19, @Ngay20,
+				@Ngay21, @Ngay22, @Ngay23, @Ngay24, @Ngay25, @Ngay26, @Ngay27, @Ngay28, @Ngay29, @Ngay30, @Ngay31)
 		END
 	IF @StatementType = 'Update'
 		BEGIN
 			UPDATE ChamCong 
-			SET TinhTrang = @TinhTrang
-			WHERE MaNV = @MaNV AND Ngay = @Ngay
+			SET Ngay1 = @Ngay1, Ngay2 = @Ngay2, Ngay3 = @Ngay3, Ngay4 = @Ngay4, Ngay5 = @Ngay5, Ngay6 = @Ngay6, Ngay7 = @Ngay7, Ngay8 = @Ngay8, 
+				Ngay9 = @Ngay9, Ngay10 = @Ngay10, Ngay11 = @Ngay11, Ngay12 = @Ngay12, Ngay13 = @Ngay13, Ngay14 = @Ngay14, Ngay15 = @Ngay15, 
+				Ngay16 = @Ngay16, Ngay17 = @Ngay17, Ngay18 = @Ngay18, Ngay19 = @Ngay19, Ngay20 = @Ngay20, Ngay21 = @Ngay21, Ngay22 = @Ngay22, 
+				Ngay23 = @Ngay23, Ngay24 = @Ngay24, Ngay25 = @Ngay25, Ngay26 = @Ngay26, Ngay27 = @Ngay27, Ngay28 = @Ngay28, 
+				Ngay29 = @Ngay29, Ngay30 = @Ngay30, Ngay31 = @Ngay31
+			WHERE MaNV = @MaNV AND NgayDauThang = @NgayDauThang
 		END
 	IF @StatementType = 'Delete'
 		BEGIN
-			DELETE FROM ChamCong WHERE MaNV = @MaNV AND Ngay = @Ngay
+			DELETE FROM ChamCong WHERE MaNV = @MaNV AND NgayDauThang = @NgayDauThang
 		END
 GO
 
@@ -307,14 +312,17 @@ RETURNS int
 AS
 	BEGIN
 		DECLARE @NgayCong int
-		SET @NgayCong = (SELECT COUNT(MaNV) FROM ChamCong WHERE MaNV = @MaNV AND 
-				Ngay BETWEEN @NgayDauThang AND EOMONTH(@NgayDauThang) AND TinhTrang = 1)
+		SET @NgayCong = (SELECT (1*Ngay1 + 1*Ngay2 + 1*Ngay3 + 1*Ngay4 + 1*Ngay5 + 1*Ngay6 + 1*Ngay7 + 1*Ngay8 + 1*Ngay9 + 1*Ngay10 + 1*Ngay11
+								 + 1*Ngay12 + 1*Ngay13 + 1*Ngay14 + 1*Ngay15 + 1*Ngay16 + 1*Ngay17 + 1*Ngay18 + 1*Ngay19 + 1*Ngay20 + 1*Ngay21
+								  + 1*Ngay22 + 1*Ngay23 + 1*Ngay24 + 1*Ngay25 + 1*Ngay26 + 1*Ngay27 + 1*Ngay28 + 1*Ngay29 + 1*Ngay30 + 1*Ngay31)
+
+						FROM ChamCong WHERE MaNV = @MaNV AND NgayDauThang = @NgayDauThang)
 
 		RETURN @NgayCong
 	END
 GO
-select * from ChamCong where MaNV = 'MK014'
-select [dbo].[FN_SoNgayCong]('MK014', '2019-7-1')
+
+select [dbo].[FN_SoNgayCong]('IT001', '2018-8-1')
 --Tao Function tinh thue TNCN
 IF (OBJECT_ID('FN_TinhThueTNCN') IS NOT NULL)
   DROP FUNCTION FN_TinhThueTNCN
@@ -347,7 +355,6 @@ CREATE PROCEDURE SP_Insert_BangLuong
 AS
 	DECLARE	@Nam char(4),
 			@Thang varchar(2),
-			@NgayDauThang datetime,
 			@NgayVaoLam datetime,
 			@LuongChinh int,
 			@NgayCong int,
@@ -366,10 +373,9 @@ AS
 			SET @Nam = @Nam - 1
 		END
 	ELSE
-		SET @Thang = MONTH(@NgayPhatLuong)
+		SET @Thang = MONTH(@NgayPhatLuong)-1
 	SET @LuongChinh = [dbo].[FN_LuongChinh](@MaNV)
-	SET @NgayDauThang = CAST(@Nam + '-' + @Thang + '-' + '1' AS datetime)
-	SET @NgayCong = [dbo].[FN_SoNgayCong](@MaNV, @NgayDauThang)
+	SET @NgayCong = [dbo].[FN_SoNgayCong](@MaNV, CAST(@Nam + '-' + @Thang + '-' + '1' AS datetime))
 	SET @PC_TrachNhiem = @LuongChinh*(SELECT PhuCap FROM ChucVu WHERE MaCV = (Select MaCV FROM NhanVien WHERE MaNV = @MaNV))
 	SET @ThuNhap = @LuongChinh*@NgayCong/26 + @PC_TrachNhiem
 	SET @NgayVaoLam = (SELECT NgayVaoLam FROM NhanVien WHERE MaNV = @MaNV)

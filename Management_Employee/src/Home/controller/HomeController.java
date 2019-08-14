@@ -125,7 +125,7 @@ public class HomeController implements Initializable, Runnable {
             Thread.sleep(1500);
             double plusNum1 = nvdao.getSLNVTheoPBVaNam(yearStatistic)/ 20.0;
             double plusNum2 = bldao.getTongTienLuongTrongNam(yearStatistic) / 20.0;
-            double plusNum3 = ccdao.getSoGioLamViecTheoNam(yearStatistic) / 20.0;
+            double plusNum3 = ccdao.getSoGioLamViecTrongNam(yearStatistic) / 20.0;
             for (int i = 1; i <= 20; i++) {
                 int value1 = (int) (i * plusNum1);
                 double value2 = i * plusNum2;

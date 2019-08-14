@@ -16,20 +16,6 @@ import javafx.scene.chart.PieChart;
 
 public class ChamCongDAO {
     
-    public ChamCong findByCode(String maNV, Date ngay){
-        ChamCong cc = null;
-        try {
-            String sql = "{Call SP_FindCCByPrimaryKey(?,?)}";
-            ResultSet rs = JDBC.executeQuery(sql, maNV, XDate.toSqlDate(ngay));
-            while (rs.next()){
-                cc = new ChamCong(maNV, ngay, rs.getBoolean(3));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return cc;
-    }
-    
     //Phuong thuc kiem tra tháng này đã chấm công chưa
     public boolean noRecordExist(int year, int month){
         boolean result = true;
@@ -45,10 +31,10 @@ public class ChamCongDAO {
         return result;
     }
     
-    public int getSoGioLamViecTheoNam(int year) {
+    public int getSoGioLamViecTrongNam(int year) {
         int result = 0;
         try {
-            String sql = "{call SP_SoGioLamViecTheoNam(?)}";
+            String sql = "{call SP_SoGioLamViecTrongNam(?)}";
             ResultSet rs = JDBC.executeQuery(sql, year);
             while (rs.next()) {
                 result = rs.getInt(1);
@@ -133,20 +119,26 @@ public class ChamCongDAO {
     public int insert(ChamCong cc){
         int result = 0;
         try {
-            String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Insert");
-        } catch (Exception ex) {
+            String sql = "{Call SP_ChamCong(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgayDauThang()), 
+                    cc.getNgay1(), cc.getNgay2(), cc.getNgay3(), cc.getNgay4(), cc.getNgay5(), cc.getNgay6(), cc.getNgay7(), 
+                    cc.getNgay8(), cc.getNgay9(), cc.getNgay10(), cc.getNgay11(), cc.getNgay12(), cc.getNgay13(), cc.getNgay14(), 
+                    cc.getNgay15(), cc.getNgay16(), cc.getNgay17(), cc.getNgay18(), cc.getNgay19(), cc.getNgay20(), cc.getNgay21(), 
+                    cc.getNgay22(), cc.getNgay23(), cc.getNgay24(), cc.getNgay25(), cc.getNgay26(), cc.getNgay27(), cc.getNgay28(), 
+                    cc.getNgay29(), cc.getNgay30(), cc.getNgay31(),
+                    "Insert");
+        } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
         return result;
     }
     
-    public int update(ChamCong cc){
+    public int update(String maNV, String ngay, boolean tinhTrang, Date ngayDauThang){
         int result = 0;
         try {
-            String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Update");
-        } catch (Exception ex) {
+            String sql = "UPDATE ChamCong SET " + ngay + " = ? WHERE MaNV = ? AND NgayDauThang = ?";
+            result = JDBC.executeUpdate(sql, tinhTrang, maNV, XDate.toSqlDate(ngayDauThang));
+        } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
         return result;
@@ -155,9 +147,15 @@ public class ChamCongDAO {
     public int delete(ChamCong cc){
         int result = 0;
         try {
-            String sql = "{Call SP_ChamCong(?,?,?,?)}";
-            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgay()), cc.getTinhTrang(), "Delete");
-        } catch (Exception ex) {
+            String sql = "{Call SP_ChamCong(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            result = JDBC.executeUpdate(sql, cc.getMaNV(), XDate.toSqlDate(cc.getNgayDauThang()), 
+                    cc.getNgay1(), cc.getNgay2(), cc.getNgay3(), cc.getNgay4(), cc.getNgay5(), cc.getNgay6(), cc.getNgay7(), 
+                    cc.getNgay8(), cc.getNgay9(), cc.getNgay10(), cc.getNgay11(), cc.getNgay12(), cc.getNgay13(), cc.getNgay14(), 
+                    cc.getNgay15(), cc.getNgay16(), cc.getNgay17(), cc.getNgay18(), cc.getNgay19(), cc.getNgay20(), cc.getNgay21(), 
+                    cc.getNgay22(), cc.getNgay23(), cc.getNgay24(), cc.getNgay25(), cc.getNgay26(), cc.getNgay27(), cc.getNgay28(), 
+                    cc.getNgay29(), cc.getNgay30(), cc.getNgay31(),
+                    "Delete");
+        } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
         return result;

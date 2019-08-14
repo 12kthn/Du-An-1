@@ -78,11 +78,13 @@ GO
 CREATE TABLE ChamCong
 (
 	MaNV varchar(10) not null,
-	Ngay date not null,
-	TinhTrang bit not null,
+	NgayDauThang date not null,
+	Ngay1 bit, Ngay2 bit, Ngay3 bit, Ngay4 bit, Ngay5 bit, Ngay6 bit, Ngay7 bit, Ngay8 bit, Ngay9 bit, Ngay10 bit, 
+	Ngay11 bit, Ngay12 bit, Ngay13 bit, Ngay14 bit, Ngay15 bit, Ngay16 bit, Ngay17 bit, Ngay18 bit, Ngay19 bit, Ngay20 bit,
+	Ngay21 bit, Ngay22 bit, Ngay23 bit, Ngay24 bit, Ngay25 bit, Ngay26 bit, Ngay27 bit, Ngay28 bit, Ngay29 bit, Ngay30 bit, Ngay31 bit,
 
-	PRIMARY KEY (MaNV, Ngay),
-	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
+	PRIMARY KEY (MaNV, NgayDauThang),
+	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE ON UPDATE CASCADE
 )
 GO
 
@@ -103,7 +105,7 @@ CREATE TABLE BangLuong
 	TrangThai bit not null
 
 	PRIMARY KEY (MaNV, NgayPhatLuong),
-	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE
+	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE ON UPDATE CASCADE
 )
 GO
 CREATE TABLE GiaTriTinhLuong

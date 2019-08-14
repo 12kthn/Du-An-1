@@ -1,20 +1,51 @@
 package Home.model.table;
 
-import Home.model.PhongBan;
-
 public class TableChamCong {
 
     private String maNV;
     private String hoTen;
-    private PhongBan phongBan;
-    private String nam;
-    private String thang;
+    private String tenPhongBan;
     private Boolean ngay1, ngay2, ngay3, ngay4, ngay5, ngay6, ngay7, ngay8, ngay9, ngay10, ngay11, ngay12, ngay13, ngay14, ngay15,
-            ngay16, ngay17, ngay18, ngay19, ngay20, ngay21, ngay22, ngay23, ngay24, ngay25, ngay26, ngay27, ngay28, ngay29, ngay30, ngay31;
-    private Boolean[] onWork;
+    ngay16, ngay17, ngay18, ngay19, ngay20, ngay21, ngay22, ngay23, ngay24, ngay25, ngay26, ngay27, ngay28, ngay29, ngay30, ngay31;
 
     public TableChamCong() {
+    }
 
+    public TableChamCong(String maNV, String hoTen, String tenPhongBan, Boolean ngay1, Boolean ngay2, Boolean ngay3, Boolean ngay4, Boolean ngay5, Boolean ngay6, Boolean ngay7, Boolean ngay8, Boolean ngay9, Boolean ngay10, Boolean ngay11, Boolean ngay12, Boolean ngay13, Boolean ngay14, Boolean ngay15, Boolean ngay16, Boolean ngay17, Boolean ngay18, Boolean ngay19, Boolean ngay20, Boolean ngay21, Boolean ngay22, Boolean ngay23, Boolean ngay24, Boolean ngay25, Boolean ngay26, Boolean ngay27, Boolean ngay28, Boolean ngay29, Boolean ngay30, Boolean ngay31) {
+        this.maNV = maNV;
+        this.hoTen = hoTen;
+        this.tenPhongBan = tenPhongBan;
+        this.ngay1 = ngay1;
+        this.ngay2 = ngay2;
+        this.ngay3 = ngay3;
+        this.ngay4 = ngay4;
+        this.ngay5 = ngay5;
+        this.ngay6 = ngay6;
+        this.ngay7 = ngay7;
+        this.ngay8 = ngay8;
+        this.ngay9 = ngay9;
+        this.ngay10 = ngay10;
+        this.ngay11 = ngay11;
+        this.ngay12 = ngay12;
+        this.ngay13 = ngay13;
+        this.ngay14 = ngay14;
+        this.ngay15 = ngay15;
+        this.ngay16 = ngay16;
+        this.ngay17 = ngay17;
+        this.ngay18 = ngay18;
+        this.ngay19 = ngay19;
+        this.ngay20 = ngay20;
+        this.ngay21 = ngay21;
+        this.ngay22 = ngay22;
+        this.ngay23 = ngay23;
+        this.ngay24 = ngay24;
+        this.ngay25 = ngay25;
+        this.ngay26 = ngay26;
+        this.ngay27 = ngay27;
+        this.ngay28 = ngay28;
+        this.ngay29 = ngay29;
+        this.ngay30 = ngay30;
+        this.ngay31 = ngay31;
     }
 
     public String getMaNV() {
@@ -33,68 +64,12 @@ public class TableChamCong {
         this.hoTen = hoTen;
     }
 
-    public PhongBan getPhongBan() {
-        return phongBan;
+    public String getTenPhongBan() {
+        return tenPhongBan;
     }
 
-    public void setPhongBan(PhongBan phongBan) {
-        this.phongBan = phongBan;
-    }
-
-    public String getNam() {
-        return nam;
-    }
-
-    public void setNam(String nam) {
-        this.nam = nam;
-    }
-
-    public String getThang() {
-        return thang;
-    }
-
-    public void setThang(String thang) {
-        this.thang = thang;
-    }
-
-    public TableChamCong(String maNV, String hoTen, PhongBan phongBan, String nam, String thang, Boolean[] onWork) {
-        this.maNV = maNV;
-        this.hoTen = hoTen;
-        this.phongBan = phongBan;
-        this.nam = nam;
-        this.thang = thang;
-        this.onWork = new Boolean[31];
-        this.ngay1 = onWork[0];
-        this.ngay2 = onWork[1];
-        this.ngay3 = onWork[2];
-        this.ngay4 = onWork[3];
-        this.ngay5 = onWork[4];
-        this.ngay6 = onWork[5];
-        this.ngay7 = onWork[6];
-        this.ngay8 = onWork[7];
-        this.ngay9 = onWork[8];
-        this.ngay10 = onWork[9];
-        this.ngay11 = onWork[10];
-        this.ngay12 = onWork[11];
-        this.ngay13 = onWork[12];
-        this.ngay14 = onWork[13];
-        this.ngay15 = onWork[14];
-        this.ngay16 = onWork[15];
-        this.ngay17 = onWork[16];
-        this.ngay18 = onWork[17];
-        this.ngay19 = onWork[18];
-        this.ngay20 = onWork[19];
-        this.ngay21 = onWork[20];
-        this.ngay22 = onWork[21];
-        this.ngay23 = onWork[22];
-        this.ngay24 = onWork[23];
-        this.ngay25 = onWork[24];
-        this.ngay26 = onWork[25];
-        this.ngay27 = onWork[26];
-        this.ngay28 = onWork[27];
-        this.ngay29 = onWork[28];
-        this.ngay30 = onWork[29];
-        this.ngay31 = onWork[30];
+    public void setTenPhongBan(String tenPhongBan) {
+        this.tenPhongBan = tenPhongBan;
     }
 
     public Boolean getNgay1() {
@@ -345,41 +320,5 @@ public class TableChamCong {
         this.ngay31 = ngay31;
     }
 
-    public void setOnWork() {
-        onWork[0] = this.ngay1;
-        onWork[1] = this.ngay2;
-        onWork[2] = this.ngay3;
-        onWork[3] = this.ngay4;
-        onWork[4] = this.ngay5;
-        onWork[5] = this.ngay6;
-        onWork[6] = this.ngay7;
-        onWork[7] = this.ngay8;
-        onWork[8] = this.ngay9;
-        onWork[9] = this.ngay10;
-        onWork[10] = this.ngay11;
-        onWork[11] = this.ngay12;
-        onWork[12] = this.ngay13;
-        onWork[13] = this.ngay14;
-        onWork[14] = this.ngay15;
-        onWork[15] = this.ngay16;
-        onWork[16] = this.ngay17;
-        onWork[17] = this.ngay18;
-        onWork[18] = this.ngay19;
-        onWork[19] = this.ngay20;
-        onWork[20] = this.ngay21;
-        onWork[21] = this.ngay22;
-        onWork[22] = this.ngay23;
-        onWork[23] = this.ngay24;
-        onWork[24] = this.ngay25;
-        onWork[25] = this.ngay26;
-        onWork[26] = this.ngay27;
-        onWork[27] = this.ngay28;
-        onWork[28] = this.ngay29;
-        onWork[29] = this.ngay30;
-        onWork[30] = this.ngay31;
-    }
-
-    public Boolean[] getOnWork() {
-        return onWork;
-    }
+ 
 }

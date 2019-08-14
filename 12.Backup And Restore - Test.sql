@@ -102,7 +102,7 @@ AS
 GO 
 /*
 DECLARE @output bit
-EXEC SP_RESTOREQLNSOnlyFullBackup 'D:\work\fullQLNS.bak', @output output
+EXEC SP_RESTOREQLNSOnlyFullBackup 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\Backup\QLNVFullBackup.bak', @output output
 print @output
 */
 
