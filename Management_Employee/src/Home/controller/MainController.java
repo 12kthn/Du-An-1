@@ -1,5 +1,7 @@
 package Home.controller;
 
+import Home.helper.CustomDialog;
+import Home.helper.IConfirmationDialog;
 import Home.helper.Share;
 import Home.helper.TransitionHelper;
 import java.io.IOException;
@@ -25,6 +27,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        customDialog = new CustomDialog();
         Share.primaryStage.centerOnScreen();
         Share.mainPane = mainPane;
         Share.blurPane = blurPane;
@@ -173,7 +176,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void closeWindow() {
-        TransitionHelper.fadeOutStage(500, Share.primaryStage);
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn có muốn thoát chương trình", new exitHandler());
     }
 
     @FXML
@@ -184,6 +187,8 @@ public class MainController implements Initializable {
     //tọa độ con trỏ chuột
     double xMouse;
     double yMouse;
+    
+    private CustomDialog customDialog;
 
     @FXML
     private StackPane mainPane;
@@ -233,4 +238,17 @@ public class MainController implements Initializable {
     @FXML
     Label lblUsername;
 
+    class exitHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            TransitionHelper.fadeOutStage(600, Share.primaryStage);
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
 }
