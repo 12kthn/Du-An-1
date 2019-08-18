@@ -1,0 +1,5 @@
+1. Cài đặt cơ sở dữ liệu:
+    1.1. Chạy file 1.TableAndStore.sql
+    1.2. Chạy file 2.Data.sql
+2. Chạy file setup.exe để cài đặt phần mềm
+Done!
