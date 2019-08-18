@@ -60,7 +60,7 @@ public class NhanVienController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
+            TransitionHelper.createTransition(100, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
 
             Share.nvController = this;
             nvdao = new NhanVienDAO();

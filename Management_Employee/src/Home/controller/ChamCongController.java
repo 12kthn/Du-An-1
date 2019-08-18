@@ -39,7 +39,7 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
+            TransitionHelper.createTransition(500, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
 
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
