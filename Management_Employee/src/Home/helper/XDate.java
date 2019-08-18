@@ -130,11 +130,10 @@ public class XDate {
         int holidaysInMonth = 0;//Biến số ngày nghỉ
         initHolidays();
         
-        //Vòng lặp kiểm tra từ ngay 1 đến ngày cuối tháng
+        //Tính số ngày chủ nhật
         for (int day = 1; day <= daysOfMonth(year, month); day++) {
             calendar.set(year, month - 1, day);
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            //Tính số ngày chủ nhật
             if (dayOfWeek == Calendar.SUNDAY) {
                 holidaysInMonth++;
             }
@@ -148,6 +147,44 @@ public class XDate {
         }
         
         return holidaysInMonth;
+    }
+    
+    //Tính số ngày làm việc trong tháng 
+    public static int countWorkingDaysInMonth(int year, int month){
+        //Khởi tạo Calendar
+        Calendar calendar = Calendar.getInstance();
+        int count = 0;
+        initHolidays();
+        int daysOfMonth = 0;
+        
+        if (LocalDate.now().getYear() == year && LocalDate.now().getMonthValue() == month) {
+            daysOfMonth = LocalDate.now().getDayOfMonth();
+        } else {
+            daysOfMonth = daysOfMonth(year, month);
+        }
+        
+        //Đếm số ngày không phải là chủ nhật
+        for (int day = 1; day <= daysOfMonth; day++) {
+            calendar.set(year, month - 1, day);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            if (dayOfWeek != Calendar.SUNDAY) {
+                count++;
+            }
+        }
+        
+        //Trừ đi số ngày lễ trong tháng
+        String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+        for (String key : Holidays.keySet()) {
+            if (monthName.equals(key)) {
+                for (Integer holiday : Holidays.get(key)) {
+                    if (holiday <= daysOfMonth) {
+                        count--;
+                    }
+                }
+            }
+        }
+        
+        return count;
     }
 
     public static HashMap<String, Integer[]> Holidays = new HashMap<>();;

@@ -39,7 +39,7 @@ public class ChamCongController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(0, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
+            TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
 
             tbl_ccdao = new TableChamCongDAO();
             ccdao = new ChamCongDAO();
@@ -151,7 +151,7 @@ public class ChamCongController implements Initializable {
                 loadCboThang2();
             }
         });
-        //load lại table khi thay đổi cboThang1
+        //load lại table khi thay đổi cboThang2
         cboThang2.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue ov, String oldValue, String newValue) {
@@ -159,17 +159,17 @@ public class ChamCongController implements Initializable {
                     month2 = Integer.parseInt(newValue);
                 } catch (Exception e) {
                 }
+                createRecordsIfNoRecordExist();
                 loadTable();
             }
         });
 
-        txtTimKiem.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                loadTable();
-            }
-
-        });
+//        txtTimKiem.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                loadTable();
+//            }
+//        });
     }
 
     private void loadChart() {
@@ -177,10 +177,8 @@ public class ChamCongController implements Initializable {
         soNgayLamViecChart.setData(ccdao.getDataForSoNgayLamViecChart(year1, month1));
     }
 
-    private void loadTable() {
-        tblChamCong.getItems().clear();
-        tblChamCong.setItems(tbl_ccdao.getData(XDate.toDate("1/" + month2 + "/" + year2), txtTimKiem.getText()));
-        if (tblChamCong.getItems().isEmpty()) {
+    private void createRecordsIfNoRecordExist() {
+        if (ccdao.noRecordExist(year2, month2)) {
             ObservableList<NhanVien> listNhanViens = nvdao.findByMonth(year2, month2, "");
             for (NhanVien nv : listNhanViens) {
 //                Boolean onwork[] = new Boolean[31];
@@ -194,12 +192,25 @@ public class ChamCongController implements Initializable {
 //                }
 //                ChamCong cc = new ChamCong(nv.getMaNV(), XDate.toDate("1/" + month2 + "/" + year2), onwork);
 //                ccdao.insert(cc);
-                ChamCong cc = new ChamCong(nv.getMaNV(), XDate.toDate("1/" + month2 + "/" + year2), 
+                ChamCong cc = new ChamCong(nv.getMaNV(), XDate.toDate("1/" + month2 + "/" + year2),
                         Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
                 ccdao.insert(cc);
             }
             loadTable();
         }
+    }
+
+    @FXML
+    private void loadTable() {
+        tblChamCong.getItems().clear();
+        tblChamCong.setItems(tbl_ccdao.getData(XDate.toDate("1/" + month2 + "/" + year2), ""));
+        disableCells();
+    }
+    
+    @FXML
+    private void loadTableWithSearch() {
+        tblChamCong.getItems().clear();
+        tblChamCong.setItems(tbl_ccdao.getData(XDate.toDate("1/" + month2 + "/" + year2), txtTimKiem.getText()));
         disableCells();
     }
 

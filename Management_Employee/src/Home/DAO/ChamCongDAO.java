@@ -48,8 +48,7 @@ public class ChamCongDAO {
     public int getSLNVDiLamDayDuTheoThang(int year, int month) {
         int result = 0;
         int ngayTrongThang = XDate.daysOfMonth(year, month);
-        int soNgayLe = XDate.holidaysInMonth(year, month);
-        int soNgayLamViecThapNhat = Integer.min(26, ngayTrongThang - soNgayLe);
+        int soNgayLamViecThapNhat = Integer.min(26, XDate.countWorkingDaysInMonth(year, month));
         try {
             String sql = "{Call SP_ChuyenCanTheoThang(?,?,?,?)}";
             ResultSet rs = JDBC.executeQuery(sql, Share.MAPB, year, month, soNgayLamViecThapNhat);

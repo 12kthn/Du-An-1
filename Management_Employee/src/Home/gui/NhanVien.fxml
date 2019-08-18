@@ -53,7 +53,7 @@
                                     </children>
                                 </HBox>
                                 <PieChart fx:id="chartTyLeNamNu" labelsVisible="false" layoutX="89.0" layoutY="100.0" prefHeight="445.0" prefWidth="366.0" title="Tỷ lệ giới tính" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="89.0" AnchorPane.topAnchor="100.0" />
-                                <BarChart fx:id="chartSLNhanVien" layoutX="512.0" layoutY="46.0" legendVisible="false" prefHeight="340.0" prefWidth="600.0" title="Số lượng nhân viên" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
+                                <BarChart fx:id="chartSLNhanVien" layoutX="512.0" layoutY="46.0" legendVisible="false" prefHeight="340.0" prefWidth="600.0" title="Số lượng nhân viên theo phòng ban" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
                                     <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                     </xAxis>

@@ -169,6 +169,11 @@ public class NhanVienController implements Initializable {
 
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
+        if (Share.MAPB != null) {
+            chartTyLeNamNu.setTitle(chartTyLeNamNu.getTitle() + "/nphòng "
+                    + new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
+        }
+
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
 
@@ -261,7 +266,7 @@ public class NhanVienController implements Initializable {
     public void loadDataToTableNT() {
         if (tblNhanThan.getItems() != null) {
             tblNhanThan.getItems().clear();
-        }     
+        }
         tblNhanThan.setItems(tbl_ntdao.getDATA(txtMaNV.getText()));
     }
 
