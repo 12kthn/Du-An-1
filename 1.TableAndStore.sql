@@ -111,19 +111,6 @@ CREATE TABLE BangLuong
 	FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV) ON DELETE CASCADE ON UPDATE CASCADE
 )
 GO
-CREATE TABLE GiaTriTinhLuong
-(
-	TenGiaTri nvarchar(50) PRIMARY KEY,
-	GiaTri real not null
-)
-GO
-
-CREATE TABLE BacThueTNCN
-(
-	Luong int PRIMARY KEY,
-	Thue real not null
-)
-GO
 
 /*
 	Create Stored procedure
@@ -337,80 +324,7 @@ AS
 		END
 GO
 
---Tao Stored Procedure Insert, Update, Delete cho bang GiaTriTinhLuong
-IF (OBJECT_ID('SP_GiaTriTinhLuong') IS NOT NULL)
-  DROP PROCEDURE SP_GiaTriTinhLuong
-GO
-
-CREATE PROCEDURE SP_GiaTriTinhLuong
-(
-	@TenGiaTri nvarchar(50),
-	@GiaTri real,
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO GiaTriTinhLuong VALUES(@TenGiaTri, @GiaTri)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE GiaTriTinhLuong 
-			SET GiaTri = @GiaTri
-			WHERE TenGiaTri = @TenGiaTri
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri
-		END
-GO
-
---Tao Stored Procedure Insert, Update, Delete cho bang ThueTNCN
-IF (OBJECT_ID('SP_BacThueTNCN') IS NOT NULL)
-  DROP PROCEDURE SP_BacThueTNCN
-GO
-
-CREATE PROCEDURE SP_BacThueTNCN
-(
-	@Luong int,
-	@Thue real,
-	@StatementType char(6)
-)
-AS
-	IF @StatementType = 'Insert'
-		BEGIN
-			INSERT INTO BacThueTNCN VALUES(@Luong, @Thue)
-		END
-	IF @StatementType = 'Update'
-		BEGIN
-			UPDATE BacThueTNCN 
-			SET Thue = @Thue
-			WHERE Luong = @Luong
-		END
-	IF @StatementType = 'Delete'
-		BEGIN
-			DELETE FROM BacThueTNCN WHERE Luong = @Luong
-		END
-GO
-
 --Tao cac Function lay Gia tri de Insert cho BangLuong
-
---Tao Function lay Gia tri tu bang GiaTriTinhLuong
-IF (OBJECT_ID('FN_SelectGiaTri') IS NOT NULL)
-  DROP FUNCTION FN_SelectGiaTri
-GO
-CREATE FUNCTION FN_SelectGiaTri
-(
-	@TenGiaTri nvarchar(50)
-)
-RETURNS real
-AS
-	BEGIN
-		DECLARE @GiaTri real
-		SET @GiaTri = (SELECT GiaTri FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri)
-		RETURN @GiaTri
-	END
-GO
 
 --Tao Function tinh luong chinh
 IF (OBJECT_ID('FN_LuongChinh') IS NOT NULL)
@@ -452,7 +366,6 @@ AS
 	END
 GO
 
-select [dbo].[FN_SoNgayCong]('IT001', '2018-8-1')
 --Tao Function tinh thue TNCN
 IF (OBJECT_ID('FN_TinhThueTNCN') IS NOT NULL)
   DROP FUNCTION FN_TinhThueTNCN
@@ -465,8 +378,20 @@ RETURNS int
 AS
 	BEGIN
 		DECLARE @ThueTNCN int
-		SET @ThueTNCN = @ThuNhapChiuThue*(SELECT TOP 1 Thue FROM BacThueTNCN WHERE Luong < 16000000 ORDER BY Luong DESC)
-		IF @ThueTNCN < 0 SET @ThueTNCN = 0
+		IF @ThuNhapChiuThue <= 5000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.05
+		IF @ThuNhapChiuThue <= 10000000 AND @ThuNhapChiuThue > 5000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.1 - 250000
+		IF @ThuNhapChiuThue <= 18000000 AND @ThuNhapChiuThue > 10000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.15 - 750000
+		IF @ThuNhapChiuThue <= 32000000 AND @ThuNhapChiuThue > 18000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.2 - 1650000
+		IF @ThuNhapChiuThue <= 52000000 AND @ThuNhapChiuThue > 32000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.25 - 3250000
+		IF @ThuNhapChiuThue <= 80000000 AND @ThuNhapChiuThue > 52000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.3 - 5850000
+		IF @ThuNhapChiuThue > 80000000
+			SET @ThueTNCN = @ThuNhapChiuThue*0.35 - 9850000
 		RETURN @ThueTNCN
 	END
 GO
@@ -517,18 +442,17 @@ AS
 		END
 	ELSE
 		BEGIN
-			SET @BHXH = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHXH')
-			SET @BHYT = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHYT')
-			SET @BHTN = @LuongChinh*[dbo].[FN_SelectGiaTri]('BHTN')
+			SET @BHXH = @LuongChinh*0.08
+			SET @BHYT = @LuongChinh*0.015
+			SET @BHTN = @LuongChinh*0.01
 		END
 	SET @GiamTruPhuThuoc = 3600000*(SELECT COUNT(MaTN) FROM ThanNhan WHERE MaNV = @MaNV AND GiamTruPhuThuoc = 1)
-	SET @ThueTNCN = [dbo].[FN_TinhThueTNCN](@ThuNhap - @BHXH - @BHYT - @BHTN - @GiamTruPhuThuoc)
+	SET @ThueTNCN = [dbo].[FN_TinhThueTNCN](@ThuNhap - @BHXH - @BHYT - @BHTN - @GiamTruPhuThuoc-9000000)
 	SET @ThucLanh = @ThuNhap - @BHXH - @BHYT - @BHTN - @ThueTNCN
 
 	INSERT INTO BangLuong VALUES(@MaNV, @NgayPhatLuong, @LuongChinh, @NgayCong, @PC_TrachNhiem,
 					@ThuNhap, @BHXH, @BHYT, @BHTN, @GiamTruPhuThuoc, @ThueTNCN, @ThucLanh, @TrangThai)
 GO
-
 
 --Tao Stored Procedure update cho bang BangLuong
 IF (OBJECT_ID('SP_Update_BangLuong') IS NOT NULL)
@@ -1038,45 +962,6 @@ AS
 	BEGIN
 		SELECT * FROM TaiKhoan WHERE TaiKhoan = @TaiKhoan
 	END
-GO
-
---Tao Stored Procedure tim kiem giá trị theo tên
-IF (OBJECT_ID('SP_FindGiaTriTinhLuongByName') IS NOT NULL)
-  DROP PROCEDURE SP_FindGiaTriTinhLuongByName
-GO
-CREATE PROCEDURE SP_FindGiaTriTinhLuongByName
-(
-	@TenGiaTri varchar(50)
-)
-AS
-	IF @TenGiaTri is not null
-		BEGIN
-			SELECT * FROM GiaTriTinhLuong WHERE TenGiaTri = @TenGiaTri
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM GiaTriTinhLuong
-		END
-GO
-
-
---Tao Stored Procedure tim kiem bậc thuế TNCN theo thu nhap
-IF (OBJECT_ID('SP_FindBacThueTNCNByThuNhap') IS NOT NULL)
-  DROP PROCEDURE SP_FindBacThueTNCNByThuNhap
-GO
-CREATE PROCEDURE SP_FindBacThueTNCNByThuNhap
-(
-	@Luong varchar(50)
-)
-AS
-	IF @Luong is not null
-		BEGIN
-			SELECT * FROM BacThueTNCN WHERE Luong = @Luong
-		END
-	ELSE
-		BEGIN
-			SELECT * FROM BacThueTNCN
-		END
 GO
 
 --Tao Stored Procedure hien thi du lieu cho table nhan vien

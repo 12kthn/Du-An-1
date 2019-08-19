@@ -74,11 +74,11 @@ public class ToChucController implements Initializable {
 
         col1_PB = new TableColumn<>("Mã PB");
         col1_PB.setCellValueFactory(new PropertyValueFactory<>("MaPB"));
-        col1_PB.setPrefWidth(190);
+        col1_PB.setPrefWidth(160);
 
         col2_PB = new TableColumn<>("Tên PB");
         col2_PB.setCellValueFactory(new PropertyValueFactory<>("TenPB"));
-        col2_PB.setPrefWidth(190);
+        col2_PB.setPrefWidth(220);
 
         //thêm các cột vào table
         tblPhongBan.getColumns().addAll(deleteColumn_PB, updateColumn_PB, col1_PB, col2_PB);
@@ -98,15 +98,15 @@ public class ToChucController implements Initializable {
 
         col1_CV = new TableColumn<>("Mã CV");
         col1_CV.setCellValueFactory(new PropertyValueFactory<>("MaCV"));
-        col1_CV.setPrefWidth(100);
+        col1_CV.setPrefWidth(90);
 
         col2_CV = new TableColumn<>("Tên CV");
         col2_CV.setCellValueFactory(new PropertyValueFactory<>("TenCV"));
-        col2_CV.setPrefWidth(100);
+        col2_CV.setPrefWidth(180);
 
         col3_CV = new TableColumn<>("Phụ cấp");
         col3_CV.setCellValueFactory(new PropertyValueFactory<>("PhuCap"));
-        col3_CV.setPrefWidth(180);
+        col3_CV.setPrefWidth(106);
 
         //thêm các cột vào table
         tblChucVu.getColumns().addAll(deleteColumn_CV, updateColumn_CV, col1_CV, col2_CV, col3_CV);
