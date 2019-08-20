@@ -103,7 +103,7 @@
                                     </children>
                                 </HBox>
                                 <TableView fx:id="tblBangLuong" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="442.0" prefWidth="1146.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="143.0" />
-                                <JFXButton fx:id="btnNew" layoutX="388.0" layoutY="55.0" onAction="#insert" prefHeight="30.0" prefWidth="110.0" text="Tạo mới" textFill="#fffefe" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="100.0">
+                                <JFXButton fx:id="btnNew" layoutX="388.0" layoutY="55.0" onAction="#insert" prefHeight="30.0" prefWidth="110.0" text="Tạo mới" textFill="#fffefe" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="100.0">
                                     <font>
                                         <Font name="Arial" size="13.0" />
                                     </font>
@@ -119,7 +119,7 @@
                                         <String fx:value="btn-primary" />
                                     </styleClass>
                                 </JFXButton>
-                                <JFXButton fx:id="btnUpdate" layoutX="398.0" layoutY="65.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+                                <JFXButton fx:id="btnUpdate" layoutX="398.0" layoutY="65.0" onAction="#update" prefHeight="30.0" prefWidth="110.0" text="Cập nhật" textFill="#fffefe" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
                                     <font>
                                         <Font name="Arial" size="13.0" />
                                     </font>
@@ -135,6 +135,22 @@
                                         <String fx:value="btn-success" />
                                     </styleClass>
                                 </JFXButton>
+                        <JFXButton onAction="#exportToExcel" prefHeight="30.0" prefWidth="130.0" text="Xuất file Excel" textFill="#fffefe" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+                           <font>
+                              <Font name="Arial" size="13.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0">
+                                 <image>
+                                    <Image url="@../../Libraries/icon/export.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-info" />
+                           </styleClass>
+                        </JFXButton>
                             </children>
                         </AnchorPane>
                     </content>

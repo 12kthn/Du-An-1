@@ -13,11 +13,16 @@ import Home.model.NhanVien;
 import Home.model.table.TableBangLuong;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.application.HostServices;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +30,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Cell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -33,7 +39,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BangLuongController implements Initializable {
 
@@ -42,7 +56,7 @@ public class BangLuongController implements Initializable {
         try {
             TransitionHelper.createTransition(400, 1000, -1 * anchorPane.getPrefWidth() / 2, anchorPane).play();
             Share.blController = this;
-            
+
             bldao = new BangLuongDAO();
             tbl_bldao = new TableBangLuongDAO();
             listUpdate = new ArrayList<>();
@@ -185,13 +199,13 @@ public class BangLuongController implements Initializable {
                 setBtnNewStatus();
             }
         });
-        
-        txtTimKiem.textProperty().addListener(new ChangeListener<String>(){
+
+        txtTimKiem.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 loadTable(year2, month2);
             }
-            
+
         });
     }
 
@@ -320,6 +334,100 @@ public class BangLuongController implements Initializable {
         }
     }
 
+    @FXML
+    private void exportToExcel() {
+        String path = openSaveDialog();
+        if (path.equals("")) {
+            return;
+        }
+        exportToExcel(path);
+
+        openFile(path);
+    }
+
+    private String openSaveDialog() {
+        File file;
+        String path = "";
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Xuất file Excel");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel 97 -2003 Workbook", "*.xlsx");
+        fileChooser.getExtensionFilters().add(filter);
+        file = fileChooser.showSaveDialog(Share.primaryStage);
+        if (file != null) {
+
+            //lấy đường dẫn lưu file
+            path = file.getAbsolutePath();
+
+            //Tạo extension .xls
+            if (path.lastIndexOf(".") == -1) {
+                //file không có extension
+                path = path + ".xlsx";
+            } else {
+                //file có extension
+                path = path.substring(0, path.lastIndexOf(".")) + ".xlsx";
+            }
+        } else {
+            System.out.println("chua chon");
+        }
+        return path;
+    }
+
+    private void exportToExcel(String path) {
+        try {
+            //tạo file excel
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            //tạo sheet
+            XSSFSheet sheet = workbook.createSheet("Bảng lương");
+
+            Row row = sheet.createRow(0);
+
+            //write header
+            for (int i = 0; i < tblBangLuong.getColumns().size(); i++) {
+                row.createCell(i).setCellValue(tblBangLuong.getColumns().get(i).getText());
+            }
+
+            //write data
+            for (int i = 0; i < tblBangLuong.getItems().size(); i++) {
+                row = sheet.createRow(i + 1);
+                for (int j = 0; j < tblBangLuong.getColumns().size(); j++) {
+                    if (tblBangLuong.getColumns().get(j).getCellData(i) != null) {
+                        row.createCell(j).setCellValue(tblBangLuong.getColumns().get(j).getCellData(i).toString());
+                    } else {
+                        row.createCell(j).setCellValue("");
+                    }
+                }
+            }
+
+            for (int i = 0; i < tblBangLuong.getColumns().size(); i++) {
+                sheet.autoSizeColumn(i);
+            }
+            
+//            Tạo đường dẫn
+            File file = new File(path);
+
+            //Ghi file
+            FileOutputStream fos = new FileOutputStream(file);
+            workbook.write(fos);
+            workbook.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void openFile(String path){
+        try {           
+            Desktop desktop = Desktop.getDesktop();
+            
+            //mở folder chứa fiel
+            desktop.open(new File(path).getParentFile());
+            
+            //Mở file vừa tạo 
+            desktop.open(new File(path));         
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
 

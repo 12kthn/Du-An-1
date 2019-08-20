@@ -145,8 +145,6 @@ AS
 		END
 GO
 
-exec SP_PhongBan 'GD', null, 'delete'
-
 --Tao Stored Procedure Insert, Update, Delete cho bang ChucVu
 IF (OBJECT_ID('SP_ChucVu') IS NOT NULL)
   DROP PROCEDURE SP_ChucVu
@@ -338,7 +336,7 @@ RETURNS int
 AS
 	BEGIN
 		DECLARE @LuongChinh int
-		SET @LuongChinh = (SELECT HeSoLuong FROM NhanVien WHERE MaNV = @MaNV)*[dbo].[FN_SelectGiaTri]('LuongCB')
+		SET @LuongChinh = (SELECT HeSoLuong FROM NhanVien WHERE MaNV = @MaNV)*5000000
 		RETURN @LuongChinh
 	END
 GO
