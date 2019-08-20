@@ -60,7 +60,7 @@ public class NhanVienController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            TransitionHelper.createTransition(100, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
+            TransitionHelper.createTransition(500, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
 
             Share.nvController = this;
             nvdao = new NhanVienDAO();
@@ -88,7 +88,6 @@ public class NhanVienController implements Initializable {
             DPickerNgayKetThuc.setConverter(XDate.converter);
             newNV();
             setDisableTextFields();
-            setDefaultValueForDisableTextFields();
             addListener();
 
             accessPermission();
@@ -99,6 +98,12 @@ public class NhanVienController implements Initializable {
 
     private void accessPermission() {
         if (Share.MAPB != null && !Share.MAPB.equals("NS")) {
+
+            if (Share.MAPB != null) {
+                chartTyLeNamNu.setTitle(chartTyLeNamNu.getTitle() + "\nphòng "
+                        + new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
+            }
+
             paneBottomNV.setDisable(true);
             paneBottomNT.setDisable(true);
             for (Node node : infoPaneNV1.getChildren()) {
@@ -169,10 +174,6 @@ public class NhanVienController implements Initializable {
 
     private void loadCharts() {
         chartTyLeNamNu.setData(nvdao.getDataForPieChart());
-        if (Share.MAPB != null) {
-            chartTyLeNamNu.setTitle(chartTyLeNamNu.getTitle() + "/nphòng "
-                    + new PhongBanDAO().findByCode(Share.MAPB + "").get(0).getTenPB());
-        }
 
         chartSLNhanVien.getData().add(nvdao.getDataForBarChart());
     }
@@ -324,6 +325,13 @@ public class NhanVienController implements Initializable {
             public void changed(ObservableValue<? extends PhongBan> observable, PhongBan oldValue, PhongBan newValue) {
                 if (newValue != null) {
                     txtMaNV.setText(createNewMaNV(newValue));
+                    if ("GD".equals(newValue.getMaPB())) {
+                        cboChucVu.getSelectionModel().select(0);
+                    } else {
+                        listChucVu = cvdao.findByCode(null);
+                        listChucVu.remove(0);
+                        cboChucVu.setItems(listChucVu);
+                    }
                 }
             }
 
@@ -352,6 +360,9 @@ public class NhanVienController implements Initializable {
             return nv.getMaNV();
         }
         String maxMaNV = nvdao.getMaxNaNVByPhongBan(pb.getMaPB());
+        if (maxMaNV == null) {
+            return pb.getMaPB() + "001";
+        }
         String suffix = maxMaNV.substring(2, 5);
         //Thêm số không vào trước suffix và tổng cộng chỉ có 3 chữ số
         String newsuffix = String.format("%03d", Integer.parseInt(suffix) + 1);
@@ -385,6 +396,7 @@ public class NhanVienController implements Initializable {
         tblNhanVien.getSelectionModel().clearSelection();
         imageFile = null;
         imageName = "";
+        setDefaultValueForDisableTextFields();
     }
 
     @FXML
@@ -620,6 +632,12 @@ public class NhanVienController implements Initializable {
             DPickerNgaySinh.requestFocus();
             return false;
         }
+        //Kiểm tra ảnh
+        if (imgHinh.getImage() == null) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Vui lòng chọn ảnh cho nhân viên");
+            DPickerNgayKetThuc.requestFocus();
+            return false;
+        }
         return true;
     }
 
@@ -658,6 +676,10 @@ public class NhanVienController implements Initializable {
         if (Validate.isNotMatches(txtHeSoLuong, "[0-9]+(\\.[0-9]+)?", "Hệ số lương không hợp lệ")) {
             return false;
         }
+        if (Double.parseDouble(txtHeSoLuong.getText()) <= 0) {
+            customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Hệ số lương phải lớn hơn 0");
+            return false;
+        }
 
         //Kiểm tra ngày kết thúc hợp đồng lao động
         if (ChronoUnit.MONTHS.between(DPickerNgayBatDau.getValue(), DPickerNgayKetThuc.getValue()) < 3) {
@@ -665,6 +687,7 @@ public class NhanVienController implements Initializable {
             DPickerNgayKetThuc.requestFocus();
             return false;
         }
+
         return true;
     }
 

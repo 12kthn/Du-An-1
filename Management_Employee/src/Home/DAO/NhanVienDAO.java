@@ -278,7 +278,7 @@ public class NhanVienDAO {
                     nv.getNgayKetThuc(),
                     nv.getHeSoLuong(),
                     nv.getTrangThai(), "insert");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
         return result;
@@ -307,7 +307,7 @@ public class NhanVienDAO {
                     nv.getHeSoLuong(),
                     nv.getTrangThai(),
                     "update");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
         }
         return result;

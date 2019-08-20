@@ -35,8 +35,8 @@ public class MainController implements Initializable {
         setGUIHome();
         accessPermission();
     }
-    
-    private void accessPermission(){
+
+    private void accessPermission() {
         if (Share.MAPB != null) {
             lblToChuc.setDisable(true);
             lblTaiKhoan.setDisable(true);
@@ -106,15 +106,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void logOut() {
-        try {
-            Share.logOut();
-            Share.primaryStage.close();
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
-            Share.primaryStage.setScene(scene);
-            Share.primaryStage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        customDialog.confirmDialog(Share.mainPane, Share.blurPane, "Bạn có muốn đăng xuất", new logoutHandler());
     }
 
     private void clipChildren(Pane pane) {
@@ -137,28 +129,28 @@ public class MainController implements Initializable {
         }
     }
 
-    private void openSecondStage(String fxmlPath){
+    private void openSecondStage(String fxmlPath) {
         try {
             Stage secondStage = new Stage();
-            
+
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource(fxmlPath)));
-            
+
             secondStage.setScene(scene);
             secondStage.setResizable(false);
             secondStage.initStyle(StageStyle.TRANSPARENT);
             secondStage.setAlwaysOnTop(true);
             secondStage.show();
-            
+
             secondStage.getScene().getRoot().setOpacity(0);
             TransitionHelper.fadeInStage(1000, secondStage);
-            
+
             Share.secondStage = secondStage;
             Share.mainPane.setDisable(true);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     private void removeAllStyleClass(Pane pane, String className) {
         try {
             for (Node node : pane.getChildren()) {
@@ -187,7 +179,7 @@ public class MainController implements Initializable {
     //tọa độ con trỏ chuột
     double xMouse;
     double yMouse;
-    
+
     private CustomDialog customDialog;
 
     @FXML
@@ -243,6 +235,28 @@ public class MainController implements Initializable {
         @Override
         public void onConfirm() {
             TransitionHelper.fadeOutStage(600, Share.primaryStage);
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+    }
+
+    class logoutHandler implements IConfirmationDialog {
+
+        @Override
+        public void onConfirm() {
+            try {
+                Share.logOut();
+                Share.primaryStage.close();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/Home/gui/Login.fxml")));
+                Share.primaryStage.setScene(scene);
+                Share.primaryStage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
 
         @Override

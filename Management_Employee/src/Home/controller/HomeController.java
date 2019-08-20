@@ -23,7 +23,7 @@ public class HomeController implements Initializable, Runnable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            TransitionHelper.createTransition(200, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
+            TransitionHelper.createTransition(300, 1000, -1 * anchorPane.getPrefWidth(), anchorPane).play();
             
             nvdao = new NhanVienDAO();
             ccdao = new ChamCongDAO();

@@ -185,8 +185,13 @@ public class TaiKhoanController implements Initializable {
     private boolean checkDuplication() {
         if (tkDAO.findByCode(txtTaikhoan.getText().trim()) != null) {
             customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Tài khoản đã tồn tại");
-            txtTaikhoan.requestFocus();
             return false;
+        }
+        for (TableTaiKhoan item : tblTaiKhoan.getItems()) {
+            if (item.getNhanVien().getMaNV().equals(cboNhanVien.getSelectionModel().getSelectedItem().getMaNV())){
+                customDialog.showDialog(Share.mainPane, Share.blurPane, false, "Nhân viên này đã có tài khoản");
+                return false;
+            }
         }
         return true;
     }
