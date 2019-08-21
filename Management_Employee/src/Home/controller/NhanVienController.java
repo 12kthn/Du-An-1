@@ -327,11 +327,17 @@ public class NhanVienController implements Initializable {
                     txtMaNV.setText(createNewMaNV(newValue));
                     if ("GD".equals(newValue.getMaPB())) {
                         cboChucVu.getSelectionModel().select(0);
+                        cboChucVu.setDisable(true);
                     } else {
                         listChucVu = cvdao.findByCode(null);
                         listChucVu.remove(0);
                         cboChucVu.setItems(listChucVu);
+                        cboChucVu.setDisable(false);
                     }
+                } else {
+                    listChucVu = cvdao.findByCode(null);
+                    cboChucVu.setItems(listChucVu);
+                    cboChucVu.setDisable(false);
                 }
             }
 

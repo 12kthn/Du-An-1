@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import javafx.application.HostServices;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,7 +29,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.control.Cell;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -41,11 +39,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -350,24 +347,22 @@ public class BangLuongController implements Initializable {
         String path = "";
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Xuất file Excel");
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel 97 -2003 Workbook", "*.xlsx");
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Excel Workbook", "*.xlsx");
         fileChooser.getExtensionFilters().add(filter);
         file = fileChooser.showSaveDialog(Share.primaryStage);
         if (file != null) {
 
             //lấy đường dẫn lưu file
             path = file.getAbsolutePath();
-
-            //Tạo extension .xls
-            if (path.lastIndexOf(".") == -1) {
-                //file không có extension
-                path = path + ".xlsx";
-            } else {
-                //file có extension
-                path = path.substring(0, path.lastIndexOf(".")) + ".xlsx";
-            }
-        } else {
-            System.out.println("chua chon");
+//
+//            //Tạo extension .xlsx
+//            if (path.lastIndexOf(".") == -1) {
+//                //file không có extension
+//                path = path + ".xlsx";
+//            } else {
+//                //file có extension
+//                path = path.substring(0, path.lastIndexOf(".")) + ".xlsx";
+//            }
         }
         return path;
     }
@@ -381,9 +376,19 @@ public class BangLuongController implements Initializable {
 
             Row row = sheet.createRow(0);
 
+            //create font for header
+            Font font = sheet.getWorkbook().createFont();
+            font.setBold(true);
+            font.setFontHeightInPoints((short) 12);
+
+            CellStyle style = sheet.getWorkbook().createCellStyle();
+            style.setFont(font);
+            style.setAlignment(HorizontalAlignment.CENTER);
+
             //write header
             for (int i = 0; i < tblBangLuong.getColumns().size(); i++) {
                 row.createCell(i).setCellValue(tblBangLuong.getColumns().get(i).getText());
+                row.getCell(i).setCellStyle(style);
             }
 
             //write data
@@ -401,7 +406,7 @@ public class BangLuongController implements Initializable {
             for (int i = 0; i < tblBangLuong.getColumns().size(); i++) {
                 sheet.autoSizeColumn(i);
             }
-            
+
 //            Tạo đường dẫn
             File file = new File(path);
 
@@ -414,20 +419,17 @@ public class BangLuongController implements Initializable {
         }
     }
 
-    private void openFile(String path){
-        try {           
+    private void openFile(String path) {
+        try {
             Desktop desktop = Desktop.getDesktop();
-            
-            //mở folder chứa fiel
-            desktop.open(new File(path).getParentFile());
-            
+
             //Mở file vừa tạo 
-            desktop.open(new File(path));         
+            desktop.open(new File(path));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     private BangLuongDAO bldao;
     private TableBangLuongDAO tbl_bldao;
 
