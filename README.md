@@ -1,2 +1,2 @@
-# Du-An-1
-Dự án 1 - FPT Polytechnic
+# Human Resource Management Software
+Project 1 - FPT Polytechnic
